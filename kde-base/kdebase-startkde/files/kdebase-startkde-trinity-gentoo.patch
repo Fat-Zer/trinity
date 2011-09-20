@@ -1,0 +1,67 @@
+--- startkde.orig	2011-09-19 14:54:22.812972431 +0400
++++ startkde	2011-09-19 15:02:54.050401619 +0400
+@@ -9,6 +9,15 @@
+ # because we still need to do some cleanup.
+ trap '[startkde] echo GOT SIGHUP' HUP
+ 
++# Gentoo: setup environment, filter other slotted KDE installs from PATH
++_KDEDIR=@REPLACE_PREFIX@
++#export KDEDIRS=${_KDEDIR}:/usr:/usr/local
++export PATH=${_KDEDIR}/bin:$(echo ${PATH} | sed 's/$/:/g;s#/usr/kde/[^/]*/s\?bin/\?:##g;s/:$//g')
++export ROOTPATH=${_KDEDIR}/sbin:${_KDEDIR}/bin:$(echo ${PATH} | sed 's/$/:/g;s#/usr/kde/[^/]*/s\?bin/\?:##g;s/:$//g')
++export LDPATH=@REPLACE_LIBS@:${LDPATH}
++export XDG_DATA_DIRS=${_KDEDIR}/share:$(echo ${XDG_DATA_DIRS} | sed 's/$/:/g;s#/usr/kde/[^/]*/share/\?:##g;s/:$//g')
++# Gentoo part ends
++
+ # Check if a KDE session is already running.
+ if kcheckrunning >/dev/null 2>&1; then
+ 	echo "[startkde] KDE seems to be already running on this display."
+@@ -16,6 +25,20 @@
+ 	exit 1
+ fi
+ 
++# Gentoo part:
++# Scrapped old KDE 3.x -> 3.y update code, but keep symlink code
++cd ${HOME}
++if [ -L .kde -o ! -d .kde ]; then
++	# handle ~/.kde* dirs - separate ones for separate KDEs
++	rm -f .kde
++	if [ ! -e .kde3.5 ]; then
++		mkdir .kde3.5
++		cd ${HOME}
++	fi
++	ln -sf .kde3.5 .kde
++fi
++# Gentoo part ends
++
+ # Set the background color.
+ # The standard X background is nasty, causing moire effects and exploding
+ # people's heads. We use colours from the standard KDE palette for those with
+@@ -340,6 +363,13 @@
+   done
+ done
+ 
++# Source scripts in /etc/X11/xinit/xinitrc.d/ for system-level defined stuff
++if test -d "/etc/X11/xinit/xinitrc.d/"; then
++  for file in "/etc/X11/xinit/xinitrc.d/"*; do
++    test -x "$file" && . "$file"
++  done
++fi
++
+ # Activate the kde font directories.
+ #
+ # There are 4 directories that may be used for supplying fonts for KDE.
+@@ -593,7 +623,12 @@
+ # Clean up
+ kdeinit_shutdown
+ dcopserver_shutdown --wait
+-artsshell -q terminate
++
++# Terminate artsshell if it exists
++if [ -e ${_KDEDIR}/bin/artsshell ] ; then 
++	artsshell -q terminate ; 
++fi
++
+ # KDE4 support
+ if [ -f /usr/bin/kdeinit4_shutdown ]; then
+   kde4 kdeinit4_shutdown 2>/dev/null
