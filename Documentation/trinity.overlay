@@ -1,0 +1,10 @@
+<layman>
+<overlay type="git" src="https://github.com/Fat-Zer/trinity.git" contact="fatzer2@gmail.com" status="unofficial" name="trinity">
+<link>
+http://www.trinitydesktop.org/
+</link>
+<description>
+Gentoo overlay for Trinity Desktop Environment, a fork of KDE3
+</description>
+</overlay>
+</layman>
