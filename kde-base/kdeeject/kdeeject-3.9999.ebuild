@@ -6,10 +6,9 @@ KMNAME="kdebase"
 EAPI="3"
 inherit trinity-meta
 
-DESCRIPTION="KDE GUI for passwd"
+DESCRIPTION="KDE eject frontend"
 KEYWORDS=""
 IUSE=""
 
-# CHECKME: if this is neccecery
-DEPEND="kde-base/libkonq:${SLOT}"
-RDEPEND="${DEPEND}"
+DEPEND="kde-base/kdialog:${SLOT}"
+RDEPEND="${RDEPEND}"

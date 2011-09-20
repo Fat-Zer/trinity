@@ -6,10 +6,6 @@ KMNAME="kdebase"
 EAPI="3"
 inherit trinity-meta
 
-DESCRIPTION="KDE GUI for passwd"
+DESCRIPTION="KDE tip-of-the-day displayer"
 KEYWORDS=""
 IUSE=""
-
-# CHECKME: if this is neccecery
-DEPEND="kde-base/libkonq:${SLOT}"
-RDEPEND="${DEPEND}"
