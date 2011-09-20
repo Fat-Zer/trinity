@@ -10,12 +10,12 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="x11-libs/libX11
-    x11-libs/libXext
-    x11-libs/libXrender
-    x11-libs/libXtst"
+	x11-libs/libXext
+	x11-libs/libXrender
+	x11-libs/libXtst"
 
 RDEPEND="${DEPEND}
-    x11-apps/bdftopcf"
+	x11-apps/bdftopcf"
 
 # For kcm_konsole module
 RDEPEND="${RDEPEND}

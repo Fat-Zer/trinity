@@ -14,7 +14,6 @@ DEPEND="x11-libs/libXfixes"
 RDEPEND="${RDEPEND}"
 
 src_configure() {
-# FIXME: check if it's neccecery
 	mycmakeargs=(
 		-DWITH_XFIXES=ON
 	)
