@@ -11,4 +11,5 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="kde-base/kdialog:${SLOT}"
-RDEPEND="${RDEPEND}"
+RDEPEND="${RDEPEND}
+	virtual/eject"

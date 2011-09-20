@@ -8,9 +8,13 @@ inherit trinity-meta
 
 DESCRIPTION="KDE: Web browser, file manager, ..."
 KEYWORDS=""
-IUSE=""
-
+IUSE="java"
+# FIXME: support branding USE flag
 DEPEND="
-	kde-base/libkonq"
+	>=kde-base/libkonq-${PV}:${SLOT}"
 
-RDEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}
+	>=kde-base/kcontrol-${PV}:${SLOT}
+	>=kde-base/kdebase-kioslaves-${PV}:${SLOT}
+	>=kde-base/kfind-${PV}:${SLOT}
+	java? ( >=virtual/jre-1.4 )"

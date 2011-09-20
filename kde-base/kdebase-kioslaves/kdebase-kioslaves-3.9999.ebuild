@@ -19,16 +19,14 @@ DEPEND="
 	sasl? ( dev-libs/cyrus-sasl )
 	x11-apps/xhost"
 
-# optional dependencies
+# CHECKME: optional dependencies
 #DEPEND="
 #	>=dev-libs/cyrus-sasl-2
 #	hal? ( dev-libs/dbus-qt3-old =sys-apps/hal-0.5* )"
 
 RDEPEND="${DEPEND}
 	virtual/ssh
-	>=kde-base/kdialog-${PV}:${SLOT}"	# for the kdeeject script used by the devices/mounthelper ioslave
-
-S=${WORKDIR}/kdebase
+	kde-base/kdeeject:${SLOT}"
 
 src_configure() {
 	mycmakeargs=(

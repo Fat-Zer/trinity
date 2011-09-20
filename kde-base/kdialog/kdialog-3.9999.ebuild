@@ -9,5 +9,3 @@ inherit trinity-meta
 DESCRIPTION="KDialog can be used to show nice dialog boxes from shell scripts"
 KEYWORDS=""
 IUSE=""
-
-RDEPEND="virtual/eject"
