@@ -1,0 +1,2 @@
+#kdm currently doesn't attempt to login without pam support
+kde-base/kdm pam
