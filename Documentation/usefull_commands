@@ -1,5 +1,5 @@
 for I in <packages> ; do cp kate/metadata.xml $I; ebuild $I/$I-3.9999.ebuild digest; git add $I; git commit -m $I; donefor I in kstart ksystraycmd ksysguard nsplugin kate kxkb ; do cp kate/metadata.xml $I; ebuild $I/$I-3.9999.ebuild digest; git add $I; git commit -m $I; done
 
-mv Documentation/trinity.live.keywords{,.orig}
-ls -d *-*/*  | awk '{print $1":3.5 **"}' | cat Documentation/trinity.live.keywords.orig - | sort | uniq >Documentation/trinity.live.keywords
-rm Documentation/trinity.live.keywords.orig
+mv Documentation/trinity.live.keywords{,.orig} ; ls -d *-*/*  | awk '{print $1":3.5 **"}' | cat Documentation/trinity.live.keywords.orig - | sort | uniq >Documentation/trinity.live.keywords ; rm Documentation/trinity.live.keywords.orig
+
+sudo PORTDIR_OVERLAY="$PWD/.." repoman
