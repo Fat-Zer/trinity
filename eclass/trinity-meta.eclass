@@ -50,6 +50,10 @@ S=${WORKDIR}/${KMNAME}
 # !!! temporary workaround
 trinity-meta_src_prepare() {
 	if [[ "$KMNAME" == "kdebase" ]]; then
+#		mv krootbacking/{krootbacking.cpp,krootbacking.h} kscreensaver/
+#		mv krootbacking/main.cpp  kscreensaver/krootbackingmain.cpp
+#		rm krootbacking/CMakeLists.txt
+#		rmdir krootbacking/
 		cat >${T}/fix-kdebase-cmake.patch <<'EOF' 
 --- CMakeLists.txt.orig	2011-09-18 09:53:17.076918001 +0400
 +++ CMakeLists.txt	2011-09-18 09:57:09.904273180 +0400
@@ -57,7 +61,7 @@ trinity-meta_src_prepare() {
  option( BUILD_NSPLUGINS "Build nsplugins"  ${BUILD_ALL} )
  option( BUILD_KSYSGUARD "Build ksysguard"  ${BUILD_ALL} )
  option( BUILD_KXKB "Build kxkb"  ${BUILD_ALL} )
-+option( BUILD_TSAC "Build tsak"  ${BUILD_ALL} )
++option( BUILD_TSAK "Build tsak"  ${BUILD_ALL} )
 +option( BUILD_KROOTBACKING "Build krootbacking"  ${BUILD_ALL} )
  
  
@@ -68,7 +72,7 @@ trinity-meta_src_prepare() {
  tde_conditional_add_subdirectory( BUILD_KXKB kxkb )
 -add_subdirectory( tsak )
 -add_subdirectory( krootbacking )
-+tde_conditional_add_subdirectory( BUILD_TSAC tsak )
++tde_conditional_add_subdirectory( BUILD_TSAK tsak )
 +tde_conditional_add_subdirectory( BUILD_KROOTBACKING krootbacking )
  
  ##### install startkde & related stuff ##########
