@@ -6,7 +6,4 @@
 		<email>fatzer2@gmail.com</email>
 		<name>Golubev Alexander</name>
 	</maintainer>
-	<use>
-		<flag name="rootbacking"> Add support the desktop grabbing by kde-base/krootbacking.</flag>
-	</use>
 </pkgmetadata>
