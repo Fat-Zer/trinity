@@ -1,0 +1,14 @@
+This is a trinity gentoo overlay.
+Please don't report bugs to gentoo bugzilla. 
+If you want to report a bug feel free to write me. fatzer2@gmail.com. I'm talking russhian and english.
+Overlay will be feeled with ebuilds of ported to cmake programs from trinity project. If you are intrested in ebuilds for some packages that are not in overlay, you can email me too.
+
+Currently the overlay contains only live ebuilds. Hope the situation will change with next release.
+
+
+In order to properly use this overlay, you have to unmask the qt3 USE flag and packages. To do so, execute the following commands as root:
+
+# mkdir -p /etc/portage/profile
+# echo -qt3 >> /etc/portage/profile/use.mask
+# mkdir -p /etc/portage/packages.keywords/
+# cp /var/lib/layman/trinity /etc/portage/packages.keywords/
