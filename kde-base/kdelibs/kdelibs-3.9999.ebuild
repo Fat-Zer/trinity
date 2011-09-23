@@ -4,14 +4,14 @@
 
 EAPI="2"
 KMNAME="$PN"
-inherit trinity-base multilib # cmake-utils subversion # kde-functions
+inherit trinity-base multilib
 
 set-kdever
 
 DESCRIPTION="KDE libraries needed by all KDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
-SLOT="3.5"
+SLOT="$TRINITY_LIVEVER"
 KEYWORDS=""
 IUSE="alsa avahi arts cups jpeg2k openexr spell tiff lua"
 

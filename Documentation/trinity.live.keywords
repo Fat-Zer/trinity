@@ -8,6 +8,7 @@ kde-base/kcontrol:3.5 **
 kde-base/kdcop:3.5 **
 kde-base/kdebase-data:3.5 **
 kde-base/kdebase-kioslaves:3.5 **
+kde-base/kdebase-meta:3.5 **
 kde-base/kdebase-startkde:3.5 **
 kde-base/kdebugdialog:3.5 **
 kde-base/kdeeject:3.5 **
