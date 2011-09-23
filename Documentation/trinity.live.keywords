@@ -30,6 +30,7 @@ kde-base/konsole:3.5 **
 kde-base/kpager:3.5 **
 kde-base/kpersonalizer:3.5 **
 kde-base/kreadconfig:3.5 **
+kde-base/krootbacking:3.5 **
 kde-base/kscreensaver:3.5 **
 kde-base/ksmserver:3.5 **
 kde-base/ksplashml:3.5 **
@@ -43,4 +44,5 @@ kde-base/libkonq:3.5 **
 kde-base/nsplugin:3.5 **
 kde-base/nsplugins:3.5 **
 kde-base/tqtinterface:3.5 **
+kde-base/tsak:3.5 **
 x11-libs/qt-meta:3.5 **
