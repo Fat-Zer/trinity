@@ -8,11 +8,11 @@ inherit trinity-meta
 
 DESCRIPTION="KDE screensaver framework"
 KEYWORDS=""
-IUSE="opengl +rootbacking"
+IUSE="opengl +krootbacking"
 # CHECKME: if this use needed
 DEPEND="x11-libs/libXt
 	opengl? ( virtual/opengl )
-	rootbacking? ( kde-base/krootbacking )"
+	krootbacking? ( kde-base/krootbacking )"
 RDEPEND="${DEPEND}"
 
 src_install () {

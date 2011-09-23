@@ -7,6 +7,6 @@
 		<name>Golubev Alexander</name>
 	</maintainer>
 	<use>
-		<flag name="rootbacking"> Add support the desktop grabbing by kde-base/krootbacking.</flag>
+		<flag name="krootbacking"> Add support the desktop grabbing by kde-base/krootbacking.</flag>
 	</use>
 </pkgmetadata>
