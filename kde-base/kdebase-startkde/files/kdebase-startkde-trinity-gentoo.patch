@@ -16,28 +16,7 @@
  # Check if a KDE session is already running.
  if kcheckrunning >/dev/null 2>&1; then
  	echo "[startkde] KDE seems to be already running on this display."
-@@ -16,6 +25,20 @@
- 	exit 1
- fi
- 
-+# Gentoo part:
-+# Scrapped old KDE 3.x -> 3.y update code, but keep symlink code
-+cd ${HOME}
-+if [ -L .kde -o ! -d .kde ]; then
-+	# handle ~/.kde* dirs - separate ones for separate KDEs
-+	rm -f .kde
-+	if [ ! -e .kde3.5 ]; then
-+		mkdir .kde3.5
-+		cd ${HOME}
-+	fi
-+	ln -sf .kde3.5 .kde
-+fi
-+# Gentoo part ends
-+
- # Set the background color.
- # The standard X background is nasty, causing moire effects and exploding
- # people's heads. We use colours from the standard KDE palette for those with
-@@ -340,6 +363,13 @@
+@@ -340,6 +349,13 @@
    done
  done
  
@@ -51,7 +30,7 @@
  # Activate the kde font directories.
  #
  # There are 4 directories that may be used for supplying fonts for KDE.
-@@ -593,7 +623,12 @@
+@@ -593,7 +609,12 @@
  # Clean up
  kdeinit_shutdown
  dcopserver_shutdown --wait
