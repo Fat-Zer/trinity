@@ -46,4 +46,4 @@ kde-base/nsplugin:3.5 **
 kde-base/nsplugins:3.5 **
 kde-base/tqtinterface:3.5 **
 kde-base/tsak:3.5 **
-x11-libs/qt-meta:3.5 **
+x11-libs/qt-meta:3 **
