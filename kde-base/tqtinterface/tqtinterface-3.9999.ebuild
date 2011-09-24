@@ -1,15 +1,14 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 KMNAME="dependencies/${PN}"
 
-inherit cmake-utils trinity-base # subversion
+inherit trinity-base
 
 DESCRIPTION="Interface and abstraction library for Qt and Trinity"
 HOMEPAGE="http://trinitydesktop.org/"
-# SRC_URI="http://www.thel.ro/distfiles/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 KEYWORDS=""
