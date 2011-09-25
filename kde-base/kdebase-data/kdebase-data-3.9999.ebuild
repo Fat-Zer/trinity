@@ -10,4 +10,9 @@ inherit trinity-meta
 
 DESCRIPTION="Icons, localization data and .desktop files from kdebase. Includes l10n, pics and applnk subdirs."
 KEYWORDS=""
-IUSE=""
+IUSE="doc"
+
+pkg_setup() {
+	use doc && KMMODULE+=" doc"
+	trinity-meta_pkg_setup;
+}

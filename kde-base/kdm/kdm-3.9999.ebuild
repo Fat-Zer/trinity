@@ -8,7 +8,7 @@ inherit trinity-meta
 
 DESCRIPTION="KDE login manager, similar to xdm and gdm"
 KEYWORDS=""
-IUSE="+shadow pam xdmcp"
+IUSE="+shadow pam +xdmcp"
 
 DEPEND="pam? ( kde-base/kdebase-pam )
 	xdmcp? ( x11-libs/libXdmcp )

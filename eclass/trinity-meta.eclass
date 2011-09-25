@@ -18,11 +18,11 @@ set-kmmodule() {
 		export KMMODULE="$PN"
 	fi
 
-	if [[ -z "${KMMODULE_CMAKE}" ]]; then
-		for item in $KMMODULE; do
-			export KMMODULE_CMAKE="$KMMODULE_CMAKE $(echo $KMMODULE | tr 'a-z' 'A-Z')"
-		done
-	fi
+	for item in $KMMODULE; do
+		item="$(echo $KMMODULE | tr 'a-z' 'A-Z')"
+		[[ " $KMMODULE " == *" $item "*  ]] ||	export KMMODULE_CMAKE="$KMMODULE_CMAKE $item"
+	done
+
 }
 
 LICENSE="GPL-2 LGPL-2"
@@ -42,10 +42,13 @@ set-kdever
 # common dependencies
 DEPEND="kde-base/kdelibs:${SLOT}"
 
-set-kmmodule;
-
 # !!! temporary workaround
-S=${WORKDIR}/${KMNAME}
+
+trinity-meta_pkg_setup() {
+	set-kmmodule;
+
+	export S=${WORKDIR}/${KMNAME}
+}
 
 # !!! temporary workaround
 trinity-meta_src_prepare() {
@@ -125,5 +128,4 @@ trinity-meta_src_configure() {
 
 
 
-EXPORT_FUNCTIONS src_configure src_prepare
-
+EXPORT_FUNCTIONS src_configure src_prepare pkg_setup
