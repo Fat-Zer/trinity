@@ -1,2 +1,3 @@
-add arts support
 fix arts in eclases
+fix kdm script /usr/kde/3.5/share/config/kdm/Xsession
+
