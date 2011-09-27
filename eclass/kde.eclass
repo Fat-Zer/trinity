@@ -17,29 +17,26 @@
 
 inherit base eutils kde-functions flag-o-matic libtool autotools
 
-if [[ ${BUILD_TYPE} = live ]]; then
-	case ${KDE_SCM} in
-		svn) inherit subversion ;;
-		*) die "Bad KDE_SCM=${KDE_SCM}"
-	esac
-fi
-
 DESCRIPTION="Based on the $ECLASS eclass"
 HOMEPAGE="http://www.kde.org/"
 IUSE="debug elibc_FreeBSD"
 
 
-
 if [[ ${CATEGORY} == "kde-base" ]]; then
-	# Don't use --enable-final anymore. Does only cause problems for users and
-	# as an unwelcome extra invalid bug reports, without any reasonable benefit.
+	if [[ ${PV##*.} -lt 10 ]] ; then
+		# Keep old ebuilds as is
+		IUSE="${IUSE} kdeenablefinal"
+	else
+		# Don't use --enable-final anymore. Does only cause problems for users and
+		# as an unwelcome extra invalid bug reports, without any reasonable benefit.
 
-	# Get the aRts dependencies right - finally.
-	case "${PN}" in
-		blinken|juk|kalarm|kanagram|kbounce|kcontrol|konq-plugins|kscd|kscreensaver|kttsd|kwifimanager|kdelibs) ARTS_REQUIRED="" ;;
-		artsplugin-*|kaboodle|kasteroids|kdemultimedia-arts|kolf|krec|ksayit|noatun*) ARTS_REQUIRED="yes" ;;
+		# Get the aRts dependencies right - finally.
+		case "${PN}" in
+			blinken|juk|kalarm|kanagram|kbounce|kcontrol|konq-plugins|kscd|kscreensaver|kttsd|kwifimanager|kdelibs) ARTS_REQUIRED="" ;;
+			artsplugin-*|kaboodle|kasteroids|kdemultimedia-arts|kolf|krec|ksayit|noatun*) ARTS_REQUIRED="yes" ;;
 			*) ARTS_REQUIRED="never" ;;
-	esac
+		esac
+	fi
 fi
 
 if [[ ${ARTS_REQUIRED} != "yes" && ${ARTS_REQUIRED} != "never" && ${PN} != "arts" ]]; then
@@ -121,7 +118,7 @@ kde_pkg_setup() {
 	fi
 
 	if [[ "${PN}" = "kdelibs" ]]; then
-		use doc && if ! built_with_use =x11-libs/qt-3* doc ; then
+		use doc && if ! built_with_use =x11-libs/qt-meta-3* doc ; then
 			eerror "Building kdelibs with the doc USE flag requires qt to be built with the doc USE flag."
 			eerror "Please re-emerge qt-3 with this USE flag enabled."
 		fi

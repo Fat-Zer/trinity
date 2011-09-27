@@ -321,14 +321,6 @@ app-office/koffice app-office/kspread
 app-office/koffice app-office/kugar
 app-office/koffice app-office/kword
 '
-# determine the build type
-if [[ ${PV} = *9999* ]]; then
-	BUILD_TYPE="live"
-	KDE_SCM=svn;
-else
-	BUILD_TYPE="release"
-fi
-export BUILD_TYPE
 
 # @FUNCTION: get-parent-package
 # @USAGE: < name of split-ebuild >
@@ -521,8 +513,8 @@ need-qt() {
 	fi
 
 	case ${QTVER} in
-		3*)	DEPEND="${DEPEND} =x11-libs/qt-3*"
-			RDEPEND="${RDEPEND} =x11-libs/qt-3*"
+		3*)	DEPEND="${DEPEND} =x11-libs/qt-meta-3*"
+			RDEPEND="${RDEPEND} =x11-libs/qt-meta-3*"
 			;;
 		*)	echo "!!! error: $FUNCNAME() called with invalid parameter: \"$QTVER\", please report bug" && exit 1;;
 	esac
