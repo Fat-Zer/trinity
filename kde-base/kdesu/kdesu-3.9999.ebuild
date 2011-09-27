@@ -16,7 +16,7 @@ RDEPEND+=" ${DEPEND}"
 
 src_configure () {
 	mycmakeargs=(
-		cmake-utils_use_with sudo SUDO_KDESU_BACKEND
+		$(cmake-utils_use_with sudo SUDO_KDESU_BACKEND)
 	)
 
 	trinity-meta_src_configure
