@@ -16,7 +16,7 @@ pkg_setup() {
 		ewarn "Can't check the linux kernel configuration."
 		ewarn "You might have some incompatible options enabled."
 	else
-		if linux_chkconfig_present INPUT_UINPUT; then
+		if ! linux_chkconfig_present INPUT_UINPUT; then
 			eerror "${P} requires the INPUT_UINPUT support enabled."
 			eerror "Please enable it:"
 			eerror "    CONFIG_INPUT_UINPUT=y"
@@ -25,7 +25,6 @@ pkg_setup() {
 			eerror "        Input device support  --->"
 			eerror "           [*] Miscellaneous devices  --->"
 			eerror "                < > User level driver support"
-
 		fi
 	fi
 	trinity-meta_pkg_setup
