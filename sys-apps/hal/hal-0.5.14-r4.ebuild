@@ -124,7 +124,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-	unpack "${FILESDIR}/${PATCHNAME}.tar.bz2"
+	# FIXME: really BAD style
+	tar -xjf "${FILESDIR}/${PATCHNAME}.tar.bz2" -C "${WORKDIR}"
 	EPATCH_MULTI_MSG="Applying Gentoo Patchset ..." \
 	EPATCH_SUFFIX="patch" \
 	EPATCH_SOURCE="${WORKDIR}/${PATCHNAME}/patches/" \
