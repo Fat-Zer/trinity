@@ -69,7 +69,8 @@ fi
 trinity-base_src_configure() {
 
 	mycmakeargs=(
-		-DCMAKE_INSTALL_RPATH=${KDEDIR}
+		-DCMAKE_INSTALL_RPATH="${KDEDIR}"
+		-DHTML_INSTALL_DIR="${KDEDIR}/share/doc/HTML"
 		"${mycmakeargs[@]}"
 	)
 
