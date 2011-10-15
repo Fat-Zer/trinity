@@ -33,10 +33,13 @@ if [[ ${BUILD_TYPE} = live ]]; then
 	#set some varyables
 	case ${KDE_SCM} in
 	git)
-		 EGIT_REPO_URI="http://scm.trinitydesktop.org/scm/git/tde"
+		 if [[ -n "$EGIT_MIRROR" ]]; then
+			EGIT_MIRROR="http://scm.trinitydesktop.org/scm/git/tde"
+		 	die "Trinity git repository is not work now"
+		 fi
+		 EGIT_REPO_URI="${EGIT_MIRROR}/${KMNAME}"
 		 EGIT_BRANCH="master"
 		 EGIT_PROJECT="trinity"
-		 die "git doesn't work now"
 	;;
 	svn) ESVN_MIRROR="svn://anonsvn.kde.org/home/kde/branches/trinity"
 		 ESVN_REPO_URI="${ESVN_MIRROR}/${KMNAME}"

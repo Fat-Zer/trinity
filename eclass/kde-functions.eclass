@@ -369,6 +369,42 @@ EOF
 # kde/qt directory management etc. functions, was kde-dirs.ebuild
 # ---------------------------------------------------------------
 
+# @FUNCTION: need-kde-at-least
+# @USAGE: < version >
+# @DESCRIPTION:
+# Sets the correct DEPEND and RDEPEND for the needed minimum kde < version >. Also takes
+# care of the correct Qt-version and correct RDEPEND handling.
+need-kde-at-least() {
+	debug-print-function $FUNCNAME "$@"
+
+	KDEVER="$1"
+
+	# determine install locations
+	set-kdedir ${KDEVER}
+
+	if [[ "${RDEPEND-unset}" != "unset" ]]; then
+		x_DEPEND="${RDEPEND}"
+	else
+		x_DEPEND="${DEPEND}"
+	fi
+
+	DEPEND="${DEPEND} >=kde-base/kdelibs-$KDEVER"
+	RDEPEND="${x_DEPEND} >=kde-base/kdelibs-$KDEVER"
+
+	qtver-from-kdever ${KDEVER}
+	need-qt ${selected_version}
+
+	if [[ -n "${KDEBASE}" ]]; then
+		SLOT="$KDEMAJORVER.$KDEMINORVER"
+	else
+		: ${SLOT="0"}
+	fi
+}
+
+# ---------------------------------------------------------------
+# kde/qt directory management etc. functions, was kde-dirs.ebuild
+# ---------------------------------------------------------------
+
 # @FUNCTION: need-kde
 # @USAGE: < version >
 # @DESCRIPTION:
