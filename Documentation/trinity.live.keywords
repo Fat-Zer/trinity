@@ -1,4 +1,4 @@
-dev-libs/dbus-tqt:3.5 **
+dev-libs/dbus-tqt **
 kde-base/arts:3.5 **
 kde-base/drkonqi:3.5 **
 kde-base/kappfinder:3.5 **
@@ -13,6 +13,7 @@ kde-base/kdebase-meta:3.5 **
 kde-base/kdebase-startkde:3.5 **
 kde-base/kdebugdialog:3.5 **
 kde-base/kdeeject:3.5 **
+kde-base/kde-i18n:3.5 **
 kde-base/kdelibs:3.5 **
 kde-base/kdepasswd:3.5 **
 kde-base/kdeprint:3.5 **
@@ -45,6 +46,6 @@ kde-base/kxkb:3.5 **
 kde-base/libkonq:3.5 **
 kde-base/nsplugin:3.5 **
 kde-base/nsplugins:3.5 **
-kde-base/tqtinterface:3.5 **
+kde-base/tqtinterface **
 kde-base/tsak:3.5 **
 x11-libs/qt-meta:3 **
