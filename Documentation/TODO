@@ -1,4 +1,5 @@
-replace default unpack function
-fix arts in eclases
-fix kdm script /usr/kde/3.5/share/config/kdm/Xsession
+replace default unpack function.
+fix arts in eclases.
+fix kdm script /usr/kde/3.5/share/config/kdm/Xsession.
+need workarounds on the LDPATH variable.
 
