@@ -47,9 +47,6 @@ PDEPEND="
 
 S=${WORKDIR}/${PN}
 
-# fix the compilation fail with arts
-export LDPATH="$KDEDIR/lib:${LDPATH}"
-
 src_configure() {
 	mycmakeargs=(
 		-DWITH_LIBIDN=ON

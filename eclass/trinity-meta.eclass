@@ -69,17 +69,19 @@ trinity-meta_src_prepare() {
  
  
  ##### set PKG_CONFIG_PATH #######################
-@@ -194,8 +196,8 @@
+@@ -194,9 +196,9 @@
  tde_conditional_add_subdirectory( BUILD_NSPLUGINS nsplugins )
  tde_conditional_add_subdirectory( BUILD_KSYSGUARD ksysguard )
  tde_conditional_add_subdirectory( BUILD_KXKB kxkb )
 -add_subdirectory( tsak )
 -add_subdirectory( krootbacking )
+-add_subdirectory( tqt3integration ) 
 +tde_conditional_add_subdirectory( BUILD_TSAK tsak )
 +tde_conditional_add_subdirectory( BUILD_KROOTBACKING krootbacking )
- 
++#add_subdirectory( tqt3integration ) 
+
  ##### install startkde & related stuff ##########
- 
+
 --- kdmlib/CMakeLists.txt.orig	2011-09-18 10:02:47.888180964 +0400
 +++ kdmlib/CMakeLists.txt	2011-09-18 18:11:06.188485674 +0400
 @@ -73,9 +73,13 @@
