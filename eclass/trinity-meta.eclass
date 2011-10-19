@@ -58,8 +58,8 @@ trinity-meta_src_prepare() {
 #		rm krootbacking/CMakeLists.txt
 #		rmdir krootbacking/
 		cat >${T}/fix-kdebase-cmake.patch <<'EOF' 
---- CMakeLists.txt.orig	2011-09-18 09:53:17.076918001 +0400
-+++ CMakeLists.txt	2011-09-18 09:57:09.904273180 +0400
+--- CMakeLists.txt.orig	2011-10-20 01:33:03.260813526 +0400
++++ CMakeLists.txt	2011-10-20 01:33:59.489685176 +0400
 @@ -124,6 +124,8 @@
  option( BUILD_NSPLUGINS "Build nsplugins"  ${BUILD_ALL} )
  option( BUILD_KSYSGUARD "Build ksysguard"  ${BUILD_ALL} )
@@ -75,16 +75,16 @@ trinity-meta_src_prepare() {
  tde_conditional_add_subdirectory( BUILD_KXKB kxkb )
 -add_subdirectory( tsak )
 -add_subdirectory( krootbacking )
--add_subdirectory( tqt3integration ) 
+-add_subdirectory( tqt3integration )
 +tde_conditional_add_subdirectory( BUILD_TSAK tsak )
 +tde_conditional_add_subdirectory( BUILD_KROOTBACKING krootbacking )
 +#add_subdirectory( tqt3integration ) 
-
+ 
  ##### install startkde & related stuff ##########
-
---- kdmlib/CMakeLists.txt.orig	2011-09-18 10:02:47.888180964 +0400
-+++ kdmlib/CMakeLists.txt	2011-09-18 18:11:06.188485674 +0400
-@@ -73,9 +73,13 @@
+ 
+--- kdmlib/CMakeLists.txt.orig	2011-10-20 01:33:24.512182370 +0400
++++ kdmlib/CMakeLists.txt	2011-10-20 01:30:07.474750978 +0400
+@@ -73,9 +73,11 @@
  
  ##### kompmgr (executable) #######################
  
@@ -96,14 +96,12 @@ trinity-meta_src_prepare() {
 -)
 \ В конце файла нет новой строки
 +if( BUILD_TSAK )
-+
 +  tde_add_executable( kdmtsak
 +    SOURCES kdmtsak.cpp
 +    LINK ${TQT_LIBRARIES}
 +    DESTINATION ${BIN_INSTALL_DIR}
 +    SETUID
 +  )
-+
 +endif( BUILD_TSAK )
 EOF
 		cd ${S}
