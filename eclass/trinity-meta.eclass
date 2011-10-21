@@ -109,14 +109,14 @@ trinity-meta_src_extract() {
 
 				# Copy all subdirectories
 				for obj in ${KMEXTRACT}; do
-					rsync --recursive ${rsync_options} "${wc_path}/${obj%/}" "${S}/${obj}" \
-						|| die "${escm}: can't export object '${obj}' to '${S}/${obj}'."
+					rsync --recursive ${rsync_options} "${wc_path}/${obj%/}" "${S}" \
+						|| die "${escm}: can't export object '${obj}' to '${S}'."
 				done
 				;;
 		esac
 	else
-#		eerror "relese extract is complitly untested"
-#		local abort tarball tarfile f extractlist postfix
+		eerror "relese extract is complitly untested"
+		local abort tarball tarfile f extractlist postfix
 #
 #		KMTARPARAMS+=" --bzip2"
 #		postfix="bz2"
@@ -206,7 +206,7 @@ trinity-meta_create_extractlists() {
 		kdebase)
 			KMEXTRACT+="
 				kcontrol
-				kdm"
+				kdmlib"
 			;;
 		*)
 			die "KMNAME ${KMNAME} is not supported by function ${FUNCNAME}"
