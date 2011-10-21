@@ -57,7 +57,6 @@ trinity-meta_src_unpack() {
 	if [[ ${BUILD_TYPE} = live ]]; then
 		case "${KDE_SCM}" in
 			svn)
-				migrate_store_dir
 				S="${WORKDIR}/${P}"
 				mkdir -p "${S}"
 				ESVN_RESTRICT="export" subversion_src_unpack
@@ -93,6 +92,21 @@ trinity-meta_src_extract() {
 				rsync_options="--group --links --owner --perms --quiet --exclude=.svn/ --exclude=.git/"
 				wc_path="${ESVN_WC_PATH}"
 				escm="{ESVN}"
+				# Copy ${KMNAME} non-recursively (toplevel files)
+				rsync ${rsync_options} "${wc_path}"/* "${S}" \
+					|| die "${escm}: can't export toplevel files to '${S}'."
+				# Copy cmake and admin directory
+				if [[ -d "${wc_path}/cmake" ]]; then
+					rsync --recursive ${rsync_options} "${wc_path}/cmake" "${S}" \
+						|| die "${escm}: can't export cmake files to '${S}'."
+				fi
+
+				# Copy admin directory
+				if [[ -d "${wc_path}/admin" ]]; then
+					rsync --recursive ${rsync_options} "${wc_path}/admin" "${S}" \
+						|| die "${escm}: can't export cmake files to '${S}'."
+				fi
+
 				# Copy all subdirectories
 				for obj in ${KMEXTRACT}; do
 					rsync --recursive ${rsync_options} "${wc_path}/${obj%/}" "${S}/${obj}" \
@@ -170,7 +184,7 @@ trinity-meta_src_extract() {
 #
 #		# We don't need it anymore
 #		unset topdir
-#	fi
+	fi
 }
 
 
@@ -197,16 +211,6 @@ trinity-meta_create_extractlists() {
 		*)
 			die "KMNAME ${KMNAME} is not supported by function ${FUNCNAME}"
 	esac
-
-	# Add common files and directories
-	KMEXTRACT+="
-		cmake 
-		admin
-		CMakeLists.txt 
-		config.h.cmake
-		$KMAIN_DOCS
-		$KMMODULE
-	"
 
 	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: KMEXTRACT ${KMEXTRACT}"
 }
