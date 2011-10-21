@@ -66,6 +66,7 @@ fi
 # 	RDEPEND="${RDEPEND} arts? ( kde-base/arts )"
 # fi
 
+
 trinity-base_src_configure() {
 
 	mycmakeargs=(

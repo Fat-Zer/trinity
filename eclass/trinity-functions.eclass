@@ -42,18 +42,15 @@ set-kdever() {
 	export KDEVER=$(get_version_component_range 1-2 ${KDEVER})
 	[[ "$KDEVER" = "3.9999" ]] && export KDEVER="${TRINITY_LIVEVER}"
 
-	# install prefix
-#	if [[ -n "$KDEPREFIX" ]]; then
-#		export PREFIX="$KDEPREFIX"
-#	else
-		export PREFIX="/usr/kde/${KDEVER}"
-#	fi
+	export PREFIX="/usr/kde/${KDEVER}"
 
-	# kdelibs location
-#	if [[ -n "$KDELIBSDIR" ]]; then
-#		export KDEDIR="$KDELIBSDIR"
-#	else
-		export KDEDIR="${PREFIX}"
-#	fi
+	export KDEDIR="${PREFIX}"
+	export KDEDIRS="${PREFIX}"
+
+	# this sould solve problems like "cannot find libraries" espessialy when
+	# compiling kdelibs
+	if [ -z "${LDPATH##*:${KDEDIR}/lib:*}" ]; then
+		export LDPATH="${LDPATH%:}:${KDEDIR}"
+	fi
 }
 
