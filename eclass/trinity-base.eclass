@@ -9,6 +9,25 @@
 
 inherit cmake-utils trinity-functions
 
+# @ECLASS-VARIABLE: BUILD_TYPE
+# @DESCRIPTION:
+# Determins he build type: live or release
+
+# @ECLASS-VARIABLE: KDE_SCM
+# @DESCRIPTION:
+# Determins from what version control system code is chiking out for live
+# ebuilds.
+
+# @ECLASS-VARIABLE: KCOMMON_DOCS
+# @DESCRIPTION:
+# Common doc names that was found in trinity project's dirs.
+KCOMMON_DOCS="AUTHORS BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE COMPILING
+	CONFIG_FORMAT CONFIGURING COPYING COPYRIGHT CREDITS DEBUG DESIGN FAQ 
+	HACKING HISTORY HOWTO IDEAS INSTALL LICENSE MAINTAINERS NAMING NEWS
+	NOTES PLUGINS PORTING README SECURITY-HOLES TASKGROUPS TEMPLATE 
+	TESTCASES THANKS THOUGHTS TODO VERSION"
+
+
 
 # determine the build type
 if [[ ${PV} = *9999* ]]; then
@@ -27,7 +46,7 @@ if [[ ${BUILD_TYPE} = live ]]; then
 	case ${KDE_SCM} in
 		git) inherit git-2 ;;
 		svn) inherit subversion ;;
-		*) die "Unsupported $KDE_SCM" ;;
+		*) die "Unsupported KDE_SCM=$KDE_SCM" ;;
 	esac
 
 	#set some varyables
@@ -39,34 +58,27 @@ if [[ ${BUILD_TYPE} = live ]]; then
 		 fi
 		 EGIT_REPO_URI="${EGIT_MIRROR}/${KMNAME}"
 		 EGIT_BRANCH="master"
-		 EGIT_PROJECT="trinity"
+		 EGIT_PROJECT="trinity/$(dirname $KMNAME)"
 	;;
 	svn) ESVN_MIRROR="svn://anonsvn.kde.org/home/kde/branches/trinity"
 		 ESVN_REPO_URI="${ESVN_MIRROR}/${KMNAME}"
-		 ESVN_PROJECT="trinity"
+		 ESVN_PROJECT="trinity/$(dirname $KMNAME)"
 	;;
 	esac
 fi
 
-if [[ ${CATEGORY} == "kde-base" ]]; then
-	# Get the aRts dependencies right - finally.
-	case "${PN}" in
-		blinken|juk|kalarm|kanagram|kbounce|kcontrol|konq-plugins|kscd|kscreensaver|kttsd|kwifimanager|kdelibs) ARTS_REQUIRED="" ;;
-		artsplugin-*|kaboodle|kasteroids|kdemultimedia-arts|kolf|krec|ksayit|noatun*) ARTS_REQUIRED="yes" ;;
-		*) ARTS_REQUIRED="never" ;;
-	esac
-fi
-
-# if [[ ${ARTS_REQUIRED} == "yes" ]]; then
-# 	DEPEND="${DEPEND} kde-base/arts"
-# 	RDEPEND="${RDEPEND} kde-base/arts"
-# elif [[ ${ARTS_REQUIRED} != "never" && ${PN} != "arts" ]]; then
-# 	IUSE+="arts"
-# 	DEPEND="${DEPEND} arts? ( kde-base/arts )"
-# 	RDEPEND="${RDEPEND} arts? ( kde-base/arts )"
+# if [[ ${CATEGORY} == "kde-base" ]]; then
+# 	# Get the aRts dependencies right - finally.
+# 	case "${PN}" in
+# 		blinken|juk|kalarm|kanagram|kbounce|kcontrol|konq-plugins|kscd|kscreensaver|kttsd|kwifimanager|kdelibs) ARTS_REQUIRED="" ;;
+# 		artsplugin-*|kaboodle|kasteroids|kdemultimedia-arts|kolf|krec|ksayit|noatun*) ARTS_REQUIRED="yes" ;;
+# 		*) ARTS_REQUIRED="never" ;;
+# 	esac
 # fi
 
-
+# @FUNCTION: trinity-base_src_configure
+# @DESCRIPTION:
+# Call standart cmake-utils_src_onfigure and add some common arguments.
 trinity-base_src_configure() {
 
 	mycmakeargs=(
@@ -78,7 +90,29 @@ trinity-base_src_configure() {
 	cmake-utils_src_configure
 }
 
-EXPORT_FUNCTIONS src_configure
+# @FUNCTION: trinity-base_src_install
+# @DESCRIPTION:
+# Call standart cmake-utils_src_install and installs common documentation. 
+# Also see descriptions of KCOMMON_DOCS.
+trinity-base_src_install() {
+	cmake-utils_src_install
+	local doc docfile targetdoc;
+
+	mkdir -p "$T/docs"
+
+	for doc in ${KCOMMON_DOCS}; do
+		for docfile in $(find -type f -name "*${doc}*"); do
+			targetdoc="${docfile//\//.}"
+			targetdoc="${targetdoc#..}"
+			cp "${docfile}" "$T/docs/${targetdoc}"
+			dodoc "$T/docs/${targetdoc}"
+			einfo "Installing documentation ${docfile} as ${targetdoc}"
+			rm "$T/docs/$targetdoc"
+		done
+	done
+}
+
+EXPORT_FUNCTIONS src_configure src_install
 
 
 

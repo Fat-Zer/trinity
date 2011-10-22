@@ -1,9 +1,9 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
+KMNAME="dependencies/dbus-tqt"
 EAPI="2"
-KMNAME="dependencies/${PN}"
+
 inherit trinity-base
 
 DESCRIPTION="D-BUS TQt bindings"
@@ -13,13 +13,13 @@ KEYWORDS=""
 SLOT="0"
 IUSE=""
 
-RDEPEND="x11-libs/qt-meta:3"
+DEPEND="x11-libs/qt-meta:3
+	kde-base/tqtinterface"
 
 S=${WORKDIR}/dbus-tqt
 
 src_configure() {
-	mycmakeargs=(
-	)
+	mycmakeargs=(	)
 
 	cmake-utils_src_configure
 }

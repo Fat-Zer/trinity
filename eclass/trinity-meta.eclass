@@ -101,12 +101,6 @@ trinity-meta_src_extract() {
 						|| die "${escm}: can't export cmake files to '${S}'."
 				fi
 
-				# Copy admin directory
-				if [[ -d "${wc_path}/admin" ]]; then
-					rsync --recursive ${rsync_options} "${wc_path}/admin" "${S}" \
-						|| die "${escm}: can't export cmake files to '${S}'."
-				fi
-
 				# Copy all subdirectories
 				for obj in ${KMEXTRACT}; do
 					rsync --recursive ${rsync_options} "${wc_path}/${obj%/}" "${S}" \
@@ -187,20 +181,14 @@ trinity-meta_src_extract() {
 	fi
 }
 
-
-KMAIN_DOCS="AUTHORS COMPILING COPYING COPYING-DOCS DEBUG INSTALL NAMING README TODO"
-KCOMMON_DOCS="${KCOMMON_DOCS} BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE 
-	CONFIG_FORMAT CONFIGURING COPYRIGHT CREDITS DEBUGGING DESIGN FAQ HACKING HISTORY 
-	HOWTO IDEAS LICENSE MAINTAINERS NAMING NEWS NOTES PLUGINS PORTING README 
-	SECURITY-HOLES TASKGROUPS TEMPLATE TESTCASES THANKS THOUGHTS VERSION"
-
 # @FUNCTION: trinity-meta_create_extractlists
 # @DESCRIPTION:
 # Create lists of files and subdirectories to extract.
-# Also see descriptions of KMMODULE, KMOMODULE, KMEXTRAсе фтв KMAIN_DOCS.
+# Also see descriptions of KMMODULE, KMOMODULE, KMEXTRACT and KMAIN_DOCS.
 trinity-meta_create_extractlists() {
 	debug-print-function ${FUNCNAME} "$@"
-
+	
+	$KMEXTRACT
 	# add package-specific files and directories
 	case ${KMNAME} in
 		kdebase)
@@ -211,6 +199,8 @@ trinity-meta_create_extractlists() {
 		*)
 			die "KMNAME ${KMNAME} is not supported by function ${FUNCNAME}"
 	esac
+	KMEXTRACT+="
+		${KMMODULE}"
 
 	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: KMEXTRACT ${KMEXTRACT}"
 }
