@@ -29,8 +29,6 @@ DEPEND="kde-base/kdelibs:${SLOT}"
 set-kmmodule() {
 	debug-print-function $FUNCNAME "$@"
 
-	local item
-
 	if [[ -z "$KMMODULE" ]]; then
 		export KMMODULE="$PN"
 	fi
@@ -182,7 +180,7 @@ trinity-meta_rsync_copy() {
 # @FUNCTION: trinity-meta_create_extractlists
 # @DESCRIPTION:
 # Create lists of files and subdirectories to extract.
-# Also see descriptions of KMMODULE, KMOMODULE, KMEXTRACT and KMAIN_DOCS.
+# Also see descriptions of KMMODULE and KMEXTRACT 
 trinity-meta_create_extractlists() {
 	debug-print-function ${FUNCNAME} "$@"
 
@@ -203,6 +201,7 @@ trinity-meta_create_extractlists() {
 # @DESCRIPTION:
 # Default src prepare function. Currently it's only a stub.
 trinity-meta_src_prepare() {
+	debug-print-function ${FUNCNAME} "$@"
 
 }
 
