@@ -9,22 +9,6 @@
 
 inherit cmake-utils trinity-base
 
-set-kmmodule() {
-	debug-print-function $FUNCNAME "$@"
-
-	local item
-
-	if [[ -z "$KMMODULE" ]]; then
-		export KMMODULE="$PN"
-	fi
-
-	for item in $KMMODULE; do
-		item="$(echo $KMMODULE | tr 'a-z' 'A-Z')"
-		[[ " $KMMODULE " == *" $item "*  ]] ||	export KMMODULE_CMAKE="$KMMODULE_CMAKE $item"
-	done
-
-}
-
 LICENSE="GPL-2 LGPL-2"
 HOMEPAGE="http://www.trinitydesktop.org/"
 
@@ -42,7 +26,15 @@ set-kdever
 # common dependencies
 DEPEND="kde-base/kdelibs:${SLOT}"
 
-# !!! temporary workaround
+set-kmmodule() {
+	debug-print-function $FUNCNAME "$@"
+
+	local item
+
+	if [[ -z "$KMMODULE" ]]; then
+		export KMMODULE="$PN"
+	fi
+}
 
 trinity-meta_pkg_setup() {
 	debug-print-function ${FUNCNAME} "$@"
@@ -57,8 +49,6 @@ trinity-meta_src_unpack() {
 	if [[ ${BUILD_TYPE} = live ]]; then
 		case "${KDE_SCM}" in
 			svn)
-				S="${WORKDIR}/${P}"
-				mkdir -p "${S}"
 				ESVN_RESTRICT="export" subversion_src_unpack
 				subversion_wc_info
 				subversion_bootstrap
@@ -74,41 +64,17 @@ trinity-meta_src_unpack() {
 # @FUNCTION: trinity-meta_src_extract
 # @DESCRIPTION:
 # A function to extract the source for a split KDE ebuild.
-# Also see KMMODULE, KMNOMODULE, KMEXTRA, KMCOMPILEONLY, KMEXTRACTONLY and
-# KMTARPARAMS.
+# Also see KMMODULE, KMEXTRACT
 trinity-meta_src_extract() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	trinity-meta_create_extractlists
 
 	if [[ ${BUILD_TYPE} = live ]]; then
-		# Export working copy to ${S}
 		einfo "Exporting parts of working copy to ${S}"
-
-		case ${KDE_SCM} in
-			svn)
-				local rsync_options subdir targetdir wc_path escm
-
-				rsync_options="--group --links --owner --perms --quiet --exclude=.svn/ --exclude=.git/"
-				wc_path="${ESVN_WC_PATH}"
-				escm="{ESVN}"
-				# Copy ${KMNAME} non-recursively (toplevel files)
-				rsync ${rsync_options} "${wc_path}"/* "${S}" \
-					|| die "${escm}: can't export toplevel files to '${S}'."
-				# Copy cmake and admin directory
-				if [[ -d "${wc_path}/cmake" ]]; then
-					rsync --recursive ${rsync_options} "${wc_path}/cmake" "${S}" \
-						|| die "${escm}: can't export cmake files to '${S}'."
-				fi
-
-				# Copy all subdirectories
-				for obj in ${KMEXTRACT}; do
-					rsync --recursive ${rsync_options} "${wc_path}/${obj%/}" "${S}" \
-						|| die "${escm}: can't export object '${obj}' to '${S}'."
-				done
-				;;
-		esac
+		trinity-meta_rsync_copy
 	else
+		die "BUILD_TYPE=$BUILD_TYPE is not supported by function ${S}"
 		eerror "relese extract is complitly untested"
 		local abort tarball tarfile f extractlist postfix
 #
@@ -183,96 +149,74 @@ trinity-meta_src_extract() {
 
 # @FUNCTION: trinity-meta_create_extractlists
 # @DESCRIPTION:
+# Copies files from svn (and later git repository) to $S
+trinity-meta_rsync_copy() {
+	debug-print-function ${FUNCNAME} "$@"
+
+	local rsync_options subdir targetdir wc_path escm
+	case "${KDE_SCM}" in
+	svn) wc_path="${ESVN_WC_PATH}";;
+#	git) wc_path="${EGIT_DIR}";;
+	*)   die "Unsupported KDE_SCM: ${KDE_SCM} is not supported by ${FUNCNAME}"
+		;;
+	esac
+
+	rsync_options="--group --links --owner --perms --quiet --exclude=.svn/ --exclude=.git/"
+
+	# Copy ${KMNAME} non-recursively (toplevel files)
+	rsync ${rsync_options} "${wc_path}"/* "${S}" \
+		|| die "rsync: can't export toplevel files to '${S}'."
+	# Copy cmake directory
+	if [[ -d "${wc_path}/cmake" ]]; then
+		rsync --recursive ${rsync_options} "${wc_path}/cmake" "${S}" \
+			|| die "rsync: can't export cmake files to '${S}'."
+	fi
+
+	# Copy all subdirectories listed in $KMEXTRACT
+	for subdir in ${KMEXTRACT}; do
+		rsync --recursive ${rsync_options} "${wc_path}/${subdir}" "${S}" \
+			|| die "rsync: can't export object '${obj}' to '${S}'."
+	done
+}
+
+# @FUNCTION: trinity-meta_create_extractlists
+# @DESCRIPTION:
 # Create lists of files and subdirectories to extract.
 # Also see descriptions of KMMODULE, KMOMODULE, KMEXTRACT and KMAIN_DOCS.
 trinity-meta_create_extractlists() {
 	debug-print-function ${FUNCNAME} "$@"
-	
-	$KMEXTRACT
+
+	# if $KMEXTRACT is not set assign it kmmodule
+	[ -z ${KMEXTRACT} ] && KMEXTRACT="${KMMODULE}"
 	# add package-specific files and directories
 	case ${KMNAME} in
 		kdebase)
-			KMEXTRACT+="
-				kcontrol
-				kdmlib"
-			;;
+			KMEXTRACT+=" kcontrol kdmlib" ;;
 		*)
-			die "KMNAME ${KMNAME} is not supported by function ${FUNCNAME}"
+			die "KMNAME ${KMNAME} is not supported by function ${FUNCNAME}" ;;
 	esac
-	KMEXTRACT+="
-		${KMMODULE}"
 
 	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: KMEXTRACT ${KMEXTRACT}"
 }
 
-
-
-# !!! temporary workaround
+# @FUNCTION: trinity-meta_src_prepare
+# @DESCRIPTION:
+# Default src prepare function. Currently it's only a stub.
 trinity-meta_src_prepare() {
-	if [[ "$KMNAME" == "kdebase" ]]; then
-#		mv krootbacking/{krootbacking.cpp,krootbacking.h} kscreensaver/
-#		mv krootbacking/main.cpp  kscreensaver/krootbackingmain.cpp
-#		rm krootbacking/CMakeLists.txt
-#		rmdir krootbacking/
-		cat >${T}/fix-kdebase-cmake.patch <<'EOF' 
---- CMakeLists.txt.orig	2011-10-20 01:33:03.260813526 +0400
-+++ CMakeLists.txt	2011-10-20 01:33:59.489685176 +0400
-@@ -124,6 +124,8 @@
- option( BUILD_NSPLUGINS "Build nsplugins"  ${BUILD_ALL} )
- option( BUILD_KSYSGUARD "Build ksysguard"  ${BUILD_ALL} )
- option( BUILD_KXKB "Build kxkb"  ${BUILD_ALL} )
-+option( BUILD_TSAK "Build tsak"  ${BUILD_ALL} )
-+option( BUILD_KROOTBACKING "Build krootbacking"  ${BUILD_ALL} )
- 
- 
- ##### set PKG_CONFIG_PATH #######################
-@@ -194,9 +196,9 @@
- tde_conditional_add_subdirectory( BUILD_NSPLUGINS nsplugins )
- tde_conditional_add_subdirectory( BUILD_KSYSGUARD ksysguard )
- tde_conditional_add_subdirectory( BUILD_KXKB kxkb )
--add_subdirectory( tsak )
--add_subdirectory( krootbacking )
--add_subdirectory( tqt3integration )
-+tde_conditional_add_subdirectory( BUILD_TSAK tsak )
-+tde_conditional_add_subdirectory( BUILD_KROOTBACKING krootbacking )
-+#add_subdirectory( tqt3integration ) 
- 
- ##### install startkde & related stuff ##########
- 
---- kdmlib/CMakeLists.txt.orig	2011-10-20 01:33:24.512182370 +0400
-+++ kdmlib/CMakeLists.txt	2011-10-20 01:30:07.474750978 +0400
-@@ -73,9 +73,11 @@
- 
- ##### kompmgr (executable) #######################
- 
--tde_add_executable( kdmtsak
--  SOURCES kdmtsak.cpp
--  LINK ${TQT_LIBRARIES}
--  DESTINATION ${BIN_INSTALL_DIR}
--  SETUID
--)
-\ В конце файла нет новой строки
-+if( BUILD_TSAK )
-+  tde_add_executable( kdmtsak
-+    SOURCES kdmtsak.cpp
-+    LINK ${TQT_LIBRARIES}
-+    DESTINATION ${BIN_INSTALL_DIR}
-+    SETUID
-+  )
-+endif( BUILD_TSAK )
-EOF
-		cd ${S}
-		epatch ${T}/fix-kdebase-cmake.patch
-	fi
+
 }
 
+# @FUNCTION: trinity-meta_src_configure
+# @DESCRIPTION:
+# Default source configure function. It sets apropriate cmake args.
+# Also see description of KMMODULE
 trinity-meta_src_configure() {
-	local item
-	local kmmoduleargs
+	debug-print-function ${FUNCNAME} "$@"
 
-	debug-print
-	for item in $KMMODULE_CMAKE; do
-		kmmoduleargs+=" -DBUILD_${item}=ON"
+	local item, kmmoduleargs
+
+	for item in $KMMODULE; do
+		kmmoduleargs+=" -DBUILD_${item^^}=ON"
 	done
 
 	mycmakeargs=(
@@ -283,4 +227,4 @@ trinity-meta_src_configure() {
 	trinity-base_src_configure
 }
 
-EXPORT_FUNCTIONS src_configure src_prepare src_unpack pkg_setup
+EXPORT_FUNCTIONS src_configure src_prepare pkg_setup

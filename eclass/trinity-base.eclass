@@ -80,6 +80,7 @@ fi
 # @DESCRIPTION:
 # Call standart cmake-utils_src_onfigure and add some common arguments.
 trinity-base_src_configure() {
+	debug-print-function ${FUNCNAME} "$@"
 
 	mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH="${KDEDIR}"
@@ -95,7 +96,9 @@ trinity-base_src_configure() {
 # Call standart cmake-utils_src_install and installs common documentation. 
 # Also see descriptions of KCOMMON_DOCS.
 trinity-base_src_install() {
+	debug-print-function ${FUNCNAME} "$@"
 	cmake-utils_src_install
+
 	local doc docfile targetdoc;
 
 	mkdir -p "$T/docs"
@@ -106,7 +109,7 @@ trinity-base_src_install() {
 			targetdoc="${targetdoc#..}"
 			cp "${docfile}" "$T/docs/${targetdoc}"
 			dodoc "$T/docs/${targetdoc}"
-			einfo "Installing documentation ${docfile} as ${targetdoc}"
+			einfo "Installing documentation ${targetdoc}"
 			rm "$T/docs/$targetdoc"
 		done
 	done

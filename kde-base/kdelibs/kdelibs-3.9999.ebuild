@@ -67,7 +67,7 @@ src_configure() {
 }
 
 src_install() {
-	cmake-utils_src_install
+	trinity-base_src_install
 
 	dodir /etc/env.d
 	# KDE implies that the install path is listed first in KDEDIRS and the user

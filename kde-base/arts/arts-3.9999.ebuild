@@ -43,7 +43,7 @@ src_configure() {
 }
 
 src_install() {
-	cmake-utils_src_install
+	trinity-base_src_install
 
 	# used for realtime priority, but off by default as it is a security hazard
 	use artswrappersuid && chmod u+s "${D}/${PREFIX}/bin/artswrapper"

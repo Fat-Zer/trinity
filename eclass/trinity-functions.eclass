@@ -50,7 +50,7 @@ set-kdever() {
 	# this sould solve problems like "cannot find libraries" espessialy when
 	# compiling kdelibs
 	if [ -z "${LDPATH##*:${KDEDIR}/lib:*}" ]; then
-		export LDPATH="${LDPATH%:}:${KDEDIR}"
+		export LDPATH="${LDPATH%:}:${KDEDIR}/lib"
 	fi
 }
 
