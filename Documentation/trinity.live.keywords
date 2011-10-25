@@ -46,6 +46,7 @@ kde-base/kxkb:3.5 **
 kde-base/libkonq:3.5 **
 kde-base/nsplugin:3.5 **
 kde-base/nsplugins:3.5 **
+kde-base/tqt3integration:3.5 **
 kde-base/tqtinterface **
 kde-base/tsak:3.5 **
 x11-libs/qt-meta:3 **
