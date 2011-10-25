@@ -3,8 +3,9 @@
 # $Header: $
 
 KMNAME=kdebase
-EAPI="2"
+EAPI="4"
 inherit trinity-meta
+KMEXTRACTALSO="kicker kwin kdesktop klipper kxkb"
 
 DESCRIPTION="The KDE Control Center"
 KEYWORDS=""

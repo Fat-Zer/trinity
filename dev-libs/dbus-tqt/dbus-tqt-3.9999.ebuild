@@ -15,6 +15,7 @@ IUSE=""
 
 DEPEND="x11-libs/qt-meta:3
 	kde-base/tqtinterface"
+RDEPEND="$DEPEND"
 
 S=${WORKDIR}/dbus-tqt
 

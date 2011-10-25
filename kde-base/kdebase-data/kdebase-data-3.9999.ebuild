@@ -3,16 +3,15 @@
 # $Header: $
 
 KMNAME="kdebase"
+EAPI="4"
 KMMODULE="l10n pics applnk"
-
-EAPI="2"
 inherit trinity-meta
 
 DESCRIPTION="Icons, localization data and .desktop files from kdebase. Includes l10n, pics and applnk subdirs."
 KEYWORDS=""
-IUSE="doc"
+IUSE="" # "doc"
 
 pkg_setup() {
-	use doc && KMMODULE+=" doc"
+#	use doc && KMMODULE+=" doc"
 	trinity-meta_pkg_setup;
 }

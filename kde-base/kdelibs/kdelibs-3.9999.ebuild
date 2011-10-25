@@ -100,6 +100,9 @@ EOF
 cat <<EOF > "${D}"/etc/revdep-rebuild/50-kde3
 SEARCH_DIRS="${PREFIX}/bin ${PREFIX}/lib*"
 EOF
+
+	# make documentation help accessible throught symlink
+	dosym ${KDEDIR}/share/doc/kde/HTML ${KDEDIR}/share/doc/HTML
 }
 
 # pkg_postinst () {

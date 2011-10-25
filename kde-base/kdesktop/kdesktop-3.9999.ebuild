@@ -5,6 +5,7 @@
 KMNAME=kdebase
 EAPI="3"
 inherit trinity-meta
+KMEXTRACTALSO="kcheckpass"
 
 DESCRIPTION="KDesktop is the KDE interface that handles the icons, desktop popup menus and screensaver system."
 KEYWORDS=""

@@ -56,4 +56,5 @@ RDEPEND=">=kde-base/kdebase-startkde-${PV}:${SLOT}
 >=kde-base/knetattach-${PV}:${SLOT}
 >=kde-base/kdebase-data-${PV}:${SLOT}
 >=kde-base/krootbacking-${PV}:${SLOT}
->=kde-base/tsak-${PV}:${SLOT}"
+>=kde-base/tsak-${PV}:${SLOT}
+>=kde-base/tqt3integration-${PV}:${SLOT}"

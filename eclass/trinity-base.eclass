@@ -84,7 +84,6 @@ trinity-base_src_configure() {
 
 	mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH="${KDEDIR}"
-		-DHTML_INSTALL_DIR="${KDEDIR}/share/doc/HTML"
 		"${mycmakeargs[@]}"
 	)
 
@@ -94,25 +93,71 @@ trinity-base_src_configure() {
 # @FUNCTION: trinity-base_src_install
 # @DESCRIPTION:
 # Call standart cmake-utils_src_install and installs common documentation. 
-# Also see descriptions of KCOMMON_DOCS.
 trinity-base_src_install() {
 	debug-print-function ${FUNCNAME} "$@"
 	cmake-utils_src_install
 
-	local doc docfile targetdoc;
+	trinity-base_create_tmp_docfiles
+	trinity-base_install_docfiles
+}
 
-	mkdir -p "$T/docs"
+# @FUNCTION: trinity-base_create_tmp_docfiles
+# @DESCRIPTION:
+# Create docfiles in the form ${TMP_DOCDIR}/path.to.docfile.COMMON_NAME
+# Also see descriptions of KCOMMON_DOCS and TMP_DOCDIR.
+trinity-base_create_tmp_docfiles() {
+	debug-print-function ${FUNCNAME} "$@"
+	local srcdirs dir docfile targetdoc
 
-	for doc in ${KCOMMON_DOCS}; do
-		for docfile in $(find -type f -name "*${doc}*"); do
-			targetdoc="${docfile//\//.}"
-			targetdoc="${targetdoc#..}"
-			cp "${docfile}" "$T/docs/${targetdoc}"
-			dodoc "$T/docs/${targetdoc}"
-			einfo "Installing documentation ${targetdoc}"
-			rm "$T/docs/$targetdoc"
+	if [[ -z "$TMP_DOCDIR" || ! -d "$TMP_DOCDIR" ]] ; then
+		TMP_DOCDIR="$T/docs"
+		mkdir -p ${TMP_DOCDIR}
+	fi
+
+	if [[ -z "$@" ]] ; then
+		srcdirs="./"
+	else
+		srcdirs="$@"
+	fi
+
+	einfo "Generating documentation list..."
+	for dir in $srcdirs; do
+		for doc in ${KCOMMON_DOCS}; do
+			for docfile in $(find $dir -type f -name "*${doc}*"); do
+				targetdoc="${docfile//\//.}"
+				targetdoc="${targetdoc#..}"
+				cp "${docfile}" "$TMP_DOCDIR/${targetdoc}"
+			done
 		done
 	done
+
+	if [[ "${KINSTALL_ROOT_DOCS}" == "yes" && " ${srcdirs} " == "* ./ *" ]]; then
+		for doc in ${KCOMMON_DOCS}; do
+			for docfile in $(ls ./"*${doc}*"); do
+				targetdoc="${docfile//\//.}"
+				targetdoc="${targetdoc#..}"
+				cp "${docfile}" "$TMP_DOCDIR/${targetdoc}"
+			done
+		done
+	fi
+}
+
+# @FUNCTION: trinity-base_install_docfiles
+# @DESCRIPTION:
+# Install documentation from ${TMP_DOCDIR} or from first argument.
+trinity-base_install_docfiles() {
+	debug-print-function ${FUNCNAME} "$@"
+	local doc docdir
+	[[ -n "$TMP_DOCDIR" ]] && docdir="$TMP_DOCDIR"
+	[[ -n "$1" ]] && docdir="$1"
+	[[ -z "$docdir" ]] && die "docdir is not set in ${FUNCNAME}."
+
+	pushd "${docdir}" >/dev/null
+	for doc in $(ls); do
+		einfo "Installing documentation: ${doc##*/}"
+		dodoc "${doc}"
+	done
+	popd >/dev/null
 }
 
 EXPORT_FUNCTIONS src_configure src_install

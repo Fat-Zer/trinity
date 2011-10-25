@@ -47,6 +47,7 @@ trinity-meta_src_unpack() {
 	if [[ ${BUILD_TYPE} = live ]]; then
 		case "${KDE_SCM}" in
 			svn)
+				mkdir -p "$S"
 				ESVN_RESTRICT="export" subversion_src_unpack
 				subversion_wc_info
 				subversion_bootstrap
@@ -170,8 +171,8 @@ trinity-meta_rsync_copy() {
 			|| die "rsync: can't export cmake files to '${S}'."
 	fi
 
-	# Copy all subdirectories listed in $KMEXTRACT
-	for subdir in ${KMEXTRACT}; do
+	# Copy all subdirectories listed in $KMEXTRACT_LIST
+	for subdir in ${KMEXTRACT_LIST}; do
 		rsync --recursive ${rsync_options} "${wc_path}/${subdir}" "${S}" \
 			|| die "rsync: can't export object '${obj}' to '${S}'."
 	done
@@ -189,12 +190,12 @@ trinity-meta_create_extractlists() {
 	# add package-specific files and directories
 	case ${KMNAME} in
 		kdebase)
-			KMEXTRACT+=" kcontrol kdmlib" ;;
+			KMEXTRACT_LIST+=" kcontrol kdmlib" ;;
 		*)
 			die "KMNAME ${KMNAME} is not supported by function ${FUNCNAME}" ;;
 	esac
-
-	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: KMEXTRACT ${KMEXTRACT}"
+	KMEXTRACT_LIST+=" ${KMEXTRACT} ${KMEXTRACTALSO}"
+	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: KMEXTRACT_LIST ${KMEXTRACT_LIST}"
 }
 
 # @FUNCTION: trinity-meta_src_prepare
@@ -212,7 +213,7 @@ trinity-meta_src_prepare() {
 trinity-meta_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	local item, kmmoduleargs
+	local item kmmoduleargs
 
 	for item in $KMMODULE; do
 		kmmoduleargs+=" -DBUILD_${item^^}=ON"
@@ -226,4 +227,15 @@ trinity-meta_src_configure() {
 	trinity-base_src_configure
 }
 
-EXPORT_FUNCTIONS src_configure src_prepare pkg_setup
+# @FUNCTION: trinity-meta_src_install
+# @DESCRIPTION:
+# Call default cmake install function. and install documentation.
+trinity-meta_src_install() {
+	debug-print-function ${FUNCNAME} "$@"
+	cmake-utils_src_install
+
+	trinity-base_create_tmp_docfiles $KMEXTRACT
+	trinity-base_install_docfiles
+}
+
+EXPORT_FUNCTIONS src_configure src_prepare src_install src_unpack pkg_setup

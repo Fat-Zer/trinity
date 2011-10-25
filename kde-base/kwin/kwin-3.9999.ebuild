@@ -7,6 +7,8 @@ KMMODULE="kwin xrender xfiles xext"
 EAPI="3"
 inherit trinity-meta eutils
 
+KMEXTRACT="kwin"
+
 DESCRIPTION="KDE window manager"
 KEYWORDS=""
 IUSE="xcomposite"

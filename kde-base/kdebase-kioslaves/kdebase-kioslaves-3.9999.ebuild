@@ -6,6 +6,7 @@ KMNAME="kdebase"
 KMMODULE="kioslaves"
 EAPI="3"
 inherit trinity-meta
+KMEXTRACT="kioslave"
 
 DESCRIPTION="kioslave: the kde VFS framework - kioslave plugins present a filesystem-like view of arbitrary data"
 KEYWORDS=""

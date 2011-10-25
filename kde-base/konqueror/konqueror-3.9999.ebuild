@@ -5,6 +5,7 @@
 KMNAME="kdebase"
 EAPI="3"
 inherit trinity-meta
+KMEXTRACTALSO="kdesktop"
 
 DESCRIPTION="KDE: Web browser, file manager, ..."
 KEYWORDS=""

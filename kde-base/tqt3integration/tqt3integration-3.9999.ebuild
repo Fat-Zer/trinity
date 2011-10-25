@@ -3,10 +3,9 @@
 # $Header: $
 
 KMNAME="kdebase"
-EAPI="3"
+EAPI="4"
 inherit trinity-meta
 
-KMEXTRACTALSO="libkonq"
-DDESCRIPTION="KDE user settings wizard."
+DESCRIPTION="Makes Qt3-only apps use several KDE dialogs."
 KEYWORDS=""
 IUSE=""
