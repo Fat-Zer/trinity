@@ -30,7 +30,7 @@ set-kmmodule() {
 	debug-print-function $FUNCNAME "$@"
 
 	if [[ -z "$KMMODULE" ]]; then
-		export KMMODULE="$PN"
+		export KMMODULE="${PN#${KMNAME}-}"
 	fi
 }
 
