@@ -50,13 +50,13 @@ kde-base/tqt3integration:3.5 **
 kde-base/tqtinterface **
 kde-base/tsak:3.5 **
 x11-libs/qt-meta:3 **
-kde-base/kdeartwork-emoticons
-kde-base/kdeartwork-icewm-themes
-kde-base/kdeartwork-iconthemes
-kde-base/kdeartwork-kscreensaver
-kde-base/kdeartwork-kwin-styles
-kde-base/kdeartwork-kworldclock
-kde-base/kdeartwork-meta
-kde-base/kdeartwork-sounds
-kde-base/kdeartwork-styles
-kde-base/kdeartwork-wallpapers
+kde-base/kdeartwork-emoticons:3.5 **
+kde-base/kdeartwork-icewm-themes:3.5 **
+kde-base/kdeartwork-iconthemes:3.5 **
+kde-base/kdeartwork-kscreensaver:3.5 **
+kde-base/kdeartwork-kwin-styles:3.5 **
+kde-base/kdeartwork-kworldclock:3.5 **
+kde-base/kdeartwork-meta:3.5 **
+kde-base/kdeartwork-sounds:3.5 **
+kde-base/kdeartwork-styles:3.5 **
+kde-base/kdeartwork-wallpapers:3.5 **
