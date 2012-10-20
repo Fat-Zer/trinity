@@ -3,3 +3,4 @@ fix arts in eclases.
 fix kdm script /usr/kde/3.5/share/config/kdm/Xsession.
 need workarounds on the LDPATH variable.
 
+After merging this branch to master change the Documentation/trinity.overlay

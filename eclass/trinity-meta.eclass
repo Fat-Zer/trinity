@@ -192,6 +192,7 @@ trinity-meta_create_extractlists() {
 		kdebase)
 			KMEXTRACT_LIST+=" kcontrol kdmlib" ;;
 		kdeartwork) ;;
+		kdegraphics) ;;
 		*)
 			die "KMNAME ${KMNAME} is not supported by function ${FUNCNAME}" ;;
 	esac

@@ -1,5 +1,5 @@
 <layman>
-<overlay type="git" src="https://github.com/Fat-Zer/trinity.git" contact="fatzer2@gmail.com" status="unofficial" name="trinity">
+<overlay type="git" src="https://github.com/Fat-Zer/trinity.git" contact="fatzer2@gmail.com" status="unofficial" branch="second-life" name="trinity">
 <link>
 http://www.trinitydesktop.org/
 </link>
