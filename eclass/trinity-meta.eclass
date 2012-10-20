@@ -19,40 +19,49 @@ case $EAPI in
 	*) ewarn "Unknown EAPI=${EAPI}"
 esac
 
-# set slot, KDEDIR, KDEVER and PREFIX
-set-kdever
-[[ -z "$SLOT" ]] && SLOT="$KDEVER"
+# set slot, TRINITY_DIR, TRINITY_VER and PREFIX
+set-trinityver
+[[ -z "$SLOT" ]] && SLOT="$TRINITY_VER"
 
 # common dependencies
-DEPEND="kde-base/kdelibs:${SLOT}"
+DEPEND="trinity-base/tdelibs:${SLOT}"
 
-set-kmmodule() {
+set-trinity-submodule() {
 	debug-print-function $FUNCNAME "$@"
 
-	if [[ -z "$KMMODULE" ]]; then
-		export KMMODULE="${PN#${KMNAME}-}"
+	if [[ -z "$TRINITY_SUBMODULE" ]]; then
+		export TRINITY_SUBMODULE="${PN#${TRINITY_MODULE_NAME}-}"
 	fi
 }
 
+# @FUNCTION: trinity-meta_src_unpack
+# @DESCRIPTION:
+# Default pkg_setup function. It sets the correct ${S}
+# nessecary files.
 trinity-meta_pkg_setup() {
 	debug-print-function ${FUNCNAME} "$@"
-	set-kmmodule;
+	set-trinity-submodule;
 
-	export S=${WORKDIR}/${KMNAME}
+	export S=${WORKDIR}/${TRINITY_MODULE_NAME}
 }
 
+# @FUNCTION: trinity-meta_src_unpack
+# @DESCRIPTION:
+# Default source extract function. It tries to unpack only 
+# nessecary files.
 trinity-meta_src_unpack() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	if [[ ${BUILD_TYPE} = live ]]; then
-		case "${KDE_SCM}" in
-			svn)
-				mkdir -p "$S"
-				ESVN_RESTRICT="export" subversion_src_unpack
-				subversion_wc_info
-				subversion_bootstrap
-				;;
+		case "${TRINITY_SCM}" in
+#			svn)
+#				mkdir -p "$S"
+#				ESVN_RESTRICT="export" subversion_src_unpack
+#				subversion_wc_info
+#				subversion_bootstrap
+#				;;
 			git)
+				EGIT_NOUNPACK="yes"
 				git-2_src_unpack
 				;;
 		esac
@@ -73,21 +82,21 @@ trinity-meta_src_extract() {
 		einfo "Exporting parts of working copy to ${S}"
 		trinity-meta_rsync_copy
 	else
-		die "BUILD_TYPE=$BUILD_TYPE is not supported by function ${S}"
+		die "BUILD_TYPE=$BUILD_TYPE is not supported by function ${FUNCTION}"
 		eerror "relese extract is complitly untested"
 		local abort tarball tarfile f extractlist postfix
 #
 #		KMTARPARAMS+=" --bzip2"
 #		postfix="bz2"
 #
-#		case ${KMNAME} in
+#		case ${TRINITY_MODULE_NAME} in
 #			kdebase-apps)
 #				# kdebase/apps -> kdebase-apps
 #				tarball="kdebase-${PV}.tar.${postfix}"
 #				;;
 #			*)
 #				# Create tarball name from module name (this is the default)
-#				tarball="${KMNAME}-${PV}.tar.${postfix}"
+#				tarball="${TRINITY_MODULE_NAME}-${PV}.tar.${postfix}"
 #				;;
 #		esac
 #
@@ -123,7 +132,7 @@ trinity-meta_src_extract() {
 #		fi
 #
 #		# Default $S is based on $P; rename the extracted directory to match $S if necessary
-#		if [[ ${KMNAME} != ${PN} ]]; then
+#		if [[ ${TRINITY_MODULE_NAME} != ${PN} ]]; then
 #			mv ${topdir} ${P} || die "Died while moving \"${topdir}\" to \"${P}\""
 #		fi
 #
@@ -146,23 +155,24 @@ trinity-meta_src_extract() {
 	fi
 }
 
-# @FUNCTION: trinity-meta_create_extractlists
+# @FUNCTION: trinity-meta_rsync_copy 
 # @DESCRIPTION:
-# Copies files from svn (and later git repository) to $S
+# Copies files from svn or git repository to $S
 trinity-meta_rsync_copy() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	local rsync_options subdir targetdir wc_path escm
-	case "${KDE_SCM}" in
-	svn) wc_path="${ESVN_WC_PATH}";;
-#	git) wc_path="${EGIT_DIR}";;
-	*)   die "Unsupported KDE_SCM: ${KDE_SCM} is not supported by ${FUNCNAME}"
+	case "${TRINITY_SCM}" in
+#	svn) wc_path="${ESVN_WC_PATH}";;
+	git) wc_path="${EGIT_STORE_DIR}/${EGIT_PROJECT}";;
+	*)   die "Unsupported TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
 		;;
 	esac
+	einfo "${wc_path}/"
 
 	rsync_options="--group --links --owner --perms --quiet --exclude=.svn/ --exclude=.git/"
 
-	# Copy ${KMNAME} non-recursively (toplevel files)
+	# Copy ${TRINITY_MODULE_NAME} non-recursively (toplevel files)
 	rsync ${rsync_options} "${wc_path}"/* "${S}" \
 		|| die "rsync: can't export toplevel files to '${S}'."
 	# Copy cmake directory
@@ -170,11 +180,11 @@ trinity-meta_rsync_copy() {
 		rsync --recursive ${rsync_options} "${wc_path}/cmake" "${S}" \
 			|| die "rsync: can't export cmake files to '${S}'."
 	fi
-
-	# Copy all subdirectories listed in $KMEXTRACT_LIST
-	for subdir in ${KMEXTRACT_LIST}; do
-		rsync --recursive ${rsync_options} "${wc_path}/${subdir}" "${S}" \
-			|| die "rsync: can't export object '${obj}' to '${S}'."
+	# Copy all subdirectories listed in $TSM_EXTRACT_LIST
+	for subdir in ${TSM_EXTRACT_LIST}; do
+		rsync --recursive ${rsync_options} "${wc_path}/${subdir}" \
+			"${S}/$(dirname subdir)" \
+			|| die "rsync: can't export object '${wc_path}/${subdir}' to '${S}'."
 	done
 }
 
@@ -185,19 +195,20 @@ trinity-meta_rsync_copy() {
 trinity-meta_create_extractlists() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	# if $KMEXTRACT is not set assign it kmmodule
-	[ -z ${KMEXTRACT} ] && KMEXTRACT="${KMMODULE}"
+	# if $TSMEXTRACT is not set assign it kmmodule
+	[ -z "${TSM_EXTRACT}" ] && TSM_EXTRACT="${TRINITY_SUBMODULE}"
 	# add package-specific files and directories
-	case ${KMNAME} in
-		kdebase)
-			KMEXTRACT_LIST+=" kcontrol kdmlib" ;;
-		kdeartwork) ;;
-		kdegraphics) ;;
+	case "${TRINITY_MODULE_NAME}" in
+		tdebase)
+#			TSM_EXTRACT_LIST+=" kcontrol kdmlib" 
+			;;
+		tdeartwork) ;;
+		tdegraphics) ;;
 		*)
-			die "KMNAME ${KMNAME} is not supported by function ${FUNCNAME}" ;;
+			die "TRINITY_MODULE_NAME ${TRINITY_MODULE_NAME} is not supported by function ${FUNCNAME}" ;;
 	esac
-	KMEXTRACT_LIST+=" ${KMEXTRACT} ${KMEXTRACTALSO}"
-	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: KMEXTRACT_LIST ${KMEXTRACT_LIST}"
+	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACTALSO}"
+	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: TSM_EXTRACT_LIST ${TSM_EXTRACT_LIST}"
 }
 
 # @FUNCTION: trinity-meta_src_prepare
@@ -215,15 +226,15 @@ trinity-meta_src_prepare() {
 trinity-meta_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	local item kmmoduleargs
+	local item tsmargs
 
-	for item in $KMMODULE; do
-		kmmoduleargs+=" -DBUILD_${item^^}=ON"
+	for item in $TRINITY_SUBMODULE; do
+		tsmargs+=" -DBUILD_${item^^}=ON"
 	done
 
 	mycmakeargs=(
 		"${mycmakeargs[@]}"
-		${kmmoduleargs}
+		${tsmeargs}
 	)
 
 	trinity-base_src_configure
@@ -236,7 +247,7 @@ trinity-meta_src_install() {
 	debug-print-function ${FUNCNAME} "$@"
 	cmake-utils_src_install
 
-	trinity-base_create_tmp_docfiles $KMEXTRACT
+	trinity-base_create_tmp_docfiles $TSM_EXTRACT
 	trinity-base_install_docfiles
 }
 
