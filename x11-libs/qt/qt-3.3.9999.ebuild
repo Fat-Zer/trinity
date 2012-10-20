@@ -15,7 +15,7 @@ HOMEPAGE="http://qt.nokia.com/"
 #SRC_URI="ftp://ftp.trolltech.com/qt/source/qt-x11-${SRCTYPE}-${PV}.tar.gz
 #	immqt? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )
 #	immqt-bc? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )"
-EGIT_REPO_URI="http://scm.trinitydesktop.org/scm/git/tde"
+EGIT_REPO_URI="http://git.trinitydesktop.org/cgit/qt3/"
 EGIT_BRANCH="master"
 EGIT_PROJECT="tde"
 LICENSE="|| ( QPL-1.0 GPL-2 GPL-3 )"
@@ -103,11 +103,11 @@ pkg_setup() {
 
 src_unpack() {
 	git-2_src_unpack
-	mv "${S}/main/dependencies/qt3/" "${WORKDIR}/"
-	rm -rf "${S}"
-	mv "${WORKDIR}/qt3" "${S}"
-
-	cd "${S}"
+#	mv "${S}/main/dependencies/qt3/" "${WORKDIR}/"
+#	rm -rf "${S}"
+#	mv "${WORKDIR}/qt3" "${S}"
+#
+#	cd "${S}"
 
 	sed -i -e 's:read acceptance:acceptance=yes:' configure
 
