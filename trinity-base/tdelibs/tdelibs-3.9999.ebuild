@@ -1,14 +1,14 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+EAPI="3"
+TRINITY_MODULE_NAME="$PN"
 
-EAPI="2"
-KMNAME="$PN"
 inherit trinity-base multilib
 
-set-kdever
+set-trinityver
 
-DESCRIPTION="KDE libraries needed by all KDE programs."
+DESCRIPTION="Trinity libraries needed by all TDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 SLOT="$TRINITY_LIVEVER"
@@ -23,14 +23,14 @@ DEPEND="${DEPEND}
 	net-dns/libidn
 	app-text/ghostscript-gpl
 	x11-libs/libXext
-	kde-base/tqtinterface
+	trinity-base/tqtinterface
 	>=dev-libs/openssl-0.9.7d
 	media-libs/fontconfig
 	media-libs/freetype:2
 	media-libs/libart_lgpl
 	net-dns/libidn
 	alsa? ( media-libs/alsa-lib )
-	arts? ( kde-base/arts )
+	arts? ( trinity-base/arts )
 	cups? ( >=net-print/cups-1.1.19 )
 	jpeg2k? ( media-libs/jasper )
 	openexr? ( >=media-libs/openexr-1.2.2-r2 )
@@ -39,11 +39,12 @@ DEPEND="${DEPEND}
 	lua? ( dev-lang/lua )"
 # CHECKME: compilation with avahi
 
-# not supported USE's: acl fam kreberos utempter doc bindist
+# not supported USE's witch are present in kdelibs:3.5: 
+#        acl fam kreberos utempter doc bindist
 RDEPEND="${DEPEND}"
 
-PDEPEND="
-	avahi? ( kde-misc/kdnssd-avahi )"
+#PDEPEND="
+#	avahi? ( kde-misc/kdnssd-avahi )"
 
 S=${WORKDIR}/${PN}
 
@@ -68,7 +69,7 @@ src_configure() {
 
 src_install() {
 	trinity-base_src_install
-
+	
 	dodir /etc/env.d
 	# KDE implies that the install path is listed first in KDEDIRS and the user
 	# directory (implicitly added) to be the last entry. Doing otherwise breaks
@@ -102,7 +103,7 @@ SEARCH_DIRS="${PREFIX}/bin ${PREFIX}/lib*"
 EOF
 
 	# make documentation help accessible throught symlink
-	dosym ${KDEDIR}/share/doc/kde/HTML ${KDEDIR}/share/doc/HTML
+	dosym ${TRINITY_DIR}/share/doc/kde/HTML ${TRINITY_DIR}/share/doc/HTML
 }
 
 # pkg_postinst () {

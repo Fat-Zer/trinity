@@ -87,8 +87,8 @@ fi
 # Call standart cmake-utils_src_onfigure and add some common arguments.
 trinity-base_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
-
 	mycmakeargs=(
+		-DCMAKE_INSTALL_PREFIX="${TRINITY_DIR}"
 		-DCMAKE_INSTALL_RPATH="${TRINITY_DIR}"
 		"${mycmakeargs[@]}"
 	)

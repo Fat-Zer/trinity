@@ -1,8 +1,8 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-KMNAME="dependencies/dbus-tqt"
-EAPI="2"
+EAPI="3"
+TRINITY_MODULE_NAME="dbus-tqt"
 
 inherit trinity-base
 
@@ -13,8 +13,8 @@ KEYWORDS=""
 SLOT="0"
 IUSE=""
 
-DEPEND="x11-libs/qt-meta:3
-	kde-base/tqtinterface"
+DEPEND="x11-libs/qt:3
+	trinity-base/tqtinterface"
 RDEPEND="$DEPEND"
 
 S=${WORKDIR}/dbus-tqt
