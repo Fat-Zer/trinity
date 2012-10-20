@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 #
 # Original Author: fat-zer
-# Purpose: support planty of ebuilds for kde-trinity project.
+# Purpose: support planty of ebuilds for trinity project (a kde3 fork).
 #
 
 inherit cmake-utils trinity-functions
@@ -13,15 +13,21 @@ inherit cmake-utils trinity-functions
 # @DESCRIPTION:
 # Determins he build type: live or release
 
-# @ECLASS-VARIABLE: KDE_SCM
+# @ECLASS-VARIABLE: TRINITY_SCM
 # @DESCRIPTION:
 # Determins from what version control system code is chiking out for live
 # ebuilds.
 
-# @ECLASS-VARIABLE: KCOMMON_DOCS
+# @ECLASS-VARIABLE: TMP_DOCDIR
+# @DESCRIPTION: 
+# A temporary directory used to copy common documentation before installing it
+# 
+
+
+# @ECLASS-VARIABLE: TRINITY_COMMON_DOCS
 # @DESCRIPTION:
 # Common doc names that was found in trinity project's dirs.
-KCOMMON_DOCS="AUTHORS BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE COMPILING
+TRINITY_COMMON_DOCS="AUTHORS BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE COMPILING
 	CONFIG_FORMAT CONFIGURING COPYING COPYRIGHT CREDITS DEBUG DESIGN FAQ 
 	HACKING HISTORY HOWTO IDEAS INSTALL LICENSE MAINTAINERS NAMING NEWS
 	NOTES PLUGINS PORTING README SECURITY-HOLES TASKGROUPS TEMPLATE 
@@ -38,32 +44,32 @@ else
 fi
 export BUILD_TYPE
 
-#reset KDE_SCM and inherit proper eclass
+#reset TRINITY_SCM and inherit proper eclass
 if [[ ${BUILD_TYPE} = live ]]; then
-	# set default KDE_SCM if not set
-	[[ -z "$KDE_SCM" ]] && KDE_SCM=svn
+	# set default TRINITY_SCM if not set
+	[[ -z "$TRINITY_SCM" ]] && TRINITY_SCM=git
 
-	case ${KDE_SCM} in
+	case ${TRINITY_SCM} in
 		git) inherit git-2 ;;
 		svn) inherit subversion ;;
-		*) die "Unsupported KDE_SCM=$KDE_SCM" ;;
+		*) die "Unsupported TRINITY_SCM=${TRINITY_SCM}" ;;
 	esac
 
 	#set some varyables
-	case ${KDE_SCM} in
+	case ${TRINITY_SCM} in
 	git)
-		 if [[ -n "$EGIT_MIRROR" ]]; then
-			EGIT_MIRROR="http://scm.trinitydesktop.org/scm/git/tde"
-		 	die "Trinity git repository is not work now"
+		 if [[ -z "$EGIT_MIRROR" ]]; then
+			EGIT_MIRROR="http://git.trinitydesktop.org/cgit"
 		 fi
-		 EGIT_REPO_URI="${EGIT_MIRROR}/${KMNAME}"
+		 EGIT_REPO_URI="${EGIT_MIRROR}/${TRINITY_MODULE_NAME}"
 		 EGIT_BRANCH="master"
-		 EGIT_PROJECT="trinity/$(dirname $KMNAME)"
+		 EGIT_PROJECT="trinity/${TRINITY_MODULE_NAME}"
+		 EGIT_HAS_SUBMODULES="yes"
 	;;
-	svn) ESVN_MIRROR="svn://anonsvn.kde.org/home/kde/branches/trinity"
-		 ESVN_REPO_URI="${ESVN_MIRROR}/${KMNAME}"
-		 ESVN_PROJECT="trinity/$(dirname $KMNAME)"
-	;;
+#	svn) ESVN_MIRROR="svn://anonsvn.kde.org/home/kde/branches/trinity"
+#		 ESVN_REPO_URI="${ESVN_MIRROR}/${TRINITY_MODULE_NAME}"
+#		 ESVN_PROJECT="trinity/$(dirname $TRINITY_MODULE_NAME)"
+#	;;
 	esac
 fi
 
@@ -83,7 +89,7 @@ trinity-base_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	mycmakeargs=(
-		-DCMAKE_INSTALL_RPATH="${KDEDIR}"
+		-DCMAKE_INSTALL_RPATH="${TRINITY_DIR}"
 		"${mycmakeargs[@]}"
 	)
 
@@ -104,7 +110,7 @@ trinity-base_src_install() {
 # @FUNCTION: trinity-base_create_tmp_docfiles
 # @DESCRIPTION:
 # Create docfiles in the form ${TMP_DOCDIR}/path.to.docfile.COMMON_NAME
-# Also see descriptions of KCOMMON_DOCS and TMP_DOCDIR.
+# Also see the description for TRINITY_COMMON_DOCS and TMP_DOCDIR.
 trinity-base_create_tmp_docfiles() {
 	debug-print-function ${FUNCNAME} "$@"
 	local srcdirs dir docfile targetdoc
@@ -122,7 +128,7 @@ trinity-base_create_tmp_docfiles() {
 
 	einfo "Generating documentation list..."
 	for dir in $srcdirs; do
-		for doc in ${KCOMMON_DOCS}; do
+		for doc in ${TRINITY_COMMON_DOCS}; do
 			for docfile in $(find $dir -type f -name "*${doc}*"); do
 				targetdoc="${docfile//\//.}"
 				targetdoc="${targetdoc#..}"
@@ -131,15 +137,15 @@ trinity-base_create_tmp_docfiles() {
 		done
 	done
 
-	if [[ "${KINSTALL_ROOT_DOCS}" == "yes" && " ${srcdirs} " == "* ./ *" ]]; then
-		for doc in ${KCOMMON_DOCS}; do
-			for docfile in $(ls ./"*${doc}*"); do
-				targetdoc="${docfile//\//.}"
-				targetdoc="${targetdoc#..}"
-				cp "${docfile}" "$TMP_DOCDIR/${targetdoc}"
-			done
-		done
-	fi
+#	if [[ "${TRINITY_INSTALL_ROOT_DOCS}" == "yes" && " ${srcdirs} " == "* ./ *" ]]; then
+#		for doc in ${TRINITY_COMMON_DOCS}; do
+#			for docfile in $(ls ./"*${doc}*"); do
+#				targetdoc="${docfile//\//.}"
+#				targetdoc="${targetdoc#..}"
+#				cp "${docfile}" "$TMP_DOCDIR/${targetdoc}"
+#			done
+#		done
+#	fi
 }
 
 # @FUNCTION: trinity-base_install_docfiles
@@ -153,7 +159,7 @@ trinity-base_install_docfiles() {
 	[[ -z "$docdir" ]] && die "docdir is not set in ${FUNCNAME}."
 
 	pushd "${docdir}" >/dev/null
-	for doc in $(ls); do
+	find . -maxdepth 1 -type f | while read doc; do
 		einfo "Installing documentation: ${doc##*/}"
 		dodoc "${doc}"
 	done
@@ -161,6 +167,3 @@ trinity-base_install_docfiles() {
 }
 
 EXPORT_FUNCTIONS src_configure src_install
-
-
-

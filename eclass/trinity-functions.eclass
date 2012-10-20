@@ -11,12 +11,12 @@ inherit versionator
 
 TRINITY_LIVEVER="3.5"
 
-# @FUNCTION: set-kdever
+# @FUNCTION: set-trinityver
 # @USAGE: < version >
 # @DESCRIPTION:
 # Sets the right KDEVER, KDEDIR and PREFIX varyables...
 # !!! unfinished
-set-kdever() {
+set-trinityver() {
 	debug-print-function $FUNCNAME "$@"
 
 	# set install location:
@@ -34,23 +34,24 @@ set-kdever() {
 
 	# get version elements
 	if [[ -n "$1" ]]; then
-		KDEVER="$1"
+		TRINITY_VER="$1"
 	else
-		KDEVER="$PV"
+		TRINITY_VER="$PV"
 	fi
 
-	export KDEVER=$(get_version_component_range 1-2 ${KDEVER})
-	[[ "$KDEVER" = "3.9999" ]] && export KDEVER="${TRINITY_LIVEVER}"
+	TRINITY_VER=$(get_version_component_range 1-2 ${TRINITY_VER})
+	[[ "$TRINITY_VER" = "3.9999" ]] && export TRINITY_VER="${TRINITY_LIVEVER}"
 
-	export PREFIX="/usr/kde/${KDEVER}"
+	PREFIX="/usr/kde/${TRINITY_VER}"
 
-	export KDEDIR="${PREFIX}"
-	export KDEDIRS="${PREFIX}"
+	TRINITY_DIR="${PREFIX}"
+	TRINITY_DIRS="${PREFIX}"
 
 	# this sould solve problems like "cannot find libraries" espessialy when
 	# compiling kdelibs
-	if [ -z "${LD_LIBRARY_PATH##*:${KDEDIR}/lib:*}" ]; then
-		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH%:}:${KDEDIR}/lib"
+	if [ -z "${LD_LIBRARY_PATH##*:${TRINITY_DIR}/lib:*}" ]; then
+		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH%:}:${TRINITY_DIR}/lib"
 	fi
+	
 }
 

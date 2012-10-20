@@ -1,10 +1,8 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-EAPI="2"
-KMNAME="dependencies/${PN}"
-
+EAPI="3"
+TRINITY_MODULE_NAME="${PN}"
 inherit trinity-base
 
 DESCRIPTION="Interface and abstraction library for Qt and Trinity"
@@ -15,10 +13,10 @@ KEYWORDS=""
 IUSE="+qt3 -qt4"
 SLOT="0"
 
-RDEPEND="qt3? ( x11-libs/qt-meta:3 )
+DEPEND="qt3? ( x11-libs/qt-meta:3 )
 	qt4? ( x11-libs/qt-meta:4 )"
 
-DEPEND="${RDEPEND}"
+RDEPEND="${RDEPEND}"
 
 S=${WORKDIR}/${PN}
 
