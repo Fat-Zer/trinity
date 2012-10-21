@@ -1,16 +1,31 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdebase"
-KMMODULE="khelpcenter doc"
 EAPI="3"
-inherit trinity-meta
+TRINITY_MODULE_NAME="tdebase"
 
-DESCRIPTION="The KDE help center."
+inherit trinity-meta
+TRINITY_SUBMODULE="khelpcenter doc"
+
+DESCRIPTION="The Trinity help center."
 KEYWORDS=""
 
 RDEPEND="
-	>=kde-base/kdebase-kioslaves-${PV}:${SLOT}
+	>=trinity-base/tdebase-kioslaves-${PV}:${SLOT}
 	>=www-misc/htdig-3.2.0_beta6-r1"
 IUSE=""
+
+pkg_setup() {
+	# we should reduce MAKEOPTS -j parametr to no more than 4
+	local makeopts_j
+	makeopts_j="$(echo "$MAKEOPTS" | sed -n 's/\(^\|.*\s\)\(-j\s*[0-9]\+\)\(\s.*\|$\)/\2/p')"
+	if [ -n "$makeopts_j" -a "$makeopts_j" > 4 ]; then
+		export MAKEOPTS="$(echo "$MAKEOPTS" | sed -n \
+			's/\(^\|.*\s\)\(-j\s*[0-9]\+\)\(\s.*\|$\)/\1-j4\3/p')"
+		ewarn "This ebuild needs huge amoumt of memmory to compile in highly"
+		ewarn "parallel mode so it can chew it all. "
+		ewarn "MAKEOPTS are reduced to '$MAKEOPTS'."
+	fi
+
+	trinity-meta_pkg_setup
+}

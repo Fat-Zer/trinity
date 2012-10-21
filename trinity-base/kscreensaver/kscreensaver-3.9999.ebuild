@@ -1,18 +1,18 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdebase"
 EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta
 
-DESCRIPTION="KDE screensaver framework"
+DESCRIPTION="Trinity screensaver framework"
 KEYWORDS=""
 IUSE="opengl +krootbacking"
 # CHECKME: if this use needed
 DEPEND="x11-libs/libXt
 	opengl? ( virtual/opengl )
-	krootbacking? ( kde-base/krootbacking )"
+	krootbacking? ( trinity-base/krootbacking )"
 RDEPEND="${DEPEND}"
 
 src_install () {

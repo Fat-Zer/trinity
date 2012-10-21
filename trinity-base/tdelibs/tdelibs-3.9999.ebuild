@@ -75,35 +75,35 @@ src_install() {
 	# directory (implicitly added) to be the last entry. Doing otherwise breaks
 	# certain functionality. Do not break this (once again *sigh*), but read the code.
 	# KDE saves the installed path implicitly and so this is not needed, /usr
-	# is set in ${TRINITY_DIR}/share/config/kdeglobals and so KDEDIRS is not needed.
+	# is set in ${TDEDIR}/share/config/kdeglobals and so KDEDIRS is not needed.
 
 	# List all the multilib libdirs
 	local libdirs
 	for libdir in $(get_all_libdirs); do
-		libdirs="${TRINITY_DIR}/${libdir}:${libdirs}"
+		libdirs="${TDEDIR}/${libdir}:${libdirs}"
 	done
 
 	cat <<EOF > "${D}"/etc/env.d/45trinitypaths-${SLOT} # number goes down with version upgrade
-PATH=${TRINITY_DIR}/bin
-ROOTPATH=${TRINITY_DIR}/sbin:${TRINITY_DIR}/bin
+PATH=${TDEDIR}/bin
+ROOTPATH=${TDEDIR}/sbin:${TDEDIR}/bin
 LDPATH=${libdirs#:}
-MANPATH=${TRINITY_DIR}/share/man
-CONFIG_PROTECT="${TRINITY_DIR}/share/config ${TRINITY_DIR}/env ${TRINITY_DIR}/shutdown /usr/share/config"
+MANPATH=${TDEDIR}/share/man
+CONFIG_PROTECT="${TDEDIR}/share/config ${TDEDIR}/env ${TDEDIR}/shutdown /usr/share/config"
 #KDE_IS_PRELINKED=1
 # Excessive flushing to disk as in releases before KDE 3.5.10. Usually you don't want that.
 #KDE_EXTRA_FSYNC=1
-XDG_DATA_DIRS="${TRINITY_DIR}/share"
+XDG_DATA_DIRS="${TDEDIR}/share"
 EOF
 
 	# Make sure the target for the revdep-rebuild stuff exists. Fixes bug 184441.
 	dodir /etc/revdep-rebuild
 
 cat <<EOF > "${D}"/etc/revdep-rebuild/50-trinity
-SEARCH_DIRS="${TRINITY_DIR}/bin ${TRINITY_DIR}/lib*"
+SEARCH_DIRS="${TDEDIR}/bin ${TDEDIR}/lib*"
 EOF
 
 	# make documentation help accessible throught symlink
-	dosym ${TRINITY_DIR}/share/doc/kde/HTML ${TRINITY_DIR}/share/doc/HTML
+	dosym ${TDEDIR}/share/doc/kde/HTML ${TDEDIR}/share/doc/HTML
 }
 
 # pkg_postinst () {

@@ -1,13 +1,13 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME=kdebase
 EAPI="4"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta
 KMEXTRACTALSO="kicker kwin kdesktop klipper kxkb"
 
-DESCRIPTION="The KDE Control Center"
+DESCRIPTION="The Trinity Control Center"
 KEYWORDS=""
 IUSE="samba logitech-mouse ieee1394"
 
@@ -23,25 +23,25 @@ DEPEND="x11-libs/libX11
 	samba? ( net-fs/samba )
 	logitech-mouse? ( virtual/libusb:0 )
 	ieee1394? ( sys-libs/libraw1394 )
-	kde-base/kdelibs:${SLOT}
-	>=kde-base/libkonq-${PV}:${SLOT}
-	>=kde-base/kicker-${PV}:${SLOT}"
+	trinity-base/tdelibs:${SLOT}
+	>=trinity-base/libkonq-${PV}:${SLOT}
+	>=trinity-base/kicker-${PV}:${SLOT}"
 
 RDEPEND="${DEPEND}
 	sys-apps/usbutils
-	>=kde-base/kcminit-${PV}:${SLOT}
-	>=kde-base/kdebase-data-${PV}:${SLOT}
-	>=kde-base/kdesu-${PV}:${SLOT}
-	>=kde-base/khelpcenter-${PV}:${SLOT}
-	>=kde-base/khotkeys-${PV}:${SLOT}"
+	>=trinity-base/kcminit-${PV}:${SLOT}
+	>=trinity-base/tdebase-data-${PV}:${SLOT}
+	>=trinity-base/tdesu-${PV}:${SLOT}
+	>=trinity-base/khelpcenter-${PV}:${SLOT}
+	>=trinity-base/khotkeys-${PV}:${SLOT}"
 
-# possible dependecies
+# possible dependecies CHECKME
 # DEPEND="
 #	>=media-libs/freetype-2.3
 #	media-libs/fontconfig"
 # RDEPEND="${DEPEND}
 
-S=${WORKDIR}/kdebase
+# S=${WORKDIR}/kdebase
 
 src_configure() {
 	mycmakeargs=(

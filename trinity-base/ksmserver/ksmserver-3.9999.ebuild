@@ -1,12 +1,12 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdebase"
 EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta
 
-DESCRIPTION="The reliable KDE session manager that talks the standard X11R6"
+DESCRIPTION="The reliable Trinity session manager that talks the standard X11R6"
 KEYWORDS=""
 IUSE=""
 

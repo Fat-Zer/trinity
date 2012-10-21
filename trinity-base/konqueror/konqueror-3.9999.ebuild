@@ -1,21 +1,21 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdebase"
 EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta
 KMEXTRACTALSO="kdesktop"
 
-DESCRIPTION="KDE: Web browser, file manager, ..."
+DESCRIPTION="Trinity: Web browser, file manager, ..."
 KEYWORDS=""
 IUSE="java"
 # FIXME: support branding USE flag
 DEPEND="
-	>=kde-base/libkonq-${PV}:${SLOT}"
+	>=trinity-base/libkonq-${PV}:${SLOT}"
 
 RDEPEND="${DEPEND}
-	>=kde-base/kcontrol-${PV}:${SLOT}
-	>=kde-base/kdebase-kioslaves-${PV}:${SLOT}
-	>=kde-base/kfind-${PV}:${SLOT}
+	>=trinity-base/kcontrol-${PV}:${SLOT}
+	>=trinity-base/tdebase-kioslaves-${PV}:${SLOT}
+	>=trinity-base/kfind-${PV}:${SLOT}
 	java? ( >=virtual/jre-1.4 )"

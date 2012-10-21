@@ -1,12 +1,12 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdebase"
 EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta linux-info
 
-DESCRIPTION="An utility to add SAK support to kdm and some other kdm parts."
+DESCRIPTION="An utility to add SAK support to kdm and some other Trinity parts."
 KEYWORDS=""
 IUSE=""
 

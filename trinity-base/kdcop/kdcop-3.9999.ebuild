@@ -1,11 +1,11 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdebase"
 EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta
 
-DESCRIPTION="KDE: graphical DCOP browser/client"
+DESCRIPTION="Trinity: graphical DCOP browser/client"
 KEYWORDS=""
 IUSE=""

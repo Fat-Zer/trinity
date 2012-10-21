@@ -1,19 +1,18 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdebase"
 EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta
 
-DESCRIPTION="KDE splashscreen framework (the splashscreen of KDE itself, not of individual apps)"
+DESCRIPTION="Trinity splashscreen framework (the splashscreen of Trinity itself, not of individual apps)"
 KEYWORDS=""
 IUSE="xinerama"
 
 DEPEND="x11-libs/libXcursor
 	xinerama? ( x11-proto/xineramaproto )"
-RDEPEND="x11-libs/libXcursor
-	xinerama? ( x11-libs/libXinerama )"
+RDEPEND="$DEPEND"
 
 src_configure() {
 	mycmakeargs=(

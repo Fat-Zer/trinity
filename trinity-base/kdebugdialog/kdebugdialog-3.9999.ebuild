@@ -1,11 +1,11 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdebase"
 EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta
 
-DESCRIPTION="A KDE dialog box for setting preferences for debug output."
+DESCRIPTION="A Trinity dialog box for setting preferences for debug output."
 KEYWORDS=""
 IUSE=""

@@ -43,13 +43,13 @@ set-trinityver() {
 	[[ "$TRINITY_VER" = "3.9999" ]] && export TRINITY_VER="${TRINITY_LIVEVER}"
 
 
-	TRINITY_DIR="/usr/trinity/${TRINITY_VER}"
-	TRINITY_DIRS="/usr/trinity/${TRINITY_VER}"
+	export TDEDIR="/usr/trinity/${TRINITY_VER}"
+	export TDEDIRS="/usr/trinity/${TRINITY_VER}"
 
 	# this sould solve problems like "cannot find libraries" espessialy when
 	# compiling kdelibs
-	if [ -z "${LD_LIBRARY_PATH##*:${TRINITY_DIR}/lib:*}" ]; then
-		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH%:}:${TRINITY_DIR}/lib"
+	if [ -z "${LD_LIBRARY_PATH##*:${TDEDIR}/lib:*}" ]; then
+		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH%:}:${TDEDIR}/lib"
 	fi
 	
 }

@@ -1,11 +1,12 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-KMNAME="kdebase"
 EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
+
 inherit trinity-meta
 
-DESCRIPTION="X terminal for use with KDE."
+DESCRIPTION="X terminal for use with Trinity."
 KEYWORDS=""
 IUSE=""
 
@@ -19,5 +20,5 @@ RDEPEND="${DEPEND}
 
 # For kcm_konsole module
 RDEPEND="${RDEPEND}
-	>=kde-base/kcontrol-${PV}:${SLOT}"
+	>=trinity-base/kcontrol-${PV}:${SLOT}"
 #FIXME: check if it is neccecery

@@ -3,7 +3,7 @@
 # $Header: $
 
 #
-# Original Author: alexander
+# Original Author: fat-zer
 # Purpose: make easy to install trinity ebuilds. 
 #
 
@@ -14,12 +14,12 @@ HOMEPAGE="http://www.trinitydesktop.org/"
 
 # ban EAPI 0 and 1
 case $EAPI in
-	0|1) die "EAPI=${EAPI} is not supported" ;;
-	2|3|4) ;;
+	0|1|2) die "EAPI=${EAPI} is not supported" ;;
+	3|4) ;;
 	*) ewarn "Unknown EAPI=${EAPI}"
 esac
 
-# set slot, TRINITY_DIR, TRINITY_VER and PREFIX
+# set slot, TDEDIR, TRINITY_VER and PREFIX
 set-trinityver
 [[ -z "$SLOT" ]] && SLOT="$TRINITY_VER"
 
@@ -30,7 +30,7 @@ set-trinity-submodule() {
 	debug-print-function $FUNCNAME "$@"
 
 	if [[ -z "$TRINITY_SUBMODULE" ]]; then
-		export TRINITY_SUBMODULE="${PN#${TRINITY_MODULE_NAME}-}"
+		TRINITY_SUBMODULE="${PN#${TRINITY_MODULE_NAME}-}"
 	fi
 }
 
@@ -42,7 +42,7 @@ trinity-meta_pkg_setup() {
 	debug-print-function ${FUNCNAME} "$@"
 	set-trinity-submodule;
 
-	export S=${WORKDIR}/${TRINITY_MODULE_NAME}
+	S=${WORKDIR}/${TRINITY_MODULE_NAME}
 }
 
 # @FUNCTION: trinity-meta_src_unpack
@@ -61,7 +61,6 @@ trinity-meta_src_unpack() {
 #				subversion_bootstrap
 #				;;
 			git)
-				EGIT_NOUNPACK="yes"
 				git-2_src_unpack
 				;;
 		esac
@@ -80,7 +79,11 @@ trinity-meta_src_extract() {
 
 	if [[ ${BUILD_TYPE} = live ]]; then
 		einfo "Exporting parts of working copy to ${S}"
-		trinity-meta_rsync_copy
+		case "$TRINITY_SCM" in
+#			svn) trinity-meta_rsync_copy ;;
+			git) ;;
+			*)   die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
+		esac
 	else
 		die "BUILD_TYPE=$BUILD_TYPE is not supported by function ${FUNCTION}"
 		eerror "relese extract is complitly untested"
@@ -165,10 +168,9 @@ trinity-meta_rsync_copy() {
 	case "${TRINITY_SCM}" in
 #	svn) wc_path="${ESVN_WC_PATH}";;
 	git) wc_path="${EGIT_STORE_DIR}/${EGIT_PROJECT}";;
-	*)   die "Unsupported TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
+	*)   die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
 		;;
 	esac
-	einfo "${wc_path}/"
 
 	rsync_options="--group --links --owner --perms --quiet --exclude=.svn/ --exclude=.git/"
 
@@ -200,14 +202,14 @@ trinity-meta_create_extractlists() {
 	# add package-specific files and directories
 	case "${TRINITY_MODULE_NAME}" in
 		tdebase)
-#			TSM_EXTRACT_LIST+=" kcontrol kdmlib" 
+			TSM_EXTRACT_LIST+=" kcontrol " 
 			;;
 		tdeartwork) ;;
 		tdegraphics) ;;
 		*)
 			die "TRINITY_MODULE_NAME ${TRINITY_MODULE_NAME} is not supported by function ${FUNCNAME}" ;;
 	esac
-	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACTALSO}"
+	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACT_ALSO}"
 	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: TSM_EXTRACT_LIST ${TSM_EXTRACT_LIST}"
 }
 
@@ -216,7 +218,23 @@ trinity-meta_create_extractlists() {
 # Default src prepare function. Currently it's only a stub.
 trinity-meta_src_prepare() {
 	debug-print-function ${FUNCNAME} "$@"
-
+	if [ "${TRINITY_MODULE_NAME}" == "tdebase" ]; then
+		cat >$T/tdebase-fix-migratekde3-install.patch <<'EOF'
+--- tdebase/CMakeLists.txt.orig 2012-10-20 13:29:16.000000000 +0400
++++ tdebase/CMakeLists.txt      2012-10-21 04:03:09.000000000 +0400
+@@ -219,8 +219,8 @@
+ 
+ if( BUILD_STARTTDE )
+   install( PROGRAMS starttde DESTINATION ${BIN_INSTALL_DIR} )
++  install( PROGRAMS migratekde3 r14-xdg-update DESTINATION ${BIN_INSTALL_DIR} )
+ endif()
+-install( PROGRAMS migratekde3 r14-xdg-update DESTINATION ${BIN_INSTALL_DIR} )
+ 
+ 
+ ##### write configure files #####################
+EOF
+		epatch ${T}/tdebase-fix-migratekde3-install.patch
+	fi
 }
 
 # @FUNCTION: trinity-meta_src_configure
@@ -234,7 +252,7 @@ trinity-meta_src_configure() {
 
 	mycmakeargs=(
 		"${mycmakeargs[@]}"
-		${tsmeargs}
+		${tsmargs}
 	)
 
 	trinity-base_src_configure

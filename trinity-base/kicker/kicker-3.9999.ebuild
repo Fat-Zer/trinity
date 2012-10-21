@@ -1,23 +1,23 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+EAPI="3"
+TRINITY_MODULE_NAME="tdebase"
 
-KMNAME="kdebase"
-EAPI="2"
 inherit trinity-meta
 
-DESCRIPTION="Kicker is the KDE application starter panel, also capable of some useful applets and extensions."
+DESCRIPTION="Kicker is the Trinity application starter panel, also capable of some useful applets and extensions."
 KEYWORDS=""
 IUSE="xcomposite"
 
-DEPEND=">=kde-base/libkonq-${PV}:${SLOT}
-	>=kde-base/kdebase-data-${PV}:${SLOT}
+DEPEND=">=trinity-base/libkonq-${PV}:${SLOT}
+	>=trinity-base/tdebase-data-${PV}:${SLOT}
 	x11-libs/libXrender
 	x11-libs/libXfixes
 	xcomposite? ( x11-libs/libXcomposite )"
 
 RDEPEND="${RDEPEND}
-	kde-base/kmenuedit:${SLOT}"
+	trinity-base/kmenuedit:${SLOT}"
 
 src_configure() {
 	mycmakeargs=(
