@@ -1,17 +1,17 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdeartwork"
 EAPI="4"
+TRINITY_MODULE_NAME="tdeartwork"
+
 inherit trinity-meta
 
-DESCRIPTION="Themes for IceWM from the kdeartwork package."
+DESCRIPTION="Themes for IceWM from the Trinityartwork package."
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
-RDEPEND=">=kde-base/kdeartwork-kwin-styles-${PV}:${SLOT}"
+RDEPEND="$DEPEND
+	>=trinity-base/tdeartwork-twin-styles-${PV}:${SLOT}"
 
 pkg_postinst() {
 	elog "More IceWM themes are available installing x11-themes/icewm-themes"

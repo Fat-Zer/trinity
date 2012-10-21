@@ -244,10 +244,12 @@ EOF
 trinity-meta_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	local item tsmargs
+	local item tsmargs mod
 
 	for item in $TRINITY_SUBMODULE; do
-		tsmargs+=" -DBUILD_${item^^}=ON"
+		mod="${item^^}"
+		mod="${mod//-/_}"
+		tsmargs+=" -DBUILD_${mod}=ON"
 	done
 
 	mycmakeargs=(

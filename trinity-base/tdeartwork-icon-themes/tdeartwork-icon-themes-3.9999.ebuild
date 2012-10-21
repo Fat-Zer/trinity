@@ -1,14 +1,12 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdeartwork"
 EAPI="4"
-inherit trinity-meta
+TRINITY_MODULE_NAME="tdeartwork"
 
-DESCRIPTION="Window styles for kde"
+inherit trinity-meta
+KMMODULE="IconThemes"
+
+DESCRIPTION="Icon themes for Trinity"
 KEYWORDS=""
 IUSE=""
-
-DEPEND=">=kde-base/kwin-${PV}:${SLOT}"
-RDEPEND="$DEPEND"

@@ -1,22 +1,22 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdeartwork"
 EAPI="4"
+TRINITY_MODULE_NAME="tdeartwork"
+
 inherit trinity-meta
 
-DESCRIPTION="Extra screensavers for kde"
+DESCRIPTION="Extra screensavers for Trinity"
 KEYWORDS=""
 IUSE="opengl xscreensaver arts"
 
 DEPEND="
-	>=kde-base/kscreensaver-${PV}:${SLOT}
-	>=kde-base/krootbacking-${PV}:${SLOT}
+	>=trinity-base/kscreensaver-${PV}:${SLOT}
+	>=trinity-base/krootbacking-${PV}:${SLOT}
 	media-libs/libart_lgpl
 	opengl? ( virtual/opengl )
 	xscreensaver? ( x11-misc/xscreensaver )
-	arts? ( kde-base/arts )"
+	arts? ( trinity-base/arts )"
 RDEPEND="$DEPEND"
 
 src_configure() {

@@ -39,13 +39,13 @@ trinity-base/libkonq:3.5 **
 trinity-base/nsplugins:3.5 **
 trinity-base/tdeartwork-emoticons:3.5 **
 trinity-base/tdeartwork-icewm-themes:3.5 **
-trinity-base/tdeartwork-iconthemes:3.5 **
+trinity-base/tdeartwork-icon-themes:3.5 **
 trinity-base/tdeartwork-kscreensaver:3.5 **
-trinity-base/tdeartwork-kwin-styles:3.5 **
 trinity-base/tdeartwork-kworldclock:3.5 **
 trinity-base/tdeartwork-meta:3.5 **
 trinity-base/tdeartwork-sounds:3.5 **
 trinity-base/tdeartwork-styles:3.5 **
+trinity-base/tdeartwork-twin-styles:3.5 **
 trinity-base/tdeartwork-wallpapers:3.5 **
 trinity-base/tdebase-data:3.5 **
 trinity-base/tdebase-kioslaves:3.5 **

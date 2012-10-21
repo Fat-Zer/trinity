@@ -31,6 +31,6 @@ src_configure() {
 	)
 
 	trinity-base_src_configure
-#TODO: change this after upstream BUG #1284 fixed
+#TODO: change this after upstream BUG #1284 become fixed
 #	trinity-meta_src_configure
 }

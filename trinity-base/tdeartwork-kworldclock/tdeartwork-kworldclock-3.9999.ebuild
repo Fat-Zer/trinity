@@ -1,14 +1,14 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-KMNAME="kdeartwork"
 EAPI="4"
+TRINITY_MODULE_NAME="tdeartwork"
+
 inherit trinity-meta
 
 DESCRIPTION="kworldclock from kdeartwork"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
-RDEPEND=">=kde-base/kworldclock-${PV}:${SLOT}"
+RDEPEND="$DEPEND
+	>=trinity-base/kworldclock-${PV}:${SLOT}"
