@@ -22,7 +22,6 @@ RDEPEND="${DEPEND}"
 
 src_configure() {
 	mycmakeargs=(
-		-DBUILD_KWIN=ON
 		$(cmake-utils_use_with xcomposite XCOMPOSITE)
 		$(cmake-utils_use_with xcomposite XFIXES)
 		$(cmake-utils_use_with xcomposite XRENDER)
@@ -30,7 +29,5 @@ src_configure() {
 		$(cmake-utils_use_with xcomposite XEXT)
 	)
 
-	trinity-base_src_configure
-#TODO: change this after upstream BUG #1284 become fixed
-#	trinity-meta_src_configure
+	trinity-meta_src_configure
 }
