@@ -11,13 +11,13 @@ set-trinityver
 DESCRIPTION="Trinity libraries needed by all TDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
-SLOT="$TRINITY_LIVEVER"
+SLOT="3.5"
 KEYWORDS=""
 IUSE="alsa avahi arts cups jpeg2k openexr spell tiff lua"
 
 DEPEND="${DEPEND}
-	>=x11-libs/qt-3.5.0
-	trinity-base/tqtinterface
+	>=x11-libs/qt-3.3.8d
+	>=trinity-base/tqtinterface-${PV}
 	>=dev-libs/libxslt-1.1.16
 	>=dev-libs/libxml2-2.6.6
 	>=dev-libs/libpcre-6.6

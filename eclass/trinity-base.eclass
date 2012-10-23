@@ -23,6 +23,25 @@ inherit cmake-utils trinity-functions
 # A temporary directory used to copy common documentation before installing it
 # 
 
+trinity-base_declare_src_uri() {
+	local host_module_name
+
+# taballs are still named with kde prefix
+#	case "${TRINITY_MODULE_NAME}" in
+#		tdelibs) host_module_name="kdelibs" ;;
+#		tdebase) host_module_name="kdebase" ;;
+#		tdeartwork) host_module_name="kdeartwork" ;;
+#		*) host_module_name="${TRINITY_MODULE_NAME}" ;;
+#	esac
+	host_module_name="${TRINITY_MODULE_NAME}"
+
+	if [[ -n "${TRINITY_MODULE_TYPE}" ]]; then
+		host_module_name="${TRINITY_MODULE_TYPE}/${host_module_name}"
+	fi
+
+	SRC_URI="${TRINITY_BASE_SRC_URI}/${PV}/${host_module_name}-${PV}.tar.gz"
+}
+
 
 # @ECLASS-VARIABLE: TRINITY_COMMON_DOCS
 # @DESCRIPTION:
@@ -71,11 +90,7 @@ if [[ ${BUILD_TYPE} = live ]]; then
 #	;;
 	esac
 elif [[ "${BUILD_TYPE}" == release ]]; then
-	if [[ -z "${TRINITY_MODULE_TYPE}" ]]; then
-		SRC_URI="${TRINITY_BASE_SRC_URI}/${PV}/${TRINITY_MODULE_NAME}-${PV}.tar.gz"
-	else
-		SRC_URI="${TRINITY_BASE_SRC_URI}/${PV}/${TRINITY_MODULE_TYPE}/${TRINITY_MODULE_NAME}-${PV}.tar.gz"
-	fi
+	trinity-base_declare_src_uri
 else
 	die "Unknown BUILD_TYPE=${BUILD_TYPE}"
 fi
