@@ -11,7 +11,7 @@ HOMEPAGE="http://qt.nokia.com/"
 
 # IMMQT_P="qt-x11-immodule-unified-qt3.3.8-20070321-gentoo"
 
-SRC_URI="http://trinity.blackmag.net/releases/${PV}/dependencies/qt3-${PV}.tar.gz"
+SRC_URI="http://trinity.blackmag.net/releases/${PV}/dependencies/qt3-3.5.13.1.tar.gz"
 #	immqt? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )
 #	immqt-bc? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )"
 
@@ -48,7 +48,7 @@ DEPEND="${RDEPEND}
 #	immqt-bc? ( x11-proto/xineramaproto )"
 #PDEPEND="odbc? ( ~dev-db/qt-unixODBC-$PV )"
 
-S="${WORKDIR}/qt3-${PV}"
+S="${WORKDIR}/qt3-3.5.13.1"
 
 QTBASE="/usr/qt/3"
 
