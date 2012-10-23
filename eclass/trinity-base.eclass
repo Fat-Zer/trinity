@@ -33,14 +33,13 @@ TRINITY_COMMON_DOCS="AUTHORS BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE COMPILIN
 	NOTES PLUGINS PORTING README SECURITY-HOLES TASKGROUPS TEMPLATE 
 	TESTCASES THANKS THOUGHTS TODO VERSION"
 
-
+TRINITY_BASE_SRC_URI="http://trinity.blackmag.net/releases"
 
 # determine the build type
 if [[ ${PV} = *9999* ]]; then
 	BUILD_TYPE="live"
 else
 	BUILD_TYPE="release"
-	die "Releases is not supported yet"
 fi
 export BUILD_TYPE
 
@@ -58,7 +57,7 @@ if [[ ${BUILD_TYPE} = live ]]; then
 	#set some varyables
 	case ${TRINITY_SCM} in
 	git)
-		 if [[ -z "$EGIT_MIRROR" ]]; then
+		 if [[ -z "${EGIT_MIRROR}" ]]; then
 			EGIT_MIRROR="http://git.trinitydesktop.org/cgit"
 		 fi
 		 EGIT_REPO_URI="${EGIT_MIRROR}/${TRINITY_MODULE_NAME}"
@@ -71,6 +70,14 @@ if [[ ${BUILD_TYPE} = live ]]; then
 #		 ESVN_PROJECT="trinity/$(dirname $TRINITY_MODULE_NAME)"
 #	;;
 	esac
+elif [[ "${BUILD_TYPE}" == release ]]; then
+	if [[ -z "${TRINITY_MODULE_TYPE}" ]]; then
+		SRC_URI="${TRINITY_BASE_SRC_URI}/${PV}/${TRINITY_MODULE_NAME}-${PV}.tar.gz"
+	else
+		SRC_URI="${TRINITY_BASE_SRC_URI}/${PV}/${TRINITY_MODULE_TYPE}/${TRINITY_MODULE_NAME}-${PV}.tar.gz"
+	fi
+else
+	die "Unknown BUILD_TYPE=${BUILD_TYPE}"
 fi
 
 # if [[ ${CATEGORY} == "kde-base" ]]; then
@@ -81,13 +88,14 @@ fi
 # 		*) ARTS_REQUIRED="never" ;;
 # 	esac
 # fi
-
 # @FUNCTION: trinity-base_src_configure
 # @DESCRIPTION:
 # Call standart cmake-utils_src_onfigure and add some common arguments.
 trinity-base_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
-	export PREFIX="${TDEDIR}"
+	
+	[[ -n "${PREFIX}" ]] && export PREFIX="${TDEDIR}"
+
 	mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH="${TDEDIR}"
 		"${mycmakeargs[@]}"

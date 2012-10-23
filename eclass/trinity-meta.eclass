@@ -219,6 +219,7 @@ trinity-meta_create_extractlists() {
 trinity-meta_src_prepare() {
 	debug-print-function ${FUNCNAME} "$@"
 	if [ "${TRINITY_MODULE_NAME}" == "tdebase" ]; then
+		# upstream CMakelists files are sometimes really crappy...
 		cat >$T/tdebase-fix-migratekde3-install.patch <<'EOF'
 --- tdebase/CMakeLists.txt.orig 2012-10-20 13:29:16.000000000 +0400
 +++ tdebase/CMakeLists.txt      2012-10-21 04:03:09.000000000 +0400
