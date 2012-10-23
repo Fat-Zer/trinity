@@ -9,7 +9,7 @@
 
 inherit versionator
 
-TRINITY_LIVEVER="3.5"
+TRINITY_LIVEVER="14.0"
 
 # @FUNCTION: set-trinityver
 # @USAGE: < version >
