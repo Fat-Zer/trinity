@@ -12,56 +12,12 @@
 
 inherit toolchain-funcs versionator eutils
 
-QTPKG="x11-libs/qt-"
-QT3MAJORVERSIONS="3.3 3.2 3.1 3.0"
-QT3VERSIONS="3.3.8b-r1 3.3.8b 3.3.8-r4 3.3.8-r3 3.3.8-r2 3.3.8-r1 3.3.8 3.3.6-r5 3.3.6-r4 3.3.6-r3 3.3.6-r2 3.3.6-r1 3.3.6 3.3.5-r1 3.3.5 3.3.4-r9 3.3.4-r8 3.3.4-r7 3.3.4-r6 3.3.4-r5 3.3.4-r4 3.3.4-r3 3.3.4-r2 3.3.4-r1 3.3.4 3.3.3-r3 3.3.3-r2 3.3.3-r1 3.3.3 3.3.2 3.3.1-r2 3.3.1-r1 3.3.1 3.3.0-r1 3.3.0 3.2.3-r1 3.2.3 3.2.2-r1 3.2.2 3.2.1-r2 3.2.1-r1 3.2.1 3.2.0 3.1.2-r4 3.1.2-r3 3.1.2-r2 3.1.2-r1 3.1.2 3.1.1-r2 3.1.1-r1 3.1.1 3.1.0-r3 3.1.0-r2 3.1.0-r1 3.1.0"
-
 if [[ -z "${QTDIR}" ]]; then
 	export QTDIR="/usr/qt/3"
 fi
 
 addwrite "${QTDIR}/etc/settings"
 addpredict "${QTDIR}/etc/settings"
-
-# @FUNCTION: qt_min_version
-# @USAGE: [minimum version]
-# @DESCRIPTION:
-# This function is deprecated. Use slot dependencies instead.
-qt_min_version() {
-	local list=$(qt_min_version_list "$@")
-	ewarn "${CATEGORY}/${PF}: qt_min_version() is deprecated. Use slot dependencies instead."
-	if [[ ${list%% *} == "${list}" ]]; then
-		echo "${list}"
-	else
-		echo "|| ( ${list} )"
-	fi
-}
-
-qt_min_version_list() {
-	local MINVER="$1"
-	local VERSIONS=""
-
-	case "${MINVER}" in
-		3|3.0|3.0.0) VERSIONS="=${QTPKG}3*";;
-		3.1|3.1.0|3.2|3.2.0|3.3|3.3.0)
-			for x in ${QT3MAJORVERSIONS}; do
-				if $(version_is_at_least "${MINVER}" "${x}"); then
-					VERSIONS="${VERSIONS} =${QTPKG}${x}*"
-				fi
-			done
-			;;
-		3*)
-			for x in ${QT3VERSIONS}; do
-				if $(version_is_at_least "${MINVER}" "${x}"); then
-					VERSIONS="${VERSIONS} =${QTPKG}${x}"
-				fi
-			done
-			;;
-		*) VERSIONS="=${QTPKG}3*";;
-	esac
-
-	echo ${VERSIONS}
-}
 
 # @FUNCTION: eqmake3
 # @USAGE: [.pro file] [additional parameters to qmake]
