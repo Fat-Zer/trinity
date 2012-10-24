@@ -23,10 +23,20 @@ esac
 set-trinityver
 [[ -z "$SLOT" ]] && SLOT="$TRINITY_VER"
 
+if [[ "$TRINITY_VER" == "3.5" ]]; then
 # common dependencies
-DEPEND="trinity-base/tdelibs:${SLOT}"
+	DEPEND="trinity-base/kdelibs:${SLOT}"
+else
+	DEPEND="trinity-base/tdelibs:${SLOT}"
+fi
 
-set-trinity-submodule() {
+# @FUNCTION: trinity-meta_set_trinity_submodule
+# @DESCRIPTION:
+# sets the TRINITY_SUBMODULE variable to vth value aptained from ${PN}
+# if it doesn't set yet
+# Default pkg_setup function. It sets the correct ${S}
+# nessecary files.
+trinity-meta_set_trinity_submodule() {
 	debug-print-function $FUNCNAME "$@"
 
 	if [[ -z "$TRINITY_SUBMODULE" ]]; then
@@ -40,9 +50,7 @@ set-trinity-submodule() {
 # nessecary files.
 trinity-meta_pkg_setup() {
 	debug-print-function ${FUNCNAME} "$@"
-	set-trinity-submodule;
-
-	S=${WORKDIR}/${TRINITY_MODULE_NAME}
+	trinity-meta_set_trinity_submodule
 }
 
 # @FUNCTION: trinity-meta_src_unpack
@@ -81,80 +89,39 @@ trinity-meta_src_extract() {
 		einfo "Exporting parts of working copy to ${S}"
 		case "$TRINITY_SCM" in
 #			svn) trinity-meta_rsync_copy ;;
-			git) ;;
-			*)   die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
+			git) # we nothing can do to prevent git from unpacking code
+			     # so we will just fix the default ${S} variable
+				[[ "${WORKDIR}" != "${S}" ]] && mv "${WORKDIR}" "${S}"
+				;;
+			*)  die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
 		esac
 	else
-		die "BUILD_TYPE=$BUILD_TYPE is not supported by function ${FUNCTION}"
-		eerror "relese extract is complitly untested"
-		local abort tarball tarfile f extractlist postfix
-#
-#		KMTARPARAMS+=" --bzip2"
-#		postfix="bz2"
-#
-#		case ${TRINITY_MODULE_NAME} in
-#			kdebase-apps)
-#				# kdebase/apps -> kdebase-apps
-#				tarball="kdebase-${PV}.tar.${postfix}"
-#				;;
-#			*)
-#				# Create tarball name from module name (this is the default)
-#				tarball="${TRINITY_MODULE_NAME}-${PV}.tar.${postfix}"
-#				;;
-#		esac
-#
-#		# Full path to source tarball
-#		tarfile="${DISTDIR}/${tarball}"
-#
-#		# Detect real toplevel dir from tarball name - it will be used upon extraction
-#		# and in __list_needed_subdirectories
-#		topdir="${tarball%.tar.*}/"
-#
-#		ebegin "Unpacking parts of ${tarball} to ${WORKDIR}"
-#
-#		kde4-meta_create_extractlists
-#
-#		for f in cmake/ CMakeLists.txt ConfigureChecks.cmake config.h.cmake
-#		do
-#			extractlist+=" ${topdir}${f}"
-#		done
-#		extractlist+=" $(__list_needed_subdirectories)"
-#
-#		pushd "${WORKDIR}" > /dev/null
-#
-#		# @ECLASS-VARIABLE: KDE4_STRICTER
-#		# @DESCRIPTION:
-#		# Print out all issues found executing tar / kmextract files
-#		# Set on if you want to find issues in kde-base ebuild unpack sequences
-#		[[ -n ${KDE4_STRICTER} ]] && echo 'tar -xpf "${tarfile}" ${KMTARPARAMS} ${extractlist}'
-#		if [[ ${I_KNOW_WHAT_I_AM_DOING} ]]; then
-#			# to make the devs happy - bug 338397
-#			tar -xpf "${tarfile}" ${KMTARPARAMS} ${extractlist} || ewarn "tar extract command failed at least partially - continuing anyway"
-#		else
-#			tar -xpf "${tarfile}" ${KMTARPARAMS} ${extractlist} 2> /dev/null || echo "tar extract command failed at least partially - continuing anyway"
-#		fi
-#
-#		# Default $S is based on $P; rename the extracted directory to match $S if necessary
-#		if [[ ${TRINITY_MODULE_NAME} != ${PN} ]]; then
-#			mv ${topdir} ${P} || die "Died while moving \"${topdir}\" to \"${P}\""
-#		fi
-#
-#		popd > /dev/null
-#
-#		eend $?
-#
-#		if [[ -n ${KDE4_STRICTER} ]]; then
-#			for f in $(__list_needed_subdirectories fatal); do
-#				if [[ ! -e ${S}/${f#*/} ]]; then
-#					eerror "'${f#*/}' is missing"
-#					abort=true
-#				fi
-#			done
-#			[[ -n ${abort} ]] && die "There were missing files."
-#		fi
-#
-#		# We don't need it anymore
-#		unset topdir
+		local tarball tarfile tarparams f extractlist postfix
+
+		tarparams=" --gzip"
+		postfix="gz"
+
+		tarball="${TRINITY_MODULE_NAME}-${PV}.tar.${postfix}"
+
+		# Full path to source tarball
+		tarfile="${DISTDIR}/${tarball}"
+
+		# Detect real toplevel dir from tarball name - it will be used upon extraction
+		topdir="${tarball%.tar.*}"
+
+		ebegin "Unpacking parts of ${tarball} to ${WORKDIR}"
+
+		for f in $EXTRACT_LIST;	do
+			extractlist+=" ${topdir}/${f}"
+		done
+
+		tar -xpf "${tarfile}" ${tarparams} -C ${WORKDIR}  ${extractlist} 2> /dev/null  \
+				|| echo "tar extract command failed at least partially - continuing anyway"
+
+		# Default $S is based on $P; rename the extracted directory to match $S if necessary
+		if [[ ${TRINITY_MODULE_NAME} != ${PN} ]]; then
+			mv ${WORKDIR}/${topdir} ${P} || die "Died while moving \"${topdir}\" to \"${P}\""
+		fi
 	fi
 }
 
@@ -198,18 +165,19 @@ trinity-meta_create_extractlists() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	# if $TSMEXTRACT is not set assign it kmmodule
-	[ -z "${TSM_EXTRACT}" ] && TSM_EXTRACT="${TRINITY_SUBMODULE}"
+	[ -z "${TSM_EXTRACT}" ] && TSM_EXTRACT="${TRINITY_SUBMODULE}/"
 	# add package-specific files and directories
 	case "${TRINITY_MODULE_NAME}" in
-		tdebase)
-			TSM_EXTRACT_LIST+=" kcontrol " 
-			;;
+		kdebase) TSM_EXTRACT_LIST+=" kcontrol/ kdmlib/" ;;
+		tdebase) TSM_EXTRACT_LIST+=" kcontrol/" ;;
+		kdeartwork) ;;
 		tdeartwork) ;;
 		tdegraphics) ;;
-		*)
-			die "TRINITY_MODULE_NAME ${TRINITY_MODULE_NAME} is not supported by function ${FUNCNAME}" ;;
+		*) die "TRINITY_MODULE_NAME ${TRINITY_MODULE_NAME} is not supported by function ${FUNCNAME}" ;;
 	esac
-	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACT_ALSO}"
+
+	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACT_ALSO} cmake/ CMakeLists.txt \
+						config.h.cmake ConfigureChecks.cmake "
 	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: TSM_EXTRACT_LIST ${TSM_EXTRACT_LIST}"
 }
 
