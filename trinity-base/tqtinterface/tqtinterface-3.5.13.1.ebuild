@@ -14,7 +14,7 @@ KEYWORDS="x86 amd64"
 IUSE="+qt3 -qt4"
 SLOT="0"
 
-DEPEND="qt3? ( >=x11-libs/qt-${PV}:3 )
+DEPEND="qt3? ( >=x11-libs/qt-3.3.8d:3 )
 	qt4? ( x11-libs/qt-meta:4 )"
 
 RDEPEND="${RDEPEND}"

@@ -14,7 +14,7 @@ KEYWORDS="x86 amd64"
 SLOT="0"
 IUSE=""
 
-DEPEND=">=x11-libs/qt-${PV}:3
+DEPEND=">=x11-libs/qt-3.3.8d:3
 	>=trinity-base/tqtinterface-${PV}"
 RDEPEND="$DEPEND"
 

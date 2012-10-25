@@ -7,7 +7,7 @@
 # Purpose: support planty of ebuilds for trinity project (a kde3 fork).
 #
 
-inherit cmake-utils trinity-functions
+inherit cmake-utils trinity-functions qt3
 
 # @ECLASS-VARIABLE: BUILD_TYPE
 # @DESCRIPTION:

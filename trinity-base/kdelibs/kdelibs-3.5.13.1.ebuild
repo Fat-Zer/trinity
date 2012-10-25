@@ -16,7 +16,7 @@ KEYWORDS="x86 amd64"
 IUSE="alsa avahi arts cups jpeg2k openexr spell tiff lua"
 
 DEPEND="${DEPEND}
-	>=x11-libs/qt-3.3.8d
+	>=x11-libs/qt-3.3.8d:3
 	>=trinity-base/tqtinterface-${PV}
 	>=dev-libs/libxslt-1.1.16
 	>=dev-libs/libxml2-2.6.6
@@ -103,6 +103,9 @@ EOF
 
 	# make documentation help accessible throught symlink
 	dosym ${TDEDIR}/share/doc/kde/HTML ${TDEDIR}/share/doc/HTML
+
+	trinity-base_create_tmp_docfiles
+	trinity-base_install_docfiles
 }
 
 # pkg_postinst () {

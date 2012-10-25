@@ -103,6 +103,9 @@ EOF
 
 	# make documentation help accessible throught symlink
 	dosym ${TDEDIR}/share/doc/kde/HTML ${TDEDIR}/share/doc/HTML
+
+	trinity-base_create_tmp_docfiles
+	trinity-base_install_docfiles
 }
 
 # pkg_postinst () {

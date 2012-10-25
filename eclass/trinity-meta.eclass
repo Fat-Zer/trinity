@@ -186,6 +186,7 @@ trinity-meta_create_extractlists() {
 # Default src prepare function. Currently it's only a stub.
 trinity-meta_src_prepare() {
 	debug-print-function ${FUNCNAME} "$@"
+
 	if [ "${TRINITY_MODULE_NAME}" == "tdebase" ]; then
 		# upstream CMakelists files are sometimes really crappy...
 		cat >$T/tdebase-fix-migratekde3-install.patch <<'EOF'
@@ -234,6 +235,7 @@ trinity-meta_src_configure() {
 # Call default cmake install function. and install documentation.
 trinity-meta_src_install() {
 	debug-print-function ${FUNCNAME} "$@"
+
 	cmake-utils_src_install
 
 	trinity-base_create_tmp_docfiles $TSM_EXTRACT

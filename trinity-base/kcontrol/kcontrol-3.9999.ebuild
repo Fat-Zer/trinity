@@ -23,7 +23,6 @@ DEPEND="x11-libs/libX11
 	samba? ( net-fs/samba )
 	logitech-mouse? ( virtual/libusb:0 )
 	ieee1394? ( sys-libs/libraw1394 )
-	trinity-base/tdelibs:${SLOT}
 	>=trinity-base/libkonq-${PV}:${SLOT}
 	>=trinity-base/kicker-${PV}:${SLOT}"
 

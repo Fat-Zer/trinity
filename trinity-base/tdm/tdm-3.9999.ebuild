@@ -24,8 +24,6 @@ RDEPEND="${DEPEND}
 # PDEPEND=">=kde-base/kdesktop-${PV}:${SLOT}"
 # 
 
-S=${WORKDIR}/kdebase
-
 src_configure() {
 	mycmakeargs=(
 		$(cmake-utils_use_with shadow SHADOW )
