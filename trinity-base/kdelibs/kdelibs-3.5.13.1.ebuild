@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -13,10 +13,9 @@ HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 SLOT="3.5"
 KEYWORDS="x86 amd64"
-IUSE="alsa avahi arts cups jpeg2k openexr spell tiff lua"
+IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter"
 
 DEPEND="${DEPEND}
-	>=x11-libs/qt-3.3.8d:3
 	>=trinity-base/tqtinterface-${PV}
 	>=dev-libs/libxslt-1.1.16
 	>=dev-libs/libxml2-2.6.6
@@ -24,24 +23,24 @@ DEPEND="${DEPEND}
 	media-libs/libart_lgpl
 	net-dns/libidn
 	app-text/ghostscript-gpl
-	x11-libs/libXext
 	>=dev-libs/openssl-0.9.7d
 	media-libs/fontconfig
 	media-libs/freetype:2
 	media-libs/libart_lgpl
-	net-dns/libidn
 	alsa? ( media-libs/alsa-lib )
 	arts? ( trinity-base/arts )
+	avahi? ( net-dns/avahi )
 	cups? ( >=net-print/cups-1.1.19 )
+	fam? ( virtual/fam )
 	jpeg2k? ( media-libs/jasper )
+	lua? ( dev-lang/lua )
 	openexr? ( >=media-libs/openexr-1.2.2-r2 )
 	spell? ( >=app-dicts/aspell-en-6.0.0 >=app-text/aspell-0.60.5 )
+	sudo? ( app-admin/sudo )
 	tiff? ( media-libs/tiff )
-	lua? ( dev-lang/lua )"
-# CHECKME: compilation with avahi
+	utempter? ( sys-libs/libutempter ) "
+# TODO: test if avahi-tqt is needed for avahi use
 
-# not supported USE's witch are present in kdelibs:3.5: 
-#        acl fam kreberos utempter doc bindist
 RDEPEND="${DEPEND}"
 
 #PDEPEND="
@@ -49,18 +48,25 @@ RDEPEND="${DEPEND}"
 
 src_configure() {
 	mycmakeargs=(
+		-DMALLOC_FULL=ON
 		-DWITH_LIBIDN=ON
 		-DWITH_SSL=ON
 		-DWITH_LIBART=ON
+		-DWITH_PCRE=ON
+		-DWITH_HSPELL=OFF
 		$(cmake-utils_use_with alsa ALSA)
 		$(cmake-utils_use_with arts ARTS)
 		$(cmake-utils_use_with avahi AVAHI)
 		$(cmake-utils_use_with cups CUPS)
+		$(cmake-utils_use_with kernel_linux INOTIFY)
 		$(cmake-utils_use_with jpeg2k JASPER)
+		$(cmake-utils_use_with lua LUA)
 		$(cmake-utils_use_with openexr OPENEXR)
 		$(cmake-utils_use_with spell ASPELL)
+		$(cmake-utils_use_with fam GAMIN)
 		$(cmake-utils_use_with tiff TIFF)
-		$(cmake-utils_use_with lua LUA)
+		$(cmake-utils_use_with utempter UTEMPTER)
+		$(cmake-utils_use_with sudo SUDO_KDESU_BACKEND)
 	)
 
 	trinity-base_src_configure
@@ -70,11 +76,11 @@ src_install() {
 	trinity-base_src_install
 	
 	dodir /etc/env.d
-	# KDE implies that the install path is listed first in KDEDIRS and the user
+	# KDE implies that the install path is listed first in TDEDIRS and the user
 	# directory (implicitly added) to be the last entry. Doing otherwise breaks
 	# certain functionality. Do not break this (once again *sigh*), but read the code.
 	# KDE saves the installed path implicitly and so this is not needed, /usr
-	# is set in ${TDEDIR}/share/config/kdeglobals and so KDEDIRS is not needed.
+	# is set in ${TDEDIR}/share/config/kdeglobals and so TDEDIRS is not needed.
 
 	# List all the multilib libdirs
 	local libdirs
@@ -88,9 +94,9 @@ ROOTPATH=${TDEDIR}/sbin:${TDEDIR}/bin
 LDPATH=${libdirs#:}
 MANPATH=${TDEDIR}/share/man
 CONFIG_PROTECT="${TDEDIR}/share/config ${TDEDIR}/env ${TDEDIR}/shutdown /usr/share/config"
-#KDE_IS_PRELINKED=1
+#TDE_IS_PRELINKED=1
 # Excessive flushing to disk as in releases before KDE 3.5.10. Usually you don't want that.
-#KDE_EXTRA_FSYNC=1
+#TDE_EXTRA_FSYNC=1
 XDG_DATA_DIRS="${TDEDIR}/share"
 EOF
 
@@ -108,6 +114,13 @@ EOF
 	trinity-base_install_docfiles
 }
 
-# pkg_postinst () {
-# 	ewarn "Don't forget to run env-update after merging kdelibs"
-# }
+pkg_postinst () {
+	if use sudo; then
+		einfo "Remember sudo use flag sets only the defauld value"
+		einfo "It can be overriden on a user-level by adding:"
+		einfo "  [super-user-command]"
+		einfo "    super-user-command=su" 
+		einfo "To the kdeglobal config file which is should be usually"
+		einfo "located in the ~/.trinity/share/config/ directory."
+	fi
+}
