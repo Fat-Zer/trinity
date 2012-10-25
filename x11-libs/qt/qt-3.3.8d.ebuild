@@ -10,8 +10,9 @@ DESCRIPTION="The Qt toolkit is a comprehensive C++ application development frame
 HOMEPAGE="http://qt.nokia.com/"
 
 # IMMQT_P="qt-x11-immodule-unified-qt3.3.8-20070321-gentoo"
+TDE_VERSION="3.5.13.1"
 
-SRC_URI="http://trinity.blackmag.net/releases/${PV}/dependencies/qt3-3.5.13.1.tar.gz"
+SRC_URI="http://trinity.blackmag.net/releases/${TDE_VERSION}/dependencies/qt3-${TDE_VERSION}.tar.gz"
 #	immqt? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )
 #	immqt-bc? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )"
 
