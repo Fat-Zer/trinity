@@ -1,0 +1,44 @@
+--- kdecore/kapplication.cpp.orig	2012-10-26 11:49:24.000000000 +0400
++++ kdecore/kapplication.cpp	2012-10-26 11:49:33.000000000 +0400
+@@ -186,7 +186,7 @@
+ static Atom kde_xdnd_drop;
+ #endif
+ 
+-#ifdef Q_WS_X11
++#if defined(Q_WS_X11) && defined(COMPOSITE)
+ static int composite_event, composite_error, composite_opcode;
+ static bool x11_composite_error_generated;
+ static int x11_error(Display *dpy, XErrorEvent *ev) {
+@@ -1981,7 +1981,7 @@
+ 	return false;
+ }
+ 
+-bool KApplication::detectCompositionManagerAvailable(bool force_available) {
++bool KApplication::detectCompositionManagerAvailable(bool force_available, bool /* available */) {
+ 	const char *home;
+ 	struct passwd *p;
+ 	p = getpwuid(getuid());
+@@ -2023,21 +2023,17 @@
+ 	return 0;
+ }
+ 
+-Qt::HANDLE KApplication::getX11RGBAVisual(char *display) {
++Qt::HANDLE KApplication::getX11RGBAVisual(Display *dpy) {
+ 	return 0;
+ }
+ 
+-Qt::HANDLE KApplication::getX11RGBAColormap(char *display) {
++Qt::HANDLE KApplication::getX11RGBAColormap(Display *dpy) {
+ 	return 0;
+ }
+ 
+ bool KApplication::isX11CompositionAvailable() {
+ 	return false;
+ }
+-
+-KApplication KApplication::KARGBApplication( bool allowStyles ) {
+-	return KApplication::KApplication(allowStyles, true);
+-}
+ #endif
+ 
+ static bool kapp_block_user_input = false;

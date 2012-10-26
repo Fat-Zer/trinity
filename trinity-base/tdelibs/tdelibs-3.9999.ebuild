@@ -11,9 +11,10 @@ set-trinityver
 DESCRIPTION="Trinity libraries needed by all TDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
-SLOT="3.5"
+SLOT="$TRINITY_LIVEVER"
 KEYWORDS=""
-IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter"
+IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter
+	upower xcomposite"
 
 DEPEND="${DEPEND}
 	>=trinity-base/tqtinterface-${PV}
@@ -28,7 +29,7 @@ DEPEND="${DEPEND}
 	media-libs/freetype:2
 	media-libs/libart_lgpl
 	alsa? ( media-libs/alsa-lib )
-	arts? ( trinity-base/arts )
+	arts? ( >=trinity-base/arts-${PV}:${SLOT} )
 	avahi? ( net-dns/avahi )
 	cups? ( >=net-print/cups-1.1.19 )
 	fam? ( virtual/fam )
@@ -39,13 +40,10 @@ DEPEND="${DEPEND}
 	sudo? ( app-admin/sudo )
 	tiff? ( media-libs/tiff )
 	utempter? ( sys-libs/libutempter ) "
-# TODO: test if avahi-tqt is needed for avahi use
+# NOTE: upstream lacks avahi support, so the use flag is currenly masked
 # TODO: think about elficon and networkmanager options
 
 RDEPEND="${DEPEND}"
-
-#PDEPEND="
-#	avahi? ( kde-misc/kdnssd-avahi )"
 
 src_configure() {
 	mycmakeargs=(
@@ -67,6 +65,8 @@ src_configure() {
 		$(cmake-utils_use_with fam GAMIN)
 		$(cmake-utils_use_with tiff TIFF)
 		$(cmake-utils_use_with utempter UTEMPTER)
+		$(cmake-utils_use_with upower UPOWER)
+		$(cmake-utils_use_with xcomposite XCOMPOSITE)
 		$(cmake-utils_use_with sudo SUDO_KDESU_BACKEND)
 	)
 

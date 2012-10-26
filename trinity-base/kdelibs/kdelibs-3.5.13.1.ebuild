@@ -13,7 +13,8 @@ HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 SLOT="3.5"
 KEYWORDS="x86 amd64"
-IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter"
+IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter
+      xcomposite"
 
 DEPEND="${DEPEND}
 	>=trinity-base/tqtinterface-${PV}
@@ -38,13 +39,14 @@ DEPEND="${DEPEND}
 	spell? ( >=app-dicts/aspell-en-6.0.0 >=app-text/aspell-0.60.5 )
 	sudo? ( app-admin/sudo )
 	tiff? ( media-libs/tiff )
-	utempter? ( sys-libs/libutempter ) "
-# TODO: test if avahi-tqt is needed for avahi use
+	utempter? ( sys-libs/libutempter ) 
+	xcomposite? ( x11-libs/libXcomposite )"
+# NOTE: upstream lacks avahi support, so the use flag is currenly masked
 
 RDEPEND="${DEPEND}"
 
-#PDEPEND="
-#	avahi? ( kde-misc/kdnssd-avahi )"
+PATCHES=( "$FILESDIR/${P}-make-xcomposite-optional.patch" 
+		"$FILESDIR/${P}-fix-no-xcomposite.patch" )
 
 src_configure() {
 	mycmakeargs=(
@@ -66,6 +68,7 @@ src_configure() {
 		$(cmake-utils_use_with fam GAMIN)
 		$(cmake-utils_use_with tiff TIFF)
 		$(cmake-utils_use_with utempter UTEMPTER)
+		$(cmake-utils_use_with xcomposite XCOMPOSITE)
 		$(cmake-utils_use_with sudo SUDO_KDESU_BACKEND)
 	)
 
