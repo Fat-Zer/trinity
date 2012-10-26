@@ -1,1 +1,3 @@
 trinity-base/tqtinterface qt4
+trinity-base/kdelibs avahi
+trinity-base/tdelibs avahi
