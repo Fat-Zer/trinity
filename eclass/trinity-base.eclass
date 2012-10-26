@@ -7,7 +7,7 @@
 # Purpose: support planty of ebuilds for trinity project (a kde3 fork).
 #
 
-inherit cmake-utils trinity-functions qt3
+inherit trinity-functions cmake-utils qt3 base
 
 # @ECLASS-VARIABLE: BUILD_TYPE
 # @DESCRIPTION:
@@ -94,6 +94,32 @@ elif [[ "${BUILD_TYPE}" == release ]]; then
 else
 	die "Unknown BUILD_TYPE=${BUILD_TYPE}"
 fi
+
+
+# @FUNCTION: trinity-base_src_prepare
+# @DESCRIPTION:
+# General pre-configure and pre-compile function for Trinity applications.
+trinity-base_src_prepare() {
+	debug-print-function ${FUNCNAME} "$@"
+
+# 	# Only enable selected languages, used for KDE extragear apps.
+# 	if [[ -n ${KDE_LINGUAS} ]]; then
+# 		enable_selected_linguas
+# 	fi
+
+	# SCM bootstrap
+	if [[ ${BUILD_TYPE} = live ]]; then
+		case ${TRINITY_SCM} in
+			svn) subversion_src_prepare ;;
+	        git) ;;
+			*)  die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
+		esac
+	fi
+
+	# Apply patches
+	base_src_prepare
+}
+
 
 # if [[ ${CATEGORY} == "kde-base" ]]; then
 # 	# Get the aRts dependencies right - finally.
@@ -189,4 +215,4 @@ trinity-base_install_docfiles() {
 	popd >/dev/null
 }
 
-EXPORT_FUNCTIONS src_configure src_install
+EXPORT_FUNCTIONS src_configure src_install src_prepare

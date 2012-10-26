@@ -7,7 +7,7 @@
 # Purpose: make easy to install trinity ebuilds. 
 #
 
-inherit cmake-utils trinity-base
+inherit trinity-base trinity-functions cmake-utils qt3
 
 LICENSE="GPL-2 LGPL-2"
 HOMEPAGE="http://www.trinitydesktop.org/"
@@ -62,15 +62,16 @@ trinity-meta_src_unpack() {
 
 	if [[ ${BUILD_TYPE} = live ]]; then
 		case "${TRINITY_SCM}" in
-#			svn)
-#				mkdir -p "$S"
-#				ESVN_RESTRICT="export" subversion_src_unpack
-#				subversion_wc_info
-#				subversion_bootstrap
-#				;;
+			svn)
+				mkdir -p "$S"
+				ESVN_RESTRICT="export" subversion_src_unpack
+				subversion_wc_info
+				subversion_bootstrap
+				;;
 			git)
 				git-2_src_unpack
 				;;
+			*)   die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}" ;;
 		esac
 	fi
 	trinity-meta_src_extract
@@ -88,11 +89,10 @@ trinity-meta_src_extract() {
 	if [[ ${BUILD_TYPE} = live ]]; then
 		einfo "Exporting parts of working copy to ${S}"
 		case "$TRINITY_SCM" in
-#			svn) trinity-meta_rsync_copy ;;
+			svn) trinity-meta_rsync_copy ;;
 			git) # we nothing can do to prevent git from unpacking code
 			     # so we will just fix the default ${S} variable
-				[[ "${WORKDIR}" != "${S}" ]] && mv "${WORKDIR}" "${S}"
-				;;
+				[[ "${WORKDIR}" != "${S}" ]] && mv "${WORKDIR}" "${S}" ;;
 			*)  die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
 		esac
 	else
@@ -133,10 +133,9 @@ trinity-meta_rsync_copy() {
 
 	local rsync_options subdir targetdir wc_path escm
 	case "${TRINITY_SCM}" in
-#	svn) wc_path="${ESVN_WC_PATH}";;
-	git) wc_path="${EGIT_STORE_DIR}/${EGIT_PROJECT}";;
-	*)   die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
-		;;
+		svn) wc_path="${ESVN_WC_PATH}";;
+		git) wc_path="${EGIT_STORE_DIR}/${EGIT_PROJECT}";;
+		*)   die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}" ;;
 	esac
 
 	rsync_options="--group --links --owner --perms --quiet --exclude=.svn/ --exclude=.git/"
@@ -205,6 +204,8 @@ trinity-meta_src_prepare() {
 EOF
 		epatch ${T}/tdebase-fix-migratekde3-install.patch
 	fi
+
+	trinity-base-src_prepare
 }
 
 # @FUNCTION: trinity-meta_src_configure
