@@ -76,7 +76,7 @@ src_configure() {
 
 src_install() {
 	trinity-base_src_install
-	
+
 	dodir /etc/env.d
 	# KDE implies that the install path is listed first in TDEDIRS and the user
 	# directory (implicitly added) to be the last entry. Doing otherwise breaks
@@ -121,7 +121,7 @@ pkg_postinst () {
 		einfo "Remember sudo use flag sets only the defauld value"
 		einfo "It can be overriden on a user-level by adding:"
 		einfo "  [super-user-command]"
-		einfo "    super-user-command=su" 
+		einfo "    super-user-command=su"
 		einfo "To the kdeglobal config file which is should be usually"
 		einfo "located in the ~/.trinity/share/config/ directory."
 	fi

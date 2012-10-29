@@ -28,7 +28,7 @@ TMS_EXTRACT="startkde README.pam INSTALL AUTHORS COPYING COPYING-DOCS"
 
 src_prepare() {
 #	epatch "${FILESDIR}/tdebase-starttde-trinity-gentoo.patch"
-	
+
 	trinity-base_src_prepare
 }
 
@@ -40,7 +40,7 @@ src_compile() {
 	# Patch the starttde script to setup the environment for KDE 4.0
 	# Add our TDEDIR
 	sed -e "s#@REPLACE_PREFIX@#${TDEDIR}#" \
-		"${S}/startkde" >${S}/starttde || die "Sed for PREFIX failed."
+		"${S}/startkde" >"${S}/starttde" || die "Sed for PREFIX failed."
 
 	# List all the multilib libdirs
 	local _libdir _libdirs

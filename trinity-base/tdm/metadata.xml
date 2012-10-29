@@ -6,7 +6,6 @@
 		<name>Golubev Alexander</name>
 	</maintainer>
 	<use>
-		<flag name="shadow"> Support shadow passwords.</flag>
 		<flag name="xdmcp"> Support for xdmcp.</flag>
 	</use>
 </pkgmetadata>

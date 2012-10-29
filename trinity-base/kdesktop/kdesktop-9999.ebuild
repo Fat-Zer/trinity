@@ -6,7 +6,7 @@ TRINITY_MODULE_NAME="tdebase"
 
 inherit trinity-meta
 
-DESCRIPTION="KDesktop is the Trinity interface that handles the icons, desktop popup menus and screensaver system."
+DESCRIPTION="KDesktop is the Trinity interface that handles icons, desktop popup menus and screensaver system."
 KEYWORDS=""
 IUSE="pam xscreensaver"
 

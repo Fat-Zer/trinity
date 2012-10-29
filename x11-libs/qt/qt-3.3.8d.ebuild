@@ -102,7 +102,7 @@ pkg_setup() {
 
 src_unpack() {
 	unpack ${A}
-	
+
 	cd "${S}"
 
 	sed -i -e 's:read acceptance:acceptance=yes:' configure
@@ -116,7 +116,7 @@ src_unpack() {
 	# set c/xxflags and ldflags
 	strip-flags
 	append-flags -fno-strict-aliasing
-	
+
 	sed -i -e "s:QMAKE_CFLAGS_RELEASE.*=.*:QMAKE_CFLAGS_RELEASE=${CFLAGS}:" \
 		   -e "s:QMAKE_CXXFLAGS_RELEASE.*=.*:QMAKE_CXXFLAGS_RELEASE=${CXXFLAGS}:" \
 		   -e "s:QMAKE_LFLAGS_RELEASE.*=.*:QMAKE_LFLAGS_RELEASE=${LDFLAGS}:" \

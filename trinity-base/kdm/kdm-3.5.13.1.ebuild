@@ -52,8 +52,8 @@ src_install() {
 		"${D}${TDEDIR}/share/config/kdm/kdmrc" || die "sed kdmrc failed"
 
 	# install XSession upstream script seems to be debian-cpecific
-	cp ${FILESDIR}/${P}-xsession.script "${D}/${TDEDIR}/share/config/kdm/Xsession"
-	
+	cp "${FILESDIR}/${P}-xsession.script" "${D}/${TDEDIR}/share/config/kdm/Xsession"
+
 }
 
 pkg_postinst() {
@@ -70,7 +70,7 @@ pkg_postinst() {
 		cp "${ROOT}${TDEDIR}/share/apps/kdm/pics/users/root1.png" \
 			"${ROOT}${TDEDIR}/share/apps/kdm/faces/root.face.icon"
 	fi
-		
+
 	if use sak; then
 		sak_ok=yes
 		if  ! linux_config_exists; then

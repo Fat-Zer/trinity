@@ -16,7 +16,6 @@ DEPEND="
 	=x11-libs/qt-${PV}:${SLOT}[nas=,nis=,opengl=,postgres=,sqlite=,xinerama=]"
 RDEPEND="${DEPEND}"
 
-
 pkg_postinst() {
 	echo
 	einfo "Please note that this meta package is only provided for capability."

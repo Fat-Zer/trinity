@@ -26,13 +26,13 @@ RDEPEND="x11-apps/xmessage
 
 src_prepare() {
 #	epatch "${FILESDIR}/tdebase-starttde-trinity-gentoo.patch"
-	
+
 	trinity-meta_src_prepare
 }
 
 src_compile() {
 	trinity-meta_src_compile
-	
+
 	# Patch the starttde script to setup the environment for KDE 4.0
 	# Add our TDEDIR
 	sed -i -e "s#@REPLACE_PREFIX@#${TDEDIR}#" \
