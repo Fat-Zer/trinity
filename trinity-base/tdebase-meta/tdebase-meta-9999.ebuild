@@ -13,7 +13,7 @@ LICENSE="GPL-2 LGPL-2"
 
 SLOT="$TRINITY_LIVEVER"
 IUSE=""
-KEYWORDS="x86 amd64"
+KEYWORDS=""
 
 RDEPEND=">=trinity-base/tdebase-tdeinit-${PV}:${SLOT}
 	>=trinity-base/drkonqi-${PV}:${SLOT}
