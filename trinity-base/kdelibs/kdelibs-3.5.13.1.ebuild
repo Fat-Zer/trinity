@@ -28,6 +28,7 @@ DEPEND="${DEPEND}
 	media-libs/fontconfig
 	media-libs/freetype:2
 	media-libs/libart_lgpl
+	x11-libs/libXcursor
 	alsa? ( media-libs/alsa-lib )
 	arts? ( trinity-base/arts )
 	avahi? ( net-dns/avahi )
@@ -55,6 +56,7 @@ src_configure() {
 		-DWITH_SSL=ON
 		-DWITH_LIBART=ON
 		-DWITH_PCRE=ON
+		-DWITH_XCURSOR=ON
 		-DWITH_HSPELL=OFF
 		$(cmake-utils_use_with alsa ALSA)
 		$(cmake-utils_use_with arts ARTS)

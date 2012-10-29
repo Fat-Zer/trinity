@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -20,8 +20,8 @@ pkg_setup() {
 	local makeopts_j
 	makeopts_j="$(echo "$MAKEOPTS" | sed -n 's/\(^\|.*\s\)\(-j\s*[0-9]\+\)\(\s.*\|$\)/\2/p')"
 	if [ -n "$makeopts_j" -a "$makeopts_j" > 4 ]; then
-		export MAKEOPTS="$(echo "$MAKEOPTS" | sed -n \
-			's/\(^\|.*\s\)\(-j\s*[0-9]\+\)\(\s.*\|$\)/\1-j4\3/p')"
+		export MAKEOPTS="${MAKEOPTS//"${makeopts_j}"/-j4}"
+		
 		ewarn "This ebuild needs huge amoumt of memmory to compile in highly"
 		ewarn "parallel mode so it can chew it all. "
 		ewarn "MAKEOPTS are reduced to '$MAKEOPTS'."

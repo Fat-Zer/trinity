@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -11,11 +11,12 @@ KEYWORDS="x86 amd64"
 IUSE="pam"
 
 RDEPEND="
-	pam? ( virtual/pam )"
+	pam? ( trinity-base/kdebase-pam )"
 DEPEND="${RDEPEND}"
 
 src_configure() {
 	mycmakeargs=(
+		-D_WITH_SHADOW=ON
 		$(cmake-utils_use_with pam PAM)
 	)
 

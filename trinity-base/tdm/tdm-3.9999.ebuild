@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -6,14 +6,17 @@ TRINITY_MODULE_NAME="tdebase"
 
 inherit trinity-meta
 
+TSM_EXTRACT_ALSO="tsak"
+
 DESCRIPTION="Trinity login manager, similar to xdm and gdm"
 KEYWORDS=""
-IUSE="+shadow pam +xdmcp"
+IUSE="pam xdmcp xcomposite"
 
 DEPEND="pam? ( kde-base/kdebase-pam )
 	xdmcp? ( x11-libs/libXdmcp )
+	xcomposite? ( x11-libs/libXcomposite )
 	sys-apps/dbus
-	x11-libs/libXau
+	x11-libs/libXrandr
 	x11-libs/libXtst
 	>=trinity-base/kcontrol-${PV}:${SLOT}"
 	# Requires the desktop background settings and kdm kcontrol modules
@@ -21,12 +24,19 @@ RDEPEND="${DEPEND}
 	>=trinity-base/kdepasswd-${PV}:${SLOT}
 	x11-apps/xinit
 	x11-apps/xmessage"
-# PDEPEND=">=kde-base/kdesktop-${PV}:${SLOT}"
-# 
+
+pkg_setup() {
+	trinity-meta_pkg_setup;
+	use tsak && TRINITY_SUBMODULE+=" tsak"
+}
 
 src_configure() {
 	mycmakeargs=(
-		$(cmake-utils_use_with shadow SHADOW )
+		-DWITH_XTEST=ON
+		-DWITH_LIBART=ON
+		-DWITH_XRANDR=ON
+		-DWITH_SHADOW=ON
+		$(cmake-utils_use_with xcomposite XCOMPOSITE )
 		$(cmake-utils_use_with xdmcp XDMCP )
 		$(cmake-utils_use_with pam PAM )
 	)

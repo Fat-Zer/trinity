@@ -1,13 +1,13 @@
 # Agents startup file
 #
-# This file is sourced at kde startup, so that
+# This file is sourced at trinity startup, so that
 # the environment variables set here are available
 # throughout the session.
 
 # Uncomment the following lines to start gpg-agent
 # and/or ssh-agent at kde startup.
 # If you do so, do not forget to uncomment the respective
-# lines in KDEDIR/shutdown/agent-shutdown.sh to
+# lines in TDEDIR/shutdown/agent-shutdown.sh to
 # properly kill the agents when the session ends.
 
 #if [ -x /usr/bin/gpg-agent ]; then

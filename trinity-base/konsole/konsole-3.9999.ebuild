@@ -11,14 +11,16 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="x11-libs/libX11
-	x11-libs/libXext
-	x11-libs/libXrender
-	x11-libs/libXtst"
+	x11-libs/libXrender"
 
 RDEPEND="${DEPEND}
-	x11-apps/bdftopcf"
-
-# For kcm_konsole module
-RDEPEND="${RDEPEND}
+	x11-apps/bdftopcf
 	>=trinity-base/kcontrol-${PV}:${SLOT}"
-#FIXME: check if it is neccecery
+
+src_configure() {
+	mycmakeargs=(
+		-DWITH_XRENDER=ON
+	)
+
+	trinity-meta_src_configure
+}

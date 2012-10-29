@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -11,6 +11,7 @@ DESCRIPTION="Trinity: Web browser, file manager, ..."
 KEYWORDS="x86 amd64"
 IUSE="java"
 # FIXME: support branding USE flag
+# FIXME: chech what java use flag is for
 DEPEND="
 	>=trinity-base/libkonq-${PV}:${SLOT}"
 

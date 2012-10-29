@@ -28,6 +28,7 @@ DEPEND="${DEPEND}
 	media-libs/fontconfig
 	media-libs/freetype:2
 	media-libs/libart_lgpl
+	x11-libs/libXcursor
 	alsa? ( media-libs/alsa-lib )
 	arts? ( >=trinity-base/arts-${PV}:${SLOT} )
 	avahi? ( net-dns/avahi )

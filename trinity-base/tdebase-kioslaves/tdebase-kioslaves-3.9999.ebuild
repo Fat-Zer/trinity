@@ -6,8 +6,7 @@ TRINITY_MODULE_NAME="tdebase"
 
 inherit trinity-meta
 
-TRINITY_SUBMODULE="kioslaves"
-# KMEXTRACT="kioslave"
+TSM_EXTRACT="kioslave"
 
 DESCRIPTION="kioslave: the kde VFS framework - kioslave plugins present a filesystem-like view of arbitrary data"
 KEYWORDS=""
