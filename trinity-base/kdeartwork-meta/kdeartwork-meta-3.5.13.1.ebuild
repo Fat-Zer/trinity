@@ -10,6 +10,7 @@ set-trinityver
 DESCRIPTION="kdeartwork meta package - merge this to pull in all kdeartwork-derived packages"
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
+KEYWORDS="x86 amd64"
 
 SLOT="$TRINITY_LIVEVER"
 IUSE=""

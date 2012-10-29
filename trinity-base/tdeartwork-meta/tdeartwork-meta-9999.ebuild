@@ -10,6 +10,7 @@ set-trinityver
 DESCRIPTION="tdeartwork meta package - merge this to pull in all tdeartwork-derived packages"
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
+KEYWORDS=""
 
 SLOT="$TRINITY_LIVEVER"
 IUSE=""
