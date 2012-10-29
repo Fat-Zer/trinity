@@ -21,7 +21,7 @@ pkg_setup() {
 	makeopts_j="$(echo "$MAKEOPTS" | sed -n 's/\(^\|.*\s\)\(-j\s*[0-9]\+\)\(\s.*\|$\)/\2/p')"
 	if [ -n "$makeopts_j" -a "$makeopts_j" > 4 ]; then
 		export MAKEOPTS="${MAKEOPTS//"${makeopts_j}"/-j4}"
-	
+
 		ewarn "This ebuild needs huge amoumt of memmory to compile in highly"
 		ewarn "parallel mode so it can chew it all. "
 		ewarn "MAKEOPTS are reduced to '$MAKEOPTS'."

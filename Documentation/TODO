@@ -3,3 +3,4 @@ Need some workarounds on the LDPATH variable. [don't remember what's wrong there
 arts: test
 kdm: test/fix SAK in kdm.
 tdebase-starttde: test the script more heavyly
+sys-apps/hal: fix use description
