@@ -18,7 +18,7 @@ SRC_URI="http://avahi.org/download/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~amd64-fbsd ~x86-fbsd ~x86-linux"
+KEYWORDS="amd64 x86"
 IUSE="autoipd bookmarks dbus doc gdbm gtk gtk3 howl-compat +introspection ipv6
 kernel_linux mdnsresponder-compat mono python qt3 qt4 test utils"
 
@@ -27,7 +27,7 @@ COMMON_DEPEND=">=dev-libs/libdaemon-0.14
 	dev-libs/expat
 	dev-libs/glib:2
 	gdbm? ( sys-libs/gdbm )
-	qt3? ( x11-libs/qt-meta:3 )
+	qt3? ( x11-libs/qt:3 )
 	qt4? ( x11-libs/qt-core:4 )
 	gtk? ( >=x11-libs/gtk+-2.14.0:2 )
 	gtk3? ( x11-libs/gtk+:3 )
