@@ -19,7 +19,7 @@ COMMON_DEPEND=">=media-libs/audiofile-0.2.3
 	tcpd? ( >=sys-apps/tcp-wrappers-7.6-r2 )"
 
 DEPEND="${COMMON_DEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 RDEPEND="${COMMON_DEPEND}
 	app-admin/eselect-esd"
