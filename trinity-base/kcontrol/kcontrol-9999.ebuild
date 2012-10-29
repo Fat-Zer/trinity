@@ -10,8 +10,6 @@ DESCRIPTION="The Trinity Control Center"
 KEYWORDS=""
 IUSE="samba logitech-mouse ieee1394"
 
-SLOT="3.5"
-
 DEPEND="x11-libs/libX11
 	x11-libs/libXrender
 	x11-libs/libXcursor
