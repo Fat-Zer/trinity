@@ -11,7 +11,7 @@ KEYWORDS=""
 IUSE="xcomposite"
 
 DEPEND=">=trinity-base/libkonq-${PV}:${SLOT}
-	>=trinity-base/kdebase-data-${PV}:${SLOT}
+	>=trinity-base/tdebase-data-${PV}:${SLOT}
 	xcomposite? ( x11-libs/libXrender )
 	xcomposite? ( x11-libs/libXfixes )
 	xcomposite? ( x11-libs/libXcomposite )"
