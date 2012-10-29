@@ -12,7 +12,7 @@ HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 KEYWORDS="x86 amd64"
 
-SLOT="$TRINITY_LIVEVER"
+SLOT="$TRINITY_VER"
 IUSE=""
 
 RDEPEND="
