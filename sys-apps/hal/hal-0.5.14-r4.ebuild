@@ -45,7 +45,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.61
 		 x86? ( >=sys-apps/dmidecode-2.7 )
 		 selinux? ( sys-libs/libselinux )"
 DEPEND="${RDEPEND}
-		dev-util/pkgconfig
+		virtual/pkgconfig
 		 >=dev-util/gperf-3.0.3
 		>=dev-util/intltool-0.35
 		doc?	(
