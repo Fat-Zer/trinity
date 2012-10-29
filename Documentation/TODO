@@ -4,3 +4,4 @@ arts: test
 kdm: test/fix SAK in kdm.
 tdebase-starttde: test the script more heavyly
 sys-apps/hal: fix use description
+trinity-base/ksysguard[dell-laptop] test if it requires i8k kernel module

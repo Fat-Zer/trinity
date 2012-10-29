@@ -6,7 +6,8 @@
 		<name>Golubev Alexander</name>
 	</maintainer>
 	<use>
-		<flag name="arts"> Support for aRts, the KDE sound (and all-around multimedia)
-						server/output manager (<pkg>kde-base/arts</pkg>)</flag>
+		<flag name="sudo"> Use <pkg>app-admin/sudo</pkg> as a default program to 
+						obtain root privileges.</flag>
+		<flag name="utempter">Records user logins. Useful on multi-user systems</flag>
 	</use>
 </pkgmetadata>

@@ -7,5 +7,6 @@
 	</maintainer>
 	<use>
 		<flag name="xdmcp"> Support for xdmcp.</flag>
+		<flag name="sak"> Adds SAK (Secure Attention Key) feature.</flag>
 	</use>
 </pkgmetadata>
