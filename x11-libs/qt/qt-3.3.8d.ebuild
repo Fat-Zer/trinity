@@ -7,7 +7,7 @@
 inherit eutils flag-o-matic toolchain-funcs
 
 DESCRIPTION="The Qt toolkit is a comprehensive C++ application development framework."
-HOMEPAGE="http://qt.nokia.com/"
+HOMEPAGE="http://qt.nokia.com/ http://www.trinitydesktop.org/"
 
 # IMMQT_P="qt-x11-immodule-unified-qt3.3.8-20070321-gentoo"
 TDE_VERSION="3.5.13.1"
@@ -22,7 +22,7 @@ SLOT="3"
 KEYWORDS="x86 amd64"
 IUSE="cups debug doc examples firebird ipv6 mysql nas nis opengl postgres sqlite xinerama"
 # no odbc, immqt and immqt-bc support anymore.
-RDEPEND="
+DEPEND="
 	virtual/jpeg
 	>=media-libs/freetype-2
 	>=media-libs/libmng-1.0.9
@@ -39,8 +39,9 @@ RDEPEND="
 	nas? ( >=media-libs/nas-1.5 )
 	opengl? ( virtual/opengl virtual/glu )
 	postgres? ( dev-db/postgresql-base )
-	xinerama? ( x11-libs/libXinerama )"
-DEPEND="${RDEPEND}
+	xinerama? ( x11-libs/libXinerama )
+	!<=x11-libs/qt-meta-3.3.8c"
+RDEPEND="${RDEPEND}
 	x11-proto/inputproto
 	x11-proto/xextproto
 	xinerama? ( x11-proto/xineramaproto )"
