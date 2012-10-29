@@ -40,7 +40,7 @@ set-trinityver() {
 	fi
 
 	TRINITY_VER=$(get_version_component_range 1-2 ${TRINITY_VER})
-	[[ "$TRINITY_VER" = "3.9999" ]] && export TRINITY_VER="${TRINITY_LIVEVER}"
+	[[ "$TRINITY_VER" = "9999" ]] && export TRINITY_VER="${TRINITY_LIVEVER}"
 
 
 	export TDEDIR="/usr/trinity/${TRINITY_VER}"
