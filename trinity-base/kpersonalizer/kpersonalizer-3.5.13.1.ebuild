@@ -7,6 +7,6 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta
 
 # TSM_EXTRACTALSO="libkonq"
-DDESCRIPTION="Trinity user settings wizard."
+DESCRIPTION="Trinity user settings wizard."
 KEYWORDS="x86 amd64"
 IUSE=""
