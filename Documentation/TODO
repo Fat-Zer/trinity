@@ -1,8 +1,5 @@
-replace default unpack function.
-fix arts in eclases.
-fix kdm script /usr/kde/3.5/share/config/kdm/Xsession.
-need workarounds on the LDPATH variable.
+Need some workarounds on the LDPATH variable. [don't remember what's wrong there, seems it's obsolete]
 
-tdebase-starttde: fix the start script
-
-After merging this branch to master change the Documentation/trinity.overlay
+arts: test
+kdm: test/fix SAK in kdm.
+tdebase-starttde: test the script more heavyly
