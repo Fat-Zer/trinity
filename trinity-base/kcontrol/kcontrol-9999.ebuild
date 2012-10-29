@@ -23,8 +23,8 @@ DEPEND="x11-libs/libX11
 RDEPEND="${DEPEND}
 	sys-apps/usbutils
 	>=trinity-base/kcminit-${PV}:${SLOT}
-	>=trinity-base/kdebase-data-${PV}:${SLOT}
-	>=trinity-base/kdesu-${PV}:${SLOT}
+	>=trinity-base/tdebase-data-${PV}:${SLOT}
+	>=trinity-base/tdesu-${PV}:${SLOT}
 	>=trinity-base/khelpcenter-${PV}:${SLOT}
 	>=trinity-base/khotkeys-${PV}:${SLOT}"
 
