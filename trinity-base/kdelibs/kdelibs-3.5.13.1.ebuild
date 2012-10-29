@@ -11,7 +11,7 @@ set-trinityver
 DESCRIPTION="Trinity libraries needed by all TDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
-SLOT="3.5"
+SLOT="$TRINITY_VER"
 KEYWORDS="x86 amd64"
 IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter
       xcomposite"
