@@ -12,8 +12,8 @@ HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 
 SLOT="$TRINITY_LIVEVER"
-IUSE=""
 KEYWORDS=""
+IUSE=""
 
 RDEPEND=">=trinity-base/tdebase-tdeinit-${PV}:${SLOT}
 	>=trinity-base/drkonqi-${PV}:${SLOT}
