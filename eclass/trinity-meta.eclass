@@ -171,6 +171,7 @@ trinity-meta_create_extractlists() {
 		tdebase) TSM_EXTRACT_LIST+=" kcontrol/" ;;
 		kdeartwork) ;;
 		tdeartwork) ;;
+		kdegraphics) ;;
 		tdegraphics) ;;
 		*) die "TRINITY_MODULE_NAME ${TRINITY_MODULE_NAME} is not supported by function ${FUNCNAME}" ;;
 	esac
