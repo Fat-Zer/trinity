@@ -5,3 +5,13 @@ kdm: test/fix SAK in kdm.
 tdebase-starttde: test the script more heavyly
 sys-apps/hal: fix use description
 trinity-base/ksysguard[dell-laptop] test if it requires i8k kernel module
+trinity-base/kdegraphics-kfile-plugins: add a dependencies for pdf USE (poppler?)
+trinity-base/kdegraphics-kfile-plugins: check for other additional depedencies.
+trinity-base/kpdf: check for it should depend on kdegraphics-kfile-plugins[pdf]
+trinity-base/kpdf: check for other additional depedencies.
+trinity-base/kghostview: check for it should depend on kdegraphics-kfile-plugins[pdf]
+trinity-base/kghostview: check for other additional depedencies.
+trinity-base/kmrml: add dependencies, see what is it.
+trinity-base/kviewshell: test if it depends on kde-base/kdebase-kioslaves
+
+change PATCHES (a base.eclass variable) to TRINITY_PATCHES

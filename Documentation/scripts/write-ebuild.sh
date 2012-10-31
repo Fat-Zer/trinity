@@ -9,6 +9,14 @@ TRINITY_MODULE_NAME=$1
 PV=$2
 DESCRIPTION="$3"
 
+echo "==> Creating ebuild for ${PV}"
+if [ -z "$DESCRIPTION" ]; then
+	DESCRIPTION="$(eix -C kde-base -s "${PV}" | sed -n '/^\s*Description:\s*/{s///;s/\(\<KDE\|\kde\)\>/Trinity/g;p}')"
+	echo -n "DESCRIPTION [${DESCRIPTION}]:" && read dsc
+	[ -n "$dsc" ] && DESCRIPTION="$dsc"
+fi
+
+
 mkdir -p trinity-base/$PV
 cat <<EOF >trinity-base/$PV/$PV-3.5.13.1.ebuild
 $HEADER

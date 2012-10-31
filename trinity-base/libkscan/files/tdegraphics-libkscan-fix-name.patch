@@ -1,0 +1,13 @@
+diff --git a/libkscan/CMakeLists.txt b/libkscan/CMakeLists.txt
+index b1c75eb..12ecff9 100644
+--- a/libkscan/CMakeLists.txt
++++ b/libkscan/CMakeLists.txt
+@@ -9,7 +9,7 @@
+ #
+ #################################################
+ 
+-project( libksane )
++project( libkscan )
+ 
+ include( ConfigureChecks.cmake )
+ 

@@ -90,7 +90,7 @@ src_install() {
 		libdirs="${TDEDIR}/${libdir}:${libdirs}"
 	done
 
-	cat <<EOF > "${D}"/etc/env.d/45trinitypaths-${SLOT} # number goes down with version upgrade
+	cat <<EOF >"${D}/etc/env.d/00trinitypaths-${SLOT}" # number goes down with version upgrade
 PATH=${TDEDIR}/bin
 ROOTPATH=${TDEDIR}/sbin:${TDEDIR}/bin
 LDPATH=${libdirs#:}
@@ -105,7 +105,7 @@ EOF
 	# Make sure the target for the revdep-rebuild stuff exists. Fixes bug 184441.
 	dodir /etc/revdep-rebuild
 
-cat <<EOF > "${D}"/etc/revdep-rebuild/50-trinity
+cat <<EOF >"${D}/etc/revdep-rebuild/50-trinity-${SLOT}"
 SEARCH_DIRS="${TDEDIR}/bin ${TDEDIR}/lib*"
 EOF
 

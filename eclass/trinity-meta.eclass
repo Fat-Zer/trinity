@@ -86,7 +86,7 @@ trinity-meta_src_extract() {
 
 	trinity-meta_create_extractlists
 
-	if [[ ${BUILD_TYPE} = live ]]; then
+	if [[ "${BUILD_TYPE}" = live ]]; then
 		einfo "Exporting parts of working copy to ${S}"
 		case "$TRINITY_SCM" in
 			svn) trinity-meta_rsync_copy ;;
@@ -111,16 +111,16 @@ trinity-meta_src_extract() {
 
 		ebegin "Unpacking parts of ${tarball} to ${WORKDIR}"
 
-		for f in $EXTRACT_LIST;	do
+		for f in $TSM_EXTRACT_LIST;	do
 			extractlist+=" ${topdir}/${f}"
 		done
 
-		tar -xpf "${tarfile}" ${tarparams} -C ${WORKDIR}  ${extractlist} 2> /dev/null  \
+		tar -xpf "${tarfile}" ${tarparams} -C "${WORKDIR}"  ${extractlist} 2> /dev/null  \
 				|| echo "tar extract command failed at least partially - continuing anyway"
 
 		# Default $S is based on $P; rename the extracted directory to match $S if necessary
-		if [[ ${TRINITY_MODULE_NAME} != ${PN} ]]; then
-			mv ${WORKDIR}/${topdir} ${P} || die "Died while moving \"${topdir}\" to \"${P}\""
+		if [[ "${TRINITY_MODULE_NAME}" != "${PN}" ]]; then
+			mv "${WORKDIR}/${topdir}" "${P}" || die "Died while moving \"${topdir}\" to \"${P}\""
 		fi
 	fi
 }
@@ -162,9 +162,15 @@ trinity-meta_rsync_copy() {
 # Also see descriptions of KMMODULE and KMEXTRACT 
 trinity-meta_create_extractlists() {
 	debug-print-function ${FUNCNAME} "$@"
+	local submod
+	
+	# if $TSM_EXTRACT is not set assign it to dirs named in TRINITY_SUBMODULE
+	if [ -z "${TSM_EXTRACT}" ]; then
+		for submod in ${TRINITY_SUBMODULE}; do
+			TSM_EXTRACT="${TSM_EXTRACT} ${submod}/"
+		done
+	fi
 
-	# if $TSMEXTRACT is not set assign it kmmodule
-	[ -z "${TSM_EXTRACT}" ] && TSM_EXTRACT="${TRINITY_SUBMODULE}/"
 	# add package-specific files and directories
 	case "${TRINITY_MODULE_NAME}" in
 		kdebase) TSM_EXTRACT_LIST+=" kcontrol/ kdmlib/" ;;
@@ -176,9 +182,10 @@ trinity-meta_create_extractlists() {
 		*) die "TRINITY_MODULE_NAME ${TRINITY_MODULE_NAME} is not supported by function ${FUNCNAME}" ;;
 	esac
 
-	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACT_ALSO} cmake/ CMakeLists.txt \
-						config.h.cmake ConfigureChecks.cmake "
-	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: TSM_EXTRACT_LIST ${TSM_EXTRACT_LIST}"
+	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACT_ALSO} cmake/ CMakeLists.txt"
+	TSM_EXTRACT_LIST+=" config.h.cmake ConfigureChecks.cmake"
+
+	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: TSM_EXTRACT_LIST=${TSM_EXTRACT_LIST}"
 }
 
 # @FUNCTION: trinity-meta_src_prepare
@@ -206,7 +213,7 @@ EOF
 		epatch ${T}/tdebase-fix-migratekde3-install.patch
 	fi
 
-	trinity-base-src_prepare
+	trinity-base_src_prepare
 }
 
 # @FUNCTION: trinity-meta_src_configure

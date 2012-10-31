@@ -1,0 +1,24 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c87ee85..09c3cfa 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -95,7 +95,8 @@ set( CMAKE_MODULE_LINKER_FLAGS "-Wl,--no-undefined" )
+ 
+ ##### tdegraphics directories ###################
+ 
+-if( BUILD_KFILE_PLUGINS OR BUILD_GHOSTKVIEW )
++# kghostview/ps requires dscparse-static library
++if( BUILD_KFILE_PLUGINS AND NOT BUILD_KGHOSTVIEW )
+   add_subdirectory( kghostview/dscparse )
+ endif( )
+ 
+--- a/kghostview/CMakeLists.txt
++++ b/kghostview/CMakeLists.txt
+@@ -10,6 +10,7 @@
+ #################################################
+ 
+ add_subdirectory( data )
++add_subdirectory( dscparse )
+ 
+ include_directories(
+   ${CMAKE_CURRENT_BINARY_DIR}
