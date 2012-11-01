@@ -14,4 +14,6 @@ trinity-base/kghostview: check for other additional depedencies.
 trinity-base/kmrml: add dependencies, see what is it.
 trinity-base/kviewshell: test if it depends on kde-base/kdebase-kioslaves
 
+add kdegraphics-doc package
+
 change PATCHES (a base.eclass variable) to TRINITY_PATCHES

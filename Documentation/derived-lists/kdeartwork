@@ -1,0 +1,12 @@
+# this is a list of packages derived on kdebase module
+# broken packages are commented with #!
+
+trinity-base/kdeartwork-emoticons
+trinity-base/kdeartwork-icon-themes
+trinity-base/kdeartwork-icewm-themes
+trinity-base/kdeartwork-kscreensaver
+trinity-base/kdeartwork-kwin-styles
+#! trinity-base/kdeartwork-kworldclock
+trinity-base/kdeartwork-sounds
+trinity-base/kdeartwork-styles
+trinity-base/kdeartwork-wallpapers
