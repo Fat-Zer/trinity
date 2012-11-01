@@ -13,6 +13,6 @@ IUSE=""
 DEPEND=">=media-libs/freetype-2.2
 	media-libs/fontconfig
 	media-libs/libart_lgpl
-	media-libs/lcms
+	media-libs/lcms:0
 	dev-libs/fribidi"
 RDEPEND="${DEPEND}"
