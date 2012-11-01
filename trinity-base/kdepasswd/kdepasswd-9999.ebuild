@@ -9,3 +9,6 @@ inherit trinity-meta
 DESCRIPTION="Trinity GUI for passwd"
 KEYWORDS=""
 IUSE=""
+
+DEPEND=">=trinity-base/libkonq-${PV}:${SLOT}"
+RDEPEND="${DEPEND}"

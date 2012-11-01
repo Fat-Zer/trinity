@@ -6,7 +6,8 @@ TRINITY_MODULE_NAME="tdebase"
 
 inherit trinity-meta
 
-# TSM_EXTRACTALSO="libkonq"
 DESCRIPTION="Trinity user settings wizard."
 KEYWORDS=""
 IUSE=""
+
+TSM_EXTRACT_ALSO="libkonq/"

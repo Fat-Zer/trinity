@@ -5,13 +5,12 @@ EAPI="3"
 TRINITY_MODULE_NAME="kdebase"
 
 inherit trinity-meta
-KMEXTRACTALSO="kdesktop"
 
 DESCRIPTION="Trinity: Web browser, file manager, ..."
 KEYWORDS="x86 amd64"
 IUSE="java"
 # FIXME: support branding USE flag
-# FIXME: chech what java use flag is for
+
 DEPEND="
 	>=trinity-base/libkonq-${PV}:${SLOT}"
 
@@ -20,3 +19,5 @@ RDEPEND="${DEPEND}
 	>=trinity-base/kdebase-kioslaves-${PV}:${SLOT}
 	>=trinity-base/kfind-${PV}:${SLOT}
 	java? ( >=virtual/jre-1.4 )"
+
+TSM_EXTRACT_ALSO="kdesktop"

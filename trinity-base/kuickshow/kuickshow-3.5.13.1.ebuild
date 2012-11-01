@@ -12,3 +12,4 @@ IUSE=""
 
 DEPEND="x11-libs/libXext
 	media-libs/imlib"
+RDEPEND="${DEPEND}"

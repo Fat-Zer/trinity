@@ -18,8 +18,9 @@ DEPEND="pam? ( kde-base/kdebase-pam )
 	sys-apps/dbus
 	x11-libs/libXrandr
 	x11-libs/libXtst
-	>=trinity-base/kcontrol-${PV}:${SLOT}"
-	# Requires the desktop background settings and kdm kcontrol modules
+	>=trinity-base/kcontrol-${PV}:${SLOT}
+	>=dev-libs/dbus-tqt-${PV}"
+
 RDEPEND="${DEPEND}
 	>=trinity-base/kdepasswd-${PV}:${SLOT}
 	x11-apps/xinit

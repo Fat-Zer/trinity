@@ -25,6 +25,8 @@ RDEPEND="${DEPEND}
 	xscreensaver? ( x11-libs/libXScrnSaver )
 	pam? ( trinity-base/kdebase-pam )"
 
+TSM_EXTRACT_ALSO="kcheckpass/"
+
 src_configure() {
 	mycmakeargs=(
 		-DWITH_XCURSORS=ON

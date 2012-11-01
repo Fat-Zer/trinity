@@ -9,3 +9,6 @@ inherit trinity-meta
 DESCRIPTION="Trinity file find utility"
 KEYWORDS="x86 amd64"
 IUSE=""
+
+DEPEND=">=trinity-base/libkonq-${PV}:${SLOT}"
+RDEPEND="${DEPEND}"
