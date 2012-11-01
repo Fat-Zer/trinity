@@ -16,7 +16,7 @@ DEPEND="
 	pdf? ( app-text/poppler )"
 RDEPEND="$DEPEND"
 
-PATCHES=( "$FILESDIR/tdegraphics-${PV}-make-xcomposite-optional.patch" )
+PATCHES=( "$FILESDIR/tdegraphics-poppler-tqt-remove-unnecessary-check.patch" )
 TSM_EXTRACT_ALSO="kghostview/dscparse/"
 
 src_configure() {
