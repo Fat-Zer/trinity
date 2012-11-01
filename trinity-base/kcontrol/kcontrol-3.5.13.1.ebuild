@@ -30,6 +30,8 @@ RDEPEND="${DEPEND}
 	>=trinity-base/khelpcenter-${PV}:${SLOT}
 	>=trinity-base/khotkeys-${PV}:${SLOT}"
 
+TSM_EXTRACT_ALSO="kicker/ kwin/ kdesktop/ klipper/ kxkb/"
+
 src_configure() {
 	mycmakeargs=(
 		-DWITH_XCURSOR=ON
