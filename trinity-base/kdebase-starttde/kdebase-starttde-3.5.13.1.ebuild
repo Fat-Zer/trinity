@@ -24,7 +24,7 @@ RDEPEND="x11-apps/xmessage
 	>=trinity-base/kreadconfig-${PV}:${SLOT}
 	>=trinity-base/ksplashml-${PV}:${SLOT}"
 
-TMS_EXTRACT="startkde README.pam INSTALL AUTHORS COPYING COPYING-DOCS"
+TSM_EXTRACT="startkde README.pam INSTALL AUTHORS COPYING COPYING-DOCS"
 
 src_prepare() {
 #	epatch "${FILESDIR}/tdebase-starttde-trinity-gentoo.patch"

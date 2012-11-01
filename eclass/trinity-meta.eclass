@@ -185,7 +185,7 @@ trinity-meta_create_extractlists() {
 	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACT_ALSO} cmake/ CMakeLists.txt"
 	TSM_EXTRACT_LIST+=" config.h.cmake ConfigureChecks.cmake"
 
-	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: TSM_EXTRACT_LIST=${TSM_EXTRACT_LIST}"
+ 	debug-print "line ${LINENO} ${ECLASS} ${FUNCNAME}: TSM_EXTRACT_LIST=\"${TSM_EXTRACT_LIST}\""
 }
 
 # @FUNCTION: trinity-meta_src_prepare
