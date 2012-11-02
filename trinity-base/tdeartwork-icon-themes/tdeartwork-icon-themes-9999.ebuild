@@ -10,3 +10,5 @@ KMMODULE="IconThemes"
 DESCRIPTION="Icon themes for Trinity"
 KEYWORDS=""
 IUSE=""
+
+TSM_EXTRACT="IconThemes/"

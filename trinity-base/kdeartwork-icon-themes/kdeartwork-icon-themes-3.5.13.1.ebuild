@@ -10,3 +10,5 @@ KMMODULE="IconThemes"
 DESCRIPTION="Icon themes for Trinity"
 KEYWORDS="x86 amd64"
 IUSE=""
+
+TSM_EXTRACT="IconThemes/"
