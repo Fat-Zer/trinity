@@ -19,7 +19,7 @@ DEPEND="qt3? ( >=x11-libs/qt-3.9999:3 )
 	qt4? ( x11-libs/qt-meta:4 )"
 RDEPEND="${DEPEND}"
 
-PATCHES=( "${FILESDIR}/tqtinterface-fix-tq_enum-bug1298.patch" )
+PATCHES=(  )
 
 src_configure() {
 	mycmakeargs=(
