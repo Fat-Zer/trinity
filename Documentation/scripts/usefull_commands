@@ -2,7 +2,7 @@ for I in <packages> ; do cp kate/metadata.xml $I; ebuild $I/$I-3.9999.ebuild dig
 
 sudo PORTDIR_OVERLAY="$PWD/.." repoman
 
-find trinity-base/ -iname '*9999.ebuild' | while read eb; do P="$(basename $(dirname ${eb}))"; C="$(basename $(dirname $(dirname ${eb})))"; PV="$(basename ${eb%%.ebuild})"; echo "~$C/$PV"' **'; done | tee Documentation/trinity.live.keywords
+find trinity-base/ -iname '*9999.ebuild' | while read eb; do PN="$(basename $(dirname ${eb}))"; C="$(basename $(dirname $(dirname ${eb})))"; P="$(basename ${eb%%.ebuild})"; echo "~$C/$P"' **'; done | tee Documentation/trinity.live.keywords
 
 find . -iname *.ebuild | while read eb; do ebuild $eb digest; done
 

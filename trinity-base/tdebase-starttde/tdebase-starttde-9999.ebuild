@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -6,7 +6,7 @@ TRINITY_MODULE_NAME="tdebase"
 
 inherit trinity-meta
 
-DESCRIPTION="tdeinit, starttde script, which starts a complete Trinity session, and associated scripts"
+DESCRIPTION="starttde script, which starts a complete Trinity session, and associated scripts"
 KEYWORDS=""
 IUSE=""
 
@@ -22,17 +22,22 @@ RDEPEND="x11-apps/xmessage
 	>=trinity-base/twin-${PV}:${SLOT}
 	>=trinity-base/kpersonalizer-${PV}:${SLOT}
 	>=trinity-base/kreadconfig-${PV}:${SLOT}
-	>=trinity-base/ksplashml-${PV}:${SLOT}"
+	>=trinity-base/ksplashml-${PV}:${SLOT}
+	>=trinity-base/tdeinit-${PV}:${SLOT}"
+
+TSM_EXTRACT="starttde README.pam INSTALL AUTHORS COPYING COPYING-DOCS tdm"
 
 src_prepare() {
 #	epatch "${FILESDIR}/tdebase-starttde-trinity-gentoo.patch"
 
-	trinity-meta_src_prepare
+	trinity-base_src_prepare
+}
+
+src_configure() {
+	echo -n "";
 }
 
 src_compile() {
-	trinity-meta_src_compile
-
 	# Patch the starttde script to setup the environment for KDE 4.0
 	# Add our TDEDIR
 	sed -i -e "s#@REPLACE_PREFIX@#${TDEDIR}#" \
@@ -51,7 +56,6 @@ src_compile() {
 }
 
 src_install() {
-	trinity-meta_src_install
 	# starttde script
 	exeinto "${TDEDIR}/bin"
 	doexe starttde

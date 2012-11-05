@@ -29,6 +29,7 @@
 ~trinity-base/kate-9999 **
 ~trinity-base/tdeartwork-icon-themes-9999 **
 ~trinity-base/kdeeject-9999 **
+~trinity-base/tdeinit-9999 **
 ~trinity-base/tdelibs-9999 **
 ~trinity-base/kmenuedit-9999 **
 ~trinity-base/twin-9999 **
@@ -44,13 +45,13 @@
 ~trinity-base/kcontrol-9999 **
 ~trinity-base/libkonq-9999 **
 ~trinity-base/kdialog-9999 **
-~trinity-base/tdebase-tdeinit-9999 **
 ~trinity-base/tdebase-meta-9999 **
 ~trinity-base/nsplugins-9999 **
 ~trinity-base/tdm-9999 **
 ~trinity-base/kappfinder-9999 **
 ~trinity-base/drkonqi-9999 **
 ~trinity-base/kscreensaver-9999 **
+~trinity-base/tdebase-starttde-9999 **
 ~trinity-base/konqueror-9999 **
 ~trinity-base/tdebase-data-9999 **
 ~trinity-base/khelpcenter-9999 **
