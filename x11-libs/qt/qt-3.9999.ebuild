@@ -17,7 +17,7 @@ HOMEPAGE="http://qt.nokia.com/"
 #	immqt-bc? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )"
 EGIT_REPO_URI="http://git.trinitydesktop.org/cgit/qt3/"
 EGIT_BRANCH="master"
-EGIT_PROJECT="tde"
+EGIT_PROJECT="trinity/qt3"
 LICENSE="|| ( QPL-1.0 GPL-2 GPL-3 )"
 
 SLOT="3"
