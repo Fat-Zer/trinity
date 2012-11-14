@@ -14,7 +14,6 @@ trinity-base/kghostview: check for other additional depedencies.
 trinity-base/kmrml: add dependencies, see what is it.
 trinity-base/kviewshell: test if it depends on kde-base/kdebase-kioslaves
 
-trinity-base/kdessh: test what is it; add description
 trinity-base/kgpg: check dependencies
 trinity-base/kgpg: if it's possible add app-crypt/pinentry[qt3] to overlay
 

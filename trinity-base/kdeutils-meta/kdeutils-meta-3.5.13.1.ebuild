@@ -21,7 +21,6 @@ RDEPEND="
 	>=trinity-base/kcalc-${PV}:${SLOT}
 	>=trinity-base/kcharselect-${PV}:${SLOT}
 	>=trinity-base/kdelirc-${PV}:${SLOT}
-	>=trinity-base/kdessh-${PV}:${SLOT}
 	>=trinity-base/kdf-${PV}:${SLOT}
 	>=trinity-base/kedit-${PV}:${SLOT}
 	>=trinity-base/kfloppy-${PV}:${SLOT}
