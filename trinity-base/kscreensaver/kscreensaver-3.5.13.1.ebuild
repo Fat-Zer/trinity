@@ -15,7 +15,7 @@ DEPEND="x11-libs/libXt
 	krootbacking? ( trinity-base/krootbacking )"
 RDEPEND="${DEPEND}"
 
-src_install () {
+src_configure () {
 	if use opengl; then
 		ewarn "OpenGL is not supported by trinity build system yet."
 		ewarn "This use flag is here just for future/past capability"

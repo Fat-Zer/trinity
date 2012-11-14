@@ -9,3 +9,5 @@ inherit trinity-meta
 DESCRIPTION="Trinity calculator"
 KEYWORDS="x86 amd64"
 IUSE=""
+
+DEPEND="dev-libs/gmp"
