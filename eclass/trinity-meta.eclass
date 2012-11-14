@@ -175,11 +175,8 @@ trinity-meta_create_extractlists() {
 	case "${TRINITY_MODULE_NAME}" in
 		kdebase) TSM_EXTRACT_LIST+=" kcontrol/ kdmlib/" ;;
 		tdebase) TSM_EXTRACT_LIST+=" kcontrol/" ;;
-		kdeartwork) ;;
-		tdeartwork) ;;
-		kdegraphics) ;;
-		tdegraphics) ;;
-		*) die "TRINITY_MODULE_NAME ${TRINITY_MODULE_NAME} is not supported by function ${FUNCNAME}" ;;
+		*) ;; # nothing special for over modules
+#		*) die "TRINITY_MODULE_NAME ${TRINITY_MODULE_NAME} is not supported by function ${FUNCNAME}" ;;
 	esac
 
 	TSM_EXTRACT_LIST+=" ${TSM_EXTRACT} ${TSM_EXTRACT_ALSO} cmake/ CMakeLists.txt"
@@ -193,26 +190,27 @@ trinity-meta_create_extractlists() {
 # Default src prepare function. Currently it's only a stub.
 trinity-meta_src_prepare() {
 	debug-print-function ${FUNCNAME} "$@"
+	local shared_patch_dir f f_name;
 
-	if [ "${TRINITY_MODULE_NAME}" == "tdebase" ]; then
-		# upstream CMakelists files are sometimes really crappy...
-		cat >$T/tdebase-fix-migratekde3-install.patch <<'EOF'
---- tdebase/CMakeLists.txt.orig 2012-10-20 13:29:16.000000000 +0400
-+++ tdebase/CMakeLists.txt      2012-10-21 04:03:09.000000000 +0400
-@@ -219,8 +219,8 @@
- 
- if( BUILD_STARTTDE )
-   install( PROGRAMS starttde DESTINATION ${BIN_INSTALL_DIR} )
-+  install( PROGRAMS migratekde3 r14-xdg-update DESTINATION ${BIN_INSTALL_DIR} )
- endif()
--install( PROGRAMS migratekde3 r14-xdg-update DESTINATION ${BIN_INSTALL_DIR} )
- 
- 
- ##### write configure files #####################
-EOF
-		epatch ${T}/tdebase-fix-migratekde3-install.patch
+	shared_patch_dir="${FILESDIR}/shared/${TRINITY_MODULE_NAME}-${PV}/patches/"
+	if [ -d "${shared_patch_dir}" ]; then
+		find "${shared_patch_dir}" -type f | while read f; do
+			f_name="$(basename "${f}")"
+			case "${f_name}" in
+			*.diff | *.patch ) epatch "${f}" ;;
+			*.gz ) cp "${f}" "${T}"
+				gunzip ${T}/${f_name}
+				epatch  ${T}/${f_name%.gz}
+				;;
+			*.bz2 ) cp "${f}" "${T}"
+				bunzip2 ${T}/${f_name}
+				epatch  ${T}/${f_name%.bz2}
+				;;
+			*) die "unknown patch type in the patch directory" ;;
+			esac
+		done;
 	fi
-
+	
 	trinity-base_src_prepare
 }
 

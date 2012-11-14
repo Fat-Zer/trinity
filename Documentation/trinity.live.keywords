@@ -56,6 +56,3 @@
 ~trinity-base/tdebase-data-9999 **
 ~trinity-base/khelpcenter-9999 **
 ~trinity-base/kcminit-9999 **
-~dev-libs/dbus-tqt-9999 **
-~x11-libs/qt-3.9999 **
-~x11-libs/qt-meta-3.9999 **

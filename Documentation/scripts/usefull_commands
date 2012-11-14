@@ -7,3 +7,5 @@ find trinity-base/ -iname '*9999.ebuild' | while read eb; do PN="$(basename $(di
 find . -iname *.ebuild | while read eb; do ebuild $eb digest; done
 
 cat Documentation/derived-lists/<LIST> | sed 's/#.*//;s/^\s*//;s/\s*$//;/^\s*$/d' |xargs bash ./test_separate_compilation.sh
+
+find . -iname *.ebuild | while read eb; do ma="$(dirname $eb)/Manifest";md="$(dirname $eb)/metadata.xml"; ([ $eb -nt $ma ] || [ $md -nt $ma ] ) && ebuild $eb digest && touch $ma; done

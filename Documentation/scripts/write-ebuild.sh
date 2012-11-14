@@ -6,19 +6,20 @@ EAPI="3"
 KEYWORDS="x86 amd64"
 
 TRINITY_MODULE_NAME=$1
-PV=$2
+PN=$2
 DESCRIPTION="$3"
+PV=3.5.13.1
 
-echo "==> Creating ebuild for ${PV}"
+echo "==> Creating ebuild for ${PN}"
 if [ -z "$DESCRIPTION" ]; then
-	DESCRIPTION="$(eix -C kde-base -s "${PV}" | sed -n '/^\s*Description:\s*/{s///;s/\(\<KDE\|\kde\)\>/Trinity/g;p}')"
+	DESCRIPTION="$(eix -C kde-base -s "${PN}" | sed -n '/^\s*Description:\s*/{s///;s/\(\<KDE\|\kde\)\>/Trinity/g;p}')"
 	echo -n "DESCRIPTION [${DESCRIPTION}]:" && read dsc
 	[ -n "$dsc" ] && DESCRIPTION="$dsc"
 fi
 
 
-mkdir -p trinity-base/$PV
-cat <<EOF >trinity-base/$PV/$PV-3.5.13.1.ebuild
+mkdir -p trinity-base/$PN
+cat <<EOF >trinity-base/$PN/$PN-${PV}.ebuild
 $HEADER
 EAPI="$EAPI"
 TRINITY_MODULE_NAME="$TRINITY_MODULE_NAME"
@@ -30,7 +31,7 @@ KEYWORDS="$KEYWORDS"
 IUSE=""
 EOF
 
-cat <<EOF >trinity-base/$PV/metadata.xml
+cat <<EOF >trinity-base/$PN/metadata.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
@@ -40,3 +41,8 @@ cat <<EOF >trinity-base/$PV/metadata.xml
 	</maintainer>
 </pkgmetadata>
 EOF
+
+if [ -d eclass/trinity-shared-files/${TRINITY_MODULE_NAME}-${PV} ]; then
+	mkdir -p "trinity-base/$PN/files/"
+	ln -s "../../../eclass/trinity-shared-files/" "trinity-base/$PN/files/shared"
+fi
