@@ -4,7 +4,7 @@ trinity-base/kamera
 trinity-base/kcoloredit
 #! trinity-base/kdvi
 #! trinity-base/kfax
-#! trinity-base/kdegraphics-doc
+trinity-base/kdegraphics-doc
 trinity-base/kdegraphics-kfile-plugins
 trinity-base/kgamma
 trinity-base/kghostview

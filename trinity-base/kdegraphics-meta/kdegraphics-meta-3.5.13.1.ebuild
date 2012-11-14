@@ -21,6 +21,7 @@ RDEPEND="
 	>=trinity-base/kdvi-${PV}:${SLOT}
 	>=trinity-base/kfax-${PV}:${SLOT}
 	>=trinity-base/kdegraphics-kfile-plugins-${PV}:${SLOT}
+	>=trinity-base/kdegraphics-doc-${PV}:${SLOT}
 	>=trinity-base/kgamma-${PV}:${SLOT}
 	>=trinity-base/kghostview-${PV}:${SLOT}
 	>=trinity-base/kiconedit-${PV}:${SLOT}
