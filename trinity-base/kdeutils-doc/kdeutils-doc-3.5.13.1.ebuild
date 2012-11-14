@@ -6,9 +6,11 @@ TRINITY_MODULE_NAME="kdeutils"
 
 inherit trinity-meta
 
-DESCRIPTION=""
+DESCRIPTION="Documentaion for kdeutils-derived packages"
 KEYWORDS="x86 amd64"
 IUSE=""
+RDEPEND="
+	>=trinity-base/khelpcenter-${PV}:${SLOT}"
 
 pkg_setup() {
 	# we should reduce MAKEOPTS -j parametr to no more than 4

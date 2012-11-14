@@ -10,9 +10,4 @@ TRINITY_SUBMODULE="l10n pics applnk"
 
 DESCRIPTION="Icons, localization data and .desktop files from kdebase. Includes l10n, pics and applnk subdirs."
 KEYWORDS="x86 amd64"
-IUSE="doc"
-
-pkg_setup() {
-	use doc && TRINITY_SUBMODULE+=" doc"
-	trinity-meta_pkg_setup;
-}
+IUSE=""

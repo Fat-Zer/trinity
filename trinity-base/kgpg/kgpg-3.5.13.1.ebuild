@@ -11,4 +11,4 @@ KEYWORDS="x86 amd64"
 IUSE=""
 
 RDEPEND="app-crypt/gnupg
-    || ( app-crypt/pinentry[qt3] app-crypt/pinentry[gtk] )"
+	|| ( app-crypt/pinentry[qt3] app-crypt/pinentry[gtk] )"

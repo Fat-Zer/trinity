@@ -8,19 +8,19 @@ inherit trinity-meta
 
 DESCRIPTION="kded module that can support various types of hardware input devices, such as those on keyboards."
 KEYWORDS="x86 amd64"
-IUSE="asus dell powerbook thinkpad vaio lm_sensors"
+IUSE="asus-laptop dell-laptop powerbook-laptop thinkpad-laptop vaio-laptop lm_sensors"
 
-DEPEND="powerbook? ( app-laptop/pbbuttonsd )"
+DEPEND="powerbook-laptop? ( app-laptop/pbbuttonsd )"
 RDEPEND="${DEPEND}
 	lm_sensors? ( sys-apps/lm_sensors )"
 
 src_configure() {
 	mycmakeargs=(
-		$(cmake-utils_use_with asus ASUS)
-		$(cmake-utils_use_with dell I8K)
-		$(cmake-utils_use_with powerbook POWERBOOK2)
-		$(cmake-utils_use_with thinkpad THINKPAD)
-		$(cmake-utils_use_with vaio VAIO)
+		$(cmake-utils_use_with asus-laptop ASUS)
+		$(cmake-utils_use_with dell-laptop I8K)
+		$(cmake-utils_use_with powerbook-laptop POWERBOOK2)
+		$(cmake-utils_use_with thinkpad-laptop THINKPAD)
+		$(cmake-utils_use_with vaio-laptop VAIO)
 		$(cmake-utils_use_with lm_sensors SENSORS)
 	)
 

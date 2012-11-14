@@ -5,4 +5,11 @@
 		<email>fatzer2@gmail.com</email>
 		<name>Golubev Alexander</name>
 	</maintainer>
+	<use>
+		<flag name="asus-laptop">Adds support for some asus-specific laptop hardware.</flag>
+		<flag name="dell-laptop">Adds support for some dell-specific laptop hardware.</flag>
+		<flag name="powerbook-laptop">Adds support for some powerbook-specific laptop hardware.</flag>
+		<flag name="thinkpad-laptop">Adds support for some thinkpad-specific laptop hardware.</flag>
+		<flag name="vaio-laptop">Adds support for some vaio-specific laptop hardware.</flag>
+	</use>
 </pkgmetadata>

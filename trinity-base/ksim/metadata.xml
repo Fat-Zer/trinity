@@ -5,4 +5,7 @@
 		<email>fatzer2@gmail.com</email>
 		<name>Golubev Alexander</name>
 	</maintainer>
+	<use>
+		<flag name="dell-laptop">Adds support for some dell-specific laptop hardware.</flag>
+	</use>
 </pkgmetadata>

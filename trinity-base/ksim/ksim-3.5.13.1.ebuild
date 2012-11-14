@@ -8,10 +8,10 @@ inherit trinity-meta
 
 DESCRIPTION="Trinity system monitoring applets."
 KEYWORDS="x86 amd64"
-IUSE="snmp lm_sensors dell"
+IUSE="snmp lm_sensors dell-laptop"
 
 DEPEND="lm_sensors? ( x11-libs/libXext )
-    snmp? ( net-analyzer/net-snmp )"
+	snmp? ( net-analyzer/net-snmp )"
 RDEPEND="${DEPEND}
 	lm_sensors? ( sys-apps/lm_sensors )"
 

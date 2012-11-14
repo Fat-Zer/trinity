@@ -11,6 +11,6 @@ KEYWORDS="x86 amd64"
 IUSE=""
 
 pkg_postinst(){
-    elog "You may want to install app-arch/lha, app-arch/p7zip, app-arch/rar,"
-    elog "app-arch/zip or app-arch/zoo for support of these archive types."
+	elog "You may want to install app-arch/lha, app-arch/p7zip, app-arch/rar,"
+	elog "app-arch/zip or app-arch/zoo for support of these archive types."
 }

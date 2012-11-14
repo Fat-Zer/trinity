@@ -11,3 +11,4 @@ KEYWORDS="x86 amd64"
 IUSE=""
 
 DEPEND="dev-libs/gmp"
+RDEPEND="${DEPEND}"
