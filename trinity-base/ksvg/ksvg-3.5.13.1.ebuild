@@ -16,3 +16,5 @@ DEPEND=">=media-libs/freetype-2.2
 	media-libs/lcms:0
 	dev-libs/fribidi"
 RDEPEND="${DEPEND}"
+
+PATCHES="${FILESDIR}/${P}-bug1311.patch"

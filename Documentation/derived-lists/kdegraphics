@@ -16,7 +16,7 @@ trinity-base/kpdf
 trinity-base/kpovmodeler
 trinity-base/kruler
 trinity-base/ksnapshot
-#! trinity-base/ksvg
+trinity-base/ksvg
 trinity-base/kuickshow
 trinity-base/kview
 trinity-base/kviewshell

@@ -1,0 +1,14 @@
+diff --git a/ksvg/ConfigureChecks.cmake b/ksvg/ConfigureChecks.cmake
+index 76177f5..2082482 100644
+--- a/ksvg/ConfigureChecks.cmake
++++ b/ksvg/ConfigureChecks.cmake
+@@ -41,7 +41,9 @@ endif( )
+ # fribidi
+ pkg_search_module( FRIBIDI fribidi )
+ if( FRIBIDI_FOUND )
++  set( CMAKE_REQUIRED_INCLUDES ${FRIBIDI_INCLUDE_DIRS} )
+   check_include_file( fribidi/fribidi-types.h FRIBIDI_NEW_FILENAME )
++  set( CMAKE_REQUIRED_INCLUDES )
+ else( )
+   tde_message_fatal( "fribidi is required, but was not found on your system" )
+ endif( )

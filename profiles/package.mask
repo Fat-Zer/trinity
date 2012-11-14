@@ -1,6 +1,3 @@
-# compilation fails becouse it cannot find fribidi/fribidi_types.h becouse on unknown reason
-trinity-base/ksvg
-
 # an issue with kviewshell-static library in trinity-base/kviewshell; 
 # making it shared solves the problem 
 # or may be we should just install it ?
