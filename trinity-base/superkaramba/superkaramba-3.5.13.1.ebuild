@@ -9,7 +9,7 @@ inherit trinity-meta
 DESCRIPTION="A tool to create interactive applets for the Trinity desktop."
 KEYWORDS="x86 amd64"
 #FIXME: add xmms use
-IUSE="knewstuff"
+IUSE=""
 
 # RDEPEND="xmms? (media-sound/xmms2)"
 
@@ -17,7 +17,7 @@ src_configure() {
 	mycmakeargs=(
 #		$(cmake-utils_use_with xmms XMMS )
 		"-DWITH_XMMS=ON"
-		$(cmake-utils_use_with knewstuff KNEWSTUFF )
+		"-DWITH_KNEWSTUFF=ON"
 	)
 
 	trinity-meta_src_configure
