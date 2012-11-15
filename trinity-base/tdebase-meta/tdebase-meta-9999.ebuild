@@ -15,7 +15,7 @@ SLOT="$TRINITY_LIVEVER"
 KEYWORDS=""
 IUSE=""
 
-RDEPEND=">=trinity-base/tdebase-tdeinit-${PV}:${SLOT}
+RDEPEND=">=trinity-base/tdeinit-${PV}:${SLOT}
 	>=trinity-base/drkonqi-${PV}:${SLOT}
 	>=trinity-base/kappfinder-${PV}:${SLOT}
 	>=trinity-base/kate-${PV}:${SLOT}
