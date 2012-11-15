@@ -16,7 +16,3 @@ trinity-base/kviewshell: test if it depends on kde-base/kdebase-kioslaves
 
 trinity-base/kgpg: check dependencies
 trinity-base/kgpg: if it's possible add app-crypt/pinentry[qt3] to overlay
-
-add kdegraphics-doc package
-
-change PATCHES (a base.eclass variable) to TRINITY_PATCHES # tobe removed

@@ -1,0 +1,44 @@
+diff --git a/ksim/library/pluginglobal.cpp b/ksim/library/pluginglobal.cpp
+index 34a38c3..5f523cc 100644
+--- a/ksim/library/pluginglobal.cpp
++++ b/ksim/library/pluginglobal.cpp
+@@ -155,7 +155,7 @@ bool KSim::Plugin::isNull() const
+   return !d;
+ }
+ 
+-const TQString &KSim::Plugin::name() const
++TQString KSim::Plugin::name() const
+ {
+   return d ? d->name : TQString();
+ }
+@@ -170,7 +170,7 @@ TQCString KSim::Plugin::libName() const
+   return d ? d->libName : TQCString();
+ }
+ 
+-const TQString &KSim::Plugin::fileName() const
++TQString KSim::Plugin::fileName() const
+ {
+   return d ? d->filename : TQString();
+ }
+diff --git a/ksim/library/pluginglobal.h b/ksim/library/pluginglobal.h
+index 5dbeef8..e094198 100644
+--- a/ksim/library/pluginglobal.h
++++ b/ksim/library/pluginglobal.h
+@@ -93,7 +93,7 @@ namespace KSim
+        * @return the name of the plugin, NOT the library name
+        * @see #libName
+        */
+-      const TQString &name() const;
++      TQString name() const;
+       /**
+        * @return the icon of the plugin
+        */
+@@ -105,7 +105,7 @@ namespace KSim
+       /**
+        * @return path to the .desktop file
+        */
+-      const TQString &fileName() const;
++      TQString fileName() const;
+       /**
+        * @return the plugin object
+        */

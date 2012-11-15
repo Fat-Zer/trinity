@@ -14,10 +14,11 @@ DEPEND="lm_sensors? ( x11-libs/libXext )
 	snmp? ( net-analyzer/net-snmp )"
 RDEPEND="${DEPEND}
 	lm_sensors? ( sys-apps/lm_sensors )"
+PATCHES=( "$FILESDIR/fix_crash.patch" )
 
 src_configure() {
 	mycmakeargs=(
-		$(cmake-utils_use_with dell I8K)
+		$(cmake-utils_use_with dell-laptop I8K)
 		$(cmake-utils_use_with snmp SNMP)
 		$(cmake-utils_use_with lm_sensors SENSORS)
 	)
