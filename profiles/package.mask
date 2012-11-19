@@ -4,9 +4,5 @@
 trinity-base/kdvi
 trinity-base/kfax
 
-# dependencies are not packaged yet.
-trinity-base/kdeartwork-kworldclock
-
 # masked due masked dependencies
 trinity-base/kdegraphics-meta
-trinity-base/kdeartwork-meta
