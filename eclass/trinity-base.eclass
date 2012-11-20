@@ -77,7 +77,7 @@ if [[ ${BUILD_TYPE} = live ]]; then
 	case ${TRINITY_SCM} in
 	git)
 		 if [[ -z "${EGIT_MIRROR}" ]]; then
-			EGIT_MIRROR="http://git.trinitydesktop.org/cgit"
+			EGIT_MIRROR="http://scm.trinitydesktop.org/scm/git"
 		 fi
 		 EGIT_REPO_URI="${EGIT_MIRROR}/${TRINITY_MODULE_NAME}"
 		 EGIT_BRANCH="master"
