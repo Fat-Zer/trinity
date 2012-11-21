@@ -15,7 +15,7 @@ HOMEPAGE="http://qt.nokia.com/"
 #SRC_URI="ftp://ftp.trolltech.com/qt/source/qt-x11-${SRCTYPE}-${PV}.tar.gz
 #	immqt? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )
 #	immqt-bc? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )"
-EGIT_REPO_URI="http://git.trinitydesktop.org/cgit/qt3/"
+EGIT_REPO_URI="http://scm.trinitydesktop.org/scm/git/qt3"
 EGIT_BRANCH="master"
 EGIT_PROJECT="trinity/qt3"
 LICENSE="|| ( QPL-1.0 GPL-2 GPL-3 )"
@@ -226,6 +226,11 @@ src_compile() {
 	tc-export CC CXX
 	export LINK="$(tc-getCXX)"
 
+	einfo ./configure -sm -thread -stl -system-libjpeg -verbose -largefile \
+		-qt-imgfmt-{jpeg,mng,png} -tablet -system-libmng \
+		-system-libpng -xft -platform ${PLATFORM} -xplatform \
+		${PLATFORM} -xrender -prefix ${QTBASE} -libdir ${QTBASE}/$(get_libdir) \
+		-fast -no-sql-odbc ${myconf} -dlopen-opengl || die
 	./configure -sm -thread -stl -system-libjpeg -verbose -largefile \
 		-qt-imgfmt-{jpeg,mng,png} -tablet -system-libmng \
 		-system-libpng -xft -platform ${PLATFORM} -xplatform \
