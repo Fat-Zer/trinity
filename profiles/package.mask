@@ -9,4 +9,4 @@ trinity-base/kfax
 
 # masked due masked dependencies
 trinity-base/kdegraphics-meta
-=trinity-base/tdenetwork-meta
+trinity-base/tdenetwork-meta
