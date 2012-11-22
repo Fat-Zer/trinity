@@ -1,4 +1,4 @@
-trinity-base/tqtinterface qt4
+x11-libs/tqtinterface qt4
 trinity-base/kdelibs avahi
 trinity-base/tdelibs avahi
 # unmask this if we will support powerpc

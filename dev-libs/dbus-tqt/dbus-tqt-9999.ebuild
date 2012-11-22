@@ -15,7 +15,7 @@ SLOT="0"
 IUSE=""
 
 DEPEND="x11-libs/qt:3
-	trinity-base/tqtinterface"
+	x11-libs/tqtinterface"
 RDEPEND="$DEPEND"
 
 src_configure() {

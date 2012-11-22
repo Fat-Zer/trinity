@@ -17,7 +17,7 @@ IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter
 	upower xcomposite"
 
 DEPEND="${DEPEND}
-	>=trinity-base/tqtinterface-${PV}
+	>=x11-libs/tqtinterface-${PV}
 	>=dev-libs/libxslt-1.1.16
 	>=dev-libs/libxml2-2.6.6
 	>=dev-libs/libpcre-6.6
