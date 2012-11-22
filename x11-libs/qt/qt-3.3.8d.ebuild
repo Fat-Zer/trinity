@@ -134,6 +134,10 @@ src_unpack() {
 	sed -i -e "s:CXXFLAGS.*=:CXXFLAGS=${CXXFLAGS} :" \
 		   -e "s:LFLAGS.*=:LFLAGS=${LDFLAGS} :" \
 		"${S}"/qmake/Makefile.unix || die
+	
+	# remove unnecessary headers
+	rm include/[^q]*.h
+	rm include/*_p.h
 }
 
 src_compile() {
