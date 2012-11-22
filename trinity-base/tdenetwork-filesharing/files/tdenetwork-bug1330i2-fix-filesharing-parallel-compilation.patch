@@ -1,0 +1,69 @@
+diff --git a/filesharing/advanced/kcm_sambaconf/CMakeLists.txt b/filesharing/advanced/kcm_sambaconf/CMakeLists.txt
+index 41723ee..d466124 100644
+--- a/filesharing/advanced/kcm_sambaconf/CMakeLists.txt
++++ b/filesharing/advanced/kcm_sambaconf/CMakeLists.txt
+@@ -37,6 +37,24 @@ tde_add_library( filesharesamba STATIC_PIC AUTOMOC
+     filemodedlgimpl.cpp smbpasswdfile.cpp passwd.cpp hiddenfileview.cpp
+     dictmanager.cpp qmultichecklistitem.cpp smbconfconfigwidget.cpp
+     linuxpermissionchecker.cpp expertuserdlg.ui
++  DEPENDENCIES filesharesamba_generate_headers
++)
++
++#  Those headers are also required by target in another subdirectory. 
++# So we have to add such target for our generated header files to avoid
++# race conditions.
++# SEE cmake FAQ: http://www.cmake.org/Wiki/CMake_FAQ
++#
++add_custom_target( filesharesamba_generate_headers 
++  DEPENDS  
++    ${CMAKE_CURRENT_BINARY_DIR}/share.h 
++    ${CMAKE_CURRENT_BINARY_DIR}/share.h 
++    ${CMAKE_CURRENT_BINARY_DIR}/socketoptionsdlg.h
++    ${CMAKE_CURRENT_BINARY_DIR}/userselectdlg.h
++    ${CMAKE_CURRENT_BINARY_DIR}/groupselectdlg.h
++    ${CMAKE_CURRENT_BINARY_DIR}/usertab.h
++    ${CMAKE_CURRENT_BINARY_DIR}/filemodedlg.h
++    ${CMAKE_CURRENT_BINARY_DIR}/expertuserdlg.h
+ )
+ 
+ 
+diff --git a/filesharing/advanced/propsdlgplugin/CMakeLists.txt b/filesharing/advanced/propsdlgplugin/CMakeLists.txt
+index 26d94f5..bd96ae6 100644
+--- a/filesharing/advanced/propsdlgplugin/CMakeLists.txt
++++ b/filesharing/advanced/propsdlgplugin/CMakeLists.txt
+@@ -11,7 +11,8 @@
+ 
+ include_directories(
+   ${CMAKE_CURRENT_BINARY_DIR}
+-  ${CMAKE_CURRENT_BINARY_DIR}/../kcm_sambaconf
++  ${CMAKE_BINARY_DIR}/filesharing/advanced/kcm_sambaconf
++  ${CMAKE_SOURCE_DIR}/filesharing/advanced/kcm_sambaconf
+   ${TDE_INCLUDE_DIR}
+   ${TQT_INCLUDE_DIRS}
+ )
+@@ -32,7 +33,7 @@ install( FILES
+ 
+ tde_add_library( propsdlgplugin_common STATIC_PIC AUTOMOC
+   SOURCES propertiespage.cpp propertiespagegui.ui
+-  DEPENDENCIES filesharesamba
++  DEPENDENCIES filesharesamba_generate_headers 
+ )
+ 
+ 
+diff --git a/filesharing/advanced/propsdlgplugin/propertiespage.cpp b/filesharing/advanced/propsdlgplugin/propertiespage.cpp
+index 5ff1af7..6042b9e 100644
+--- a/filesharing/advanced/propsdlgplugin/propertiespage.cpp
++++ b/filesharing/advanced/propsdlgplugin/propertiespage.cpp
+@@ -44,9 +44,9 @@
+ #include "../nfs/nfsdialog.h"
+ 
+ // Samba related
+-#include "../kcm_sambaconf/sambafile.h"
+-#include "../kcm_sambaconf/sambashare.h"
+-#include "../kcm_sambaconf/sharedlgimpl.h"
++#include "sambafile.h"
++#include "sambashare.h"
++#include "sharedlgimpl.h"
+ 
+ #include "propertiespage.h"
+ 

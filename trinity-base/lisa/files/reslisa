@@ -1,0 +1,19 @@
+#!/sbin/runscript
+# Copyright 1999-2004 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+    use net
+}
+
+start() {
+    ebegin "Starting reslisa"
+    start-stop-daemon --start -x _TDEDIR_/bin/reslisa -q -- 1>/dev/null
+    eend $? "Failed to start reslisa"
+}
+
+stop() {
+    ebegin "Stopping reslisa"
+    start-stop-daemon --stop -x _TDEDIR_/bin/reslisa -q
+    eend $? "Failed to stop reslisa"
+}

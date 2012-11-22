@@ -1,0 +1,20 @@
+# this is a list of packages derived on tdebase module
+# broken packages are commented with #!
+trinity-base/dcoprss
+trinity-base/kdict
+trinity-base/kdnssd
+trinity-base/kget
+trinity-base/knewsticker
+trinity-base/kopete
+trinity-base/kpf
+trinity-base/kppp
+trinity-base/krdc
+trinity-base/krfb
+trinity-base/ksirc
+trinity-base/ktalkd
+trinity-base/kwifimanager
+trinity-base/librss
+trinity-base/lisa
+trinity-base/tdenetwork-doc
+trinity-base/tdenetwork-filesharing
+trinity-base/tdenetwork-kfile-plugins

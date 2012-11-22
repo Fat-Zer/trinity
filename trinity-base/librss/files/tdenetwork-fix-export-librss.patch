@@ -1,0 +1,21 @@
+diff --git a/librss/CMakeLists.txt b/librss/CMakeLists.txt
+index b16edfb..2456b38 100644
+--- a/librss/CMakeLists.txt
++++ b/librss/CMakeLists.txt
+@@ -9,6 +9,8 @@
+ #
+ #################################################
+ 
++project( librss )
++
+ include_directories(
+   ${CMAKE_CURRENT_BINARY_DIR}
+   ${TDE_INCLUDE_DIR}
+@@ -37,3 +39,7 @@ tde_add_library( rss SHARED AUTOMOC
+   LINK kio-shared
+   DESTINATION ${LIB_INSTALL_DIR}
+ )
++
++##### install import cmake modules ###############
++
++tde_install_export( )

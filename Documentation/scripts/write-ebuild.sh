@@ -3,14 +3,17 @@ HEADER="# Copyright 1999-$(date +%Y) Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # \$Header: \$"
 EAPI="3"
-KEYWORDS="amd64 x86"
 
 TRINITY_MODULE_NAME=$1
 PN=$2
 DESCRIPTION="$3"
-PV=3.5.13.1
+PV=${PV:=3.5.13.1}
+KEYWORDS="amd64 x86"
+case "${PV}" in
+	*9999*) KEYWORDS="" ;;
+esac
 
-echo "==> Creating ebuild for ${PN}"
+echo "==> Creating ebuild for ${PN}-${PV}"
 if [ -z "$DESCRIPTION" ]; then
 	DESCRIPTION="$(eix -C kde-base -s "${PN}" | sed -n '/^\s*Description:\s*/{s///;s/\(\<KDE\|\kde\)\>/Trinity/g;p}')"
 	echo -n "DESCRIPTION [${DESCRIPTION}]:" && read dsc
