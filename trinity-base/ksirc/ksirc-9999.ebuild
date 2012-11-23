@@ -11,4 +11,4 @@ KEYWORDS=""
 IUSE="ssl"
 
 RDEPEND="dev-lang/perl
-    ssl? ( dev-perl/IO-Socket-SSL )"
+	ssl? ( dev-perl/IO-Socket-SSL )"

@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/qt/qt-3.3.8b-r2.ebuild,v 1.7 2009/12/03 18:25:47 yngwin Exp $
+# $Header: $
 
 # *** Please remember to update qt3.eclass when revbumping this ***
 
@@ -134,7 +134,7 @@ src_unpack() {
 	sed -i -e "s:CXXFLAGS.*=:CXXFLAGS=${CXXFLAGS} :" \
 		   -e "s:LFLAGS.*=:LFLAGS=${LDFLAGS} :" \
 		"${S}"/qmake/Makefile.unix || die
-	
+
 	# remove unnecessary headers
 	rm include/[^q]*.h
 	rm include/*_p.h

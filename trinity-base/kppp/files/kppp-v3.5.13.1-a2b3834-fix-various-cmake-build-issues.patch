@@ -1,0 +1,10 @@
+diff --git a/kppp/Rules/CMakeLists.txt b/kppp/Rules/CMakeLists.txt
+index bb4f384..fc2c702 100644
+--- a/kppp/Rules/CMakeLists.txt
++++ b/kppp/Rules/CMakeLists.txt
+@@ -12,4 +12,4 @@
+ tde_auto_add_subdirectories( )
+ 
+ install( FILES TEMPLATE DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules )
+-install( PROGRAMS checkrules DESTINATION ${DATA_INSTALL_DIR} )
++install( PROGRAMS checkrules DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules )

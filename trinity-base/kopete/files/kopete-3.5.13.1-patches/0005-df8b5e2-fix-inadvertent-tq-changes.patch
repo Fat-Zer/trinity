@@ -1,0 +1,180 @@
+diff --git a/kopete/libkopete/tests/create_test.rb b/kopete/libkopete/tests/create_test.rb
+index ba6e0c2..7951bf3 100755
+--- a/kopete/libkopete/tests/create_test.rb
++++ b/kopete/libkopete/tests/create_test.rb
+@@ -37,7 +37,7 @@ fileCpp.gsub!(/template/, className.downcase.gsub(/::/,""))
+ fileCpp.gsub!(/Template/, className.gsub(/::/,""))
+ fileCpp.gsub!(/some requirement/, className + " class.")
+ 
+-makefileAm = "kunittest_template_test_la_SOURCES = template_test.cpp\nkunittest_template_test_la_LIBADD = -lkunittest ../tqmock/libkopete_tqmock.la\nkunittest_template_test_la_LDFLAGS = -module $(KDE_CHECK_PLUGIN) $(all_libraries)\n"
++makefileAm = "kunittest_template_test_la_SOURCES = template_test.cpp\nkunittest_template_test_la_LIBADD = -lkunittest ../mock/libkopete_mock.la\nkunittest_template_test_la_LDFLAGS = -module $(KDE_CHECK_PLUGIN) $(all_libraries)\n"
+ makefileAm.gsub!(/template/, className.downcase.gsub(/::/,""))
+ 
+ hNew = hBase.gsub(/template/, className.downcase.gsub(/::/,""))
+diff --git a/kopete/libkopete/tests/kopetemessage_test.cpp b/kopete/libkopete/tests/kopetemessage_test.cpp
+index bfd9e39..57908e4 100644
+--- a/kopete/libkopete/tests/kopetemessage_test.cpp
++++ b/kopete/libkopete/tests/kopetemessage_test.cpp
+@@ -29,11 +29,11 @@
+ #include <kdebug.h>
+ 
+ #include "kopetemessage_test.h"
+-#include "kopeteaccount_tqmock.h"
+-#include "kopeteprotocol_tqmock.h"
+-#include "kopetecontact_tqmock.h"
+-#include "kopetemetacontact_tqmock.h"
+-#include "kopeteaccount_tqmock.h"
++#include "kopeteaccount_mock.h"
++#include "kopeteprotocol_mock.h"
++#include "kopetecontact_mock.h"
++#include "kopetemetacontact_mock.h"
++#include "kopeteaccount_mock.h"
+ 
+ using namespace KUnitTest;
+ 
+diff --git a/kopete/libkopete/tests/mock/kopeteaccount_mock.cpp b/kopete/libkopete/tests/mock/kopeteaccount_mock.cpp
+index 8beb6e8..7d46fc3 100644
+--- a/kopete/libkopete/tests/mock/kopeteaccount_mock.cpp
++++ b/kopete/libkopete/tests/mock/kopeteaccount_mock.cpp
+@@ -1,5 +1,5 @@
+ /*
+-    Account tqmock object class
++    Account mock object class
+ 
+     Copyright (c) 2005 by Duncan Mac-Vicar Prett  <duncan@kde.org>
+ 
+@@ -15,9 +15,9 @@
+     *************************************************************************
+ */
+ 
+-#include "kopeteaccount_tqmock.h"
++#include "kopeteaccount_mock.h"
+ #include "kopetemetacontact.h"
+-#include "kopeteaccount_tqmock.h"
++#include "kopeteaccount_mock.h"
+ 
+ namespace Kopete
+ {
+diff --git a/kopete/libkopete/tests/mock/kopeteaccount_mock.h b/kopete/libkopete/tests/mock/kopeteaccount_mock.h
+index be4f281..039632f 100644
+--- a/kopete/libkopete/tests/mock/kopeteaccount_mock.h
++++ b/kopete/libkopete/tests/mock/kopeteaccount_mock.h
+@@ -1,5 +1,5 @@
+ /*
+-    Account tqmock object class
++    Account mock object class
+ 
+     Copyright (c) 2005 by Duncan Mac-Vicar Prett  <duncan@kde.org>
+ 
+diff --git a/kopete/libkopete/tests/mock/kopetecontact_mock.cpp b/kopete/libkopete/tests/mock/kopetecontact_mock.cpp
+index 43a5b81..ea90bee 100644
+--- a/kopete/libkopete/tests/mock/kopetecontact_mock.cpp
++++ b/kopete/libkopete/tests/mock/kopetecontact_mock.cpp
+@@ -1,5 +1,5 @@
+ /*
+-    Contact tqmock object class
++    Contact mock object class
+ 
+     Copyright (c) 2005 by Duncan Mac-Vicar Prett  <duncan@kde.org>
+ 
+@@ -15,7 +15,7 @@
+     *************************************************************************
+ */
+ 
+-#include "kopetecontact_tqmock.h"
++#include "kopetecontact_mock.h"
+ 
+ namespace Kopete
+ {
+diff --git a/kopete/libkopete/tests/mock/kopetecontact_mock.h b/kopete/libkopete/tests/mock/kopetecontact_mock.h
+index aba361a..00ec878 100644
+--- a/kopete/libkopete/tests/mock/kopetecontact_mock.h
++++ b/kopete/libkopete/tests/mock/kopetecontact_mock.h
+@@ -1,5 +1,5 @@
+ /*
+-    Contact tqmock object class
++    Contact mock object class
+ 
+     Copyright (c) 2005 by Duncan Mac-Vicar Prett  <duncan@kde.org>
+ 
+diff --git a/kopete/libkopete/tests/mock/kopetemessage_mock.cpp b/kopete/libkopete/tests/mock/kopetemessage_mock.cpp
+index 66f325e..a3e543e 100644
+--- a/kopete/libkopete/tests/mock/kopetemessage_mock.cpp
++++ b/kopete/libkopete/tests/mock/kopetemessage_mock.cpp
+@@ -1,5 +1,5 @@
+ /*
+-    Message tqmock object class
++    Message mock object class
+ 
+     Copyright (c) 2005 by Duncan Mac-Vicar Prett  <duncan@kde.org>
+ 
+@@ -15,6 +15,6 @@
+     *************************************************************************
+ */
+ 
+-#include "kopetemessage_tqmock.h"
++#include "kopetemessage_mock.h"
+ 
+ 
+diff --git a/kopete/libkopete/tests/mock/kopetemessage_mock.h b/kopete/libkopete/tests/mock/kopetemessage_mock.h
+index f8677ee..1345e92 100644
+--- a/kopete/libkopete/tests/mock/kopetemessage_mock.h
++++ b/kopete/libkopete/tests/mock/kopetemessage_mock.h
+@@ -1,5 +1,5 @@
+ /*
+-    Message tqmock object class
++    Message mock object class
+ 
+     Copyright (c) 2005 by Duncan Mac-Vicar Prett  <duncan@kde.org>
+ 
+diff --git a/kopete/libkopete/tests/mock/kopetemetacontact_mock.cpp b/kopete/libkopete/tests/mock/kopetemetacontact_mock.cpp
+index e9cc95a..32f0fe1 100644
+--- a/kopete/libkopete/tests/mock/kopetemetacontact_mock.cpp
++++ b/kopete/libkopete/tests/mock/kopetemetacontact_mock.cpp
+@@ -15,6 +15,6 @@
+     *************************************************************************
+ */
+ 
+-#include "kopetemetacontact_tqmock.h"
++#include "kopetemetacontact_mock.h"
+ 
+ 
+diff --git a/kopete/libkopete/tests/mock/kopeteprotocol_mock.cpp b/kopete/libkopete/tests/mock/kopeteprotocol_mock.cpp
+index 97bcfee..d9ae1d3 100644
+--- a/kopete/libkopete/tests/mock/kopeteprotocol_mock.cpp
++++ b/kopete/libkopete/tests/mock/kopeteprotocol_mock.cpp
+@@ -1,5 +1,5 @@
+ /*
+-    Protocol tqmock object class
++    Protocol mock object class
+ 
+     Copyright (c) 2005 by Duncan Mac-Vicar Prett  <duncan@kde.org>
+ 
+@@ -15,7 +15,7 @@
+     *************************************************************************
+ */
+ 
+-#include "kopeteprotocol_tqmock.h"
++#include "kopeteprotocol_mock.h"
+ 
+ namespace Kopete
+ {
+@@ -44,6 +44,6 @@ KopeteEditAccountWidget* Protocol::createEditAccountWidget( Kopete::Account *acc
+ 	return 0L;
+ }
+ 
+-} // end ns tqmock
++} // end ns mock
+ } // end ns test
+ } // end ns kopete
+diff --git a/kopete/libkopete/tests/mock/kopeteprotocol_mock.h b/kopete/libkopete/tests/mock/kopeteprotocol_mock.h
+index d2ad36f..db40740 100644
+--- a/kopete/libkopete/tests/mock/kopeteprotocol_mock.h
++++ b/kopete/libkopete/tests/mock/kopeteprotocol_mock.h
+@@ -1,5 +1,5 @@
+ /*
+-    Protocol tqmock object class
++    Protocol mock object class
+ 
+     Copyright (c) 2005 by Duncan Mac-Vicar Prett  <duncan@kde.org>
+ 

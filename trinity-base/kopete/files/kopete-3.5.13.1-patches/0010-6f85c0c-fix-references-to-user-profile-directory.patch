@@ -1,0 +1,39 @@
+diff --git a/kopete/kopete/chatwindow/kopetechatwindowstyle.h b/kopete/kopete/chatwindow/kopetechatwindowstyle.h
+index 38c5f35..aa6f73a 100644
+--- a/kopete/kopete/chatwindow/kopetechatwindowstyle.h
++++ b/kopete/kopete/chatwindow/kopetechatwindowstyle.h
+@@ -65,7 +65,7 @@ public:
+ 	/**
+ 	 * Get the style path.
+ 	 * The style path points to the directory where the style is located.
+-	 * ex: ~/.kde/share/apps/kopete/styles/StyleName/
++	 * ex: ~/.trinity/share/apps/kopete/styles/StyleName/
+ 	 *
+ 	 * @return the style path based.
+ 	 */
+diff --git a/kopete/libkopete/kopetepicture.h b/kopete/libkopete/kopetepicture.h
+index 46e7a7c..a681e7c 100644
+--- a/kopete/libkopete/kopetepicture.h
++++ b/kopete/libkopete/kopetepicture.h
+@@ -41,7 +41,7 @@ namespace Kopete
+  * You can only use an TQImage and a image path to create/update
+  * the picture.
+  * If the picture doesn't exist as a file, it generate a local
+- * copy into ~/.kde/share/apps/kopete/metacontactpicturecache
++ * copy into ~/.trinity/share/apps/kopete/metacontactpicturecache
+  *
+  * This class is implicitly shared, so don't use it as a pointer.
+  *
+diff --git a/kopete/plugins/history/converter.cpp b/kopete/plugins/history/converter.cpp
+index 677ed1d..2bf748c 100644
+--- a/kopete/plugins/history/converter.cpp
++++ b/kopete/plugins/history/converter.cpp
+@@ -45,7 +45,7 @@ void HistoryPlugin::convertOldHistory()
+ 
+ 
+ 	TQString kopetedir=locateLocal( "data", TQString::fromLatin1( "kopete"));
+-	TQDir d( kopetedir ); //d should point to ~/.kde/share/apps/kopete/
++	TQDir d( kopetedir ); //d should point to ~/.trinity/share/apps/kopete/
+ 
+ 	d.setFilter( TQDir::Dirs  );
+ 

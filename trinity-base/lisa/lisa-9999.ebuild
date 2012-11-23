@@ -11,18 +11,18 @@ KEYWORDS=""
 IUSE=""
 
 src_install() {
-    trinity-meta_src_install
+	trinity-meta_src_install
 
-    chmod u+s "${D}/${KDEDIR}/bin/reslisa"
+	chmod u+s "${D}/${KDEDIR}/bin/reslisa"
 
-    # lisa, reslisa initscripts
-    sed -e "s:_TDEDIR_:${TDEDIR}:g" "${FILESDIR}/lisa" > "${T}/lisa"
-    sed -e "s:_TDEDIR_:${TDEDIR}:g" "${FILESDIR}/reslisa" > "${T}/reslisa"
-    doinitd "${T}/lisa" "${T}/reslisa"
+	# lisa, reslisa initscripts
+	sed -e "s:_TDEDIR_:${TDEDIR}:g" "${FILESDIR}/lisa" > "${T}/lisa"
+	sed -e "s:_TDEDIR_:${TDEDIR}:g" "${FILESDIR}/reslisa" > "${T}/reslisa"
+	doinitd "${T}/lisa" "${T}/reslisa"
 
-    newconfd "${FILESDIR}/lisa.conf" lisa
-    newconfd "${FILESDIR}/reslisa.conf" reslisa
+	newconfd "${FILESDIR}/lisa.conf" lisa
+	newconfd "${FILESDIR}/reslisa.conf" reslisa
 
-    echo '# Default lisa configfile' > "$D/etc/lisarc"
-    echo '# Default reslisa configfile' > "$D/etc/reslisarc"
+	echo '# Default lisa configfile' > "$D/etc/lisarc"
+	echo '# Default reslisa configfile' > "$D/etc/reslisarc"
 }

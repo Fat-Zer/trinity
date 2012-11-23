@@ -1,0 +1,98 @@
+diff --git a/kopete/kopete/kconf_update/CMakeLists.txt b/kopete/kopete/kconf_update/CMakeLists.txt
+index 1317d82..967b8ef 100644
+--- a/kopete/kopete/kconf_update/CMakeLists.txt
++++ b/kopete/kopete/kconf_update/CMakeLists.txt
+@@ -39,7 +39,7 @@ install( PROGRAMS
+ 
+ ##### kopete_account_kconf_update (executable) ##
+ 
+-tde_add_executable( kopete_account_kconf_update
++tde_add_executable( "kopete-account-kconf_update"
+   SOURCES kopete-account-kconf_update.cpp
+   LINK ${TQT_LIBRARIES}
+   DESTINATION ${LIB_INSTALL_DIR}/kconf_update_bin
+@@ -48,7 +48,7 @@ tde_add_executable( kopete_account_kconf_update
+ 
+ ##### kopete_pluginloader2_kconf_update (executable)
+ 
+-tde_add_executable( kopete_pluginloader2_kconf_update
++tde_add_executable( "kopete-pluginloader2-kconf_update"
+   SOURCES kopete-pluginloader2.cpp
+   LINK ${TQT_LIBRARIES}
+   DESTINATION ${LIB_INSTALL_DIR}/kconf_update_bin
+@@ -57,7 +57,7 @@ tde_add_executable( kopete_pluginloader2_kconf_update
+ 
+ ##### kopete_nameTracking_kconf_update (executable)
+ 
+-tde_add_executable( kopete_nameTracking_kconf_update
++tde_add_executable( "kopete-nameTracking-kconf_update"
+   SOURCES kopete-nameTracking.cpp
+   LINK kdecore-shared
+   DESTINATION ${LIB_INSTALL_DIR}/kconf_update_bin
+diff --git a/kopete/libkopete/CMakeLists.txt b/kopete/libkopete/CMakeLists.txt
+index bbed254..d012c2a 100644
+--- a/kopete/libkopete/CMakeLists.txt
++++ b/kopete/libkopete/CMakeLists.txt
+@@ -49,7 +49,7 @@ install( FILES
+     kopetetransfermanager.h kopeteuiglobal.h kabcpersistence.h
+     managedconnectionaccount.h kopetenotifydataobject.h
+     kopeteversion.h kopeteprefs.h kopetepicture.h webcamwidget.h
+-    kopetepluginmanager.h
++    kopetepluginmanager.h kopeteblacklister.h
+   DESTINATION ${INCLUDE_INSTALL_DIR}/kopete )
+ 
+ 
+diff --git a/kopete/libkopete/avdevice/CMakeLists.txt b/kopete/libkopete/avdevice/CMakeLists.txt
+index 8e37773..2a8b817 100644
+--- a/kopete/libkopete/avdevice/CMakeLists.txt
++++ b/kopete/libkopete/avdevice/CMakeLists.txt
+@@ -40,7 +40,7 @@ tde_add_library( kopete_videodevice SHARED AUTOMOC
+     videocontrol.cpp videodevice.cpp videodevicemodelpool.cpp
+     videodevicepool.cpp videoinput.cpp bayer.cpp
+     sonix_compress.cpp
+-  VERSION 1.0.0
++  VERSION 0.0.0
+   LINK kdecore-shared
+   DESTINATION ${LIB_INSTALL_DIR}
+ )
+diff --git a/kopete/protocols/jabber/kioslave/CMakeLists.txt b/kopete/protocols/jabber/kioslave/CMakeLists.txt
+index 9539457..24b4ce8 100644
+--- a/kopete/protocols/jabber/kioslave/CMakeLists.txt
++++ b/kopete/protocols/jabber/kioslave/CMakeLists.txt
+@@ -35,8 +35,8 @@ install( FILES jabberdisco.protocol DESTINATION ${SERVICES_INSTALL_DIR} )
+ tde_add_kpart( kio_jabberdisco AUTOMOC
+   SOURCES jabberdisco.cpp
+   LINK
+-    jabberclient-static idn
++    jabberclient-static
+     iris_xmpp_core-static iris_xmpp_im-static iris_jabber-static iris-static
+-    qca-static cutestuff_network-static cutestuff_util-static kio-shared
++    qca-static cutestuff_network-static cutestuff_util-static kio-shared idn
+   DESTINATION ${PLUGIN_INSTALL_DIR}
+ )
+diff --git a/kopete/protocols/meanwhile/CMakeLists.txt b/kopete/protocols/meanwhile/CMakeLists.txt
+index 994f6e3..198dfaa 100644
+--- a/kopete/protocols/meanwhile/CMakeLists.txt
++++ b/kopete/protocols/meanwhile/CMakeLists.txt
+@@ -35,9 +35,9 @@ link_directories(
+ install( FILES kopete_meanwhile.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
+ 
+ 
+-##### new_target0 (module) #######################
++##### kopete_meanwhile (module) #######################
+ 
+-tde_add_kpart( new_target0 AUTOMOC
++tde_add_kpart( kopete_meanwhile AUTOMOC
+   SOURCES
+     meanwhileprotocol.cpp meanwhileaddcontactpage.cpp
+     meanwhileeditaccountwidget.cpp meanwhileaccount.cpp
+diff --git a/kopete/protocols/msn/webcam/libmimic/CMakeLists.txt b/kopete/protocols/msn/webcam/libmimic/CMakeLists.txt
+index d98fc83..5a34066 100644
+--- a/kopete/protocols/msn/webcam/libmimic/CMakeLists.txt
++++ b/kopete/protocols/msn/webcam/libmimic/CMakeLists.txt
+@@ -20,4 +20,5 @@ tde_add_library( mimic STATIC_PIC
+   SOURCES
+     mimic.c encode.c decode.c bitstring.c vlc_common.c vlc_encode.c
+     vlc_decode.c fdct_quant.c idct_dequant.c colorspace.c deblock.c
++  LINK ${GLIB2_LIBRARIES}
+ )

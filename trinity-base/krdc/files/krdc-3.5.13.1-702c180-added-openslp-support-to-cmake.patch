@@ -1,0 +1,41 @@
+diff --git a/ConfigureChecks.cmake b/ConfigureChecks.cmake
+index 896491f..fc04621 100644
+--- a/ConfigureChecks.cmake
++++ b/ConfigureChecks.cmake
+@@ -16,3 +16,12 @@ endif( )
+ # required stuff
+ find_package( TQt )
+ find_package( TDE )
++
++if( WITH_SLP )
++  check_library_exists( slp "SLPOpen" "" HAVE_SLP )
++  if( HAVE_SLP )
++    set(LIB_SLP slp )
++  else( )
++    tde_message_fatal( "openslp is required, but was not found on your system" )
++  endif( )
++endif( )
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d712390..2601743 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -49,6 +49,7 @@ option( WITH_SPEEX "Enable speex support (for jingle)" OFF )
+ option( WITH_WEBCAM "Enable webcam support (kopete/msn)" OFF )
+ option( WITH_GSM "Enable GSM SMS support (kopete/sms)" OFF )
+ option( WITH_ARTS "Enable aRts support" OFF )
++option( WITH_SLP "Enable OpenSLP support (krdc, krfb)" OFF )
+ 
+ 
+ ##### kopete protocols ##########################
+diff --git a/krdc/CMakeLists.txt b/krdc/CMakeLists.txt
+index 5451be7..47b3056 100644
+--- a/krdc/CMakeLists.txt
++++ b/krdc/CMakeLists.txt
+@@ -60,6 +60,6 @@ tde_add_executable( krdc AUTOMOC
+     maindialogbase.ui keycapturewidget.ui kservicelocator.cpp
+     keycapturedialog.cpp kremoteview.cpp smartptr.cpp hostpreferences.cpp
+     preferencesdialog.cpp maindialogwidget.cpp maindialog.cpp
+-  LINK vnc-static rdp-static kdeui-shared kdnssd-shared kwalletclient-shared jpeg Xext
++  LINK vnc-static rdp-static kdeui-shared kdnssd-shared kwalletclient-shared jpeg Xext ${LIB_SLP}
+   DESTINATION ${BIN_INSTALL_DIR}
+ )

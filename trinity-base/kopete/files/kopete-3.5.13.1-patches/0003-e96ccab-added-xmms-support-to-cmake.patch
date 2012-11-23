@@ -1,0 +1,42 @@
+diff --git a/kopete/plugins/nowlistening/CMakeLists.txt b/kopete/plugins/nowlistening/CMakeLists.txt
+index b1b6b19..a236a7e 100644
+--- a/kopete/plugins/nowlistening/CMakeLists.txt
++++ b/kopete/plugins/nowlistening/CMakeLists.txt
+@@ -9,6 +9,8 @@
+ #
+ #################################################
+ 
++include( ConfigureChecks.cmake )
++
+ include_directories(
+   ${CMAKE_CURRENT_BINARY_DIR}
+   ${CMAKE_BINARY_DIR}
+@@ -16,6 +18,7 @@ include_directories(
+   ${CMAKE_SOURCE_DIR}/kopete/libkopete/ui
+   ${TDE_INCLUDE_DIR}
+   ${TQT_INCLUDE_DIRS}
++  ${XMMS_INCLUDES}
+ )
+ 
+ link_directories(
+@@ -38,7 +41,7 @@ tde_add_kpart( kopete_nowlistening AUTOMOC
+     nowlisteningconfig.kcfgc nowlisteningplugin.cpp nlkscd.cpp
+     nlnoatun.cpp nlxmms.cpp nowlisteningguiclient.cpp nljuk.cpp
+     nlamarok.cpp nlkaffeine.cpp
+-  LINK kopete-shared
++  LINK kopete-shared ${XMMS_LIBS}
+   DESTINATION ${PLUGIN_INSTALL_DIR}
+ )
+ 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2601743..86199c1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -48,6 +48,7 @@ option( WITH_JINGLE "Enable jingle support (kopete)" OFF )
+ option( WITH_SPEEX "Enable speex support (for jingle)" OFF )
+ option( WITH_WEBCAM "Enable webcam support (kopete/msn)" OFF )
+ option( WITH_GSM "Enable GSM SMS support (kopete/sms)" OFF )
++option( WITH_XMMS "Enable XMMS support (kopete/nowlistening)" OFF )
+ option( WITH_ARTS "Enable aRts support" OFF )
+ option( WITH_SLP "Enable OpenSLP support (krdc, krfb)" OFF )
+ 

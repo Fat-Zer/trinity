@@ -1,0 +1,25 @@
+diff --git a/wifi/ConfigureChecks.cmake b/wifi/ConfigureChecks.cmake
+index f3a7ddb..0d2972b 100644
+--- a/wifi/ConfigureChecks.cmake
++++ b/wifi/ConfigureChecks.cmake
+@@ -21,7 +21,9 @@ endif( )
+ 
+ 
+ # check for wireless tools
++set( CMAKE_REQUIRED_FLAGS "-lm" )
+ check_library_exists( iw iw_get_stats "" HAVE_IW )
++set( CMAKE_REQUIRED_FLAGS )
+ if( HAVE_IW )
+   check_include_file( iwlib.h HAVE_IWLIB_H )
+   # we need at least wireless tools >= 27
+diff --git a/wifi/kwireless/CMakeLists.txt b/wifi/kwireless/CMakeLists.txt
+index 5acfb5a..3707722 100644
+--- a/wifi/kwireless/CMakeLists.txt
++++ b/wifi/kwireless/CMakeLists.txt
+@@ -33,5 +33,5 @@ tde_add_kpart( libkwireless AUTOMOC
+     kwireless.cpp kwirelesswidget.cpp linuxwirelesswidget.cpp
+     propertytablebase.ui propertytable.cpp
+   LINK kdeui-shared ${IW_LIBRARY}
+-  DESTINATION ${PLUGIN_INSTALL_DIR}
++  DESTINATION ${LIB_INSTALL_DIR}
+ )

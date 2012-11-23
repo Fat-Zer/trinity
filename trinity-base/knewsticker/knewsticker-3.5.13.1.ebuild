@@ -12,3 +12,6 @@ IUSE=""
 
 DEPEND=">=trinity-base/librss-${PV}:${SLOT}"
 RDEPEND="${DEPEND}"
+
+PATCHES=( "${FILESDIR}/knewsticker-a2b3834-fix-various-cmake-build-issues.patch" )
+TSM_EXTRACT_ALSO="librss/"

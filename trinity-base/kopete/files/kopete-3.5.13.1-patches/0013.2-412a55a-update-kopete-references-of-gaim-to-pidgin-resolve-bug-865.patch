@@ -1,0 +1,450 @@
+diff --git a/kopete/styles/CMakeLists.txt b/kopete/styles/CMakeLists.txt
+index a98079a..7a4653e 100644
+--- a/kopete/styles/CMakeLists.txt
++++ b/kopete/styles/CMakeLists.txt
+@@ -15,4 +15,4 @@ add_subdirectory( Clean )
+ add_subdirectory( Clear )
+ add_subdirectory( Konqi )
+ add_subdirectory( Retropete )
+-add_subdirectory( Gaim )
++add_subdirectory( Pidgin )
+diff --git a/kopete/styles/Gaim/CMakeLists.txt b/kopete/styles/Gaim/CMakeLists.txt
+deleted file mode 100644
+index f08e42e..0000000
+--- a/kopete/styles/Gaim/CMakeLists.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-#################################################
+-#
+-#  (C) 2010-2011 Serghei Amelian
+-#  serghei (DOT) amelian (AT) gmail.com
+-#
+-#  Improvements and feedback are welcome
+-#
+-#  This file is released under GPL >= 2
+-#
+-#################################################
+-
+-add_subdirectory( Contents )
+diff --git a/kopete/styles/Gaim/CREDITS b/kopete/styles/Gaim/CREDITS
+deleted file mode 100644
+index 4e52378..0000000
+--- a/kopete/styles/Gaim/CREDITS
++++ /dev/null
+@@ -1,7 +0,0 @@
+-Original textonly Style for Adium written by Mark Fickett
+-http://www.adiumxtras.com/index.php?a=xtras&xtra_id=44
+-
+-Modified justtext Style for Adium written by Huw Rowlands
+-http://www.adiumxtras.com/index.php?a=xtras&xtra_id=990
+-
+-Modified Gaim Style for Kopete written by Thanos Kyritsis
+diff --git a/kopete/styles/Gaim/Contents/CMakeLists.txt b/kopete/styles/Gaim/Contents/CMakeLists.txt
+deleted file mode 100644
+index 88724a1..0000000
+--- a/kopete/styles/Gaim/Contents/CMakeLists.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-#################################################
+-#
+-#  (C) 2010-2011 Serghei Amelian
+-#  serghei (DOT) amelian (AT) gmail.com
+-#
+-#  Improvements and feedback are welcome
+-#
+-#  This file is released under GPL >= 2
+-#
+-#################################################
+-
+-add_subdirectory( Resources )
+diff --git a/kopete/styles/Gaim/Contents/Info.plist b/kopete/styles/Gaim/Contents/Info.plist
+deleted file mode 100644
+index c5fb682..0000000
+--- a/kopete/styles/Gaim/Contents/Info.plist
++++ /dev/null
+@@ -1,31 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" 
+-        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+-<plist version="1.0">
+-<dict>
+-	<key>CFBundleDevelopmentRegion</key>
+-	<string>English</string>
+-	<key>CFBundleGetInfoString</key>
+-	<string>Gaim Kopete chat Style</string>
+-	<key>CFBundleIdentifier</key>
+-	<string>Kopete.Gaim.style</string>
+-	<key>CFBundleInfoDictionaryVersion</key>
+-	<string>1.0</string>
+-	<key>CFBundleName</key>
+-	<string>Gaim</string>
+-	<key>CFBundlePackageType</key>
+-	<string>KopeteChatStyle</string>
+-	<key>DefaultBackgroundColor</key>
+-	<string>FFFFFF</string>
+-	<key>DefaultFontFamily</key>
+-	<string>DejaVu Sans Mono</string>
+-	<key>DefaultFontSize</key>
+-	<integer>12</integer>
+-	<key>DisableCustomBackground</key>
+-	<false/>
+-	<key>DisplayNameForNoVariant</key>
+-	<string>grays</string>
+-	<key>ShowsUserIcons</key>
+-	<false/>
+-</dict>
+-</plist>
+diff --git a/kopete/styles/Gaim/Contents/Makefile.am b/kopete/styles/Gaim/Contents/Makefile.am
+deleted file mode 100644
+index 6940fe8..0000000
+--- a/kopete/styles/Gaim/Contents/Makefile.am
++++ /dev/null
+@@ -1 +0,0 @@
+-SUBDIRS = Resources
+\ No newline at end of file
+diff --git a/kopete/styles/Gaim/Contents/Resources/CMakeLists.txt b/kopete/styles/Gaim/Contents/Resources/CMakeLists.txt
+deleted file mode 100644
+index f212a87..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/CMakeLists.txt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-#################################################
+-#
+-#  (C) 2010-2011 Serghei Amelian
+-#  serghei (DOT) amelian (AT) gmail.com
+-#
+-#  Improvements and feedback are welcome
+-#
+-#  This file is released under GPL >= 2
+-#
+-#################################################
+-
+-add_subdirectory( Incoming )
+-add_subdirectory( Outgoing )
+-add_subdirectory( Variants )
+-
+-install( FILES
+-    main.css Footer.html Header.html Status.html
+-  DESTINATION ${DATA_INSTALL_DIR}/kopete/styles/Gaim/Contents/Resources )
+diff --git a/kopete/styles/Gaim/Contents/Resources/Incoming/Action.html b/kopete/styles/Gaim/Contents/Resources/Incoming/Action.html
+deleted file mode 100644
+index 0f2993c..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Incoming/Action.html
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<div class="KopeteMessage" style="direction: %messageDirection%;">
+-    <span style="color:%senderColor%;s"><span class="inActionTime">(%time{%H:%M:%S}%) </span>
+-	 <span class="inActionMetacontact">%sender%:&nbsp;</span></span>
+-	 <span class="inActionMessage" style="background-color: %textbackgroundcolor{#4386cf}%;">%message%</span>
+-</div>
+-<div id="insert"></div>
+diff --git a/kopete/styles/Gaim/Contents/Resources/Incoming/CMakeLists.txt b/kopete/styles/Gaim/Contents/Resources/Incoming/CMakeLists.txt
+deleted file mode 100644
+index f4a2302..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Incoming/CMakeLists.txt
++++ /dev/null
+@@ -1,14 +0,0 @@
+-#################################################
+-#
+-#  (C) 2010-2011 Serghei Amelian
+-#  serghei (DOT) amelian (AT) gmail.com
+-#
+-#  Improvements and feedback are welcome
+-#
+-#  This file is released under GPL >= 2
+-#
+-#################################################
+-
+-install( FILES
+-    Action.html Content.html NextContent.html
+-  DESTINATION ${DATA_INSTALL_DIR}/kopete/styles/Gaim/Contents/Resources/Incoming )
+diff --git a/kopete/styles/Gaim/Contents/Resources/Incoming/Content.html b/kopete/styles/Gaim/Contents/Resources/Incoming/Content.html
+deleted file mode 100644
+index 89d07c9..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Incoming/Content.html
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<div class="KopeteMessage" style="direction: %messageDirection%;">
+-    <span style="color:%senderColor%;"><span class="inContentTime">(%time{%H:%M:%S}%) </span>
+-	 <span class="inMetacontact">%sender%:&nbsp;</span></span>
+-	 <span class="IncomingMessage" style="background-color: %textbackgroundcolor{#4386cf}%;">%message%</span>
+-</div>
+-<div id="insert"></div>
+diff --git a/kopete/styles/Gaim/Contents/Resources/Incoming/Makefile.am b/kopete/styles/Gaim/Contents/Resources/Incoming/Makefile.am
+deleted file mode 100644
+index dea2810..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Incoming/Makefile.am
++++ /dev/null
+@@ -1,4 +0,0 @@
+-style_DATA = Action.html Content.html NextContent.html
+-styledir = $(kde_datadir)/kopete/styles/Gaim/Contents/Resources/Incoming
+-
+-EXTRA_DIST = $(style_DATA)
+\ No newline at end of file
+diff --git a/kopete/styles/Gaim/Contents/Resources/Incoming/NextContent.html b/kopete/styles/Gaim/Contents/Resources/Incoming/NextContent.html
+deleted file mode 100644
+index 89d07c9..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Incoming/NextContent.html
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<div class="KopeteMessage" style="direction: %messageDirection%;">
+-    <span style="color:%senderColor%;"><span class="inContentTime">(%time{%H:%M:%S}%) </span>
+-	 <span class="inMetacontact">%sender%:&nbsp;</span></span>
+-	 <span class="IncomingMessage" style="background-color: %textbackgroundcolor{#4386cf}%;">%message%</span>
+-</div>
+-<div id="insert"></div>
+diff --git a/kopete/styles/Gaim/Contents/Resources/Makefile.am b/kopete/styles/Gaim/Contents/Resources/Makefile.am
+deleted file mode 100644
+index 75c9567..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Makefile.am
++++ /dev/null
+@@ -1,5 +0,0 @@
+-SUBDIRS = Incoming Outgoing Variants
+-style_DATA = main.css Footer.html Header.html Status.html
+-styledir = $(kde_datadir)/kopete/styles/Gaim/Contents/Resources
+-
+-EXTRA_DIST = $(style_DATA)
+\ No newline at end of file
+diff --git a/kopete/styles/Gaim/Contents/Resources/Outgoing/Action.html b/kopete/styles/Gaim/Contents/Resources/Outgoing/Action.html
+deleted file mode 100644
+index a7d6ef0..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Outgoing/Action.html
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<div class="KopeteMessage" style="direction: %messageDirection%;">
+-    <span style="color:%senderColor%;"><span class="outActionTime">(%time{%H:%M:%S}%) </span>
+-	 <span class="outActionMetacontact">%sender%:&nbsp;</span></span>
+-	 <span class="outActionMessage" style="background-color: %textbackgroundcolor{#4386cf}%;">%message%</span>
+-</div>
+-<div id="insert"></div>
+diff --git a/kopete/styles/Gaim/Contents/Resources/Outgoing/CMakeLists.txt b/kopete/styles/Gaim/Contents/Resources/Outgoing/CMakeLists.txt
+deleted file mode 100644
+index 32d0ae5..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Outgoing/CMakeLists.txt
++++ /dev/null
+@@ -1,14 +0,0 @@
+-#################################################
+-#
+-#  (C) 2010-2011 Serghei Amelian
+-#  serghei (DOT) amelian (AT) gmail.com
+-#
+-#  Improvements and feedback are welcome
+-#
+-#  This file is released under GPL >= 2
+-#
+-#################################################
+-
+-install( FILES
+-    Action.html Content.html NextContent.html
+-  DESTINATION ${DATA_INSTALL_DIR}/kopete/styles/Gaim/Contents/Resources/Outgoing )
+diff --git a/kopete/styles/Gaim/Contents/Resources/Outgoing/Content.html b/kopete/styles/Gaim/Contents/Resources/Outgoing/Content.html
+deleted file mode 100644
+index 9ea2bb6..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Outgoing/Content.html
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<div class="KopeteMessage" style="direction: %messageDirection%;">
+-    <span style="color:%senderColor%;"><span class="outContentTime">(%time{%H:%M:%S}%) </span>
+-    <span class="outMetacontact">%sender%:&nbsp;</span></span>
+-	 <span class="OutgoingMessage" style="background-color: %textbackgroundcolor{#4386cf}%;">%message%</span>
+-</div>
+-<div id="insert"></div>
+diff --git a/kopete/styles/Gaim/Contents/Resources/Outgoing/Makefile.am b/kopete/styles/Gaim/Contents/Resources/Outgoing/Makefile.am
+deleted file mode 100644
+index ce2edce..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Outgoing/Makefile.am
++++ /dev/null
+@@ -1,4 +0,0 @@
+-style_DATA = Action.html Content.html NextContent.html
+-styledir = $(kde_datadir)/kopete/styles/Gaim/Contents/Resources/Outgoing
+-
+-EXTRA_DIST = $(style_DATA)
+diff --git a/kopete/styles/Gaim/Contents/Resources/Outgoing/NextContent.html b/kopete/styles/Gaim/Contents/Resources/Outgoing/NextContent.html
+deleted file mode 100644
+index 9ea2bb6..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Outgoing/NextContent.html
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<div class="KopeteMessage" style="direction: %messageDirection%;">
+-    <span style="color:%senderColor%;"><span class="outContentTime">(%time{%H:%M:%S}%) </span>
+-    <span class="outMetacontact">%sender%:&nbsp;</span></span>
+-	 <span class="OutgoingMessage" style="background-color: %textbackgroundcolor{#4386cf}%;">%message%</span>
+-</div>
+-<div id="insert"></div>
+diff --git a/kopete/styles/Gaim/Contents/Resources/Status.html b/kopete/styles/Gaim/Contents/Resources/Status.html
+deleted file mode 100644
+index 4858785..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Status.html
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<div class="KopeteMessage" style="direction: %messageDirection%;">
+-    <span class="InternalTime">(%time{%H:%M:%S}%) </span>
+-    <span class="InternalDelim">#&nbsp;</span>
+-	 <span class="InternalMessage">%message%</span>
+-</div>
+diff --git a/kopete/styles/Gaim/Contents/Resources/Variants/CMakeLists.txt b/kopete/styles/Gaim/Contents/Resources/Variants/CMakeLists.txt
+deleted file mode 100644
+index fda3022..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Variants/CMakeLists.txt
++++ /dev/null
+@@ -1,14 +0,0 @@
+-#################################################
+-#
+-#  (C) 2010-2011 Serghei Amelian
+-#  serghei (DOT) amelian (AT) gmail.com
+-#
+-#  Improvements and feedback are welcome
+-#
+-#  This file is released under GPL >= 2
+-#
+-#################################################
+-
+-install( FILES
+-    No-Colors.css Name-Colors.css Status-Colors.css Contact-Colors.css
+-  DESTINATION ${DATA_INSTALL_DIR}/kopete/styles/Gaim/Contents/Resources/Variants )
+diff --git a/kopete/styles/Gaim/Contents/Resources/Variants/Contact-Colors.css b/kopete/styles/Gaim/Contents/Resources/Variants/Contact-Colors.css
+deleted file mode 100644
+index 7a85556..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Variants/Contact-Colors.css
++++ /dev/null
+@@ -1,10 +0,0 @@
+-
+-@import url(../main.css);
+-
+-.inContentTime, .inMetacontact {
+-	color: inherit;
+-}
+-
+-.outContentTime, .outMetacontact {
+-	color: inherit;
+-}
+\ No newline at end of file
+diff --git a/kopete/styles/Gaim/Contents/Resources/Variants/Makefile.am b/kopete/styles/Gaim/Contents/Resources/Variants/Makefile.am
+deleted file mode 100644
+index bdd4856..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Variants/Makefile.am
++++ /dev/null
+@@ -1,4 +0,0 @@
+-style_DATA = No-Colors.css Name-Colors.css Status-Colors.css Contact-Colors.css
+-styledir = $(kde_datadir)/kopete/styles/Gaim/Contents/Resources/Variants
+-
+-EXTRA_DIST = $(style_DATA)
+\ No newline at end of file
+diff --git a/kopete/styles/Gaim/Contents/Resources/Variants/Name-Colors.css b/kopete/styles/Gaim/Contents/Resources/Variants/Name-Colors.css
+deleted file mode 100644
+index f9fce97..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Variants/Name-Colors.css
++++ /dev/null
+@@ -1,13 +0,0 @@
+-@import url(../main.css);
+-
+-.inActionTime, .inActionMetacontact, .inActionMessage {
+-	color: #000000;
+-}
+-
+-.outActionTime, .outActionMetacontact, .outActionMessage {
+-	color: #000000;
+-}
+-
+-.InternalTime, .InternalDelim, .InternalMessage {
+-	color: #000000;
+-}
+\ No newline at end of file
+diff --git a/kopete/styles/Gaim/Contents/Resources/Variants/No-Colors.css b/kopete/styles/Gaim/Contents/Resources/Variants/No-Colors.css
+deleted file mode 100644
+index d847a19..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Variants/No-Colors.css
++++ /dev/null
+@@ -1,22 +0,0 @@
+-@import url(../main.css);
+-
+-.inContentTime, .inMetacontact {
+-	color: #000000;
+-}
+-
+-.outContentTime, .outMetacontact {
+-	color: #000000;
+-}
+-
+-.inActionTime, .inActionMetacontact, .inActionMessage {
+-	color: #000000;
+-}
+-
+-.outActionTime, .outActionMetacontact, .outActionMessage {
+-	color: #000000;
+-}
+-
+-.InternalTime, .InternalDelim, .InternalMessage {
+-	color: #000000;
+-}
+-
+diff --git a/kopete/styles/Gaim/Contents/Resources/Variants/Status-Colors.css b/kopete/styles/Gaim/Contents/Resources/Variants/Status-Colors.css
+deleted file mode 100644
+index 373f6d7..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/Variants/Status-Colors.css
++++ /dev/null
+@@ -1,9 +0,0 @@
+-@import url(../main.css);
+-
+-.inContentTime, .inMetacontact {
+-	color: #000000;
+-}
+-
+-.outContentTime, .outMetacontact {
+-	color: #000000;
+-}
+\ No newline at end of file
+diff --git a/kopete/styles/Gaim/Contents/Resources/main.css b/kopete/styles/Gaim/Contents/Resources/main.css
+deleted file mode 100644
+index 393d2f1..0000000
+--- a/kopete/styles/Gaim/Contents/Resources/main.css
++++ /dev/null
+@@ -1,40 +0,0 @@
+-/* textonly by Mark Fickett, 2004. Poke/edit/maul, but leave credit - think GPL */
+-/* Generally: naib.webhop.org Adium-related: naib.webhop.org/~markfickett/adium */
+-
+-body {
+-	background: #ffffff;
+-}
+-
+-div {
+-	overflow: auto;
+-}
+-
+-a:link { text-decoration: none; }
+-a:visited { text-decoration: none; }
+-a:hover { text-decoration: underline; }
+-a:active { text-decoration: none; }
+-
+-.inMetacontact, .outMetacontact, .inActionMetacontact, .outActionMetacontact, .InternalDelim {
+-	font-weight: bold;
+-}
+-
+-.inContentTime, .inMetacontact {
+-	color: #a82f2f;
+-}
+-
+-.outContentTime, .outMetacontact {
+-	color: #16569e;
+-}
+-
+-.inActionTime, .inActionMetacontact, .inActionMessage {
+-	color: green;
+-}
+-
+-.outActionTime, .outActionMetacontact, .outActionMessage {
+-	color: green;
+-}
+-
+-.InternalTime, .InternalDelim, .InternalMessage {
+-	color: #9400d3;
+-}
+-
+diff --git a/kopete/styles/Gaim/Makefile.am b/kopete/styles/Gaim/Makefile.am
+deleted file mode 100644
+index 331c9b5..0000000
+--- a/kopete/styles/Gaim/Makefile.am
++++ /dev/null
+@@ -1 +0,0 @@
+-SUBDIRS = Contents
+\ No newline at end of file

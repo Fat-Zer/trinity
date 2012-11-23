@@ -1,0 +1,37 @@
+diff --git a/kopete/protocols/jabber/jingle/jinglewatchsessiontask.h b/kopete/protocols/jabber/jingle/jinglewatchsessiontask.h
+index 8c37b0c..7a3a906 100644
+--- a/kopete/protocols/jabber/jingle/jinglewatchsessiontask.h
++++ b/kopete/protocols/jabber/jingle/jinglewatchsessiontask.h
+@@ -21,7 +21,7 @@
+ 
+ /**
+  * This task watch for incoming Jingle session and notify manager.
+- * It is declared in the header to be "tqmoc"-able.
++ * It is declared in the header to be "moc"-able.
+  */
+ class JingleWatchSessionTask : public XMPP::Task
+ {
+diff --git a/kopete/protocols/jabber/libiris/iris/jabber/all_mocs.cpp b/kopete/protocols/jabber/libiris/iris/jabber/all_mocs.cpp
+index 8532fd4..b76a283 100644
+--- a/kopete/protocols/jabber/libiris/iris/jabber/all_mocs.cpp
++++ b/kopete/protocols/jabber/libiris/iris/jabber/all_mocs.cpp
+@@ -1,5 +1,5 @@
+ /*
+- * all_tqmocs.cpp - #include all .tqmoc files in this directory
++ * all_mocs.cpp - #include all .moc files in this directory
+  * Copyright (C) 2004  Richard Smith
+  *
+  * This library is free software; you can redistribute it and/or
+diff --git a/kopete/protocols/msn/msnaccount.h b/kopete/protocols/msn/msnaccount.h
+index 31ae451..d35f23e 100644
+--- a/kopete/protocols/msn/msnaccount.h
++++ b/kopete/protocols/msn/msnaccount.h
+@@ -135,7 +135,7 @@ private slots:
+ 	void slotOpenInbox();
+ 	void slotChangePublicName();
+ 
+-//#if !defined NDEBUG //(Stupid tqmoc which don't see when he don't need to slot this slot)
++//#if !defined NDEBUG //(Stupid moc which don't see when he don't need to slot this slot)
+ 	/**
+ 	 * Show simple debugging aid
+ 	 */

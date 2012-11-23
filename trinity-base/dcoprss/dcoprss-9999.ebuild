@@ -12,3 +12,5 @@ IUSE=""
 
 DEPEND=">=trinity-base/librss-${PV}:${SLOT}"
 RDEPEND="${DEPEND}"
+
+TSM_EXTRACT_ALSO="librss/"

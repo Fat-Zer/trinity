@@ -1,0 +1,70 @@
+diff --git a/doc/knewsticker/index.docbook b/doc/knewsticker/index.docbook
+index 1532f8b..635acb2 100644
+--- a/doc/knewsticker/index.docbook
++++ b/doc/knewsticker/index.docbook
+@@ -1146,7 +1146,7 @@ necessary.</para>
+ 		to talk to &knewsticker; but you can use it if you modified the
+ 		configuration file by hand.</para>
+ 		<tip><para>The configuration file is saved in
+-		<filename>~/.kde/share/config/knewsticker_appletrc</filename></para></tip>
++		<filename>~/.trinity/share/config/knewsticker_appletrc</filename></para></tip>
+ 		<para>Example:</para>
+ 		<screen width="40">
+ 			<prompt>%</prompt> <userinput><command>dcop</command> <option>knewsticker</option> <option>KNewsTicker</option> <option>reparseConfig</option></userinput>
+diff --git a/doc/kopete/index.docbook b/doc/kopete/index.docbook
+index c6fba95..7c334b3 100644
+--- a/doc/kopete/index.docbook
++++ b/doc/kopete/index.docbook
+@@ -912,11 +912,11 @@ Shortcuts...</guimenuitem></menuchoice>.</para></tip>
+ 
+ <para>The emoticons are easy to install - you just place a directory containing
+ the icon files along with an XML file describing the mapping from text to picture in
+-$KDEDIR/share/apps/kopete/pics/emoticons (or $KDEHOME, for example, in /home/joeuser/.kde/).</para>
++$KDEDIR/share/apps/kopete/pics/emoticons (or $KDEHOME, for example, in /home/joeuser/.trinity/).</para>
+ 
+ <orderedlist>
+ <listitem><para>Copy the extracted directory to $KDEDIR/share/apps/kopete/pics/emoticons or
+- $HOME/.kde/share/apps/kopete/pics/emoticons (or wherever $KDEHOME is)</para></listitem>
++ $HOME/.trinity/share/apps/kopete/pics/emoticons (or wherever $KDEHOME is)</para></listitem>
+ <listitem><para>Select Configure &kopete; from the Settings menu and click on Appearance in the left panel of the Preferences window and click on the Emoticons tab</para></listitem>
+ <listitem><para>Select the emoticons set you just installed from the list</para></listitem>
+ <listitem><para>Now you can use the newly installed emoticons in &kopete;</para></listitem>
+diff --git a/doc/kppp/accounting.docbook b/doc/kppp/accounting.docbook
+index ec6db43..22a3064 100644
+--- a/doc/kppp/accounting.docbook
++++ b/doc/kppp/accounting.docbook
+@@ -11,7 +11,7 @@ the <userinput><option>-r</option>
+ <replaceable>rule_file</replaceable></userinput> command line option to &kppp;
+ and must be installed in <filename
+ class="directory">${KDEDIR}/share/apps/kppp/Rules</filename> or in <filename
+-class="directory">${HOME}/.kde/share/apps/kppp/Rules</filename> before you will
++class="directory">${HOME}/.trinity/share/apps/kppp/Rules</filename> before you will
+ be able to select it in this dialog.</para>
+ 
+ <programlisting>
+diff --git a/doc/kwifimanager/index.docbook b/doc/kwifimanager/index.docbook
+index 07cc908..8c902d2 100644
+--- a/doc/kwifimanager/index.docbook
++++ b/doc/kwifimanager/index.docbook
+@@ -279,7 +279,7 @@
+             This option is most useful when searching for the special network name
+               <quote>any</quote>. In this mode, the card will log into any network it finds. The
+             logfile's position is <filename class="directory"
+-            >$<envar>HOME</envar>/.kde/share/apps/kwifimanager/wireless-log</filename>
++            >$<envar>HOME</envar>/.trinity/share/apps/kwifimanager/wireless-log</filename>
+           </para>
+         </sect3>
+         <sect3>
+diff --git a/doc/lisa/index.docbook b/doc/lisa/index.docbook
+index d93e31d..8dcccb5 100644
+--- a/doc/lisa/index.docbook
++++ b/doc/lisa/index.docbook
+@@ -584,7 +584,7 @@ MaxPingsAtOnce = 256                    #send up to 256 ICMP echo requests at on
+ <term><option>-k</option>, <option>--kde1</option></term>
+ <listitem>
+ <para>Search first for
+-<filename>$<envar>HOME</envar>/.kde/share/config/lisarc</filename>, then
++<filename>$<envar>HOME</envar>/.trinity/share/config/lisarc</filename>, then
+ for
+ <filename>$<envar>KDEDIR</envar>/share/config/lisarc</filename>.</para>
+ </listitem>

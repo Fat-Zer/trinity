@@ -13,11 +13,11 @@ IUSE=""
 RDEPEND="|| ( net-misc/netkit-talk net-misc/ytalk sys-freebsd/freebsd-ubin )"
 
 pkg_postinst() {
-    trinity-meta_pkg_postinst
+	trinity-meta_pkg_postinst
 
-    if has_version net-misc/ytalk ; then
-        elog "To use net-misc/ytalk as your local network chat program, please"
-        elog "configure your system accordingly, either via the KDE control center"
-        elog "or by calling \"kcmshell kcmktalkd\" on the command line."
-    fi
+	if has_version net-misc/ytalk ; then
+		elog "To use net-misc/ytalk as your local network chat program, please"
+		elog "configure your system accordingly, either via the KDE control center"
+		elog "or by calling \"kcmshell kcmktalkd\" on the command line."
+	fi
 }

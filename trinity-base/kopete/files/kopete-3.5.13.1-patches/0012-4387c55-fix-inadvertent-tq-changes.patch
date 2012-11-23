@@ -1,0 +1,75 @@
+diff --git a/kopete/libkopete/tests/mock/kopeteaccount_mock.h b/kopete/libkopete/tests/mock/kopeteaccount_mock.h
+index 039632f..2d30f8f 100644
+--- a/kopete/libkopete/tests/mock/kopeteaccount_mock.h
++++ b/kopete/libkopete/tests/mock/kopeteaccount_mock.h
+@@ -15,8 +15,8 @@
+     *************************************************************************
+ */
+ 
+-#ifndef _KOPETEACCOUNT_TQMOCK_H_
+-#define _KOPETEACCOUNT_TQMOCK_H_
++#ifndef _KOPETEACCOUNT_MOCK_H_
++#define _KOPETEACCOUNT_MOCK_H_
+ 
+ #include "kopeteaccount.h"
+ 
+diff --git a/kopete/libkopete/tests/mock/kopetecontact_mock.h b/kopete/libkopete/tests/mock/kopetecontact_mock.h
+index 00ec878..e25844d 100644
+--- a/kopete/libkopete/tests/mock/kopetecontact_mock.h
++++ b/kopete/libkopete/tests/mock/kopetecontact_mock.h
+@@ -15,8 +15,8 @@
+     *************************************************************************
+ */
+ 
+-#ifndef _KOPETECONTACT_TQMOCK_H_
+-#define _KOPETECONTACT_TQMOCK_H_
++#ifndef _KOPETECONTACT_MOCK_H_
++#define _KOPETECONTACT_MOCK_H_
+ 
+ #include "kopetecontact.h"
+ 
+diff --git a/kopete/libkopete/tests/mock/kopetemessage_mock.h b/kopete/libkopete/tests/mock/kopetemessage_mock.h
+index 1345e92..13c9257 100644
+--- a/kopete/libkopete/tests/mock/kopetemessage_mock.h
++++ b/kopete/libkopete/tests/mock/kopetemessage_mock.h
+@@ -15,8 +15,8 @@
+     *************************************************************************
+ */
+ 
+-#ifndef _KOPETEMESSAGE_TQMOCK_H_
+-#define _KOPETEMESSAGE_TQMOCK_H_
++#ifndef _KOPETEMESSAGE_MOCK_H_
++#define _KOPETEMESSAGE_MOCK_H_
+ 
+ #include "kopetemessage.h"
+ 
+diff --git a/kopete/libkopete/tests/mock/kopetemetacontact_mock.h b/kopete/libkopete/tests/mock/kopetemetacontact_mock.h
+index 2fa6d8c..f331171 100644
+--- a/kopete/libkopete/tests/mock/kopetemetacontact_mock.h
++++ b/kopete/libkopete/tests/mock/kopetemetacontact_mock.h
+@@ -15,8 +15,8 @@
+     *************************************************************************
+ */
+ 
+-#ifndef _KOPETEMETACONTACT_TQMOCK_H_
+-#define _KOPETEMETACONTACT_TQMOCK_H_
++#ifndef _KOPETEMETACONTACT_MOCK_H_
++#define _KOPETEMETACONTACT_MOCK_H_
+ 
+ #include "kopetemetacontact.h"
+ 
+diff --git a/kopete/libkopete/tests/mock/kopeteprotocol_mock.h b/kopete/libkopete/tests/mock/kopeteprotocol_mock.h
+index db40740..d250279 100644
+--- a/kopete/libkopete/tests/mock/kopeteprotocol_mock.h
++++ b/kopete/libkopete/tests/mock/kopeteprotocol_mock.h
+@@ -15,8 +15,8 @@
+     *************************************************************************
+ */
+ 
+-#ifndef _KOPETEPROTOCOL_TQMOCK_H_
+-#define _KOPETEPROTOCOL_TQMOCK_H_
++#ifndef _KOPETEPROTOCOL_MOCK_H_
++#define _KOPETEPROTOCOL_MOCK_H_
+ 
+ #include "kopeteprotocol.h"
+ 

@@ -1,0 +1,373 @@
+diff --git a/kopete/ChangeLog b/kopete/ChangeLog
+index 5339291..9b94a50 100644
+--- a/kopete/ChangeLog
++++ b/kopete/ChangeLog
+@@ -143,7 +143,7 @@
+ 	* Rearrange the yahoo message parsing a bit so we do it all before we
+ 	  create the KopeteMessage object for it.
+ 
+-	  Workaround gaim's bugginess when sending URLs so that there
++	  Workaround pidgin's bugginess when sending URLs so that there
+ 	  aren't parse errors. (#87190)
+ 
+ 2004-08-14 14:22  Matt Rogers <matt.rogers@kdemail.net>
+diff --git a/kopete/protocols/groupwise/gwprotocol.cpp b/kopete/protocols/groupwise/gwprotocol.cpp
+index 68a31fb..237122c 100644
+--- a/kopete/protocols/groupwise/gwprotocol.cpp
++++ b/kopete/protocols/groupwise/gwprotocol.cpp
+@@ -5,7 +5,7 @@
+     
+     Based on Testbed   
+     Copyright (c) 2003      by Will Stephenson		 <will@stevello.free-online.co.uk>
+-    rtfizeTest from nm_rtfize_text, from Gaim src/protocols/novell/nmuser.c
++    rtfizeTest from nm_rtfize_text, from Pidgin src/protocols/novell/nmuser.c
+     Copyright (c) 2004 Novell, Inc. All Rights Reserved
+     
+     Kopete    (c) 2002-2003 by the Kopete developers <kopete-devel@kde.org>
+@@ -178,7 +178,7 @@ TQString GroupWiseProtocol::rtfizeText( const TQString & plain )
+ 						"{\\colortbl ;\\red0\\green0\\blue0;}\n"
+ 						"\\uc1\\cf1\\f0\\fs18 %1\\par\n}");
+ 	TQString outputText; // output text
+-	TQCString plainUtf8 = plain.utf8(); // encoded as UTF8, because that's what this encoding algorithm, taken from Gaim's Novell plugin
++	TQCString plainUtf8 = plain.utf8(); // encoded as UTF8, because that's what this encoding algorithm, taken from Pidgin's Novell plugin
+ 	uint index = 0; // current char to transcode
+ 	while ( index  < plainUtf8.length() )
+ 	{
+diff --git a/kopete/protocols/groupwise/gwprotocol.h b/kopete/protocols/groupwise/gwprotocol.h
+index 95105f1..b73406c 100644
+--- a/kopete/protocols/groupwise/gwprotocol.h
++++ b/kopete/protocols/groupwise/gwprotocol.h
+@@ -5,7 +5,7 @@
+     
+     Based on Testbed   
+     Copyright (c) 2003      by Will Stephenson		 <will@stevello.free-online.co.uk>
+-    rtfizeTest from nm_rtfize_text, from Gaim src/protocols/novell/nmuser.c
++    rtfizeTest from nm_rtfize_text, from Pidgin src/protocols/novell/nmuser.c
+     Copyright (c) 2004 Novell, Inc. All Rights Reserved
+     
+     Kopete    (c) 2002-2003 by the Kopete developers <kopete-devel@kde.org>
+diff --git a/kopete/protocols/groupwise/libgroupwise/coreprotocol.cpp b/kopete/protocols/groupwise/libgroupwise/coreprotocol.cpp
+index 449adfe..9e7a131 100644
+--- a/kopete/protocols/groupwise/libgroupwise/coreprotocol.cpp
++++ b/kopete/protocols/groupwise/libgroupwise/coreprotocol.cpp
+@@ -5,7 +5,7 @@
+     Copyright (c) 2004      SUSE Linux AG	 	 http://www.suse.com
+     
+     Based on Iris, Copyright (C) 2003  Justin Karneges
+-    url_escape_string from Gaim src/protocols/novell/nmconn.c
++    url_escape_string from Pidgin src/protocols/novell/nmconn.c
+     Copyright (c) 2004 Novell, Inc. All Rights Reserved
+ 
+     Kopete (c) 2002-2004 by the Kopete developers <kopete-devel@kde.org>
+@@ -273,11 +273,11 @@ void CoreProtocol::fieldsToWire( Field::FieldList fields, int depth )
+ 		TQDataStream dout( bytesOut, IO_WriteOnly );
+ 		dout.setByteOrder( TQDataStream::LittleEndian );
+ 		
+-		// these fields are ignored by Gaim's novell
++		// these fields are ignored by Pidgin's novell
+ 		if ( field->type() == NMFIELD_TYPE_BINARY  || field->method() == NMFIELD_METHOD_IGNORE )
+ 			continue;
+ 			
+-		// GAIM writes these tags to the secure socket separately - if we can't connect, check here
++		// PIDGIN writes these tags to the secure socket separately - if we can't connect, check here
+ 		// NM Protocol 1 writes them in an apparently arbitrary order
+ 		// tag
+ 		//dout.writeRawBytes( GW_URLVAR_TAG, sizeof( GW_URLVAR_TAG ) );
+diff --git a/kopete/protocols/groupwise/libgroupwise/eventprotocol.cpp b/kopete/protocols/groupwise/libgroupwise/eventprotocol.cpp
+index 93ce7c9..7532706 100644
+--- a/kopete/protocols/groupwise/libgroupwise/eventprotocol.cpp
++++ b/kopete/protocols/groupwise/libgroupwise/eventprotocol.cpp
+@@ -177,7 +177,7 @@ Transfer * EventProtocol::parse( const TQByteArray & wire, uint& bytes )
+ 		case ContactAdd:			//104
+ 		case ReceiveFile:			//109
+ 		case ConferenceRename:		//116
+-			// unhandled because unhandled in Gaim
++			// unhandled because unhandled in Pidgin
+ 			break;
+ 		/* GW7 */
+ 		case ReceivedBroadcast:		//122
+diff --git a/kopete/protocols/groupwise/libgroupwise/gwclientstream.cpp b/kopete/protocols/groupwise/libgroupwise/gwclientstream.cpp
+index f39c2ec..1034b22 100644
+--- a/kopete/protocols/groupwise/libgroupwise/gwclientstream.cpp
++++ b/kopete/protocols/groupwise/libgroupwise/gwclientstream.cpp
+@@ -4,7 +4,7 @@
+     Copyright (c) 2004      SUSE Linux AG	 	 http://www.suse.com
+     
+     Based on Iris, Copyright (C) 2003  Justin Karneges
+-    encode_method from Gaim src/protocols/novell/nmconn.c
++    encode_method from Pidgin src/protocols/novell/nmconn.c
+     Copyright (c) 2004 Novell, Inc. All Rights Reserved
+     
+     Kopete (c) 2002-2004 by the Kopete developers <kopete-devel@kde.org>
+diff --git a/kopete/protocols/groupwise/libgroupwise/tasks/getstatustask.cpp b/kopete/protocols/groupwise/libgroupwise/tasks/getstatustask.cpp
+index 2b77e33..1ef621d 100644
+--- a/kopete/protocols/groupwise/libgroupwise/tasks/getstatustask.cpp
++++ b/kopete/protocols/groupwise/libgroupwise/tasks/getstatustask.cpp
+@@ -35,7 +35,7 @@ void GetStatusTask::userDN( const TQString & dn )
+ 	m_userDN = dn;
+ 	// set up Transfer
+ 	Field::FieldList lst;
+-	// changed from USERID to DN as per Gaim/GWIM
++	// changed from USERID to DN as per Pidgin/GWIM
+ 	lst.append( new Field::SingleField( NM_A_SZ_DN, 0, NMFIELD_TYPE_UTF8, m_userDN ) );
+ 	createTransfer( "getstatus", lst );
+ }
+diff --git a/kopete/protocols/groupwise/libgroupwise/tasks/sendmessagetask.cpp b/kopete/protocols/groupwise/libgroupwise/tasks/sendmessagetask.cpp
+index fdf1173..7180b4d 100644
+--- a/kopete/protocols/groupwise/libgroupwise/tasks/sendmessagetask.cpp
++++ b/kopete/protocols/groupwise/libgroupwise/tasks/sendmessagetask.cpp
+@@ -31,7 +31,7 @@ SendMessageTask::~SendMessageTask()
+ 
+ void SendMessageTask::message( const TQStringList & recipientDNList, const OutgoingMessage & msg )
+ {
+-	// Assumes the conference is instantiated, unlike Gaim's nm_send_message
++	// Assumes the conference is instantiated, unlike Pidgin's nm_send_message
+ 	Field::FieldList lst, tmp, msgBodies;
+ 	// list containing GUID
+ 	tmp.append( new Field::SingleField( NM_A_SZ_OBJECT_ID, 0, NMFIELD_TYPE_UTF8, msg.guid ) );
+diff --git a/kopete/protocols/jabber/jabberchatsession.cpp b/kopete/protocols/jabber/jabberchatsession.cpp
+index c18c907..75bcdd0 100644
+--- a/kopete/protocols/jabber/jabberchatsession.cpp
++++ b/kopete/protocols/jabber/jabberchatsession.cpp
+@@ -287,7 +287,7 @@ void JabberChatSession::slotMessageSent ( Kopete::Message &message, Kopete::Chat
+ 					TQString xhtmlBody = message.escapedBody();
+ 
+ 					// According to JEP-0071 8.9  it is only RECOMMANDED to replace \n with <br/>
+-					//  which mean that some implementation (gaim 2 beta) may still think that \n are linebreak.
++					//  which mean that some implementation (pidgin 2 beta) may still think that \n are linebreak.
+ 					// and considered the fact that KTextEditor generate a well indented XHTML, we need to remove all \n from it
+ 					//  see Bug 121627
+ 					// Anyway, theses client that do like that are *WRONG*  considreded the example of jep-71 where there are lot of
+diff --git a/kopete/protocols/jabber/jingle/libjingle/talk/examples/call/status.h b/kopete/protocols/jabber/jingle/libjingle/talk/examples/call/status.h
+index cab9312..c6e6324 100644
+--- a/kopete/protocols/jabber/jingle/libjingle/talk/examples/call/status.h
++++ b/kopete/protocols/jabber/jingle/libjingle/talk/examples/call/status.h
+@@ -119,7 +119,7 @@ public:
+           status_.find("Auto Status") != std::string::npos)
+         return STR_EMPTY;
+     }
+-    if (jid_.resource().find("Gaim") != std::string::npos) {
++    if (jid_.resource().find("Pidgin") != std::string::npos) {
+       if (status_ == "Sorry, I ran out for a bit!")
+         return STR_EMPTY;
+     }
+diff --git a/kopete/protocols/meanwhile/README b/kopete/protocols/meanwhile/README
+index 5c77dbf..4730c3f 100644
+--- a/kopete/protocols/meanwhile/README
++++ b/kopete/protocols/meanwhile/README
+@@ -9,7 +9,7 @@ To INSTALL
+ installing libmeanwhile
+ =======================
+ from http://meanwhile.sf.net - use version 0.3
+-Refer to INSTALL in the meanwhile code. Run configure without specifying the --with_gaim_src
++Refer to INSTALL in the meanwhile code. Run configure without specifying the --with_pidgin_src
+  # autogen.sh
+  # ./configure --prefix=/usr
+  # make
+diff --git a/kopete/protocols/msn/ReleaseNotes b/kopete/protocols/msn/ReleaseNotes
+index 3a2b2f6..1a36724 100644
+--- a/kopete/protocols/msn/ReleaseNotes
++++ b/kopete/protocols/msn/ReleaseNotes
+@@ -23,7 +23,7 @@ release:
+   internally a group ID is used. Kopete currently uses the name as a unique
+   identifier, however, and will likely get a bit confused by this. If you
+   do experience problems, you could join both groups using another MSN
+-  client, like the official client, Trillian or Gaim as a workaround.
++  client, like the official client, Trillian or Pidgin as a workaround.
+ 
+ - Kopete contacts can be at Top-Level and in no groups. MSN doesn't
+   support this freature. The kopete's contact list can differe from server 
+diff --git a/kopete/protocols/msn/msnaccount.cpp b/kopete/protocols/msn/msnaccount.cpp
+index 6c4aa9c..c4dcabf 100644
+--- a/kopete/protocols/msn/msnaccount.cpp
++++ b/kopete/protocols/msn/msnaccount.cpp
+@@ -1178,7 +1178,7 @@ void MSNAccount::slotCreateChat( const TQString& ID, const TQString& address, co
+ 
+ 		/**
+ 		 *  This code should open a chatwindow when a socket is open
+-		 * It has been disabled because gaim open switchboeard too often
++		 * It has been disabled because pidgin open switchboeard too often
+ 		 *
+ 		 * the solution is to open the window only when the contact start typing
+ 		 * see MSNChatSession::receivedTypingMsg
+diff --git a/kopete/protocols/msn/msnswitchboardsocket.cpp b/kopete/protocols/msn/msnswitchboardsocket.cpp
+index 7d67876..3298e46 100644
+--- a/kopete/protocols/msn/msnswitchboardsocket.cpp
++++ b/kopete/protocols/msn/msnswitchboardsocket.cpp
+@@ -695,7 +695,7 @@ int MSNSwitchBoardSocket::sendMsg( const Kopete::Message &msg )
+ 		}
+ 	}
+ 
+-	// User-Agent is not a official flag, but GAIM has it
++	// User-Agent is not a official flag, but PIDGIN has it
+ 	TQString UA;
+ 	if( config->readBoolEntry("SendClientInfo", true) )
+ 	{
+diff --git a/kopete/protocols/oscar/liboscar/TODO b/kopete/protocols/oscar/liboscar/TODO
+index 1ec9be9..ed14e15 100644
+--- a/kopete/protocols/oscar/liboscar/TODO
++++ b/kopete/protocols/oscar/liboscar/TODO
+@@ -17,7 +17,7 @@ Misc. Before Merge things
+ Direct Connections
+ ====================================
+ When/If we get around to it. Matt knows absolutely nothing about direct connections and the only online source of documentation is no longer online. :(
+-This will definately be one of those things we have to dissect gaim for. :/
++This will definately be one of those things we have to dissect pidgin for. :/
+ 
+ 
+ SNAC 0x15 parsing
+diff --git a/kopete/protocols/oscar/liboscar/buddyicontask.cpp b/kopete/protocols/oscar/liboscar/buddyicontask.cpp
+index c75a592..c766148 100644
+--- a/kopete/protocols/oscar/liboscar/buddyicontask.cpp
++++ b/kopete/protocols/oscar/liboscar/buddyicontask.cpp
+@@ -137,7 +137,7 @@ void BuddyIconTask::sendIcon()
+ 	m_seq = client()->snacSequence();
+ 	SNAC s = { 0x0010, 0x0002, 0x0000, m_seq };
+ 	Buffer* b = new Buffer;
+-	b->addWord( 1 ); //gaim hard codes it, so will we
++	b->addWord( 1 ); //pidgin hard codes it, so will we
+ 	b->addWord( m_iconLength );
+ 	b->addString( m_icon );
+ 	Transfer* t = createTransfer( f, s, b );
+diff --git a/kopete/protocols/oscar/liboscar/chatnavservicetask.cpp b/kopete/protocols/oscar/liboscar/chatnavservicetask.cpp
+index 3004af0..4a34ae2 100644
+--- a/kopete/protocols/oscar/liboscar/chatnavservicetask.cpp
++++ b/kopete/protocols/oscar/liboscar/chatnavservicetask.cpp
+@@ -115,7 +115,7 @@ void ChatNavServiceTask::onGo()
+ 
+ void ChatNavServiceTask::createRoom( WORD exchange, const TQString& name )
+ {
+-	//most of this comes from gaim. thanks to them for figuring it out
++	//most of this comes from pidgin. thanks to them for figuring it out
+ 	TQString cookie = "create"; //hardcoded, seems to be ignored by AOL
+ 	TQString lang = "en";
+ 	TQString charset = "us-ascii";
+diff --git a/kopete/protocols/oscar/liboscar/coreprotocol.cpp b/kopete/protocols/oscar/liboscar/coreprotocol.cpp
+index 2a4d96f..e3c2642 100644
+--- a/kopete/protocols/oscar/liboscar/coreprotocol.cpp
++++ b/kopete/protocols/oscar/liboscar/coreprotocol.cpp
+@@ -7,7 +7,7 @@
+     Based on code Copyright (c) 2004 SuSE Linux AG http://www.suse.com
+ 
+     Based on Iris, Copyright (C) 2003  Justin Karneges
+-    url_escape_string from Gaim src/protocols/novell/nmconn.c
++    url_escape_string from Pidgin src/protocols/novell/nmconn.c
+     Copyright (c) 2004 Novell, Inc. All Rights Reserved
+ 
+     Kopete (c) 2002-2004 by the Kopete developers <kopete-devel@kde.org>
+diff --git a/kopete/protocols/oscar/liboscar/sendmessagetask.cpp b/kopete/protocols/oscar/liboscar/sendmessagetask.cpp
+index 1b8cbfb..df1a819 100644
+--- a/kopete/protocols/oscar/liboscar/sendmessagetask.cpp
++++ b/kopete/protocols/oscar/liboscar/sendmessagetask.cpp
+@@ -141,7 +141,7 @@ void SendMessageTask::addChannel1Data( Buffer* b )
+ {
+ 	Buffer tlv2buffer;
+ 
+-	//Send features TLV using data from gaim. Features are different
++	//Send features TLV using data from pidgin. Features are different
+ 	//depending on whether we're ICQ or AIM
+ 	if ( client()->isIcq() )
+ 	{
+@@ -266,7 +266,7 @@ void SendMessageTask::addRendezvousMessageData( Buffer* b )
+ 	b->addLEWord( 0x001B ); // length of this data segment, always 27
+ 
+ 	// protocol version
+-	// miranda,licq use 8, gaim,icq5 use 9, icq2003b uses 10.
++	// miranda,licq use 8, pidgin,icq5 use 9, icq2003b uses 10.
+ 	// 9 seems to make things a litle difficult, 10 seems a little more like 8, but still more difficult
+ 	b->addLEWord( 0x0008 ); // so stick with 8 for now :)
+ 	
+diff --git a/kopete/protocols/oscar/liboscar/userdetails.cpp b/kopete/protocols/oscar/liboscar/userdetails.cpp
+index 8a1b6c4..f873702 100644
+--- a/kopete/protocols/oscar/liboscar/userdetails.cpp
++++ b/kopete/protocols/oscar/liboscar/userdetails.cpp
+@@ -363,7 +363,7 @@ void UserDetails::detectClient()
+ 			clientMatched=true; // default case will set it to false again if we did not find anything
+ 			switch (m_dcLastInfoUpdateTime)
+ 			{
+-			case 0xFFFFFFFFL: //gaim behaves like official AIM so we can't detect them, only look for miranda
++			case 0xFFFFFFFFL: //pidgin behaves like official AIM so we can't detect them, only look for miranda
+ 				{
+ 					if (m_dcLastExtStatusUpdateTime & 0x80000000)
+ 						m_clientName=TQString::fromLatin1("Miranda alpha");
+@@ -439,9 +439,9 @@ void UserDetails::detectClient()
+ 				m_clientName=TQString::fromLatin1("ICQ2go");
+ 			}
+ 		}
+-		else if (hasCap(CAP_BUDDYICON)) // only gaim seems to advertize this on ICQ
++		else if (hasCap(CAP_BUDDYICON)) // only pidgin seems to advertize this on ICQ
+ 		{
+-			m_clientName = TQString::fromLatin1("Gaim");
++			m_clientName = TQString::fromLatin1("Pidgin");
+ 		}
+ 		else if (hasCap(CAP_XTRAZ))
+ 		{
+diff --git a/kopete/protocols/yahoo/libkyahoo/libyahoo.c b/kopete/protocols/yahoo/libkyahoo/libyahoo.c
+index a97e7be..b3a1f9f 100644
+--- a/kopete/protocols/yahoo/libkyahoo/libyahoo.c
++++ b/kopete/protocols/yahoo/libkyahoo/libyahoo.c
+@@ -4,10 +4,10 @@
+  * Some code copyright (C) 2002, Philip S Tellis <philip . tellis AT gmx . net>
+  *
+  * Much of this code was taken and adapted from the yahoo module for
+- * gaim released under the GNU GPL.  This code is also released under the
++ * pidgin released under the GNU GPL.  This code is also released under the
+  * GNU GPL.
+  *
+- * This code is derivitive of Gaim <http://gaim.sourceforge.net>
++ * This code is derivitive of Pidgin <http://pidgin.sourceforge.net>
+  * copyright (C) 1998-1999, Mark Spencer <markster@marko.net>
+  *	       1998-1999, Adam Fritzler <afritz@marko.net>
+  *	       1998-2002, Rob Flynn <rob@marko.net>
+diff --git a/kopete/protocols/yahoo/libkyahoo/libyahoo.h b/kopete/protocols/yahoo/libkyahoo/libyahoo.h
+index b15f57a..e9cad06 100644
+--- a/kopete/protocols/yahoo/libkyahoo/libyahoo.h
++++ b/kopete/protocols/yahoo/libkyahoo/libyahoo.h
+@@ -4,10 +4,10 @@
+  * Some code copyright (C) 2002, Philip S Tellis <philip . tellis AT gmx . net>
+  *
+  * Much of this code was taken and adapted from the yahoo module for
+- * gaim released under the GNU GPL.  This code is also released under the
++ * pidgin released under the GNU GPL.  This code is also released under the
+  * GNU GPL.
+  *
+- * This code is derivitive of Gaim <http://gaim.sourceforge.net>
++ * This code is derivitive of Pidgin <http://pidgin.sourceforge.net>
+  * copyright (C) 1998-1999, Mark Spencer <markster@marko.net>
+  *	       1998-1999, Adam Fritzler <afritz@marko.net>
+  *	       1998-2002, Rob Flynn <rob@marko.net>
+diff --git a/kopete/protocols/yahoo/libkyahoo/yahoo_fn.c b/kopete/protocols/yahoo/libkyahoo/yahoo_fn.c
+index 5671289..72cebd2 100644
+--- a/kopete/protocols/yahoo/libkyahoo/yahoo_fn.c
++++ b/kopete/protocols/yahoo/libkyahoo/yahoo_fn.c
+@@ -1,5 +1,5 @@
+ /*
+- * gaim
++ * pidgin
+  *
+  * Some code copyright (C) 1998-1999, Mark Spencer <markster@marko.net>
+  * libfaim code copyright 1998, 1999 Adam Fritzler <afritz@auk.cx>
+diff --git a/kopete/protocols/yahoo/libkyahoo/yahoo_fn.h b/kopete/protocols/yahoo/libkyahoo/yahoo_fn.h
+index c4b34c8..fc9d68e 100644
+--- a/kopete/protocols/yahoo/libkyahoo/yahoo_fn.h
++++ b/kopete/protocols/yahoo/libkyahoo/yahoo_fn.h
+@@ -1,5 +1,5 @@
+ /*
+- * gaim
++ * pidgin
+  *
+  * Copyright (C) 2003
+  *
+diff --git a/kopete/protocols/yahoo/yahooaccount.cpp b/kopete/protocols/yahoo/yahooaccount.cpp
+index 7cc330f..a38fecc 100644
+--- a/kopete/protocols/yahoo/yahooaccount.cpp
++++ b/kopete/protocols/yahoo/yahooaccount.cpp
+@@ -174,7 +174,7 @@ TQString YahooAccount::stripMsgColorCodes(const TQString& msg)
+ 	filteredMsg.replace( "\033[4m", "<u>" );
+ 	filteredMsg.replace( "\033[x4m", "</u>" );
+ 
+-	//GAIM doesn't check for ^[[3m. Does this ever get sent?
++	//PIDGIN doesn't check for ^[[3m. Does this ever get sent?
+ 	filteredMsg.replace( "\033[3m", "<i>" );
+ 	filteredMsg.replace( "\033[x3m", "</i>" );
+ 

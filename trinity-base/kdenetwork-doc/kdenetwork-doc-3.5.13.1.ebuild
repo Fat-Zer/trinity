@@ -12,6 +12,9 @@ IUSE=""
 RDEPEND="
 	>=trinity-base/khelpcenter-${PV}:${SLOT}"
 
+PATCHES=(
+	"${FILESDIR}/kdenetwork-3.5.13.1-fix-references-to-user-profile-directory-6f85c0c.patch" )
+
 pkg_setup() {
 	# we should reduce MAKEOPTS -j parametr to no more than 4
 	local makeopts_j

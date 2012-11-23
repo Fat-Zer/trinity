@@ -5,4 +5,28 @@
 		<email>fatzer2@gmail.com</email>
 		<name>Golubev Alexander</name>
 	</maintainer>
+	<use>
+		<flag name="gsmlib">Add <pkg>app-mobilephone/gsmlib</pkg> support to sms plugin.</flag>
+		<flag name="netmeeting">Add Netmeeting plugin and support to the msn protocol.</flag>
+		<flag name="autoreplace">Build autoreplace plugin.</flag>
+		<flag name="history">Build history plugin.</flag>
+		<flag name="contactnotes">Build contactnotes plugin.</flag>
+		<flag name="connectionstatus">Build connectionstatus plugin.</flag>
+		<flag name="translator">Build history plugin that automaticaly translates incoming and outgoing messages.</flag>
+		<flag name="nowlistening">Build nowlistening plugin.</flag>
+		<flag name="webpresence">Build webpresence plugin that shows your status and some more information on web..</flag>
+		<flag name="texteffect">Build texteffect plugin.</flag>
+		<flag name="highlight">Build highlight plugin that allows you to specify highlights on specific events.</flag>
+		<flag name="alias">Build alias plugin.</flag>
+		<flag name="motionautoaway">Build motionautoaway plugin.</flag>
+		<flag name="addbookmarks">Build addbookmarks plugin that automatically adds incoming urls to bookmarks.</flag>
+		<flag name="statistics">Build statistics plugin.</flag>
+		<flag name="smpppdcs">Build smpppdsc plugin.</flag>
+		<flag name="gadu">Enaple Gadu protocol support with <pkg>net-libs/libgadu</pkg>.</flag>
+		<flag name="groupwise">Enable Groupwise protocol support.</flag>
+		<flag name="irc">Enable IRC protocol support.</flag>
+		<flag name="sms">Enable sms sending functionality.</flag>
+		<flag name="sametime">Add sametime protocol support with <pkg>net-libs/meanwhile</pkg>.</flag>
+		<flag name="winpopup">Enable pop-up messages sending on windows. (same as good old "net send" messages ;])</flag>
+	</use>
 </pkgmetadata>

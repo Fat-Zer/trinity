@@ -1,0 +1,15 @@
+diff --git a/kopete/kopete.api b/kopete/kopete.api
+index 04084b8..95a196a 100644
+--- a/kopete/kopete.api
++++ b/kopete/kopete.api
+@@ -59,8 +59,8 @@ WARN_LOGFILE           =
+ INPUT                  = libkopete libkopete/ui
+ FILE_PATTERNS          = *.h
+ RECURSIVE              = NO
+-EXCLUDE_PATTERNS       = *.tqmoc.* \
+-                         tqmoc* \
++EXCLUDE_PATTERNS       = *.moc.* \
++                         moc* \
+                          *.all_cpp.* \
+                          *unload.* \
+                          */test/* \

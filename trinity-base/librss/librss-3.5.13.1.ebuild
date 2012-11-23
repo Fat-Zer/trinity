@@ -9,3 +9,5 @@ inherit trinity-meta
 DESCRIPTION="Trinity rss library"
 KEYWORDS="amd64 x86"
 IUSE=""
+
+PATCHES=( "${FILESDIR}/tdenetwork-fix-export-librss.patch" )

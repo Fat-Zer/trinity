@@ -10,10 +10,10 @@ DESCRIPTION="Trinity multi-protocol IM client"
 KEYWORDS="amd64 x86"
 
 IUSE="jingle gsmlib netmeeting speex kernel_linux"
-PLUGINS="latex autoreplace history contactnotes crypt connectionstatus 
-	translator nowlistening webpresence texteffect highlight alias 
+PLUGINS="latex autoreplace history contactnotes crypt connectionstatus
+	translator nowlistening webpresence texteffect highlight alias
 	motionautoaway netmeeting addbookmarks statistics smpppdcs"
-PROTOCOLS="testbed gadu groupwise irc jabber oscar msn sms sametime winpopup yahoo"
+PROTOCOLS="gadu groupwise irc jabber oscar msn sms sametime winpopup yahoo"
 # unsupported USE="v4l2 opengl xscreensaver ssl emoticons-manager "
 # USE=xmms works only with xmms1
 IUSE="${IUSE} ${PLUGINS} ${PROTOCOLS}"
@@ -33,7 +33,7 @@ REQUIRED_USE="
 BOTH_DEPEND="
 	jingle? ( dev-libs/glib:2 )
 	netmeeting? ( dev-libs/glib:2 )
-	webpresence? ( 
+	webpresence? (
 		dev-libs/libxml2
 		dev-libs/libxslt )
 	jingle? (
@@ -66,10 +66,12 @@ RDEPEND="${BOTH_DEPEND}
 	latex? (
 		media-gfx/imagemagick
 		virtual/latex-base )
-	sms? ( !gsmlib? ( || ( 
+	sms? ( !gsmlib? ( || (
 				app-mobilephone/smsclient
 				app-mobilephone/smssend	) ) )
 "
+
+PATCHES=( "${FILESDIR}/${P}-patches" )
 
 src_configure() {
 	mycmakeargs=(
@@ -95,8 +97,7 @@ src_configure() {
 		$(cmake-utils_use_build addbookmarks     KOPETE_PLUGIN_ADDBOOKMARKS)
 		$(cmake-utils_use_build statistics       KOPETE_PLUGIN_STATISTICS)
 		$(cmake-utils_use_build smpppdcs         KOPETE_PLUGIN_SMPPPDCS)
-	                                              
-		$(cmake-utils_use_build testbed   KOPETE_PROTOCOL_TESTBED)
+
 		$(cmake-utils_use_build gadu      KOPETE_PROTOCOL_GADU)
 		$(cmake-utils_use_build groupwise KOPETE_PROTOCOL_GROUPWISE)
 		$(cmake-utils_use_build irc       KOPETE_PROTOCOL_IRC)

@@ -1,0 +1,52 @@
+diff --git a/lanbrowsing/lisa/README b/lanbrowsing/lisa/README
+index c6d5d1b..5b7c328 100644
+--- a/lanbrowsing/lisa/README
++++ b/lanbrowsing/lisa/README
+@@ -382,7 +382,7 @@ For reslisa the file is named reslisarc instead lisarc.
+ -u, --unix         search at first for $HOME/.lisarc, then
+                    for /etc/lisarc, this is the default behaviour
+                    
+--k, --kde1         search at first for $HOME/.kde/share/config/lisarc,
++-k, --kde1         search at first for $HOME/.trinity/share/config/lisarc,
+                    then for $KDEDIR/share/config/lisarc
+ 
+ -K, --kde2         looks for the file lisarc in every directory
+diff --git a/lanbrowsing/lisa/main.cpp b/lanbrowsing/lisa/main.cpp
+index 7de5938..fd96d04 100644
+--- a/lanbrowsing/lisa/main.cpp
++++ b/lanbrowsing/lisa/main.cpp
+@@ -198,7 +198,7 @@ int main(int argc, char** argv)
+             "--kde1, --kde2 and --unix are not supported anymore.\n"\
+             "Lisa will always first look for $(HOME)/.lisarc , then for /etc/lisarc.\n"\
+             "If your lisa configuration file was created using an older version of \n"\
+-            "the KDE control center, copy the /root/.kde/share/config/lisarc to /etc and \n"\
++            "the KDE control center, copy the /root/.trinity/share/config/lisarc to /etc and \n"\
+             "then start lisa without any command line options.\n"<<std::endl;
+          return 0;
+          break;
+diff --git a/lanbrowsing/lisa/netmanager.cpp b/lanbrowsing/lisa/netmanager.cpp
+index e652ce9..ad905e3 100644
+--- a/lanbrowsing/lisa/netmanager.cpp
++++ b/lanbrowsing/lisa/netmanager.cpp
+@@ -338,7 +338,7 @@ MyString NetManager::getConfigFileName()
+ /*   else if (m_configStyle==KDE1CONFIGSTYLE)
+    {
+       tmpFilename=getenv("HOME");
+-      tmpFilename+=MyString("/.kde/share/config/")+tmpBase;
++      tmpFilename+=MyString("/.trinity/share/config/")+tmpBase;
+       if (fileReadable(tmpFilename))
+          return tmpFilename;
+       tmpFilename=getenv("KDEDIR");
+diff --git a/lanbrowsing/lisa/strictmain.cpp b/lanbrowsing/lisa/strictmain.cpp
+index a948d6d..07f5b9b 100644
+--- a/lanbrowsing/lisa/strictmain.cpp
++++ b/lanbrowsing/lisa/strictmain.cpp
+@@ -187,7 +187,7 @@ int main(int argc, char** argv)
+             "--kde1, --kde2 and --unix are not supported anymore.\n"\
+             "ResLisa will always first look for $(HOME)/.reslisarc , then for /etc/reslisarc.\n"\
+             "If your lisa configuration file was created using an older version of \n"\
+-            "the KDE control center, copy the $(HOME)/.kde/share/config/reslisarc to $(HOME)/.reslisarc.\n"<<std::endl;
++            "the KDE control center, copy the $(HOME)/.trinity/share/config/reslisarc to $(HOME)/.reslisarc.\n"<<std::endl;
+          break;
+ 
+       case 'c':

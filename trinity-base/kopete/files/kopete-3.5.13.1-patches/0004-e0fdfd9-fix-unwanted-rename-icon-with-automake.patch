@@ -1,0 +1,13 @@
+diff --git a/kopete/icons/Makefile.am b/kopete/icons/Makefile.am
+index a4b97f0..f3e403d 100644
+--- a/kopete/icons/Makefile.am
++++ b/kopete/icons/Makefile.am
+@@ -1 +1,8 @@
+ KDE_ICON=AUTO
++
++install-data-local:
++	if test -e $(DESTDIR)$(kde_icondir)/crystalsvg/16x16/apps/jabber_gateway_http/ws.png; then \
++		mv $(DESTDIR)$(kde_icondir)/crystalsvg/16x16/apps/jabber_gateway_http/ws.png \
++		   $(DESTDIR)$(kde_icondir)/crystalsvg/16x16/apps/jabber_gateway_http-ws.png; \
++		rmdir $(DESTDIR)$(kde_icondir)/crystalsvg/16x16/apps/jabber_gateway_http; \
++	fi

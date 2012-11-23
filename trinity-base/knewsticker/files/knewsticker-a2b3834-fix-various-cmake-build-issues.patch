@@ -1,0 +1,16 @@
+diff --git a/knewsticker/kntsrcfilepropsdlg/CMakeLists.txt b/knewsticker/kntsrcfilepropsdlg/CMakeLists.txt
+index f6d02b0..f6871ed 100644
+--- a/knewsticker/kntsrcfilepropsdlg/CMakeLists.txt
++++ b/knewsticker/kntsrcfilepropsdlg/CMakeLists.txt
+@@ -32,9 +32,9 @@ install( FILES
+   DESTINATION ${SERVICES_INSTALL_DIR} )
+ 
+ 
+-##### kntsrcfilepropsdlg (module) ###############
++##### libkntsrcfilepropsdlg (module) ###############
+ 
+-tde_add_kpart( kntsrcfilepropsdlg AUTOMOC
++tde_add_kpart( libkntsrcfilepropsdlg AUTOMOC
+   SOURCES
+     kntsrcfilepropsdlg.cpp kntsrcfilepropsdlgwidget.ui
+   LINK knewstickercommon-static rss-shared

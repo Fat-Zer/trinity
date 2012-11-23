@@ -1,0 +1,28 @@
+diff --git a/kopete/plugins/nowlistening/ConfigureChecks.cmake b/kopete/plugins/nowlistening/ConfigureChecks.cmake
+new file mode 100644
+index 0000000..0780035
+--- /dev/null
++++ b/kopete/plugins/nowlistening/ConfigureChecks.cmake
+@@ -0,0 +1,22 @@
++#################################################
++#
++#  (C) 2012 Slavek Banko
++#  slavek (DOT) banko (AT) axis.cz
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++# xmms
++if( WITH_XMMS )
++  find_program( XMMS_CONFIG xmms-config )
++  if( XMMS_CONFIG )
++    set( HAVE_XMMS 1 )
++    EXEC_PROCESS( COMMAND ${XMMS_CONFIG} --cflags OUTPUT_VARIABLE XMMS_INCLUDES )
++    EXEC_PROCESS( COMMAND ${XMMS_CONFIG} --libs OUTPUT_VARIABLE XMMS_LIBS )
++  else( )
++    tde_message_fatal( "xmms is required, but was not found on your system" )
++  endif( )
++endif( )

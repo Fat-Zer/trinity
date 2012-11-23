@@ -1,0 +1,21 @@
+diff --git a/kopete/protocols/configure.in.in b/kopete/protocols/configure.in.in
+index 0008f19..7a96cc9 100644
+--- a/kopete/protocols/configure.in.in
++++ b/kopete/protocols/configure.in.in
+@@ -27,6 +27,16 @@ fi
+ dnl This may need a test still for compatibility
+ COMPILE_GADU=true
+ use_libgadu_copy=
++if test "$with_external_libgadu" != "no" ; then
++  # Check and setup for libgadu
++  KDE_PKG_CHECK_MODULES(LIBGG, libgadu, [have_libgg=yes], [have_libgg=no])
++  if test "x$have_libgg" = "xno"; then
++    COMPILE_GADU=
++    AC_MSG_RESULT([not found])
++  else
++    AC_MSG_RESULT([found])
++  fi
++fi
+ 
+ AC_SUBST(LIBGG_INCLUDES)
+ AC_SUBST(LIBGG_LIBS)

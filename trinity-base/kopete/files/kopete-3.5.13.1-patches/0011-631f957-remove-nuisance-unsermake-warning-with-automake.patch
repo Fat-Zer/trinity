@@ -1,0 +1,12 @@
+diff --git a/kopete/protocols/jabber/libiris/iris/xmpp-core/Makefile.am b/kopete/protocols/jabber/libiris/iris/xmpp-core/Makefile.am
+index 56be2c4..8e89a08 100644
+--- a/kopete/protocols/jabber/libiris/iris/xmpp-core/Makefile.am
++++ b/kopete/protocols/jabber/libiris/iris/xmpp-core/Makefile.am
+@@ -1,6 +1,6 @@
+ # The only Q_OBJECT lines are in securestream.{h,cpp} and we deal with them below.
+ # Give metasources a file with no Q_OBJECT line to stop unsermake assuming we want METASOURCES = AUTO
+-METASOURCES = ignore_this_warning.moc
++METASOURCES = AUTO
+ 
+ noinst_LTLIBRARIES = libiris_xmpp_core.la
+ AM_CPPFLAGS = $(IDN_CFLAGS)

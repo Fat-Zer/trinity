@@ -1,0 +1,34 @@
+diff --git a/kopete/protocols/gadu/gadudccserver.cpp b/kopete/protocols/gadu/gadudccserver.cpp
+index 6e6c370..13d61b3 100644
+--- a/kopete/protocols/gadu/gadudccserver.cpp
++++ b/kopete/protocols/gadu/gadudccserver.cpp
+@@ -159,7 +159,7 @@ GaduDCCServer::watcher() {
+ 
+ 	dccEvent = gg_dcc_watch_fd( dccSock );
+ 	if ( ! dccEvent ) {
+-		// connection is fucked
++		// connection is bad
+ 		// we should try to reenable it
+ //		closeDCC();
+ 		return;
+diff --git a/kopete/protocols/gadu/gadudcctransaction.cpp b/kopete/protocols/gadu/gadudcctransaction.cpp
+index 7ec8d2a..75e7174 100644
+--- a/kopete/protocols/gadu/gadudcctransaction.cpp
++++ b/kopete/protocols/gadu/gadudcctransaction.cpp
+@@ -324,14 +324,14 @@ GaduDCCTransaction::watcher() {
+ 
+ 	dccEvent = gg_dcc_watch_fd( dccSock_ );
+ 	if ( ! dccEvent ) {
+-		// connection is fucked
++		// connection is bad
+ 		closeDCC();
+ 		return;
+ 	}
+ 	switch ( dccEvent->type ) {
+ 		case GG_EVENT_DCC_CLIENT_ACCEPT:
+ 			kdDebug(14100) << " GG_EVENT_DCC_CLIENT_ACCEPT " << endl;
+-			// check dccsock->peer_uin, if unknown, fuck it;
++			// check dccsock->peer_uin, if unknown, oh well;
+ 
+ 			// is it for us ?
+ 			account = gaduDCC_->account( dccSock_->uin );

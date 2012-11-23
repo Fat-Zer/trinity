@@ -11,3 +11,6 @@ KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="net-dialup/ppp"
+
+PATCHES=(
+	"${FILESDIR}/kppp-v3.5.13.1-a2b3834-fix-various-cmake-build-issues.patch" )

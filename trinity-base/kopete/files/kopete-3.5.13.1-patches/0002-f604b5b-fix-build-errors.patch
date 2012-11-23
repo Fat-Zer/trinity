@@ -1,0 +1,51 @@
+diff --git a/kopete/protocols/jabber/kioslave/CMakeLists.txt b/kopete/protocols/jabber/kioslave/CMakeLists.txt
+index 6c691ae..9539457 100644
+--- a/kopete/protocols/jabber/kioslave/CMakeLists.txt
++++ b/kopete/protocols/jabber/kioslave/CMakeLists.txt
+@@ -37,6 +37,6 @@ tde_add_kpart( kio_jabberdisco AUTOMOC
+   LINK
+     jabberclient-static idn
+     iris_xmpp_core-static iris_xmpp_im-static iris_jabber-static iris-static
+-    qca-static cutestuff_network-static cutestuff_util-static kio-shared idn
++    qca-static cutestuff_network-static cutestuff_util-static kio-shared
+   DESTINATION ${PLUGIN_INSTALL_DIR}
+ )
+diff --git a/kopete/protocols/sms/services/smsclient.cpp b/kopete/protocols/sms/services/smsclient.cpp
+index 9fb5a92..984e843 100644
+--- a/kopete/protocols/sms/services/smsclient.cpp
++++ b/kopete/protocols/sms/services/smsclient.cpp
+@@ -59,7 +59,7 @@ void SMSClient::send(const Kopete::Message& msg)
+ 	m_msg = msg;
+ 
+ 	KConfigGroup* c = m_account->configGroup();
+-	TQString provider = c->readEntry(TQString("%1:%2").arg("SMSClient").arg("ProviderName");
++	TQString provider = c->readEntry(TQString("%1:%2").arg("SMSClient").arg("ProviderName"));
+ 
+ 	if (provider.isNull())
+ 	{
+@@ -67,7 +67,7 @@ void SMSClient::send(const Kopete::Message& msg)
+ 		return;
+ 	}
+ 
+-	TQString programName = c->readEntry(TQString("%1:%2").arg("SMSClient").arg("ProgramName");
++	TQString programName = c->readEntry(TQString("%1:%2").arg("SMSClient").arg("ProgramName"));
+ 	if (programName.isNull())
+ 		programName = "/usr/bin/sms_client";
+ 
+@@ -97,14 +97,14 @@ TQWidget* SMSClient::configureWidget(TQWidget* parent)
+ 	prefWidget->configDir->setMode(KFile::Directory);
+ 	TQString configDir;
+ 	if (m_account)
+-		configDir = m_account->configGroup()->readEntry(TQString("%1:%2").arg("SMSClient").arg("ConfigDir");
++		configDir = m_account->configGroup()->readEntry(TQString("%1:%2").arg("SMSClient").arg("ConfigDir"));
+ 	if (configDir.isNull())
+ 		configDir = "/etc/sms";
+ 	prefWidget->configDir->setURL(configDir);
+ 
+ 	TQString programName;
+ 	if (m_account)
+-		programName = m_account->configGroup()->readEntry(TQString("%1:%2").arg("SMSClient").arg("ProgramName");
++		programName = m_account->configGroup()->readEntry(TQString("%1:%2").arg("SMSClient").arg("ProgramName"));
+ 	if (programName.isNull())
+ 		programName = "/usr/bin/sms_client";
+ 	prefWidget->program->setURL(programName);

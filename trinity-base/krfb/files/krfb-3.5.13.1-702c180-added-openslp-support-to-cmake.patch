@@ -1,0 +1,40 @@
+diff --git a/krfb/srvloc/CMakeLists.txt b/krfb/srvloc/CMakeLists.txt
+index 095bcf5..a6b7721 100644
+--- a/krfb/srvloc/CMakeLists.txt
++++ b/krfb/srvloc/CMakeLists.txt
+@@ -24,4 +24,6 @@ tde_add_library( srvloc STATIC_PIC AUTOMOC
+   SOURCES
+     kserviceregistry.cpp uuid.cpp kinetinterface.cpp
+     kinetinterfacewatcher.cpp getifaddrs.cpp
++  LINK
++    ${LIB_SLP}
+ )
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d712390..2601743 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -49,6 +49,7 @@ option( WITH_SPEEX "Enable speex support (for jingle)" OFF )
+ option( WITH_WEBCAM "Enable webcam support (kopete/msn)" OFF )
+ option( WITH_GSM "Enable GSM SMS support (kopete/sms)" OFF )
+ option( WITH_ARTS "Enable aRts support" OFF )
++option( WITH_SLP "Enable OpenSLP support (krdc, krfb)" OFF )
+ 
+ 
+ ##### kopete protocols ##########################
+diff --git a/ConfigureChecks.cmake b/ConfigureChecks.cmake
+index 896491f..fc04621 100644
+--- a/ConfigureChecks.cmake
++++ b/ConfigureChecks.cmake
+@@ -16,3 +16,12 @@ endif( )
+ # required stuff
+ find_package( TQt )
+ find_package( TDE )
++
++if( WITH_SLP )
++  check_library_exists( slp "SLPOpen" "" HAVE_SLP )
++  if( HAVE_SLP )
++    set(LIB_SLP slp )
++  else( )
++    tde_message_fatal( "openslp is required, but was not found on your system" )
++  endif( )
++endif( )

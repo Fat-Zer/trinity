@@ -16,6 +16,8 @@ DEPEND="
 	x11-libs/libXext"
 RDEPEND="${DEPEND}"
 
+PATCHES=( "${FILESDIR}/krfb-3.5.13.1-702c180-added-openslp-support-to-cmake.patch" )
+
 src_configure() {
 	mycmakeargs=(
 		$(cmake-utils_use_with slp SLP)
