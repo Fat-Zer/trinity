@@ -9,5 +9,3 @@ inherit trinity-meta
 DESCRIPTION="kcontrol filesharing config module for NFS, SMB etc"
 KEYWORDS=""
 IUSE=""
-
-PATCHES=( "${FILESDIR}/tdenetwork-bug1330i2-fix-filesharing-parallel-compilation.patch" )

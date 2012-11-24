@@ -9,5 +9,3 @@ inherit trinity-meta
 DESCRIPTION="Trinity rss library"
 KEYWORDS=""
 IUSE=""
-
-PATCHES=( "${FILESDIR}/tdenetwork-fix-export-librss.patch" )

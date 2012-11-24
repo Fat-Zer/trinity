@@ -4,9 +4,5 @@
 trinity-base/kdvi
 trinity-base/kfax
 
-# FTBFS BUG 1333
-=trinity-base/krdc-9999
-
 # masked due masked dependencies
 trinity-base/kdegraphics-meta
-trinity-base/tdenetwork-meta
