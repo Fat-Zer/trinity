@@ -1,5 +1,6 @@
+# unmask this if we will support powerpc
+trinity-base/kmilo powerbook-laptop
+
 x11-libs/tqtinterface qt4
 trinity-base/kdelibs avahi
 trinity-base/tdelibs avahi
-# unmask this if we will support powerpc
-trinity-base/kmilo powerbook-laptop
