@@ -53,4 +53,3 @@ set-trinityver() {
 	fi
 	
 }
-
