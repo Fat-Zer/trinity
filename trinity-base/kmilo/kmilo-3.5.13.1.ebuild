@@ -14,6 +14,8 @@ DEPEND="powerbook-laptop? ( app-laptop/pbbuttonsd )"
 RDEPEND="${DEPEND}
 	lm_sensors? ( sys-apps/lm_sensors )"
 
+PATCHES=( "$FILESDIR/${TRINITY_MODULE_NAME}-${PV}-${PN}-fix-powerbook.patch" )
+
 src_configure() {
 	mycmakeargs=(
 		$(cmake-utils_use_with asus-laptop ASUS)

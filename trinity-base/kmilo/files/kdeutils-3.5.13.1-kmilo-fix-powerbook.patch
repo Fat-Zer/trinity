@@ -1,0 +1,67 @@
+diff --git a/ConfigureChecks.cmake b/ConfigureChecks.cmake
+index 14828bc..2766533 100644
+--- a/ConfigureChecks.cmake
++++ b/ConfigureChecks.cmake
+@@ -117,24 +117,21 @@ endif( )
+ 
+ ##### kmilo #####################################
+ 
+-if ( BUILD_KMILO )
++if( BUILD_KMILO )
+ # FIXME: If anybody will ever compile trinity for POWERPC and especialy for 
+-#        POWERBOOK he should test those checks and modules
+-  if( WITH_POWERBOOK )
++#        POWERBOOK he or she should test workability of those modules
++  if( WITH_POWERBOOK OR WITH_POWERBOOK2 )
++    check_library_exists( "pbb" "init_libpbb" "" HAVE_PBBIPC_LIBRARY )
+     check_include_file( "pbbipc.h" HAVE_PBBIPC_H )
+-    if( NOT HAVE_PBBIPC_H )
+-      tde_message_fatal( "pbbipc.h header is required, but was not found on your system" )
+-    endif( NOT HAVE_PBBIPC_H )
+-  endif( WITH_POWERBOOK )
+-
+-  if( WITH_POWERBOOK2 )
+     check_include_file( "pbb.h" HAVE_PBB_H )
+-    if( NOT HAVE_PBB_H )
+-      tde_message_fatal( "pbb.h header is required, but was not found on your system" )
+-    endif( NOT HAVE_PBB_H )
+-  endif( WITH_POWERBOOK2 )
+-
+-endif (BUILD_KMILO)
++    if( HAVE_PBBIPC_LIBRARY AND ( ( WITH_POWERBOOK AND HAVE_PBBIPC_H ) OR 
++                                  ( WITH_POWERBOOK2 AND HAVE_PBB_H ) ) )
++      set( PBB_LIBRARY pbb CACHE INTERNAL "" )
++    else()
++      tde_message_fatal( "suitable pbbuttonosd is required, but was not found on your system" )
++    endif()
++  endif( WITH_POWERBOOK  OR WITH_POWERBOOK2 )
++endif( BUILD_KMILO )
+ 
+ 
+ ##### ksim ######################################
+diff --git a/kmilo/powerbook/CMakeLists.txt b/kmilo/powerbook/CMakeLists.txt
+index 461d2d2..bb98b70 100644
+--- a/kmilo/powerbook/CMakeLists.txt
++++ b/kmilo/powerbook/CMakeLists.txt
+@@ -28,7 +28,7 @@ link_directories(
+ 
+ tde_add_kpart( kmilo_powerbook AUTOMOC
+   SOURCES pb_monitor.cpp
+-  LINK kio-shared kmilo-shared
++  LINK kio-shared kmilo-shared ${PBB_LIBRARY}
+   DESTINATION ${PLUGIN_INSTALL_DIR}
+ )
+ 
+diff --git a/kmilo/powerbook2/CMakeLists.txt b/kmilo/powerbook2/CMakeLists.txt
+index 461d2d2..bb98b70 100644
+--- a/kmilo/powerbook2/CMakeLists.txt
++++ b/kmilo/powerbook2/CMakeLists.txt
+@@ -28,7 +28,7 @@ link_directories(
+ 
+ tde_add_kpart( kmilo_powerbook AUTOMOC
+   SOURCES pb_monitor.cpp
+-  LINK kio-shared kmilo-shared
++  LINK kio-shared kmilo-shared ${PBB_LIBRARY}
+   DESTINATION ${PLUGIN_INSTALL_DIR}
+ )
+ 
