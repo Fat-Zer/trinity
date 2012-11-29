@@ -1,0 +1,143 @@
+--- ./hald/linux/addons/addon-acpi-buttons-toshiba.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-acpi-buttons-toshiba.c	2012-11-29 04:47:18.000000000 +0300
+@@ -40,7 +40,7 @@
+ #include <string.h>
+ #include <unistd.h>
+ 
+-#include <glib/gmain.h>
++#include <glib.h>
+ 
+ #include "libhal/libhal.h"
+ #include "../../logger.h"
+--- ./hald/linux/addons/addon-storage.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-storage.c	2012-11-29 04:47:52.000000000 +0300
+@@ -39,7 +39,7 @@
+ #include <string.h>
+ #include <sys/ioctl.h>
+ #include <unistd.h>
+-#include <glib/gmain.h>
++#include <glib.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-dell-backlight.cpp.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-dell-backlight.cpp	2012-11-29 04:46:51.000000000 +0300
+@@ -29,7 +29,7 @@
+ 
+ #include <string.h>
+ 
+-#include <glib/gmain.h>
++#include <glib.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-imac-backlight.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-imac-backlight.c	2012-11-29 04:47:34.000000000 +0300
+@@ -29,7 +29,7 @@
+ #include <stdlib.h>
+ #include <sys/io.h>
+ 
+-#include <glib/gmain.h>
++#include <glib.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-ipw-killswitch.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-ipw-killswitch.c	2012-11-29 04:48:16.000000000 +0300
+@@ -36,8 +36,6 @@
+ #include <unistd.h> 
+ 
+ #include <glib.h>
+-#include <glib/gmain.h>
+-#include <glib/gstdio.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-rfkill-killswitch.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-rfkill-killswitch.c	2012-11-29 04:47:12.000000000 +0300
+@@ -36,8 +36,6 @@
+ #include <unistd.h> 
+ 
+ #include <glib.h>
+-#include <glib/gmain.h>
+-#include <glib/gstdio.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-usb-csr.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-usb-csr.c	2012-11-29 04:47:55.000000000 +0300
+@@ -29,7 +29,7 @@
+ #include <string.h>
+ #include <usb.h>
+ 
+-#include <glib/gmain.h>
++#include <glib.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-input.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-input.c	2012-11-29 05:00:31.000000000 +0300
+@@ -41,8 +41,7 @@
+ #else
+   #include <linux/input.h>
+ #endif
+-#include <glib/gmain.h>
+-#include <glib/gprintf.h>
++#include <glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+ #include "libhal/libhal.h"
+--- ./hald/linux/addons/addon-omap-backlight.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-omap-backlight.c	2012-11-29 04:47:38.000000000 +0300
+@@ -41,7 +41,7 @@
+ #include <fcntl.h>
+ #include <unistd.h> 
+ 
+-#include <glib/gmain.h>
++#include <glib.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-macbookpro-backlight.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-macbookpro-backlight.c	2012-11-29 04:47:43.000000000 +0300
+@@ -39,7 +39,7 @@
+ #include <pci/pci.h>
+ #include <unistd.h> 
+ 
+-#include <glib/gmain.h>
++#include <glib.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-leds.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-leds.c	2012-11-29 04:47:25.000000000 +0300
+@@ -36,8 +36,6 @@
+ #include <unistd.h> 
+ 
+ #include <glib.h>
+-#include <glib/gmain.h>
+-#include <glib/gstdio.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
+--- ./hald/linux/addons/addon-cpufreq.c.orig	2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-cpufreq.c	2012-11-29 04:48:01.000000000 +0300
+@@ -32,7 +32,6 @@
+ #include <unistd.h>
+ #include <signal.h>
+ #include <getopt.h>
+-#include <glib/gprintf.h>
+ 
+ #include "addon-cpufreq.h"
+ #include "addon-cpufreq-userspace.h"
+--- ./hald/linux/addons/addon-generic-backlight.c.orig  2009-08-24 16:42:30.000000000 +0400
++++ ./hald/linux/addons/addon-generic-backlight.c       2012-11-29 05:11:49.000000000 +0300
+@@ -35,7 +35,7 @@
+ #include <sys/stat.h>
+ #include <unistd.h>
+
+-#include <glib/gmain.h>
++#include <glib.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+

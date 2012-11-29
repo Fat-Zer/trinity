@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-apps/hal/Attic/hal-0.5.14-r4.ebuild,v 1.9 2011/09/18 09:08:28 ssuominen dead $
 
@@ -131,6 +131,8 @@ src_prepare() {
 	EPATCH_SOURCE="${WORKDIR}/${PATCHNAME}/patches/" \
 	EPATCH_FORCE="yes" \
 	epatch
+	epatch "${FILESDIR}/${P}-fix-glib-includes-in-addons.patch"
+	epatch "${FILESDIR}/${P}-fix-gtk-doc-automake.patch"
 
 	eautoreconf
 }

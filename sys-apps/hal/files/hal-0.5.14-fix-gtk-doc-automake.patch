@@ -1,0 +1,11 @@
+--- configure.inorig	2012-11-29 19:37:25.000000000 +0300
++++ configure.in	2012-11-29 19:37:35.000000000 +0300
+@@ -10,6 +10,8 @@
+ AC_INIT(hal, 0.5.14, david@fubar.dk)
+ AM_INIT_AUTOMAKE([gnu 1.9])
+ AM_MAINTAINER_MODE
++AC_CONFIG_MACRO_DIR([.])
++m4_include([gtk-doc.m4])
+ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+ 
+ glib_module="glib-2.0 >= 2.10.0 gobject-2.0 > 2.10.0 dbus-glib-1 >= 0.61"
