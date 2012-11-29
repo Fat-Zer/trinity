@@ -2,7 +2,7 @@
 HEADER="# Copyright 1999-$(date +%Y) Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # \$Header: \$"
-EAPI="3"
+EAPI="4"
 
 TRINITY_MODULE_NAME=$1
 PN=$2
