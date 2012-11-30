@@ -1,0 +1,18 @@
+# this is a list of packages derived on kdetoys module
+# Packages which haven't been imlemented yet are commented with #?
+#? trinity-base/akode
+#? trinity-base/apps-artsplugins
+#? trinity-base/juk
+#? trinity-base/kaboodle
+#? trinity-base/kaudiocreator
+#? trinity-base/kdemultimedia-arts
+#? trinity-base/kdemultimedia-kappfinder-data
+#? trinity-base/kdemultimedia-kfile-plugins
+#? trinity-base/kdemultimedia-kioslaves
+#? trinity-base/kmid
+trinity-base/kmix
+#? trinity-base/krec
+#? trinity-base/kscd
+#? trinity-base/libkcddb
+#? trinity-base/mpeglib
+#? trinity-base/noatun
