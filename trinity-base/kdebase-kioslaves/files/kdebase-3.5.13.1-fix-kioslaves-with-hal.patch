@@ -1,0 +1,24 @@
+diff --git a/ConfigureChecks.cmake b/ConfigureChecks.cmake
+index 3834f6d..8dc8a3f 100644
+--- a/ConfigureChecks.cmake
++++ b/ConfigureChecks.cmake
+@@ -233,7 +233,6 @@ find_package( TQt )
+ find_package( TDE )
+ 
+ 
+-# dbus-tqt need Qt flags
+ # dbus (kdm, ksmserver)
+ if( BUILD_KDM OR BUILD_KSMSERVER )
+ 
+@@ -242,6 +241,11 @@ if( BUILD_KDM OR BUILD_KSMSERVER )
+     tde_message_fatal( "dbus-1 is required, but was not found on your system" )
+   endif( )
+ 
++endif( )
++
++
++# dbus-tqt (kdm, ksmserver, kioslaves(media))
++if( BUILD_KDM OR BUILD_KSMSERVER OR (BUILD_KIOSLAVES AND WITH_HAL) )
+   # check for dbus-tqt
+   pkg_check_modules( DBUS_TQT REQUIRED dbus-tqt )
+   tde_save( CMAKE_REQUIRED_INCLUDES CMAKE_REQUIRED_LIBRARIES )

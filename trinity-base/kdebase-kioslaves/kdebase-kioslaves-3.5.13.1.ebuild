@@ -24,6 +24,8 @@ RDEPEND="${DEPEND}
 	virtual/ssh
 	trinity-base/kdeeject:${SLOT}"
 
+PATCHES=( "${FILESDIR}/${TRINITY_MODULE_NAME}-${PV}-fix-kioslaves-with-hal.patch" )
+
 src_configure() {
 	mycmakeargs=(
 		-DWITH_XCURSOR=ON
