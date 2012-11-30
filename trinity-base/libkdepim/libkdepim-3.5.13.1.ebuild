@@ -16,8 +16,8 @@ DEPEND="
 	>=trinity-base/libkcal-${PV}:${SLOT}"
 RDEPEND="${DEPEND}"
 
-TSM_EXTRACT_ALSO="libemailfunctions/ 
-	pixmaps/ 
+TSM_EXTRACT_ALSO="libemailfunctions/
+	pixmaps/
 	libkmime/kmime_util.h
 	libkcal/"
 
