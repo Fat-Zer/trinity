@@ -46,7 +46,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.61
 		 selinux? ( sys-libs/libselinux )"
 DEPEND="${RDEPEND}
 		virtual/pkgconfig
-		 >=dev-util/gperf-3.0.3
+		>=dev-util/gperf-3.0.3
 		>=dev-util/intltool-0.35
 		doc?	(
 					app-text/xmlto
@@ -54,7 +54,12 @@ DEPEND="${RDEPEND}
 					dev-util/gtk-doc
 					app-text/docbook-sgml-utils
 					app-text/docbook-xml-dtd:4.1.2
-				)"
+				)
+		!doc? ( !!dev-util/gtk-doc )"
+# the last one is a work-around for issue described in:
+# mail-list: gentoo-desktop
+# tread: [kde-sunset] sys-apps/hal
+# start-date: 2012-11-19
 PDEPEND=">=app-misc/hal-info-20081219
 	!gnome-extra/hal-device-manager
 	laptop? ( >=sys-power/pm-utils-0.99.3 )"
@@ -132,7 +137,7 @@ src_prepare() {
 	EPATCH_FORCE="yes" \
 	epatch
 	epatch "${FILESDIR}/${P}-fix-glib-includes-in-addons.patch"
-	epatch "${FILESDIR}/${P}-fix-gtk-doc-automake.patch"
+	use doc && epatch "${FILESDIR}/${P}-fix-gtk-doc-automake.patch"
 
 	eautoreconf
 }
