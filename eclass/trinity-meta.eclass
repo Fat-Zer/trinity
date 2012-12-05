@@ -211,6 +211,13 @@ trinity-meta_src_prepare() {
 		done;
 	fi
 	
+# fix bad cmake code fo 3.5.13.1
+	if [ $PV == "3.5.13.1" ]; then
+		[ -f "cmake/modules/FindTDE.cmake" ] && \
+			sed -ie 's!HINTS\s\+${\w*BIN\w*}!HINTS "${TDE_PREFIX}/bin" ${BIN_INSTALL_DIR}!' \
+				cmake/modules/FindTDE.cmake
+	fi
+	
 	trinity-base_src_prepare
 }
 
