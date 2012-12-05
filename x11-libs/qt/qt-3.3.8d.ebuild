@@ -1,6 +1,7 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+EAPI=2
 
 # *** Please remember to update qt3.eclass when revbumping this ***
 
@@ -40,7 +41,7 @@ DEPEND="
 	opengl? ( virtual/opengl virtual/glu )
 	postgres? ( dev-db/postgresql-base )
 	xinerama? ( x11-libs/libXinerama )
-	!<=x11-libs/qt-meta-3.3.8c"
+	!!<=x11-libs/qt-meta-3.3.8c"
 RDEPEND="${RDEPEND}
 	x11-proto/inputproto
 	x11-proto/xextproto
@@ -100,11 +101,7 @@ pkg_setup() {
 	export PLATFORM="${PLATNAME}-${PLATCXX}"
 }
 
-src_unpack() {
-	unpack ${A}
-
-	cd "${S}"
-
+src_prepare() {
 	sed -i -e 's:read acceptance:acceptance=yes:' configure
 
 	# Do not link with -rpath. See bug #75181.
@@ -140,7 +137,7 @@ src_unpack() {
 	rm include/*_p.h
 }
 
-src_compile() {
+src_configure() {
 	export SYSCONF="${D}${QTBASE}"/etc/settings
 
 	# Let's just allow writing to these directories during Qt emerge
@@ -197,8 +194,6 @@ src_compile() {
 	# Make the qembed utility (not made by default)
 	cd "${S}"/tools/qembed
 	../../bin/qmake
-	emake
-
 }
 
 src_install() {
