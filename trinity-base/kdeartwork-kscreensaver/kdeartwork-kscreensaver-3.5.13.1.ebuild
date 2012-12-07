@@ -19,6 +19,8 @@ DEPEND="
 	arts? ( trinity-base/arts )"
 RDEPEND="$DEPEND"
 
+TSM_EXTRACT_ALSO="FindXscreensaver.cmake"
+
 src_configure() {
 	mycmakeargs=(
 		-DWITH_LIBART=ON
