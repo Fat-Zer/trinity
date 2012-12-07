@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -15,7 +15,8 @@ SLOT="0"
 IUSE=""
 
 DEPEND="x11-libs/qt:3
-	x11-libs/tqtinterface"
+	x11-libs/tqtinterface
+	!!dev-libs/dbus-qt3-old"
 RDEPEND="$DEPEND"
 
 src_configure() {
