@@ -93,7 +93,9 @@ src_install() {
 		libdirs="${TDEDIR}/${libdir}:${libdirs}"
 	done
 
-	cat <<EOF > "${D}/etc/env.d/99trinitypaths-${SLOT}" # number goes down with version upgrade
+	cat <<EOF > "${D}/etc/env.d/42trinitypaths-${SLOT}" 
+# number goes down with version upgrade
+# NOTE: they should be less than kdepaths for kde-3.5
 PATH=${TDEDIR}/bin
 ROOTPATH=${TDEDIR}/sbin:${TDEDIR}/bin
 LDPATH=${libdirs#:}
