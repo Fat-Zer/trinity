@@ -54,12 +54,7 @@ DEPEND="${RDEPEND}
 					dev-util/gtk-doc
 					app-text/docbook-sgml-utils
 					app-text/docbook-xml-dtd:4.1.2
-				)
-		!doc? ( !!dev-util/gtk-doc )"
-# the last one is a work-around for issue described in:
-# mail-list: gentoo-desktop
-# tread: [kde-sunset] sys-apps/hal
-# start-date: 2012-11-19
+				)"
 PDEPEND=">=app-misc/hal-info-20081219
 	!gnome-extra/hal-device-manager
 	laptop? ( >=sys-power/pm-utils-0.99.3 )"
@@ -137,7 +132,13 @@ src_prepare() {
 	EPATCH_FORCE="yes" \
 	epatch
 	epatch "${FILESDIR}/${P}-fix-glib-includes-in-addons.patch"
-	use doc && epatch "${FILESDIR}/${P}-fix-gtk-doc-automake.patch"
+	
+	# the last one is a work-around for an issue described in:
+	#     mail-list: gentoo-desktop
+	#     tread: [kde-sunset] sys-apps/hal
+	#     start-date: 2012-11-19
+	# if somebody got a better solution, please contact me
+	gtkdocize --version >/dev/null 2>&1 && epatch "${FILESDIR}/${P}-fix-gtk-doc-automake.patch"
 
 	eautoreconf
 }
