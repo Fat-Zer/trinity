@@ -27,7 +27,7 @@ RDEPEND="x11-apps/xmessage
 TSM_EXTRACT="startkde README.pam INSTALL AUTHORS COPYING COPYING-DOCS kdm"
 
 src_prepare() {
-#	epatch "${FILESDIR}/tdebase-starttde-trinity-gentoo.patch"
+	epatch "${FILESDIR}/kdebase-startkde-${PV}-gentoo.patch"
 
 	trinity-base_src_prepare
 }
