@@ -47,7 +47,8 @@ DEPEND="${DEPEND}
 RDEPEND="${DEPEND}"
 
 PATCHES=( "$FILESDIR/${P}-make-xcomposite-optional.patch"
-		"$FILESDIR/${P}-fix-no-xcomposite.patch" )
+		"$FILESDIR/${P}-fix-no-xcomposite.patch"
+		"$FILESDIR/${P}-OnlyShowIn-TDE.patch" )
 
 src_configure() {
 	mycmakeargs=(

@@ -1,0 +1,26 @@
+diff --git a/kinit/autostart.cpp b/kinit/autostart.cpp
+index 48325f2..d4bdb7b 100644
+--- a/kinit/autostart.cpp
++++ b/kinit/autostart.cpp
+@@ -178,7 +178,7 @@ AutoStart::loadAutoStartList()
+ 
+        if (config.hasKey("OnlyShowIn"))
+        {
+-          if ((!config.readListEntry("OnlyShowIn", ';').contains("TDE")) && (!config.readListEntry("OnlyShowIn", ';').contains("KDE")))
++          if (!config.readListEntry("OnlyShowIn", ';').contains("TDE"))
+               continue;
+        }
+        if (config.hasKey("NotShowIn"))
+diff --git a/kio/kio/kservicegroup.cpp b/kio/kio/kservicegroup.cpp
+index 6758ca1..18b402b 100644
+--- a/kio/kio/kservicegroup.cpp
++++ b/kio/kio/kservicegroup.cpp
+@@ -84,7 +84,7 @@ KServiceGroup::KServiceGroup( const TQString &configFile, const TQString & _relp
+   TQStringList tmpList;
+   if (config.hasKey("OnlyShowIn"))
+   {
+-     if ((!config.readListEntry("OnlyShowIn", ';').contains("TDE")) && (!config.readListEntry("OnlyShowIn", ';').contains("KDE")))
++     if (!config.readListEntry("OnlyShowIn", ';').contains("TDE"))
+         d->m_bNoDisplay = true;
+   }
+   if (config.hasKey("NotShowIn"))

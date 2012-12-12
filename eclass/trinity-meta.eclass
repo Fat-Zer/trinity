@@ -38,6 +38,7 @@ fi
 # nessecary files.
 trinity-meta_set_trinity_submodule() {
 	debug-print-function $FUNCNAME "$@"
+	adjust-trinity-paths
 
 	if [[ -z "$TRINITY_SUBMODULE" ]]; then
 		TRINITY_SUBMODULE="${PN#${TRINITY_MODULE_NAME}-}"
@@ -249,8 +250,8 @@ trinity-meta_src_configure() {
 # Call default cmake install function. and install documentation.
 trinity-meta_src_install() {
 	debug-print-function ${FUNCNAME} "$@"
-
-	cmake-utils_src_install
+	
+	TRINITY_BASE_NO_INSTALL_DOC="yes" trinity-base_src_install
 
 	trinity-base_create_tmp_docfiles $TSM_EXTRACT
 	trinity-base_install_docfiles

@@ -14,7 +14,7 @@ TRINITY_LIVEVER="14.0"
 # @FUNCTION: set-trinityver
 # @USAGE: < version >
 # @DESCRIPTION:
-# Sets the right KDEVER, KDEDIR and PREFIX varyables...
+# Sets the right TRINITY_VER, TDEDIR and PATH variables...
 # !!! unfinished
 set-trinityver() {
 	debug-print-function $FUNCNAME "$@"
@@ -46,10 +46,29 @@ set-trinityver() {
 	export TDEDIR="/usr/trinity/${TRINITY_VER}"
 	export TDEDIRS="/usr/trinity/${TRINITY_VER}"
 
+	# 3.5.x still uses KDE* variables
+	if [ "${TRINITY_VER}" = "3.5" ]; then
+		export KDEDIR="$TDEDIR"
+		export KDEDIRS="$TDEDIRS"
+	fi
+	
 	# this sould solve problems like "cannot find libraries" espessialy when
 	# compiling kdelibs
 	if [ -z "${LD_LIBRARY_PATH##*:${TDEDIR}/lib:*}" ]; then
 		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH%:}:${TDEDIR}/lib"
 	fi
-	
+}
+
+# @FUNCTION: adjust-trinity-paths
+# @USAGE: < version >
+# @DESCRIPTION:
+# Adjust PATH LDPATH and LD_LIBRARY_PATH to see only current trinity version
+adjust-trinity-paths() {
+	# adjust paths to see only current trinity version
+	export PATH="${TDEDIR}/bin:$(echo ${PATH} \
+			| sed 's#/usr/trinity/[^/]*/s\?bin/\?\(:\|$\)##g;s/:\+$//')"
+	export LDPATH="${TDEDIR}/lib:$(echo "${LDPATH}" \
+			| sed 's#/usr/trinity/[^/]*/lib/\?\(:\|$\)##g;s/:\+$//')"
+	export LD_LIBRARY_PATH="${TDEDIR}/lib:$(echo "${LD_LIBRARY_PATH}" \
+			| sed 's#/usr/trinity/[^/]*/lib/\?\(:\|$\)##g;s/:\+$//')"
 }

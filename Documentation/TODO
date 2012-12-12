@@ -18,3 +18,4 @@ trinity-base/kgpg: check dependencies
 trinity-base/kgpg: if it's possible add app-crypt/pinentry[qt3] to overlay
 
 trinity-base/kopete: review 
+trinity-base/tdebase-starttde: add gentoo-specific lines like those in kdebase-starttde
