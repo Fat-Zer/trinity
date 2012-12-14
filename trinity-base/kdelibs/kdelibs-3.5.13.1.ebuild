@@ -48,7 +48,9 @@ RDEPEND="${DEPEND}"
 
 PATCHES=( "$FILESDIR/${P}-make-xcomposite-optional.patch"
 		"$FILESDIR/${P}-fix-no-xcomposite.patch"
-		"$FILESDIR/${P}-OnlyShowIn-TDE.patch" )
+		"$FILESDIR/${P}-OnlyShowIn-TDE.patch"
+		"$FILESDIR/${P}-bug-1161.patch" 
+		"$FILESDIR/${P}-fix-insane-kde4-variables.patch")
 
 src_configure() {
 	mycmakeargs=(

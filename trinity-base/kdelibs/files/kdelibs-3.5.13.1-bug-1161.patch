@@ -1,0 +1,16 @@
+diff --git a/kdeui/ksharedpixmap.cpp b/kdeui/ksharedpixmap.cpp
+index 29c6702..64c54e1 100644
+--- a/kdeui/ksharedpixmap.cpp
++++ b/kdeui/ksharedpixmap.cpp
+@@ -160,9 +160,8 @@ bool KSharedPixmap::x11Event(XEvent *event)
+     void *drawable_id = (void *) pixmap_id;
+     Drawable pixmap = *(Drawable*) drawable_id;
+ 
+-    Status status = XGetGeometry(qt_xdisplay(), pixmap, &root, &dummy, &dummy, &width, &height, &udummy, &udummy);
+-
+-    if (status == BadDrawable)
++    if (!XGetGeometry(qt_xdisplay(), pixmap, &root, &dummy, &dummy,
++                      &width, &height, &udummy, &udummy))
+         return false;
+ 
+     if (d->rect.isEmpty())
