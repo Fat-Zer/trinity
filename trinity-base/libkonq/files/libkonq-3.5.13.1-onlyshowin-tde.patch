@@ -1,0 +1,20 @@
+diff --git a/libkonq/konq_popupmenu.cc b/libkonq/konq_popupmenu.cc
+index 6cd19e5..f58f2e1 100644
+--- a/libkonq/konq_popupmenu.cc
++++ b/libkonq/konq_popupmenu.cc
+@@ -883,13 +883,13 @@ void KonqPopupMenu::setup(KonqPopupFlags kpf)
+                     const TQString onlyShowIn = service->property("OnlyShowIn", TQVariant::String).toString();
+                     if ( !onlyShowIn.isEmpty() ) {
+                         const TQStringList aList = TQStringList::split(';', onlyShowIn);
+-                        if (!aList.contains("KDE"))
++                        if (!aList.contains("TDE"))
+                             continue;
+                     }
+                     const TQString notShowIn = service->property("NotShowIn", TQVariant::String).toString();
+                     if ( !notShowIn.isEmpty() ) {
+                         const TQStringList aList = TQStringList::split(';', notShowIn);
+-                        if (aList.contains("KDE"))
++                        if (aList.contains("TDE"))
+                             continue;
+                     }
+ 

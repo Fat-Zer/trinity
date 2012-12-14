@@ -1,0 +1,19 @@
+diff --git a/kdesktop/kdiconview.cc b/kdesktop/kdiconview.cc
+index 0997069..bdbaaa7 100644
+--- a/kdesktop/kdiconview.cc
++++ b/kdesktop/kdiconview.cc
+@@ -1009,12 +1009,12 @@ bool KDIconView::makeFriendlyText( KFileIVI *fileIVI )
+         TQStringList tmpList;
+         if (cfg.hasKey("OnlyShowIn"))
+         {
+-            if (!cfg.readListEntry("OnlyShowIn", ';').contains("KDE"))
++            if (!cfg.readListEntry("OnlyShowIn", ';').contains("TDE"))
+                 return false;
+         }
+         if (cfg.hasKey("NotShowIn"))
+         {
+-            if (cfg.readListEntry("NotShowIn", ';').contains("KDE"))
++            if (cfg.readListEntry("NotShowIn", ';').contains("TDE"))
+                 return false;
+         }
+         if (cfg.hasKey("TryExec"))

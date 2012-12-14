@@ -27,6 +27,8 @@ RDEPEND="${DEPEND}
 
 TSM_EXTRACT_ALSO="kcheckpass/"
 
+PATCHES=( "$FILESDIR/${P}-onlyshowin-tde.patch")
+
 src_configure() {
 	mycmakeargs=(
 		-DWITH_XCURSORS=ON
@@ -36,4 +38,9 @@ src_configure() {
 	)
 
 	trinity-meta_src_configure
+}
+
+src_install() {
+	trinity-meta_src_install
+	trinity-base_fix_desktop_files "${D}${TDEDIR}/share/apps/kdesktop/Desktop/"*
 }

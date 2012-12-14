@@ -11,6 +11,7 @@ KEYWORDS="x86 amd64"
 IUSE="arts"
 DEPEND="arts? ( >=trinity-base/arts-${PV}:${SLOT} )"
 RDEPEND="$DEPEND"
+PATCHES=( "$FILESDIR/${P}-onlyshowin-tde.patch")
 
 src_configure() {
 	mycmakeargs=(

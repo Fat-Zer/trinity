@@ -239,8 +239,8 @@ trinity-base_fix_desktop_files() {
 	esac
 	
 	local file_list dir_list f
-
-	if [ "$#" = 1 ]; then
+	
+	if [ "$#" != 0 ]; then
 		# Get directories and files from arguments
 		for f in $@; do
 			if [ -f "$f" ]; then 
