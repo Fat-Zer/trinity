@@ -14,7 +14,7 @@ TRINITY_LIVEVER="14.0"
 # @FUNCTION: set-trinityver
 # @USAGE: < version >
 # @DESCRIPTION:
-# Sets the right TRINITY_VER, TDEDIR and PATH variables...
+# Sets the right TRINITY_VER, TDEDIR etc...
 # !!! unfinished
 set-trinityver() {
 	debug-print-function $FUNCNAME "$@"
@@ -34,14 +34,19 @@ set-trinityver() {
 
 	# get version elements
 	if [[ -n "$1" ]]; then
-		TRINITY_VER="$1"
+		ETRINITY_VER="$1"
 	else
-		TRINITY_VER="$PV"
+		ETRINITY_VER="$PV"
 	fi
-
-	TRINITY_VER=$(get_version_component_range 1-2 ${TRINITY_VER})
-	[[ "$TRINITY_VER" = "9999" ]] && export TRINITY_VER="${TRINITY_LIVEVER}"
-
+	
+	case "$ETRINITY_VER" in
+		3.* ) 
+			export TRINITY_VER="$(get_version_component_range 1-2 "${ETRINITY_VER}")" ;;
+		9999 ) 
+			export TRINITY_VER="$(get_major_version "$TRINITY_LIVEVER" )" ;;
+		* ) 
+			export TRINITY_VER="$(get_major_version "$ETRINITY_VER" )" ;;
+	esac
 
 	export TDEDIR="/usr/trinity/${TRINITY_VER}"
 	export TDEDIRS="/usr/trinity/${TRINITY_VER}"
@@ -64,11 +69,57 @@ set-trinityver() {
 # @DESCRIPTION:
 # Adjust PATH LDPATH and LD_LIBRARY_PATH to see only current trinity version
 adjust-trinity-paths() {
-	# adjust paths to see only current trinity version
-	export PATH="${TDEDIR}/bin:$(echo ${PATH} \
-			| sed 's#/usr/trinity/[^/]*/s\?bin/\?\(:\|$\)##g;s/:\+$//')"
-	export LDPATH="${TDEDIR}/lib:$(echo "${LDPATH}" \
-			| sed 's#/usr/trinity/[^/]*/lib/\?\(:\|$\)##g;s/:\+$//')"
-	export LD_LIBRARY_PATH="${TDEDIR}/lib:$(echo "${LD_LIBRARY_PATH}" \
-			| sed 's#/usr/trinity/[^/]*/lib/\?\(:\|$\)##g;s/:\+$//')"
+	debug-print-function $FUNCNAME "$@"
+	
+	# this function can be called during depend phase so we shouldn't use sed here
+	PATH="$(trinity_remove_path_component "$PATH" "/usr/trinity/*/bin")"
+	PATH="$(trinity_remove_path_component $PATH "/usr/trinity/*/sbin")"
+	PATH="${TDEDIR}/bin:${PATH}"	
+	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib")"
+	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib32")"
+	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib64")"
+	LDPATH="${TDEDIR}/lib:${LDPATH}"
+	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib")"
+	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib32")"
+	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib64")"
+	LD_LIBRARY_PATH="${TDEDIR}/lib:${LD_LIBRARY_PATH}"
+}
+
+trinity_remove_path_component() {
+	local i new_path path_array
+
+	IFS=: read -ra path_array <<< "$1"
+	for i in "${path_array[@]}"; do
+		case "$i" in
+			$2 ) ;; # delete specyfied entry
+			"" ) ;;
+			* ) new_path="${new_path}:${i}" ;;
+		esac
+	done
+
+	echo "${new_path#:}"
+}
+
+# @FUNCTION: need-trinity
+# @USAGE: < version >
+# @DESCRIPTION:
+# Sets the correct DEPEND and RDEPEND for the needed trinity < version >.
+need-trinity() {
+	debug-print-function $FUNCNAME "$@"
+
+	local my_depend
+	
+	# determine install locations
+	set-trinityver $1
+	adjust-trinity-paths
+
+	case "$1" in
+		3.5*) 
+			my_depend=">=kdelibs-${ETRINITY_VER}:3.5";; 
+		*) 
+			my_depend=">=kdelibs-${ETRINITY_VER}:${TRINITY_VER}";;
+	esac
+
+	DEPEND="$DEPEND $my_depend"
+	RDEPEND="$RDEPEND $my_depend"
 }

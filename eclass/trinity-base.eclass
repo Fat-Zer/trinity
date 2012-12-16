@@ -29,22 +29,15 @@ inherit trinity-functions cmake-utils qt3 base
 # 
 
 trinity-base_declare_src_uri() {
-	local host_module_name
+	local mod_name mod_ver
 
-# taballs are still named with kde prefix
-#	case "${TRINITY_MODULE_NAME}" in
-#		tdelibs) host_module_name="kdelibs" ;;
-#		tdebase) host_module_name="kdebase" ;;
-#		tdeartwork) host_module_name="kdeartwork" ;;
-#		*) host_module_name="${TRINITY_MODULE_NAME}" ;;
-#	esac
-	host_module_name="${TRINITY_MODULE_NAME}"
+	mod_ver="${TRINITY_MODULE_VER:=${PV}}"
+	mod_name="${TRINITY_MODULE_NAME:=${PN}}"
+	[[ -n "${TRINITY_MODULE_TYPE}" ]] && mod_name="${TRINITY_MODULE_TYPE}/${mod_name}"
 
-	if [[ -n "${TRINITY_MODULE_TYPE}" ]]; then
-		host_module_name="${TRINITY_MODULE_TYPE}/${host_module_name}"
-	fi
 
-	SRC_URI="${TRINITY_BASE_SRC_URI}/${PV}/${host_module_name}-${PV}.tar.gz"
+	SRC_URI="${TRINITY_BASE_SRC_URI}/${mod_ver}/${mod_name}-${mod_ver}.tar.gz"
+	S="${WORKDIR}/${TRINITY_MODULE_NAME}-${mod_ver}"
 }
 
 
@@ -74,17 +67,15 @@ if [[ ${BUILD_TYPE} = live ]]; then
 
 	case ${TRINITY_SCM} in
 		git) inherit git-2 ;;
-		svn) inherit subversion ;;
+#		svn) inherit subversion ;;
 		*) die "Unsupported TRINITY_SCM=${TRINITY_SCM}" ;;
 	esac
 
 	#set some varyables
 	case ${TRINITY_SCM} in
 	git)
-		 if [[ -z "${EGIT_MIRROR}" ]]; then
-			EGIT_MIRROR="http://scm.trinitydesktop.org/scm/git"
-		 fi
-		 EGIT_REPO_URI="${EGIT_MIRROR}/${TRINITY_MODULE_NAME}"
+		 [[ -z "${TRINITY_GIT_MIRROR}" ]] && TRINITY_GIT_MIRROR="http://scm.trinitydesktop.org/scm/git"
+		 EGIT_REPO_URI="${TRINITY_GIT_MIRROR}/${TRINITY_MODULE_NAME}"
 		 EGIT_BRANCH="master"
 		 EGIT_PROJECT="trinity/${TRINITY_MODULE_NAME}"
 		 EGIT_HAS_SUBMODULES="yes"
@@ -94,16 +85,17 @@ if [[ ${BUILD_TYPE} = live ]]; then
 #		 ESVN_PROJECT="trinity/$(dirname $TRINITY_MODULE_NAME)"
 #	;;
 	esac
+	S="${WORKDIR}/${TRINITY_MODULE_NAME}"
 elif [[ "${BUILD_TYPE}" == release ]]; then
 	trinity-base_declare_src_uri
 else
 	die "Unknown BUILD_TYPE=${BUILD_TYPE}"
 fi
 
-
 # @FUNCTION: trinity-base_src_prepare
 # @DESCRIPTION:
 # General pre-configure and pre-compile function for Trinity applications.
+
 trinity-base_src_prepare() {
 	debug-print-function ${FUNCNAME} "$@"
 

@@ -34,23 +34,22 @@ fi
 # @DESCRIPTION:
 # sets the TRINITY_SUBMODULE variable to vth value aptained from ${PN}
 # if it doesn't set yet
-# Default pkg_setup function. It sets the correct ${S}
-# nessecary files.
 trinity-meta_set_trinity_submodule() {
 	debug-print-function $FUNCNAME "$@"
-	adjust-trinity-paths
 
 	if [[ -z "$TRINITY_SUBMODULE" ]]; then
 		TRINITY_SUBMODULE="${PN#${TRINITY_MODULE_NAME}-}"
 	fi
 }
 
-# @FUNCTION: trinity-meta_src_unpack
+# @FUNCTION: trinity-meta_src_pkg_setup
 # @DESCRIPTION:
 # Default pkg_setup function. It sets the correct ${S}
 # nessecary files.
 trinity-meta_pkg_setup() {
 	debug-print-function ${FUNCNAME} "$@"
+	adjust-trinity-paths
+
 	trinity-meta_set_trinity_submodule
 }
 
@@ -92,8 +91,7 @@ trinity-meta_src_extract() {
 		case "$TRINITY_SCM" in
 			svn) trinity-meta_rsync_copy ;;
 			git) # we nothing can do to prevent git from unpacking code
-			     # so we will just fix the default ${S} variable
-				[[ "${WORKDIR}" != "${S}" ]] && mv "${WORKDIR}" "${S}" ;;
+				;;
 			*)  die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
 		esac
 	else
@@ -119,10 +117,8 @@ trinity-meta_src_extract() {
 		tar -xpf "${tarfile}" ${tarparams} -C "${WORKDIR}"  ${extractlist} 2> /dev/null  \
 				|| echo "tar extract command failed at least partially - continuing anyway"
 
-		# Default $S is based on $P; rename the extracted directory to match $S if necessary
-		if [[ "${TRINITY_MODULE_NAME}" != "${PN}" ]]; then
-			mv "${WORKDIR}/${topdir}" "${P}" || die "Died while moving \"${topdir}\" to \"${P}\""
-		fi
+		# Make sure $S points to right place
+		[[ "${WORKDIR}/${topdir}" != "${S}" ]] && S="${WORKDIR}/${topdir}"
 	fi
 }
 
