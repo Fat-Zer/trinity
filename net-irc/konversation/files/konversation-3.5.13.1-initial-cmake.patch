@@ -1,0 +1,1413 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+index 0000000..4f8da3f
+--- /dev/null
++++ b/CMakeLists.txt
+@@ -0,0 +1,84 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++cmake_minimum_required( VERSION 2.8 )
++
++
++##### general package setup #####################
++
++project( konversation )
++
++
++##### include essential cmake modules ###########
++
++include( FindPkgConfig )
++include( CheckIncludeFile )
++include( CheckLibraryExists )
++# @Add othere required cmake modules here@
++#
++# EXAMPLE:
++# include( CheckTypeSize )
++# include( CheckCSourceCompiles )
++include( CheckCXXSourceCompiles )
++
++
++##### include our cmake modules #################
++
++set( CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" )
++include( TDEMacros )
++
++
++##### setup install paths #######################
++
++include( TDESetupPaths )
++tde_setup_paths( )
++
++
++##### optional stuff ############################
++
++option( WITH_XSCREENSAVER "Enable xscreensaver support" ${WITH_ALL_OPTIONS} )
++# set WITH_XSCREENSAVER to use XScreensaver for auto-away feature
++
++
++##### user requested modules ####################
++
++option( BUILD_ALL "Build all" OFF )
++option( BUILD_KONVERSATION "Build konversation" ${BUILD_ALL} )
++option( BUILD_DOC "Build documentation" ${BUILD_ALL} )
++option( BUILD_TRANSLATIONS "Build translations" ${BUILD_ALL} )
++
++
++##### configure checks ##########################
++
++include( ConfigureChecks.cmake )
++
++
++###### global compiler settings #################
++
++add_definitions(
++  -DHAVE_CONFIG_H
++)
++
++set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TQT_CXX_FLAGS}" )
++set( CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined" )
++set( CMAKE_MODULE_LINKER_FLAGS "-Wl,--no-undefined" )
++
++
++##### konversation directories ##################
++
++tde_conditional_add_subdirectory( BUILD_KONVERSATION konversation )
++tde_conditional_add_subdirectory( BUILD_DOC doc )
++tde_conditional_add_subdirectory( BUILD_TRANSLATIONS po )
++
++
++##### write configure files #####################
++
++configure_file( config.h.cmake config.h @ONLY )
+diff --git a/ConfigureChecks.cmake b/ConfigureChecks.cmake
+new file mode 100644
+index 0000000..df74bc5
+--- /dev/null
++++ b/ConfigureChecks.cmake
+@@ -0,0 +1,53 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++##### check for gcc visibility support #########
++# FIXME
++# This should check for [T]Qt3 visibility support
++
++if( WITH_GCC_VISIBILITY )
++  if( NOT UNIX )
++    tde_message_fatal(FATAL_ERROR "\ngcc visibility support was requested, but your system is not *NIX" )
++  endif( NOT UNIX )
++  set( __KDE_HAVE_GCC_VISIBILITY 1 )
++  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden")
++  set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden")
++endif( WITH_GCC_VISIBILITY )
++
++
++tde_setup_architecture_flags( )
++
++# XScreenSaver
++if( BUILD_KONVERSATION AND WITH_XSCREENSAVER )
++  pkg_search_module( XSCREENSAVER xscrnsaver )
++  if( XSCREENSAVER_FOUND )
++    set( HAVE_XSCREENSAVER 1 )
++  else( XSCREENSAVER_FOUND )
++    tde_message_fatal( "xscreensaver is requested, but was not found on your system" )
++  endif( )
++endif( BUILD_KONVERSATION AND WITH_XSCREENSAVER )
++
++# gettext
++if( BUILD_TRANSLATIONS )
++  include( FindGettext )
++  if( GETTEXT_FOUND )
++    set( MSGFMT_EXECUTABLE ${GETTEXT_MSGFMT_EXECUTABLE} 
++      CACHE FILEPATH "path to msgfmt executable" )
++  endif( GETTEXT_FOUND )
++  
++  if( NOT MSGFMT_EXECUTABLE )
++    tde_message_fatal( "msgfmt is required but was not found on your system." )
++  endif( NOT MSGFMT_EXECUTABLE )
++endif( BUILD_TRANSLATIONS )
++
++# required stuff
++find_package( TQt )
++find_package( TDE )
+diff --git a/config.h.cmake b/config.h.cmake
+new file mode 100644
+index 0000000..9fed7f2
+--- /dev/null
++++ b/config.h.cmake
+@@ -0,0 +1,9 @@
++#cmakedefine VERSION "@VERSION@"
++
++#cmakedefine HAVE_XSCREENSAVER
++
++// FIXME: add KONVI_VERSION define
++
++// Sane configuration options for modern KDE
++#define USE_KNOTIFY
++#define USE_INFOLIST
+diff --git a/doc/CMakeLists.txt b/doc/CMakeLists.txt
+new file mode 100644
+index 0000000..dc6bb77
+--- /dev/null
++++ b/doc/CMakeLists.txt
+@@ -0,0 +1,12 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_auto_add_subdirectories( )
+diff --git a/doc/da/CMakeLists.txt b/doc/da/CMakeLists.txt
+new file mode 100644
+index 0000000..f4d15d6
+--- /dev/null
++++ b/doc/da/CMakeLists.txt
+@@ -0,0 +1,17 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++
++tde_create_handbook(
++  DESTINATION konversation
++  LANG da
++)
++
+diff --git a/doc/es/CMakeLists.txt b/doc/es/CMakeLists.txt
+new file mode 100644
+index 0000000..2d0902b
+--- /dev/null
++++ b/doc/es/CMakeLists.txt
+@@ -0,0 +1,10 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
+diff --git a/doc/et/CMakeLists.txt b/doc/et/CMakeLists.txt
+new file mode 100644
+index 0000000..9089f26
+--- /dev/null
++++ b/doc/et/CMakeLists.txt
+@@ -0,0 +1,17 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++
++tde_create_handbook(
++  DESTINATION konversation
++  LANG et
++)
++
+diff --git a/doc/it/CMakeLists.txt b/doc/it/CMakeLists.txt
+new file mode 100644
+index 0000000..97d745e
+--- /dev/null
++++ b/doc/it/CMakeLists.txt
+@@ -0,0 +1,17 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++
++tde_create_handbook(
++  DESTINATION konversation
++  LANG it
++)
++
+diff --git a/doc/konversation/CMakeLists.txt b/doc/konversation/CMakeLists.txt
+new file mode 100644
+index 0000000..f85e562
+--- /dev/null
++++ b/doc/konversation/CMakeLists.txt
+@@ -0,0 +1,14 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++
++tde_create_handbook( DESTINATION konversation  )
++
+diff --git a/doc/pt/CMakeLists.txt b/doc/pt/CMakeLists.txt
+new file mode 100644
+index 0000000..e0dac75
+--- /dev/null
++++ b/doc/pt/CMakeLists.txt
+@@ -0,0 +1,17 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++
++tde_create_handbook(
++  DESTINATION konversation
++  LANG pt
++)
++
+diff --git a/doc/ru/CMakeLists.txt b/doc/ru/CMakeLists.txt
+new file mode 100644
+index 0000000..f0976ef
+--- /dev/null
++++ b/doc/ru/CMakeLists.txt
+@@ -0,0 +1,17 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++
++tde_create_handbook(
++  DESTINATION konversation
++  LANG ru
++)
++
+diff --git a/doc/sv/CMakeLists.txt b/doc/sv/CMakeLists.txt
+new file mode 100644
+index 0000000..80cafc9
+--- /dev/null
++++ b/doc/sv/CMakeLists.txt
+@@ -0,0 +1,17 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++
++tde_create_handbook(
++  DESTINATION konversation
++  LANG sv
++)
++
+diff --git a/konversation/CMakeLists.txt b/konversation/CMakeLists.txt
+new file mode 100644
+index 0000000..fb8a913
+--- /dev/null
++++ b/konversation/CMakeLists.txt
+@@ -0,0 +1,14 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++add_subdirectory( src )
++add_subdirectory( images )
++add_subdirectory( scripts )
+diff --git a/konversation/images/CMakeLists.txt b/konversation/images/CMakeLists.txt
+new file mode 100644
+index 0000000..be0d6c3
+--- /dev/null
++++ b/konversation/images/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++add_subdirectory( icons )
++add_subdirectory( nickicons )
+diff --git a/konversation/images/icons/CMakeLists.txt b/konversation/images/icons/CMakeLists.txt
+new file mode 100644
+index 0000000..9a7c073
+--- /dev/null
++++ b/konversation/images/icons/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_install_icons( )
++
+diff --git a/konversation/images/nickicons/CMakeLists.txt b/konversation/images/nickicons/CMakeLists.txt
+new file mode 100644
+index 0000000..e2ef273
+--- /dev/null
++++ b/konversation/images/nickicons/CMakeLists.txt
+@@ -0,0 +1,18 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++add_subdirectory( alternative )
++add_subdirectory( christmas )
++add_subdirectory( classic )
++add_subdirectory( default )
++add_subdirectory( smiling )
++add_subdirectory( square )
++add_subdirectory( oxygen )
+diff --git a/konversation/images/nickicons/alternative/CMakeLists.txt b/konversation/images/nickicons/alternative/CMakeLists.txt
+new file mode 100644
+index 0000000..6acb10e
+--- /dev/null
++++ b/konversation/images/nickicons/alternative/CMakeLists.txt
+@@ -0,0 +1,18 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++install( FILES irc_admin.png irc_away.png
++  irc_halfop.png irc_normal.png irc_op.png
++  irc_owner.png irc_voice.png index.desktop
++  DESTINATION
++    ${DATA_INSTALL_DIR}/konversation/themes/alternative
++)
++
+diff --git a/konversation/images/nickicons/christmas/CMakeLists.txt b/konversation/images/nickicons/christmas/CMakeLists.txt
+new file mode 100644
+index 0000000..98f7eb4
+--- /dev/null
++++ b/konversation/images/nickicons/christmas/CMakeLists.txt
+@@ -0,0 +1,18 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++install( FILES irc_admin.png irc_away.png
++  irc_halfop.png irc_normal.png irc_op.png
++  irc_owner.png irc_voice.png index.desktop
++  DESTINATION
++    ${DATA_INSTALL_DIR}/konversation/themes/christmas
++)
++
+diff --git a/konversation/images/nickicons/classic/CMakeLists.txt b/konversation/images/nickicons/classic/CMakeLists.txt
+new file mode 100644
+index 0000000..58fddd9
+--- /dev/null
++++ b/konversation/images/nickicons/classic/CMakeLists.txt
+@@ -0,0 +1,18 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++install( FILES irc_admin.png irc_away.png
++  irc_halfop.png irc_normal.png irc_op.png
++  irc_owner.png irc_voice.png index.desktop
++  DESTINATION
++    ${DATA_INSTALL_DIR}/konversation/themes/classic
++)
++
+diff --git a/konversation/images/nickicons/default/CMakeLists.txt b/konversation/images/nickicons/default/CMakeLists.txt
+new file mode 100644
+index 0000000..4b0be7d
+--- /dev/null
++++ b/konversation/images/nickicons/default/CMakeLists.txt
+@@ -0,0 +1,18 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++install( FILES irc_admin.png irc_away.png
++  irc_halfop.png irc_normal.png irc_op.png
++  irc_owner.png irc_voice.png index.desktop
++  DESTINATION
++    ${DATA_INSTALL_DIR}/konversation/themes/default
++)
++
+diff --git a/konversation/images/nickicons/oxygen/CMakeLists.txt b/konversation/images/nickicons/oxygen/CMakeLists.txt
+new file mode 100644
+index 0000000..e52cfca
+--- /dev/null
++++ b/konversation/images/nickicons/oxygen/CMakeLists.txt
+@@ -0,0 +1,18 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++install( FILES irc_admin.png irc_away.png
++  irc_halfop.png irc_normal.png irc_op.png
++  irc_owner.png irc_voice.png index.desktop
++  DESTINATION
++    ${DATA_INSTALL_DIR}/konversation/themes/oxygen
++)
++
+diff --git a/konversation/images/nickicons/smiling/CMakeLists.txt b/konversation/images/nickicons/smiling/CMakeLists.txt
+new file mode 100644
+index 0000000..c82a658
+--- /dev/null
++++ b/konversation/images/nickicons/smiling/CMakeLists.txt
+@@ -0,0 +1,18 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++install( FILES irc_admin.png irc_away.png
++  irc_halfop.png irc_normal.png irc_op.png
++  irc_owner.png irc_voice.png index.desktop
++  DESTINATION
++    ${DATA_INSTALL_DIR}/konversation/themes/smiling
++)
++
+diff --git a/konversation/images/nickicons/square/CMakeLists.txt b/konversation/images/nickicons/square/CMakeLists.txt
+new file mode 100644
+index 0000000..2ef90be
+--- /dev/null
++++ b/konversation/images/nickicons/square/CMakeLists.txt
+@@ -0,0 +1,18 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++install( FILES irc_admin.png irc_away.png
++  irc_halfop.png irc_normal.png irc_op.png
++  irc_owner.png irc_voice.png index.desktop
++  DESTINATION
++    ${DATA_INSTALL_DIR}/konversation/themes/square
++)
++
+diff --git a/konversation/scripts/CMakeLists.txt b/konversation/scripts/CMakeLists.txt
+new file mode 100644
+index 0000000..5591cd1
+--- /dev/null
++++ b/konversation/scripts/CMakeLists.txt
+@@ -0,0 +1,16 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++install( FILES fortunes.dat
++  DESTINATION
++    ${DATA_INSTALL_DIR}/konversation/scripts
++)
++
+diff --git a/konversation/src/CMakeLists.txt b/konversation/src/CMakeLists.txt
+new file mode 100644
+index 0000000..075cf59
+--- /dev/null
++++ b/konversation/src/CMakeLists.txt
+@@ -0,0 +1,113 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++add_subdirectory( config )
++add_subdirectory( linkaddressbook )
++add_subdirectory( blowfish )
++
++include_directories(
++  ${CMAKE_BINARY_DIR}
++  ${CMAKE_CURRENT_BINARY_DIR}
++  ${CMAKE_CURRENT_BINARY_DIR}/config
++  ${CMAKE_CURRENT_SOURCE_DIR}
++  ${CMAKE_CURRENT_SOURCE_DIR}/config
++  ${CMAKE_CURRENT_SOURCE_DIR}/linkaddressbook
++  ${CMAKE_CURRENT_SOURCE_DIR}/blowfish
++  ${TDE_INCLUDE_DIR}
++  ${TQT_INCLUDE_DIRS}
++)
++
++link_directories(
++  ${TQT_LIBRARY_DIRS}
++)
++
++
++##### konversation (executable) #################
++
++tde_add_executable( konversation AUTOMOC
++  SOURCES konviface.skel konviconfigdialog.cpp konversationstatusbar.cpp
++    konvisettingsdialog.cpp viewcontainer.cpp viewtree.cpp viewtreeitem.cpp
++    konversationmainwindow.cpp valuelistviewitem.cpp urlcatcher.cpp
++    scriptlauncher.cpp rawlog.cpp konvdcop.cpp channellistpanel.cpp
++    konsolepanel.cpp identity.cpp statuspanel.cpp dccrecipientdialog.cpp
++    topiccombobox.cpp nicksonline.cpp dcctransferpanel.cpp
++    dcctransferpanelitem.cpp highlight.cpp highlightviewitem.cpp modebutton.cpp
++    ignore_preferencesui.ui ignore_preferences.cpp ignore.cpp nicklistview.cpp
++    ircinput.cpp channeloptionsui.ui channeloptionsdialog.cpp
++    ignorelistviewitem.cpp images.cpp quickbutton.cpp chatwindow.cpp
++    outputfilter.cpp logfilereader.cpp query.cpp konversationapplication.cpp
++    nick.cpp inputfilter.cpp channel.cpp ircview.cpp server.cpp main.cpp
++    dcc_preferencesui.ui log_preferences.ui tabs_preferencesui.ui
++    tabs_preferences.cpp chatwindowappearance_preferences.ui
++    irccolorchooserui.ui colorsappearance_preferences.ui irccolorchooser.cpp
++    channellistviewitem.cpp osd.cpp trayicon.cpp dccchat.cpp multilineedit.cpp
++    nickinfo.cpp dccresumedialog.cpp konversationsound.cpp
++    quickconnectdialog.cpp serverlistdialog.cpp dcctransfersend.cpp
++    dcctransferrecv.cpp channelnick.cpp insertchardialog.cpp irccharsets.cpp
++    editnotifydialog.cpp common.cpp serverison.cpp sslsocket.cpp
++    servergroupsettings.cpp serversettings.cpp servergroupdialog.cpp
++    ssllabel.cpp serverdialog.cpp channeldialog.cpp identitydialog.cpp
++    topiclabel.cpp notificationhandler.cpp joinchannelui.ui
++    joinchanneldialog.cpp emoticon.cpp chatwindowbehaviour_preferences.ui
++    alias_preferencesui.ui osd_preferencesui.ui theme_preferencesui.ui
++    highlight_preferencesui.ui warnings_preferencesui.ui
++    warnings_preferences.cpp quickbuttons_preferencesui.ui
++    watchednicknames_preferencesui.ui generalbehavior_preferences.ui
++    connectionbehavior_preferences.ui fontappearance_preferences.ui
++    nicklistbehavior_preferencesui.ui konvibookmarkhandler.cpp
++    konvibookmarkmenu.cpp ircviewbox.cpp searchbar.cpp osd_preferences.cpp
++    theme_preferences.cpp dcc_preferences.cpp alias_preferences.cpp
++    highlight_preferences.cpp watchednicknames_preferences.cpp
++    quickbuttons_preferences.cpp nicklistbehavior_preferences.cpp
++    tabnotifications_preferences.ui multilinetextedit.cpp serverlistview.cpp
++    nicksonlineitem.cpp searchbarbase.ui autoreplace_preferencesui.ui
++    autoreplace_preferences.cpp servergroupdialogui.ui dcctransfer.cpp
++    dcctransfermanager.cpp dcctransferdetailedinfopanelui.ui
++    dcctransferdetailedinfopanel.cpp dcccommon.cpp queuetunerbase.ui
++    queuetuner.cpp ircqueue.cpp connectionsettings.cpp connectionmanager.cpp
++    awaymanager.cpp
++  LINK linkaddressbookui-static konversationconfig-static blowfish-static 
++    kio-shared kabc-shared kimproxy-shared
++  DESTINATION ${BIN_INSTALL_DIR}
++)
++
++
++##### other data ################################
++
++install( FILES konversationui.rc eventsrc
++  DESTINATION ${DATA_INSTALL_DIR}/konversation
++)
++
++install( FILES konversation-0.19-colors.pl 
++    konversation-0.19-sortorder.pl 
++    konversation-0.19-appearance.pl 
++    konversation-0.19-tabplacement.pl 
++    konversation-0.19-custombrowser.pl 
++    konversation-0.19-colorcodes.pl 
++    konversation-0.19-notifylists.pl 
++    konversation-0.20-quickbuttons.pl 
++    konversation-0.20-customfonts.pl
++  PERMISSIONS WORLD_EXECUTE
++  DESTINATION ${KCONF_UPDATE_INSTALL_DIR}
++)
++
++install( FILES konversation.desktop
++  DESTINATION ${XDG_APPS_INSTALL_DIR}
++)
++
++install( FILES konvirc.protocol konvirc6.protocol
++  DESTINATION ${SERVICES_INSTALL_DIR}
++)
++
++install( FILES konversation.upd
++  DESTINATION ${KCONF_UPDATE_INSTALL_DIR}
++)
++
+diff --git a/konversation/src/blowfish/CMakeLists.txt b/konversation/src/blowfish/CMakeLists.txt
+new file mode 100644
+index 0000000..090fede
+--- /dev/null
++++ b/konversation/src/blowfish/CMakeLists.txt
+@@ -0,0 +1,33 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++include_directories(
++  ${CMAKE_BINARY_DIR}
++  ${CMAKE_CURRENT_BINARY_DIR}
++  ${CMAKE_CURRENT_SOURCE_DIR}
++  ${CMAKE_SOURCE_DIR}/konversation/src
++  ${TDE_INCLUDE_DIR}
++  ${TQT_INCLUDE_DIRS}
++)
++
++link_directories(
++  ${TQT_LIBRARY_DIRS}
++)
++
++
++##### blowfish (static) #########################
++
++tde_add_library( blowfish STATIC_PIC AUTOMOC
++  SOURCES b64stuff.cpp BlowfishCbc.cpp
++    blowfish.cpp mc_blowfish.cpp newblowfish.cpp
++    oldblowfish.cpp
++)
++
+diff --git a/konversation/src/config/CMakeLists.txt b/konversation/src/config/CMakeLists.txt
+new file mode 100644
+index 0000000..60ac82a
+--- /dev/null
++++ b/konversation/src/config/CMakeLists.txt
+@@ -0,0 +1,38 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++include_directories(
++  ${CMAKE_BINARY_DIR}
++  ${CMAKE_SOURCE_DIR}/konversation/src
++  ${CMAKE_CURRENT_BINARY_DIR}
++  ${CMAKE_CURRENT_SOURCE_DIR}
++  ${TDE_INCLUDE_DIR}
++  ${TQT_INCLUDE_DIRS}
++)
++
++link_directories(
++  ${TQT_LIBRARY_DIRS}
++)
++
++
++##### konversationconfig (static) ###############
++
++tde_add_library( konversationconfig STATIC_PIC AUTOMOC
++  SOURCES preferences_base.kcfgc preferences.cpp
++)
++
++
++##### other data ################################
++
++install( FILES konversation.kcfg
++  DESTINATION ${KCFG_INSTALL_DIR}
++)
++
+diff --git a/konversation/src/konviconfigdialog.cpp b/konversation/src/konviconfigdialog.cpp
+index 2e5050f..95701ba 100644
+--- a/konversation/src/konviconfigdialog.cpp
++++ b/konversation/src/konviconfigdialog.cpp
+@@ -282,3 +282,4 @@ void KonviConfigDialog::updateWidgetsDefault()
+ {
+ }
+ 
++#include "konviconfigdialog.moc"
+diff --git a/konversation/src/linkaddressbook/CMakeLists.txt b/konversation/src/linkaddressbook/CMakeLists.txt
+new file mode 100644
+index 0000000..92de297
+--- /dev/null
++++ b/konversation/src/linkaddressbook/CMakeLists.txt
+@@ -0,0 +1,37 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++include_directories(
++  ${CMAKE_BINARY_DIR}
++  ${CMAKE_CURRENT_BINARY_DIR}
++  ${CMAKE_CURRENT_SOURCE_DIR}
++  ${CMAKE_SOURCE_DIR}/konversation/src
++  ${CMAKE_SOURCE_DIR}/konversation/src/config
++  ${CMAKE_BINARY_DIR}/konversation/src/config
++  ${TDE_INCLUDE_DIR}
++  ${TQT_INCLUDE_DIRS}
++)
++
++link_directories(
++  ${TQT_LIBRARY_DIRS}
++)
++
++
++##### linkaddressbookui (static) ################
++
++tde_add_library( linkaddressbookui STATIC_PIC AUTOMOC
++  SOURCES linkaddressbookui_base.ui
++    linkaddressbookui.cpp addressbook_base.cpp
++    addressbook.cpp nicklisttooltip.cpp
++    nicksonlinetooltip.cpp kimiface.skel
++    addresseeitem.cpp
++)
++
+diff --git a/po/CMakeLists.txt b/po/CMakeLists.txt
+new file mode 100644
+index 0000000..dc6bb77
+--- /dev/null
++++ b/po/CMakeLists.txt
+@@ -0,0 +1,12 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_auto_add_subdirectories( )
+diff --git a/po/ar/CMakeLists.txt b/po/ar/CMakeLists.txt
+new file mode 100644
+index 0000000..fd44998
+--- /dev/null
++++ b/po/ar/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG ar )
++
+diff --git a/po/bg/CMakeLists.txt b/po/bg/CMakeLists.txt
+new file mode 100644
+index 0000000..e197abe
+--- /dev/null
++++ b/po/bg/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG bg )
++
+diff --git a/po/ca/CMakeLists.txt b/po/ca/CMakeLists.txt
+new file mode 100644
+index 0000000..319d43d
+--- /dev/null
++++ b/po/ca/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG ca )
++
+diff --git a/po/da/CMakeLists.txt b/po/da/CMakeLists.txt
+new file mode 100644
+index 0000000..bf44b3c
+--- /dev/null
++++ b/po/da/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG da )
++
+diff --git a/po/de/CMakeLists.txt b/po/de/CMakeLists.txt
+new file mode 100644
+index 0000000..ab9efc7
+--- /dev/null
++++ b/po/de/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG de )
++
+diff --git a/po/el/CMakeLists.txt b/po/el/CMakeLists.txt
+new file mode 100644
+index 0000000..029e5ef
+--- /dev/null
++++ b/po/el/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG el )
++
+diff --git a/po/en_GB/CMakeLists.txt b/po/en_GB/CMakeLists.txt
+new file mode 100644
+index 0000000..a97c853
+--- /dev/null
++++ b/po/en_GB/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG en_GB )
++
+diff --git a/po/es/CMakeLists.txt b/po/es/CMakeLists.txt
+new file mode 100644
+index 0000000..274684f
+--- /dev/null
++++ b/po/es/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG es )
++
+diff --git a/po/et/CMakeLists.txt b/po/et/CMakeLists.txt
+new file mode 100644
+index 0000000..eee279e
+--- /dev/null
++++ b/po/et/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG et )
++
+diff --git a/po/fi/CMakeLists.txt b/po/fi/CMakeLists.txt
+new file mode 100644
+index 0000000..a02ad60
+--- /dev/null
++++ b/po/fi/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG fi )
++
+diff --git a/po/fr/CMakeLists.txt b/po/fr/CMakeLists.txt
+new file mode 100644
+index 0000000..8adcfdf
+--- /dev/null
++++ b/po/fr/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG fr )
++
+diff --git a/po/gl/CMakeLists.txt b/po/gl/CMakeLists.txt
+new file mode 100644
+index 0000000..79b4a9e
+--- /dev/null
++++ b/po/gl/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG gl )
++
+diff --git a/po/he/CMakeLists.txt b/po/he/CMakeLists.txt
+new file mode 100644
+index 0000000..c18caa3
+--- /dev/null
++++ b/po/he/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG he )
++
+diff --git a/po/hu/CMakeLists.txt b/po/hu/CMakeLists.txt
+new file mode 100644
+index 0000000..983f91c
+--- /dev/null
++++ b/po/hu/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG hu )
++
+diff --git a/po/it/CMakeLists.txt b/po/it/CMakeLists.txt
+new file mode 100644
+index 0000000..e0d701d
+--- /dev/null
++++ b/po/it/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG it )
++
+diff --git a/po/ja/CMakeLists.txt b/po/ja/CMakeLists.txt
+new file mode 100644
+index 0000000..83f254a
+--- /dev/null
++++ b/po/ja/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG ja )
++
+diff --git a/po/ka/CMakeLists.txt b/po/ka/CMakeLists.txt
+new file mode 100644
+index 0000000..b0407b8
+--- /dev/null
++++ b/po/ka/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG ka )
++
+diff --git a/po/ko/CMakeLists.txt b/po/ko/CMakeLists.txt
+new file mode 100644
+index 0000000..171a528
+--- /dev/null
++++ b/po/ko/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG ko )
++
+diff --git a/po/pa/CMakeLists.txt b/po/pa/CMakeLists.txt
+new file mode 100644
+index 0000000..4245166
+--- /dev/null
++++ b/po/pa/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG pa )
++
+diff --git a/po/pt/CMakeLists.txt b/po/pt/CMakeLists.txt
+new file mode 100644
+index 0000000..93916be
+--- /dev/null
++++ b/po/pt/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG pt )
++
+diff --git a/po/ru/CMakeLists.txt b/po/ru/CMakeLists.txt
+new file mode 100644
+index 0000000..62b3622
+--- /dev/null
++++ b/po/ru/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG ru )
++
+diff --git a/po/sr/CMakeLists.txt b/po/sr/CMakeLists.txt
+new file mode 100644
+index 0000000..be06fcb
+--- /dev/null
++++ b/po/sr/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG sr )
++
+diff --git a/po/sr@Latn/CMakeLists.txt b/po/sr@Latn/CMakeLists.txt
+new file mode 100644
+index 0000000..5768b19
+--- /dev/null
++++ b/po/sr@Latn/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG sr@Latn )
++
+diff --git a/po/sv/CMakeLists.txt b/po/sv/CMakeLists.txt
+new file mode 100644
+index 0000000..2451444
+--- /dev/null
++++ b/po/sv/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG sv )
++
+diff --git a/po/tr/CMakeLists.txt b/po/tr/CMakeLists.txt
+new file mode 100644
+index 0000000..2fe7323
+--- /dev/null
++++ b/po/tr/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG tr )
++
+diff --git a/po/zh_CN/CMakeLists.txt b/po/zh_CN/CMakeLists.txt
+new file mode 100644
+index 0000000..49d25fd
+--- /dev/null
++++ b/po/zh_CN/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG zh_CN )
++
+diff --git a/po/zh_TW/CMakeLists.txt b/po/zh_TW/CMakeLists.txt
+new file mode 100644
+index 0000000..98f2a40
+--- /dev/null
++++ b/po/zh_TW/CMakeLists.txt
+@@ -0,0 +1,13 @@
++#################################################
++#
++#  (C) 2012 Golubev Alexander
++#  fatzer2 (AT) gmail.com
++#
++#  Improvements and feedback are welcome
++#
++#  This file is released under GPL >= 2
++#
++#################################################
++
++tde_create_translation( LANG zh_TW )
++
