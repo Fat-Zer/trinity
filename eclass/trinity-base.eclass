@@ -28,18 +28,36 @@ inherit trinity-functions cmake-utils qt3 base
 # trinity-base_src_install() to install documentation
 # 
 
-trinity-base_declare_src_uri() {
-	local mod_name mod_ver
+# @ECLASS-VARIABLE: TRINTY_LANGS
+# @DESCRIPTION: 
+# This is a whitespace-separated list of translations this ebuild supports.
+# These translations are automatically added to IUSE. Therefore ebuilds must set
+# this variable before inheriting any eclasses. To enable only selected
+# translations, ebuilds must call enable_selected_linguas(). kde4-{base,meta}.eclass does
+# this for you.
 
-	mod_ver="${TRINITY_MODULE_VER:=${PV}}"
-	mod_name="${TRINITY_MODULE_NAME:=${PN}}"
-	[[ -n "${TRINITY_MODULE_TYPE}" ]] && mod_name="${TRINITY_MODULE_TYPE}/${mod_name}"
+# @ECLASS-VARIABLE: TRINTY_DOC_LANGS
+# @DESCRIPTION: 
+# This is a whitespace-separated list of translations this ebuild supports.
+# These translations are automatically added to IUSE. Therefore ebuilds must set
+# this variable before inheriting any eclasses. To enable only selected
+# translations, ebuilds must call enable_selected_linguas(). kde4-{base,meta}.eclass does
+# this for you.
 
+# @ECLASS-VARIABLE: TRINITY_HANDBOOK
+# @DESCRIPTION:
+# Set to enable handbook in application. Possible values are 'always', 'optional'
+# (handbook USE flag) and 'never'.
+# This variable must be set before inheriting any eclasses. Defaults to 'never'.
+# As well It ensures buildtime and runtime dependencies.
+TRINITY_HANDBOOK="${TRINITY_HANDBOOK:-never}"
 
-	SRC_URI="${TRINITY_BASE_SRC_URI}/${mod_ver}/${mod_name}-${mod_ver}.tar.gz"
-	S="${WORKDIR}/${TRINITY_MODULE_NAME}-${mod_ver}"
-}
-
+# @ECLASS-VARIABLE: TRINITY_EXTRAGEAR_PACKAGING
+# @DESCRIPTION:
+# Set TRINITY_EXTRAGEAR_PACKAGING=yes before inheriting if the package use extragear-like
+# packaging and then supports ${TRINITY_LANGS}, ${TRINITY_DOC_LANGS} and
+# ${TRINITY_HANDBOOK} variables. The translations are found in the directory
+# pointed by the TEG_PO_DIR variable.
 
 # @ECLASS-VARIABLE: TRINITY_COMMON_DOCS
 # @DESCRIPTION:
@@ -50,6 +68,9 @@ TRINITY_COMMON_DOCS="AUTHORS BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE COMPILIN
 	NOTES PLUGINS PORTING README SECURITY-HOLES TASKGROUPS TEMPLATE 
 	TESTCASES THANKS THOUGHTS TODO VERSION"
 
+# @ECLASS-VARIABLE: TRINITY_BASE_SRC_URI
+# @DESCRIPTION:
+# The top SRC_URI for all trinity packages
 TRINITY_BASE_SRC_URI="http://trinity.blackmag.net/releases"
 
 # determine the build type
@@ -87,15 +108,54 @@ if [[ ${BUILD_TYPE} = live ]]; then
 	esac
 	S="${WORKDIR}/${TRINITY_MODULE_NAME}"
 elif [[ "${BUILD_TYPE}" == release ]]; then
-	trinity-base_declare_src_uri
+	mod_name="${TRINITY_MODULE_NAME:=${PN}}"
+	[[ -n "${TRINITY_MODULE_TYPE}" ]] && mod_name="${TRINITY_MODULE_TYPE}/${mod_name}"
+	mod_ver="${TRINITY_MODULE_VER:=${PV}}"
+	mod_name="${mod_name}-${mod_ver}"
+
+	SRC_URI="${TRINITY_BASE_SRC_URI}/${mod_ver}/${mod_name}.tar.gz"
+	S="${WORKDIR}/${TRINITY_MODULE_NAME}-${mod_ver}"
 else
 	die "Unknown BUILD_TYPE=${BUILD_TYPE}"
+fi
+
+if [[ -n "${TRINITY_EXTRAGEAR_PACKAGING}" ]]; then 
+# @ECLASS-VARIABLE: TEG_PO_DIR
+# @DESCRIPTION:
+# Change the translation directory for extragear packages. The default is ${S}/po
+	TEG_PO_DIR="${TEG_PO_DIR:-${S}/po}"
+
+# @ECLASS-VARIABLE: TEG_DOC_DIR
+# @DESCRIPTION:
+# Change the documentation directory for extragear packages. The default is
+# ${S}/doc
+	TEG_DOC_DIR="${TEG_DOC_DIR:-${S}/doc}"
+
+	if [[ -n "${TRINITY_LANGS}" || -n "${TRINITY_DOC_LANGS}" ]]; then
+		for lang in ${TRINITY_LANGS} ${TRINITY_DOC_LANGS}; do
+			IUSE="${IUSE} linguas_${lang}"
+		done
+
+		trinityhandbookdepend="
+			app-text/docbook-xml-dtd:4.2
+			app-text/docbook-xsl-stylesheets
+		"
+		case ${TRINITY_HANDBOOK} in
+			yes | always)
+				DEPEDND+=" ${trinityhandbookdepend}"
+				;;
+			optional)
+				IUSE+=" +handbook"
+				DEPEND+=" handbook? ( ${trinityhandbookdepend} )"
+				;;
+			*) ;;
+		esac
+	fi
 fi
 
 # @FUNCTION: trinity-base_src_prepare
 # @DESCRIPTION:
 # General pre-configure and pre-compile function for Trinity applications.
-
 trinity-base_src_prepare() {
 	debug-print-function ${FUNCNAME} "$@"
 
@@ -103,6 +163,7 @@ trinity-base_src_prepare() {
 # 	if [[ -n ${KDE_LINGUAS} ]]; then
 # 		enable_selected_linguas
 # 	fi
+	local dir lang
 
 	# SCM bootstrap
 	if [[ ${BUILD_TYPE} = live ]]; then
@@ -115,6 +176,43 @@ trinity-base_src_prepare() {
 
 	# Apply patches
 	base_src_prepare
+	
+	# Handle documentation and  translations for extragear packages
+	if [[ -n "$TRINITY_EXTRAGEAR_PACKAGING" ]]; then
+		# remove not selected languages
+		if [[ -n $TRINITY_LANGS ]]; then
+			einfo "Removing unselected translations from ${TEG_PO_DIR}"
+			for dir in $(find ${TEG_PO_DIR} -mindepth 1 -maxdepth 1 -type d ); do
+				lang="$(basename "$dir")"
+				if ! has "$lang" ${TRINITY_LANGS}; then
+					eerror "Translation $lang seems to present in the package but is not supported by the ebuild"
+				elif ! has $lang ${LINGUAS}; then
+					rm -rf $dir
+				fi
+			done
+		fi
+
+		# if we removed all translations we should point it
+		if [[ -z $(find ${TEG_PO_DIR} -mindepth 1 -maxdepth 1 -type d) ]]; then
+			TRINITY_NO_TRANSLATIONS=yes
+		fi
+		
+		# remove not selected documentation
+		if [[ -n $TRINITY_DOC_LANGS ]]; then
+			einfo "Removing unselected documentation from ${TEG_DOC_DIR}"
+			for dir in $(find ${TEG_DOC_DIR} -mindepth 1 -maxdepth 1 -type d ); do
+				lang="$(basename "$dir")"
+				if [[	"$lang" == "${PN}" || \
+						"$lang" == "${TRINITY_MODULE_NAME}"  ]] ; then
+					echo -n; # do nothing it's main documentation
+				elif ! has "$lang" ${TRINITY_LANGS}; then
+					eerror "Documentation translated to language $lang seems to present in the package but is not supported by the ebuild"
+				elif ! has $lang ${LINGUAS}; then
+					rm -rf $dir
+				fi
+			done
+		fi
+	fi
 }
 
 
@@ -131,14 +229,32 @@ trinity-base_src_prepare() {
 # Call standart cmake-utils_src_onfigure and add some common arguments.
 trinity-base_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
+	local eg_cmakeargs	
 	
 	[[ -n "${PREFIX}" ]] && export PREFIX="${TDEDIR}"
 
+	if [[ -n "$TRINITY_EXTRAGEAR_PACKAGING" ]]; then
+		eg_cmakeargs=( -DBUILD_ALL=ON )
+		if [[ "$TRINITY_NO_TRANSLATIONS" == "yes" ]]; then
+			eg_cmakeargs=( -DBUILD_TRANSLATIONS=OFF "${eg_cmakeargs[@]}" )
+		else
+			eg_cmakeargs=( -DBUILD_TRANSLATIONS=ON "${eg_cmakeargs[@]}" )
+		fi
+		if [[ "${TRINITY_HANDBOOK}" == optional ]]; then
+			eg_cmakeargs=( 
+					$(cmake-utils_use_with handbook DOC)
+					"${eg_cmakeargs[@]}" )
+		fi
+			
+		
+	fi
+
 	mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH="${TDEDIR}"
+		"${eg_cmakeargs[@]}"
 		"${mycmakeargs[@]}"
 	)
-
+	
 	cmake-utils_src_configure
 }
 
