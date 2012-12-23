@@ -628,7 +628,7 @@ index 0000000..5591cd1
 +
 diff --git a/konversation/src/CMakeLists.txt b/konversation/src/CMakeLists.txt
 new file mode 100644
-index 0000000..075cf59
+index 0000000..3920e18
 --- /dev/null
 +++ b/konversation/src/CMakeLists.txt
 @@ -0,0 +1,113 @@
@@ -709,7 +709,7 @@ index 0000000..075cf59
 +    queuetuner.cpp ircqueue.cpp connectionsettings.cpp connectionmanager.cpp
 +    awaymanager.cpp
 +  LINK linkaddressbookui-static konversationconfig-static blowfish-static 
-+    kio-shared kabc-shared kimproxy-shared
++    kio-shared kabc-shared kimproxy-shared ${XSCREENSAVER_LIBRARIES}
 +  DESTINATION ${BIN_INSTALL_DIR}
 +)
 +
