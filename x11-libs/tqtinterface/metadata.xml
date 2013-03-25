@@ -6,6 +6,6 @@
 		<name>Golubev Alexander</name>
 	</maintainer>
 	<use>	
-		<flag name="qt3"> Support for qt3 library(<pkg>x11-libs/qt-meta:3</pkg>)</flag>
+		<flag name="qt3"> Support for qt3 library(<pkg>dev-qt/qt-meta:3</pkg>)</flag>
 	</use>
 </pkgmetadata>

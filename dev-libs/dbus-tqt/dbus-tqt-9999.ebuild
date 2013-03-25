@@ -14,7 +14,7 @@ KEYWORDS=""
 SLOT="0"
 IUSE=""
 
-DEPEND="x11-libs/qt:3
+DEPEND="dev-qt/qt:3
 	x11-libs/tqtinterface
 	!!dev-libs/dbus-qt3-old"
 RDEPEND="$DEPEND"

@@ -549,8 +549,8 @@ need-qt() {
 	fi
 
 	case ${QTVER} in
-		3*)	DEPEND="${DEPEND} =x11-libs/qt-meta-3*"
-			RDEPEND="${RDEPEND} =x11-libs/qt-meta-3*"
+		3*)	DEPEND="${DEPEND} =dev-qt/qt-meta-3*"
+			RDEPEND="${RDEPEND} =dev-qt/qt-meta-3*"
 			;;
 		*)	echo "!!! error: $FUNCNAME() called with invalid parameter: \"$QTVER\", please report bug" && exit 1;;
 	esac

@@ -14,7 +14,7 @@ KEYWORDS="x86 amd64"
 SLOT="0"
 IUSE=""
 
-DEPEND=">=x11-libs/qt-3.3.8d:3
+DEPEND=">=dev-qt/qt-3.3.8d:3
 	>=x11-libs/tqtinterface-${PV}
 	!!dev-libs/dbus-qt3-old"
 RDEPEND="$DEPEND"

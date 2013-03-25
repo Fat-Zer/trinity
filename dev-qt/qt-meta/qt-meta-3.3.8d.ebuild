@@ -12,14 +12,14 @@ KEYWORDS="amd64 x86"
 IUSE="cups debug doc examples firebird ipv6 mysql nas nis opengl postgres sqlite xinerama"
 
 DEPEND="
-	=x11-libs/qt-${PV}:${SLOT}[cups=,debug=,doc=,examples=,firebird=,ipv6=,mysql=]
-	=x11-libs/qt-${PV}:${SLOT}[nas=,nis=,opengl=,postgres=,sqlite=,xinerama=]"
+	=dev-qt/qt-${PV}:${SLOT}[cups=,debug=,doc=,examples=,firebird=,ipv6=,mysql=]
+	=dev-qt/qt-${PV}:${SLOT}[nas=,nis=,opengl=,postgres=,sqlite=,xinerama=]"
 RDEPEND="${DEPEND}"
 
 pkg_postinst() {
 	echo
 	einfo "Please note that this meta package is only provided for capability."
 	einfo "No packages should depend directly on this meta package, but on the"
-	einfo "x11-libs/qt:${SLOT} package."
+	einfo "dev-qt/qt:${SLOT} package."
 	echo
 }

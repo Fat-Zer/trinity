@@ -1,29 +1,30 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
-EAPI=2
+# $Header: /var/cvsroot/gentoo-x86/dev-qt/qt/qt-3.3.8b-r2.ebuild,v 1.7 2009/12/03 18:25:47 yngwin Exp $
 
 # *** Please remember to update qt3.eclass when revbumping this ***
 
-inherit eutils flag-o-matic toolchain-funcs
+inherit eutils git-2 flag-o-matic toolchain-funcs
 
+SRCTYPE="free"
 DESCRIPTION="The Qt toolkit is a comprehensive C++ application development framework."
-HOMEPAGE="http://qt.nokia.com/ http://www.trinitydesktop.org/"
+HOMEPAGE="http://qt.nokia.com/"
 
 # IMMQT_P="qt-x11-immodule-unified-qt3.3.8-20070321-gentoo"
-TDE_VERSION="3.5.13.1"
 
-SRC_URI="http://trinity.blackmag.net/releases/${TDE_VERSION}/dependencies/qt3-${TDE_VERSION}.tar.gz"
+#SRC_URI="ftp://ftp.trolltech.com/qt/source/qt-x11-${SRCTYPE}-${PV}.tar.gz
 #	immqt? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )
 #	immqt-bc? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )"
-
+EGIT_REPO_URI="http://scm.trinitydesktop.org/scm/git/qt3"
+EGIT_BRANCH="master"
+EGIT_PROJECT="trinity/qt3"
 LICENSE="|| ( QPL-1.0 GPL-2 GPL-3 )"
 
 SLOT="3"
-KEYWORDS="x86 amd64"
+KEYWORDS=""
 IUSE="cups debug doc examples firebird ipv6 mysql nas nis opengl postgres sqlite xinerama"
 # no odbc, immqt and immqt-bc support anymore.
-DEPEND="
+RDEPEND="
 	virtual/jpeg
 	>=media-libs/freetype-2
 	>=media-libs/libmng-1.0.9
@@ -41,8 +42,8 @@ DEPEND="
 	opengl? ( virtual/opengl virtual/glu )
 	postgres? ( dev-db/postgresql-base )
 	xinerama? ( x11-libs/libXinerama )
-	!!<=x11-libs/qt-meta-3.3.8c"
-RDEPEND="${RDEPEND}
+	!<=dev-qt/qt-meta-3.3.8c"
+DEPEND="${RDEPEND}
 	x11-proto/inputproto
 	x11-proto/xextproto
 	xinerama? ( x11-proto/xineramaproto )"
@@ -51,7 +52,7 @@ RDEPEND="${RDEPEND}
 #	immqt-bc? ( x11-proto/xineramaproto )"
 #PDEPEND="odbc? ( ~dev-db/qt-unixODBC-$PV )"
 
-S="${WORKDIR}/qt3-3.5.13.1"
+#S="${WORKDIR}/qt-x11-${SRCTYPE}-${PV}"
 
 QTBASE="/usr/qt/3"
 
@@ -101,19 +102,79 @@ pkg_setup() {
 	export PLATFORM="${PLATNAME}-${PLATCXX}"
 }
 
-src_prepare() {
+src_unpack() {
+	git-2_src_unpack
+#	mv "${S}/main/dependencies/qt3/" "${WORKDIR}/"
+#	rm -rf "${S}"
+#	mv "${WORKDIR}/qt3" "${S}"
+#
+#	cd "${S}"
+
 	sed -i -e 's:read acceptance:acceptance=yes:' configure
 
 	# Do not link with -rpath. See bug #75181.
 	find "${S}"/mkspecs -name qmake.conf | xargs \
 		sed -i -e 's:QMAKE_RPATH.*:QMAKE_RPATH =:'
+#
+#	# Patch for uic includehint errors (aseigo patch)
+#	epatch "${FILESDIR}"/qt-3.3.8-uic-fix.patch
+#
+#	# KDE related patches
+#	epatch "${FILESDIR}"/0001-dnd_optimization.patch
+#	epatch "${FILESDIR}"/0002-dnd_active_window_fix.patch
+#	epatch "${FILESDIR}"/0038-dragobject-dont-prefer-unknown.patch
+#	epatch "${FILESDIR}"/0044-qscrollview-windowactivate-fix.diff
+#	epatch "${FILESDIR}"/0047-fix-kmenu-widget.diff
+#	epatch "${FILESDIR}"/0048-qclipboard_hack_80072.patch
+#
+#	# ulibc patch (bug #100246)
+#	epatch "${FILESDIR}"/qt-ulibc.patch
+#
+#	# xinerama patch: http://ktown.kde.org/~seli/xinerama/
+#	epatch "${FILESDIR}"/qt-3.3.8-seli-xinerama.patch
+#
+#	# Visibility patch, apply only on GCC 4.1 and later for safety
+#	# [[ $(gcc-major-version)$(gcc-minor-version) -ge 41 ]] && \
+#		epatch "${FILESDIR}"/qt-3.3.8-visibility.patch
+#
+#	# Fix configure to correctly pick up gcc version, bug 244732
+#	epatch "${FILESDIR}"/qt-3.3.8-fix-compiler-detection.patch
+#
+#	# Fix CJK script rendering, bug 229567
+#	epatch "${FILESDIR}"/qt-3.3.8b-cjk-fix.patch
 
+	# now it's applyed to git version
+	# Fix libpng-1.4 issues
+#	epatch "${FILESDIR}"/qt-3.3.8-libpng14.patch
+
+#	if use immqt || use immqt-bc ; then
+#		epatch ../${IMMQT_P}.diff
+#		sh make-symlinks.sh || die "make symlinks failed"
+#
+#		epatch "${FILESDIR}"/qt-3.3.8-immqt+gcc-4.3.patch
+#	fi
+#
+#	if use mips; then
+#		epatch "${FILESDIR}"/qt-3.3.8-mips.patch
+#	fi
+#
+#	# Add compatibility functions for the TQt interface
+#	if use trinity; then
+#		epatch "${FILESDIR}"/qt3_3.3.8c.diff
+#		epatch ""
+#	fi
+#
 	# known working flags wrt #77623
 	use sparc && export CFLAGS="-O1" && export CXXFLAGS="${CFLAGS}"
 	# set c/xxflags and ldflags
 	strip-flags
 	append-flags -fno-strict-aliasing
-
+#
+#	if [[ $( gcc-fullversion ) == "3.4.6" && gcc-specs-ssp ]] ; then
+#		ewarn "Appending -fno-stack-protector to CFLAGS/CXXFLAGS"
+#		append-flags -fno-stack-protector
+#	fi
+#
 	sed -i -e "s:QMAKE_CFLAGS_RELEASE.*=.*:QMAKE_CFLAGS_RELEASE=${CFLAGS}:" \
 		   -e "s:QMAKE_CXXFLAGS_RELEASE.*=.*:QMAKE_CXXFLAGS_RELEASE=${CXXFLAGS}:" \
 		   -e "s:QMAKE_LFLAGS_RELEASE.*=.*:QMAKE_LFLAGS_RELEASE=${LDFLAGS}:" \
@@ -131,13 +192,9 @@ src_prepare() {
 	sed -i -e "s:CXXFLAGS.*=:CXXFLAGS=${CXXFLAGS} :" \
 		   -e "s:LFLAGS.*=:LFLAGS=${LDFLAGS} :" \
 		"${S}"/qmake/Makefile.unix || die
-
-	# remove unnecessary headers
-	rm include/[^q]*.h
-	rm include/*_p.h
 }
 
-src_configure() {
+src_compile() {
 	export SYSCONF="${D}${QTBASE}"/etc/settings
 
 	# Let's just allow writing to these directories during Qt emerge
@@ -169,6 +226,11 @@ src_configure() {
 	tc-export CC CXX
 	export LINK="$(tc-getCXX)"
 
+	einfo ./configure -sm -thread -stl -system-libjpeg -verbose -largefile \
+		-qt-imgfmt-{jpeg,mng,png} -tablet -system-libmng \
+		-system-libpng -xft -platform ${PLATFORM} -xplatform \
+		${PLATFORM} -xrender -prefix ${QTBASE} -libdir ${QTBASE}/$(get_libdir) \
+		-fast -no-sql-odbc ${myconf} -dlopen-opengl || die
 	./configure -sm -thread -stl -system-libjpeg -verbose -largefile \
 		-qt-imgfmt-{jpeg,mng,png} -tablet -system-libmng \
 		-system-libpng -xft -platform ${PLATFORM} -xplatform \
@@ -194,6 +256,8 @@ src_configure() {
 	# Make the qembed utility (not made by default)
 	cd "${S}"/tools/qembed
 	../../bin/qmake
+	emake
+
 }
 
 src_install() {

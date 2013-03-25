@@ -27,7 +27,7 @@ REQUIRED_USE="
 #	x11-libs/libXrender
 #	jabber? ( net-dns/libidn )
 #	kernel_linux? ( virtual/opengl )
-#	opengl? ( x11-libs/qt-meta[opengl] )
+#	opengl? ( dev-qt/qt-meta[opengl] )
 #	xscreensaver? ( x11-libs/libXScrnSaver )
 #	jabber|groupwice? =app-crypt/qca-1.0*
 BOTH_DEPEND="

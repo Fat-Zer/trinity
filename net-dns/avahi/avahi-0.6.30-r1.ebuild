@@ -25,8 +25,8 @@ COMMON_DEPEND=">=dev-libs/libdaemon-0.14
 	dev-libs/expat
 	dev-libs/glib:2
 	gdbm? ( sys-libs/gdbm )
-	qt3? ( x11-libs/qt:3 )
-	qt4? ( x11-libs/qt-core:4 )
+	qt3? ( dev-qt/qt:3 )
+	qt4? ( dev-qt/qtcore:4 )
 	gtk? ( >=x11-libs/gtk+-2.14.0:2 )
 	gtk3? ( x11-libs/gtk+:3 )
 	dbus? (
