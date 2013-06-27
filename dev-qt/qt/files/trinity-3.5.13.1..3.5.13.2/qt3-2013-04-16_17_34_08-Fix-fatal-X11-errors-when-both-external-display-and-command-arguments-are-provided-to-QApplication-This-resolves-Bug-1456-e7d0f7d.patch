@@ -1,0 +1,42 @@
+diff --git a/src/kernel/qapplication_x11.cpp b/src/kernel/qapplication_x11.cpp
+index 0f9d777..50a2bac 100644
+--- a/src/kernel/qapplication_x11.cpp
++++ b/src/kernel/qapplication_x11.cpp
+@@ -1790,18 +1790,26 @@ void qt_init_internal( int *argcptr, char **argv,
+ 	    }
+ 	}
+ #endif
+-	// Connect to X server
+-
+-	if( qt_is_gui_used ) {
+-	    if ( ( appDpy = XOpenDisplay(appDpyName) ) == 0 ) {
+-		qWarning( "%s: cannot connect to X server %s", appName,
+-			  XDisplayName(appDpyName) );
+-		qApp = 0;
+-		exit( 1 );
+-	    }
++	if ( display ) {
++		// Display connection already opened by another application
+ 
+-	    if ( appSync )				// if "-sync" argument
+-		XSynchronize( appDpy, TRUE );
++		appForeignDpy = TRUE;
++		appDpy  = display;
++	}
++	else {
++		// Connect to X server
++	
++		if( qt_is_gui_used ) {
++		if ( ( appDpy = XOpenDisplay(appDpyName) ) == 0 ) {
++			qWarning( "%s: cannot connect to X server %s", appName,
++				XDisplayName(appDpyName) );
++			qApp = 0;
++			exit( 1 );
++		}
++	
++		if ( appSync )				// if "-sync" argument
++			XSynchronize( appDpy, TRUE );
++		}
+ 	}
+     }
+     // Common code, regardless of whether display is foreign.

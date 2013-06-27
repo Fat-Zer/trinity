@@ -1,0 +1,133 @@
+diff --git a/src/tools/qdatastream.cpp b/src/tools/qdatastream.cpp
+index dfdc20e..2cdd5f7 100644
+--- a/src/tools/qdatastream.cpp
++++ b/src/tools/qdatastream.cpp
+@@ -544,7 +544,10 @@ QDataStream &QDataStream::operator>>( Q_INT8 &i )
+ 	    i = (buf[2] & 0x07)+((buf[1] & 0x07) << 3)+((buf[0] & 0x07) << 6);
+ 	}
+     } else {					// data or text
+-	i = (Q_INT8)dev->getch();
++	int ret = dev->getch();
++	if (ret >= 0) {
++		i = (Q_INT8)ret;
++	}
+     }
+     return *this;
+ }
+@@ -574,9 +577,10 @@ QDataStream &QDataStream::operator>>( Q_INT16 &i )
+     } else {					// swap bytes
+ 	register uchar *p = (uchar *)(&i);
+ 	char b[2];
+-	dev->readBlock( b, 2 );
+-	*p++ = b[1];
+-	*p   = b[0];
++	if (dev->readBlock( b, 2 ) >= 2) {
++		*p++ = b[1];
++		*p   = b[0];
++	}
+     }
+     return *this;
+ }
+@@ -606,11 +610,12 @@ QDataStream &QDataStream::operator>>( Q_INT32 &i )
+     } else {					// swap bytes
+ 	uchar *p = (uchar *)(&i);
+ 	char b[4];
+-	dev->readBlock( b, 4 );
+-	*p++ = b[3];
+-	*p++ = b[2];
+-	*p++ = b[1];
+-	*p   = b[0];
++	if (dev->readBlock( b, 4 ) >= 4) {
++		*p++ = b[3];
++		*p++ = b[2];
++		*p++ = b[1];
++		*p   = b[0];
++	}
+     }
+     return *this;
+ }
+@@ -643,15 +648,16 @@ QDataStream &QDataStream::operator>>( Q_INT64 &i )
+     } else {					// swap bytes
+ 	uchar *p = (uchar *)(&i);
+ 	char b[8];
+-	dev->readBlock( b, 8 );
+-	*p++ = b[7];
+-	*p++ = b[6];
+-	*p++ = b[5];
+-	*p++ = b[4];
+-	*p++ = b[3];
+-	*p++ = b[2];
+-	*p++ = b[1];
+-	*p   = b[0];
++	if (dev->readBlock( b, 8 ) >= 8) {
++		*p++ = b[7];
++		*p++ = b[6];
++		*p++ = b[5];
++		*p++ = b[4];
++		*p++ = b[3];
++		*p++ = b[2];
++		*p++ = b[1];
++		*p   = b[0];
++	}
+     }
+     return *this;
+ }
+@@ -683,9 +689,11 @@ QDataStream &QDataStream::operator>>( Q_LONG &i )
+     } else {					// swap bytes
+ 	register uchar *p = (uchar *)(&i);
+ 	char b[sizeof(Q_LONG)];
+-	dev->readBlock( b, sizeof(Q_LONG) );
+-	for ( int j = sizeof(Q_LONG); j;  )
+-	    *p++ = b[--j];
++	if (dev->readBlock( b, sizeof(Q_LONG) ) >= (int)sizeof(Q_LONG)) {
++		for ( int j = sizeof(Q_LONG); j;  ) {
++			*p++ = b[--j];
++		}
++	}
+     }
+     return *this;
+ }
+@@ -724,11 +732,12 @@ QDataStream &QDataStream::operator>>( float &f )
+     } else {					// swap bytes
+ 	uchar *p = (uchar *)(&f);
+ 	char b[4];
+-	dev->readBlock( b, 4 );
+-	*p++ = b[3];
+-	*p++ = b[2];
+-	*p++ = b[1];
+-	*p   = b[0];
++	if (dev->readBlock( b, 4 ) >= 4) {
++		*p++ = b[3];
++		*p++ = b[2];
++		*p++ = b[1];
++		*p   = b[0];
++	}
+     }
+     return *this;
+ }
+@@ -752,15 +761,16 @@ QDataStream &QDataStream::operator>>( double &f )
+     } else {					// swap bytes
+ 	register uchar *p = (uchar *)(&f);
+ 	char b[8];
+-	dev->readBlock( b, 8 );
+-	*p++ = b[7];
+-	*p++ = b[6];
+-	*p++ = b[5];
+-	*p++ = b[4];
+-	*p++ = b[3];
+-	*p++ = b[2];
+-	*p++ = b[1];
+-	*p   = b[0];
++	if (dev->readBlock( b, 8 ) >= 8) {
++		*p++ = b[7];
++		*p++ = b[6];
++		*p++ = b[5];
++		*p++ = b[4];
++		*p++ = b[3];
++		*p++ = b[2];
++		*p++ = b[1];
++		*p   = b[0];
++	}
+     }
+     return *this;
+ }

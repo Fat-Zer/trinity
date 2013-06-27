@@ -12,7 +12,7 @@ HOMEPAGE="http://qt.nokia.com/ http://www.trinitydesktop.org/"
 
 # IMMQT_P="qt-x11-immodule-unified-qt3.3.8-20070321-gentoo"
 TDE_VERSION="3.5.13.1"
-TDE_PATCH_VERSION="3.5.13.1"
+TDE_PATCH_VERSION="3.5.13.2"
 
 SRC_URI="http://trinity.blackmag.net/releases/${TDE_VERSION}/dependencies/qt3-${TDE_VERSION}.tar.gz"
 #	immqt? ( mirror://gentoo/${IMMQT_P}.diff.bz2 )

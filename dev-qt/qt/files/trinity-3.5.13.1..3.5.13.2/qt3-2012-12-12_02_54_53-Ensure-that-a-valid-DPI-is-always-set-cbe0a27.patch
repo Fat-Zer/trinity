@@ -1,0 +1,26 @@
+diff --git a/src/kernel/qpaintdevice_x11.cpp b/src/kernel/qpaintdevice_x11.cpp
+index a755c01..5941657 100644
+--- a/src/kernel/qpaintdevice_x11.cpp
++++ b/src/kernel/qpaintdevice_x11.cpp
+@@ -529,11 +529,16 @@ static void create_dpis()
+     Q_CHECK_PTR( dpisX );
+     Q_CHECK_PTR( dpisY );
+     for ( i = 0; i < screens; i++ ) {
+-	dpisX[ i ] = (DisplayWidth(dpy,i) * 254 + DisplayWidthMM(dpy,i)*5)
+-
+-		     / (DisplayWidthMM(dpy,i)*10);
+-	dpisY[ i ] = (DisplayHeight(dpy,i) * 254 + DisplayHeightMM(dpy,i)*5)
+-		     / (DisplayHeightMM(dpy,i)*10);
++       if (DisplayWidthMM(dpy,i) < 1)
++               dpisX[ i ] = 75; // default the dpi to 75.
++       else
++               dpisX[ i ] = (DisplayWidth(dpy,i) * 254 + DisplayWidthMM(dpy,i)*5)
++                     / (DisplayWidthMM(dpy,i)*10);
++       if (DisplayHeightMM(dpy,i) < 1)
++               dpisY[ i ] = 75; // default the dpi to 75.
++       else
++               dpisY[ i ] = (DisplayHeight(dpy,i) * 254 + DisplayHeightMM(dpy,i)*5)
++                     / (DisplayHeightMM(dpy,i)*10);
+     }
+ }
+ 

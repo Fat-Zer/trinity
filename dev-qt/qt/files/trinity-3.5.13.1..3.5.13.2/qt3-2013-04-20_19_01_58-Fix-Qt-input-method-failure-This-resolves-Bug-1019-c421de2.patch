@@ -1,0 +1,45 @@
+diff --git a/src/kernel/qapplication_x11.cpp b/src/kernel/qapplication_x11.cpp
+index 50a2bac..9236f3a 100644
+--- a/src/kernel/qapplication_x11.cpp
++++ b/src/kernel/qapplication_x11.cpp
+@@ -195,7 +195,7 @@ static const char *appBTNCol	= 0;		// application btn color
+ static const char *mwGeometry	= 0;		// main widget geometry
+ static const char *mwTitle	= 0;		// main widget title
+ //Ming-Che 10/10
+-char    *qt_ximServer	= 0;		// XIM Server will connect to
++Q_EXPORT char    *qt_ximServer	= 0;		// XIM Server will connect to
+ static bool	mwIconic	= FALSE;	// main widget iconified
+ //Ming-Che 10/10
+ static Display *appDpy		= 0;		// X11 application display
+@@ -415,13 +415,13 @@ static bool qt_x11EventFilter( XEvent* ev )
+ 
+ #if !defined(QT_NO_XIM)
+ //XIM		qt_xim			= 0;
+-XIMStyle	qt_xim_style		= 0;
+-XIMStyle	qt_xim_preferred_style	= 0;
+-static XIMStyle xim_default_style	= XIMPreeditCallbacks | XIMStatusNothing;
++Q_EXPORT XIMStyle	qt_xim_style		= 0;
++Q_EXPORT XIMStyle	qt_xim_preferred_style	= 0;
++Q_EXPORT static XIMStyle xim_default_style	= XIMPreeditCallbacks | XIMStatusNothing;
+ #endif
+ 
+-int qt_ximComposingKeycode=0;
+-QTextCodec * qt_input_mapper = 0;
++Q_EXPORT int qt_ximComposingKeycode=0;
++Q_EXPORT QTextCodec * qt_input_mapper = 0;
+ 
+ Q_EXPORT Time	qt_x_time = CurrentTime;
+ Q_EXPORT Time	qt_x_user_time = CurrentTime;
+diff --git a/src/kernel/qinputcontext.h b/src/kernel/qinputcontext.h
+index 99e5d37..5b2650a 100644
+--- a/src/kernel/qinputcontext.h
++++ b/src/kernel/qinputcontext.h
+@@ -69,7 +69,7 @@ struct QInputContextMenu {
+ };
+ 
+ 
+-class QInputContext : public QObject
++class Q_EXPORT QInputContext : public QObject
+ {
+     Q_OBJECT
+ public:

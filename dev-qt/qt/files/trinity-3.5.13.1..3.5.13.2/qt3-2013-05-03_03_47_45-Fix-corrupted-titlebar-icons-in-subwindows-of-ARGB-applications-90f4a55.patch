@@ -1,0 +1,63 @@
+diff --git a/src/kernel/qwidget_x11.cpp b/src/kernel/qwidget_x11.cpp
+index a095025..783034e 100644
+--- a/src/kernel/qwidget_x11.cpp
++++ b/src/kernel/qwidget_x11.cpp
+@@ -44,6 +44,7 @@
+ #include "qpaintdevicemetrics.h"
+ #include "qpainter.h"
+ #include "qbitmap.h"
++#include "qimage.h"
+ #include "qobjectlist.h"
+ #include "qlayout.h"
+ #include "qtextcodec.h"
+@@ -1231,14 +1232,47 @@ void QWidget::setIcon( const QPixmap &pixmap )
+     }
+     Pixmap icon_pixmap = 0;
+     Pixmap mask_pixmap = 0;
++    QPixmap* pm = NULL;
+     if ( !pixmap.isNull() ) {
+-	QPixmap* pm = new QPixmap( pixmap );
++	if (pixmap.depth() == 24) {
++	    pm = new QPixmap( pixmap );
++	}
++	else {
++	    // With most window managers, only 24-bit icon pixmaps are allowed in the WM hints, otherwise corrupt icons will be displayed
++	    // Convert provided pixmaps to 24-bit here
++	    int w = pixmap.width();
++	    int h = pixmap.height();
++	    pm = new QPixmap( pixmap.width(), pixmap.height(), 24 );
++	    QImage iconImage = pixmap.convertToImage();
++
++	    // Load the new 24-bit RGB pixmap with data
++	    GC gc;
++	    pm->detach();
++	    Qt::HANDLE pmHandle = pm->handle();
++	    gc = XCreateGC(x11Display(), pmHandle, 0, 0);
++	    for (int y = 0; y < h; ++y) {
++		QRgb *ls = (QRgb *)iconImage.scanLine( y );
++		for (int x = 0; x < w; ++x) {
++		    QRgb l = ls[x];
++		    int r = int( qRed( l ) );
++		    int g = int( qGreen( l ) );
++		    int b = int( qBlue( l ) );
++		    ls[x] = qRgb( r, g, b );
++		    XSetForeground(x11Display(), gc, (r << 16) | (g << 8) | b );
++		    XDrawPoint(x11Display(), pmHandle, gc, x, y);
++		}
++	    }
++	    XFreeGC(x11Display(), gc);
++	}
++
+ 	extra->topextra->icon = pm;
+-	if ( !pm->mask() )
++	if ( !pm->mask() ) {
+ 	    pm->setMask( pm->createHeuristicMask() ); // may do detach()
++	}
+ 	icon_pixmap = pm->handle();
+-	if ( pm->mask() )
++	if ( pm->mask() ) {
+ 	    mask_pixmap = pm->mask()->handle();
++	}
+     }
+     XWMHints *h = XGetWMHints( x11Display(), winId() );
+     XWMHints  wm_hints;

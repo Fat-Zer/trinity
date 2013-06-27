@@ -1,0 +1,1052 @@
+diff --git a/src/kernel/qapplication.cpp b/src/kernel/qapplication.cpp
+index 0ec4904..960db1e 100644
+--- a/src/kernel/qapplication.cpp
++++ b/src/kernel/qapplication.cpp
+@@ -546,8 +546,9 @@ static QPostEventList *globalPostedEvents = 0;	// list of posted events
+ 
+ uint qGlobalPostedEventsCount()
+ {
+-    if (!globalPostedEvents)
++    if (!globalPostedEvents) {
+ 	return 0;
++    }
+     return globalPostedEvents->count();
+ }
+ 
+@@ -2315,8 +2316,9 @@ void QApplication::aboutQt()
+ bool QApplication::notify( QObject *receiver, QEvent *e )
+ {
+     // no events are delivered after ~QApplication() has started
+-    if ( is_app_closing )
++    if ( is_app_closing ) {
+ 	return FALSE;
++    }
+ 
+     if ( receiver == 0 ) {			// serious error
+ #if defined(QT_CHECK_NULL)
+@@ -2358,8 +2360,9 @@ bool QApplication::notify( QObject *receiver, QEvent *e )
+     }
+ 
+     bool res = FALSE;
+-    if ( !receiver->isWidgetType() )
++    if ( !receiver->isWidgetType() ) {
+ 	res = internalNotify( receiver, e );
++    }
+     else switch ( e->type() ) {
+ #ifndef QT_NO_ACCEL
+     case QEvent::Accel:
+@@ -2367,13 +2370,15 @@ bool QApplication::notify( QObject *receiver, QEvent *e )
+ 	    QKeyEvent* key = (QKeyEvent*) e;
+ 	    res = internalNotify( receiver, e );
+ 
+-	    if ( !res && !key->isAccepted() )
++	    if ( !res && !key->isAccepted() ) {
+ 		res = qt_dispatchAccelEvent( (QWidget*)receiver, key );
++	    }
+ 
+ 	    // next lines are for compatibility with Qt <= 3.0.x: old
+ 	    // QAccel was listening on toplevel widgets
+-	    if ( !res && !key->isAccepted() && !((QWidget*)receiver)->isTopLevel() )
++	    if ( !res && !key->isAccepted() && !((QWidget*)receiver)->isTopLevel() ) {
+ 		res = internalNotify( ((QWidget*)receiver)->topLevelWidget(), e );
++	    }
+ 	}
+     break;
+ #endif //QT_NO_ACCEL
+@@ -3116,8 +3121,9 @@ void QApplication::postEvent( QObject *receiver, QEvent *event )
+ 	qapp_cleanup_events.set( &globalPostedEvents );
+     }
+ 
+-    if ( !receiver->postedEvents )
++    if ( !receiver->postedEvents ) {
+ 	receiver->postedEvents = new QPostEventList;
++    }
+     QPostEventList * l = receiver->postedEvents;
+ 
+     // if this is one of the compressible events, do compression
+@@ -3232,22 +3238,25 @@ void QApplication::sendPostedEvents( QObject *receiver, int event_type )
+ {
+     // Make sure the object hierarchy is stable before processing events
+     // to avoid endless loops
+-    if ( receiver == 0 && event_type == 0 )
++    if ( receiver == 0 && event_type == 0 ) {
+ 	sendPostedEvents( 0, QEvent::ChildInserted );
+-
+-    if ( !globalPostedEvents || ( receiver && !receiver->postedEvents ) )
+-	return;
++    }
+ 
+ #ifdef QT_THREAD_SUPPORT
+     QMutexLocker locker( postevent_mutex );
+ #endif
+ 
++    if ( !globalPostedEvents || ( receiver && !receiver->postedEvents ) ) {
++	return;
++    }
++
+     bool sent = TRUE;
+     while ( sent ) {
+ 	sent = FALSE;
+ 
+-	if ( !globalPostedEvents || ( receiver && !receiver->postedEvents ) )
++	if ( !globalPostedEvents || ( receiver && !receiver->postedEvents ) ) {
+ 	    return;
++	}
+ 
+ 	// if we have a receiver, use the local list. Otherwise, use the
+ 	// global list
+@@ -3296,8 +3305,9 @@ void QApplication::sendPostedEvents( QObject *receiver, int event_type )
+ 		if ( e->type() == QEvent::Paint && r->isWidgetType() ) {
+ 		    QWidget * w = (QWidget*)r;
+ 		    QPaintEvent * p = (QPaintEvent*)e;
+-		    if ( w->isVisible() )
++		    if ( w->isVisible() ) {
+ 			w->repaint( p->reg, p->erase );
++		    }
+ 		} else {
+ 		    sent = TRUE;
+ 		    QApplication::sendEvent( r, e );
+@@ -3318,10 +3328,12 @@ void QApplication::sendPostedEvents( QObject *receiver, int event_type )
+ 	if ( l == globalPostedEvents ) {
+ 	    globalPostedEvents->first();
+ 	    while( (pe=globalPostedEvents->current()) != 0 ) {
+-		if ( pe->event )
++		if ( pe->event ) {
+ 		    globalPostedEvents->next();
+-		else
++		}
++		else {
+ 		    globalPostedEvents->remove();
++		}
+ 	    }
+ 	}
+     }
+diff --git a/src/kernel/qobject.cpp b/src/kernel/qobject.cpp
+index 7790676..375e83b 100644
+--- a/src/kernel/qobject.cpp
++++ b/src/kernel/qobject.cpp
+@@ -471,11 +471,13 @@ QObject::~QObject()
+     blockSig = 0; // unblock signals to keep QGuardedPtr happy
+     emit destroyed( this );
+     emit destroyed();
+-    if ( objname )
++    if ( objname ) {
+ 	delete [] (char*)objname;
++    }
+     objname = 0;
+-    if ( pendTimer )				// might be pending timers
++    if ( pendTimer ) {				// might be pending timers
+ 	qKillTimer( this );
++    }
+     QApplication::removePostedEvents( this );
+     if ( isTree ) {
+ 	remove_tree( this );		// remove from global root list
+@@ -755,12 +757,17 @@ QObject* QObject::child( const char *objName, const char *inheritsClass,
+ bool QObject::event( QEvent *e )
+ {
+ #if defined(QT_CHECK_NULL)
+-    if ( e == 0 )
++    if ( e == 0 ) {
+ 	qWarning( "QObject::event: Null events are not permitted" );
++    }
+ #endif
++    if ( wasDeleted ) {
++	return TRUE;
++    }
+     if ( eventFilters ) {			// try filters
+-	if ( activate_filters(e) )		// stopped by a filter
++	if ( activate_filters(e) ) {		// stopped by a filter
+ 	    return TRUE;
++	}
+     }
+ 
+     switch ( e->type() ) {
+diff --git a/src/tools/qglist.cpp b/src/tools/qglist.cpp
+index b04ac75..fb94427 100644
+--- a/src/tools/qglist.cpp
++++ b/src/tools/qglist.cpp
+@@ -43,6 +43,10 @@
+ #include "qdatastream.h"
+ #include "qvaluelist.h"
+ 
++#if defined(QT_THREAD_SUPPORT)
++  #include "qmutex.h"
++#endif // defined(QT_THREAD_SUPPORT)
++
+ /*!
+   \class QLNode qglist.h
+   \reentrant
+@@ -221,6 +225,9 @@ QDataStream &QGList::write( QDataStream &s, QPtrCollection::Item ) const
+ 
+ QGList::QGList()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex = new QMutex(true);
++#endif
+     firstNode = lastNode = curNode = 0;		// initialize list
+     numNodes  = 0;
+     curIndex  = -1;
+@@ -234,6 +241,9 @@ QGList::QGList()
+ QGList::QGList( const QGList & list )
+     : QPtrCollection( list )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex = new QMutex(true);
++#endif
+     firstNode = lastNode = curNode = 0;		// initialize list
+     numNodes  = 0;
+     curIndex  = -1;
+@@ -258,6 +268,9 @@ QGList::~QGList()
+     // twice on the same address! This is insane but let's try not to crash
+     // here.
+     iterators = 0;
++#if defined(QT_THREAD_SUPPORT)
++    //delete mutex;
++#endif
+ }
+ 
+ 
+@@ -290,11 +303,13 @@ QGList& QGList::operator=( const QGList &list )
+ 
+ bool QGList::operator==( const QGList &list ) const
+ {
+-    if ( count() != list.count() )
++    if ( count() != list.count() ) {
+ 	return FALSE;
++    }
+ 
+-    if ( count() == 0 )
++    if ( count() == 0 ) {
+ 	return TRUE;
++    }
+ 
+     QLNode *n1 = firstNode;
+     QLNode *n2 = list.firstNode;
+@@ -322,8 +337,15 @@ bool QGList::operator==( const QGList &list ) const
+ 
+ QLNode *QGList::locate( uint index )
+ {
+-    if ( index == (uint)curIndex )		// current node ?
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
++    if ( index == (uint)curIndex ) {		// current node ?
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return curNode;
++    }
+     if ( !curNode && firstNode ) {		// set current node
+ 	curNode	 = firstNode;
+ 	curIndex = 0;
+@@ -332,13 +354,18 @@ QLNode *QGList::locate( uint index )
+     int	 distance = index - curIndex;		// node distance to cur node
+     bool forward;				// direction to traverse
+ 
+-    if ( index >= numNodes )
++    if ( index >= numNodes ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return 0;
++    }
+ 
+-    if ( distance < 0 )
++    if ( distance < 0 ) {
+ 	distance = -distance;
++    }
+     if ( (uint)distance < index && (uint)distance < numNodes - index ) {
+-	node =	curNode;			// start from current node
++	node = curNode;				// start from current node
+ 	forward = index > (uint)curIndex;
+     } else if ( index < numNodes - index ) {	// start from first node
+ 	node = firstNode;
+@@ -352,13 +379,18 @@ QLNode *QGList::locate( uint index )
+ 	forward = FALSE;
+     }
+     if ( forward ) {				// now run through nodes
+-	while ( distance-- )
++	while ( distance-- ) {
+ 	    node = node->next;
++	}
+     } else {
+-	while ( distance-- )
++	while ( distance-- ) {
+ 	    node = node->prev;
++	}
+     }
+     curIndex = index;				// must update index
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return curNode = node;
+ }
+ 
+@@ -369,6 +401,9 @@ QLNode *QGList::locate( uint index )
+ 
+ void QGList::inSort( QPtrCollection::Item d )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     int index = 0;
+     register QLNode *n = firstNode;
+     while ( n && compareItems(n->data,d) < 0 ){ // find position in list
+@@ -376,6 +411,9 @@ void QGList::inSort( QPtrCollection::Item d )
+ 	index++;
+     }
+     insertAt( index, d );
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+ }
+ 
+ 
+@@ -385,6 +423,9 @@ void QGList::inSort( QPtrCollection::Item d )
+ 
+ void QGList::prepend( QPtrCollection::Item d )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     register QLNode *n = new QLNode( newItem(d) );
+     Q_CHECK_PTR( n );
+     n->prev = 0;
+@@ -395,6 +436,9 @@ void QGList::prepend( QPtrCollection::Item d )
+     firstNode = curNode = n;			// curNode affected
+     numNodes++;
+     curIndex = 0;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+ }
+ 
+ 
+@@ -404,16 +448,24 @@ void QGList::prepend( QPtrCollection::Item d )
+ 
+ void QGList::append( QPtrCollection::Item d )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     register QLNode *n = new QLNode( newItem(d) );
+     Q_CHECK_PTR( n );
+     n->next = 0;
+-    if ( (n->prev = lastNode) )			// list is not empty
++    if ( (n->prev = lastNode) ) {		// list is not empty
+ 	lastNode->next = n;
+-    else					// initialize list
++    }
++    else {					// initialize list
+ 	firstNode = n;
++    }
+     lastNode = curNode = n;			// curNode affected
+     curIndex = numNodes;
+     numNodes++;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+ }
+ 
+ 
+@@ -423,25 +475,43 @@ void QGList::append( QPtrCollection::Item d )
+ 
+ bool QGList::insertAt( uint index, QPtrCollection::Item d )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     if ( index == 0 ) {
+ 	prepend( d );
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return TRUE;
+-    } else if ( index == numNodes ) {
++    }
++    else if ( index == numNodes ) {
+ 	append( d );
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return TRUE;
+     }
+     QLNode *nextNode = locate( index );
+-    if ( !nextNode )
++    if ( !nextNode ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return FALSE;
++    }
+     QLNode *prevNode = nextNode->prev;
+     register QLNode *n = new QLNode( newItem(d) );
+     Q_CHECK_PTR( n );
+     nextNode->prev = n;
++    Q_ASSERT( (!((curIndex > 0) && (!prevNode))) );
+     prevNode->next = n;
+     n->prev = prevNode;				// link new node into list
+     n->next = nextNode;
+     curNode = n;				// curIndex set by locate()
+     numNodes++;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return TRUE;
+ }
+ 
+@@ -452,18 +522,30 @@ bool QGList::insertAt( uint index, QPtrCollection::Item d )
+ 
+ void QGList::relinkNode( QLNode *n )
+ {
+-    if ( n == firstNode )			// already first
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
++    if ( n == firstNode ) {			// already first
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return;
++    }
+     curNode = n;
+     unlink();
+     n->prev = 0;
+-    if ( (n->next = firstNode) )		// list is not empty
++    if ( (n->next = firstNode) ) {		// list is not empty
+ 	firstNode->prev = n;
+-    else					// initialize list
++    }
++    else {					// initialize list
+ 	lastNode = n;
++    }
+     firstNode = curNode = n;			// curNode affected
+     numNodes++;
+     curIndex = 0;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+ }
+ 
+ 
+@@ -473,8 +555,15 @@ void QGList::relinkNode( QLNode *n )
+ 
+ QLNode *QGList::unlink()
+ {
+-    if ( curNode == 0 )				// null current node
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
++    if ( curNode == 0 ) {			// null current node
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return 0;
++    }
+     register QLNode *n = curNode;		// unlink this node
+     if ( n == firstNode ) {			// removing first node ?
+ 	if ( (firstNode = n->next) ) {
+@@ -500,9 +589,13 @@ QLNode *QGList::unlink()
+         curIndex--;
+     }
+ 
+-    if ( iterators )
++    if ( iterators ) {
+ 	iterators->notifyRemove( n, curNode );
++    }
+     numNodes--;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return n;
+ }
+ 
+@@ -513,6 +606,9 @@ QLNode *QGList::unlink()
+ 
+ bool QGList::removeNode( QLNode *n )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+ #if defined(QT_CHECK_NULL)
+     if ( n == 0 || (n->prev && n->prev->next != n) ||
+ 	 (n->next && n->next->prev != n) ) {
+@@ -526,6 +622,9 @@ bool QGList::removeNode( QLNode *n )
+     delete n;
+     curNode  = firstNode;
+     curIndex = curNode ? 0 : -1;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return TRUE;
+ }
+ 
+@@ -537,13 +636,27 @@ bool QGList::removeNode( QLNode *n )
+ 
+ bool QGList::remove( QPtrCollection::Item d )
+ {
+-    if ( d && find(d) == -1 )
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
++    if ( d && find(d) == -1 ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return FALSE;
++    }
+     QLNode *n = unlink();
+-    if ( !n )
++    if ( !n ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return FALSE;
++    }
+     deleteItem( n->data );
+     delete n;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return TRUE;
+ }
+ 
+@@ -553,13 +666,27 @@ bool QGList::remove( QPtrCollection::Item d )
+ 
+ bool QGList::removeRef( QPtrCollection::Item d )
+ {
+-    if ( findRef(d) == -1 )
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
++    if ( findRef(d) == -1 ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return FALSE;
++    }
+     QLNode *n = unlink();
+-    if ( !n )
++    if ( !n ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return FALSE;
++    }
+     deleteItem( n->data );
+     delete n;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return TRUE;
+ }
+ 
+@@ -581,13 +708,27 @@ bool QGList::removeRef( QPtrCollection::Item d )
+ 
+ bool QGList::removeAt( uint index )
+ {
+-    if ( !locate(index) )
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
++    if ( !locate(index) ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return FALSE;
++    }
+     QLNode *n = unlink();
+-    if ( !n )
++    if ( !n ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return FALSE;
++    }
+     deleteItem( n->data );
+     delete n;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return TRUE;
+ }
+ 
+@@ -597,13 +738,23 @@ bool QGList::removeAt( uint index )
+ */
+ bool QGList::replaceAt( uint index, QPtrCollection::Item d )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     QLNode *n = locate( index );
+-    if ( !n )
++    if ( !n ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return FALSE;
++    }
+     if ( n->data != d ) {
+ 	deleteItem( n->data );
+ 	n->data = newItem( d );
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return TRUE;
+ }
+ 
+@@ -615,10 +766,16 @@ bool QGList::replaceAt( uint index, QPtrCollection::Item d )
+ 
+ QPtrCollection::Item QGList::takeNode( QLNode *n )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+ #if defined(QT_CHECK_NULL)
+     if ( n == 0 || (n->prev && n->prev->next != n) ||
+ 	 (n->next && n->next->prev != n) ) {
+ 	qWarning( "QGList::takeNode: Corrupted node" );
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return 0;
+     }
+ #endif
+@@ -628,6 +785,9 @@ QPtrCollection::Item QGList::takeNode( QLNode *n )
+     delete n;					// delete the node, not data
+     curNode  = firstNode;
+     curIndex = curNode ? 0 : -1;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return d;
+ }
+ 
+@@ -637,9 +797,15 @@ QPtrCollection::Item QGList::takeNode( QLNode *n )
+ 
+ QPtrCollection::Item QGList::take()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     QLNode *n = unlink();			// unlink node
+     Item d = n ? n->data : 0;
+     delete n;					// delete node, keep contents
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return d;
+ }
+ 
+@@ -649,11 +815,21 @@ QPtrCollection::Item QGList::take()
+ 
+ QPtrCollection::Item QGList::takeAt( uint index )
+ {
+-    if ( !locate(index) )
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
++    if ( !locate(index) ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return 0;
++    }
+     QLNode *n = unlink();			// unlink node
+     Item d = n ? n->data : 0;
+     delete n;					// delete node, keep contents
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return d;
+ }
+ 
+@@ -663,10 +839,16 @@ QPtrCollection::Item QGList::takeAt( uint index )
+ 
+ QPtrCollection::Item QGList::takeFirst()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     first();
+     QLNode *n = unlink();			// unlink node
+     Item d = n ? n->data : 0;
+     delete n;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return d;
+ }
+ 
+@@ -676,10 +858,16 @@ QPtrCollection::Item QGList::takeFirst()
+ 
+ QPtrCollection::Item QGList::takeLast()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     last();
+     QLNode *n = unlink();			// unlink node
+     Item d = n ? n->data : 0;
+     delete n;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return d;
+ }
+ 
+@@ -690,14 +878,18 @@ QPtrCollection::Item QGList::takeLast()
+ 
+ void QGList::clear()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     register QLNode *n = firstNode;
+ 
+     firstNode = lastNode = curNode = 0;		// initialize list
+     numNodes = 0;
+     curIndex = -1;
+ 
+-    if ( iterators )
++    if ( iterators ) {
+ 	iterators->notifyClear( FALSE );
++    }
+ 
+     QLNode *prevNode;
+     while ( n ) {				// for all nodes ...
+@@ -706,6 +898,9 @@ void QGList::clear()
+ 	n = n->next;
+ 	delete prevNode;			// deallocate node
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+ }
+ 
+ 
+@@ -716,6 +911,9 @@ void QGList::clear()
+ 
+ int QGList::findRef( QPtrCollection::Item d, bool fromStart )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     register QLNode *n;
+     int	     index;
+     if ( fromStart ) {				// start from first node
+@@ -731,6 +929,9 @@ int QGList::findRef( QPtrCollection::Item d, bool fromStart )
+     }
+     curNode = n;
+     curIndex = n ? index : -1;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return curIndex;				// return position of item
+ }
+ 
+@@ -742,6 +943,9 @@ int QGList::findRef( QPtrCollection::Item d, bool fromStart )
+ 
+ int QGList::find( QPtrCollection::Item d, bool fromStart )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     register QLNode *n;
+     int	     index;
+     if ( fromStart ) {				// start from first node
+@@ -757,6 +961,9 @@ int QGList::find( QPtrCollection::Item d, bool fromStart )
+     }
+     curNode = n;
+     curIndex = n ? index : -1;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return curIndex;				// return position of item
+ }
+ 
+@@ -767,6 +974,9 @@ int QGList::find( QPtrCollection::Item d, bool fromStart )
+ 
+ uint QGList::containsRef( QPtrCollection::Item d ) const
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     register QLNode *n = firstNode;
+     uint     count = 0;
+     while ( n ) {				// for all nodes...
+@@ -774,6 +984,9 @@ uint QGList::containsRef( QPtrCollection::Item d ) const
+ 	    count++;
+ 	n = n->next;
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return count;
+ }
+ 
+@@ -784,6 +997,9 @@ uint QGList::containsRef( QPtrCollection::Item d ) const
+ 
+ uint QGList::contains( QPtrCollection::Item d ) const
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     register QLNode *n = firstNode;
+     uint     count = 0;
+     QGList  *that = (QGList*)this;		// mutable for compareItems()
+@@ -792,6 +1008,9 @@ uint QGList::contains( QPtrCollection::Item d ) const
+ 	    count++;
+ 	n = n->next;
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return count;
+ }
+ 
+@@ -839,10 +1058,19 @@ uint QGList::contains( QPtrCollection::Item d ) const
+ 
+ QPtrCollection::Item QGList::first()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     if ( firstNode ) {
+ 	curIndex = 0;
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return (curNode=firstNode)->data;
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return 0;
+ }
+ 
+@@ -852,10 +1080,19 @@ QPtrCollection::Item QGList::first()
+ 
+ QPtrCollection::Item QGList::last()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     if ( lastNode ) {
+ 	curIndex = numNodes-1;
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return (curNode=lastNode)->data;
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return 0;
+ }
+ 
+@@ -865,15 +1102,24 @@ QPtrCollection::Item QGList::last()
+ 
+ QPtrCollection::Item QGList::next()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     if ( curNode ) {
+ 	if ( curNode->next ) {
+ 	    curIndex++;
+ 	    curNode = curNode->next;
++#if defined(QT_THREAD_SUPPORT)
++	    //mutex->unlock();
++#endif
+ 	    return curNode->data;
+ 	}
+ 	curIndex = -1;
+ 	curNode = 0;
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return 0;
+ }
+ 
+@@ -883,15 +1129,24 @@ QPtrCollection::Item QGList::next()
+ 
+ QPtrCollection::Item QGList::prev()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     if ( curNode ) {
+ 	if ( curNode->prev ) {
+ 	    curIndex--;
+ 	    curNode = curNode->prev;
++#if defined(QT_THREAD_SUPPORT)
++	    //mutex->unlock();
++#endif
+ 	    return curNode->data;
+ 	}
+ 	curIndex = -1;
+ 	curNode = 0;
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return 0;
+ }
+ 
+@@ -902,9 +1157,16 @@ QPtrCollection::Item QGList::prev()
+ 
+ void QGList::toVector( QGVector *vector ) const
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     vector->clear();
+-    if ( !vector->resize( count() ) )
++    if ( !vector->resize( count() ) ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return;
++    }
+     register QLNode *n = firstNode;
+     uint i = 0;
+     while ( n ) {
+@@ -912,10 +1174,16 @@ void QGList::toVector( QGVector *vector ) const
+ 	n = n->next;
+ 	i++;
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+ }
+ 
+ void QGList::heapSortPushDown( QPtrCollection::Item* heap, int first, int last )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     int r = first;
+     while( r <= last/2 ) {
+ 	// Node r has only one child ?
+@@ -950,6 +1218,9 @@ void QGList::heapSortPushDown( QPtrCollection::Item* heap, int first, int last )
+ 	    }
+ 	}
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+ }
+ 
+ 
+@@ -962,9 +1233,16 @@ void QGList::heapSortPushDown( QPtrCollection::Item* heap, int first, int last )
+ 
+ void QGList::sort()
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     uint n = count();
+-    if ( n < 2 )
++    if ( n < 2 ) {
++#if defined(QT_THREAD_SUPPORT)
++	//mutex->unlock();
++#endif
+ 	return;
++    }
+ 
+     // Create the heap
+     QPtrCollection::Item* realheap = new QPtrCollection::Item[ n ];
+@@ -995,6 +1273,9 @@ void QGList::sort()
+     }
+ 
+     delete [] realheap;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+ }
+ 
+ 
+@@ -1019,6 +1300,9 @@ QDataStream &operator<<( QDataStream &s, const QGList &list )
+ 
+ QDataStream &QGList::read( QDataStream &s )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     uint num;
+     s >> num;					// read number of items
+     clear();					// clear list
+@@ -1042,6 +1326,9 @@ QDataStream &QGList::read( QDataStream &s )
+     }
+     curNode  = firstNode;
+     curIndex = curNode ? 0 : -1;
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return s;
+ }
+ 
+@@ -1051,12 +1338,18 @@ QDataStream &QGList::read( QDataStream &s )
+ 
+ QDataStream &QGList::write( QDataStream &s ) const
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     s << count();				// write number of items
+     QLNode *n = firstNode;
+     while ( n ) {				// write all items
+ 	write( s, n->data );
+ 	n = n->next;
+     }
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return s;
+ }
+ 
+@@ -1068,9 +1361,15 @@ QDataStream &QGList::write( QDataStream &s ) const
+  */
+ QLNode* QGList::erase( QLNode* it )
+ {
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->lock();
++#endif
+     QLNode* n = it;
+     it = it->next;
+     removeNode( n );
++#if defined(QT_THREAD_SUPPORT)
++    //mutex->unlock();
++#endif
+     return it;
+ }
+ 
+diff --git a/src/tools/qglist.h b/src/tools/qglist.h
+index fadc46c..dfacf47 100644
+--- a/src/tools/qglist.h
++++ b/src/tools/qglist.h
+@@ -59,6 +59,8 @@ private:
+     QLNode( QPtrCollection::Item d ) { data = d; }
+ };
+ 
++class QMutex;
++class QGListPrivate;
+ class QGListIteratorList; // internal helper class
+ 
+ class Q_EXPORT QGList : public QPtrCollection	// doubly linked generic list
+@@ -147,6 +149,12 @@ private:
+ 
+     QLNode *locate( uint );			// get node at i'th pos
+     QLNode *unlink();				// unlink node
++
++#if defined(QT_THREAD_SUPPORT)
++//     QMutex* mutex;
++#endif
++
++//     QGListPrivate* d;
+ };
+ 
+ 

@@ -1,0 +1,46 @@
+diff --git a/src/kernel/qapplication.cpp b/src/kernel/qapplication.cpp
+index 7296f4c..0ec4904 100644
+--- a/src/kernel/qapplication.cpp
++++ b/src/kernel/qapplication.cpp
+@@ -320,6 +320,7 @@ void qt_init( int *, char **, QApplication::Type );
+ void qt_cleanup();
+ #if defined(Q_WS_X11)
+ void qt_init( Display* dpy, Qt::HANDLE, Qt::HANDLE );
++void qt_init( int *, char **, Display* dpy, Qt::HANDLE, Qt::HANDLE );
+ #endif
+ Q_EXPORT bool qt_tryModalHelper( QWidget *widget, QWidget **rettop );
+ 
+@@ -908,7 +909,7 @@ QApplication::QApplication(Display *dpy, int argc, char **argv,
+ 
+ 	qt_init( &argc, argv, GuiClient );
+     } else {
+-	qt_init(dpy, visual, colormap);
++	qt_init( &argc, argv, dpy, visual, colormap );
+     }
+ 
+     process_cmdline( &argc, argv );
+diff --git a/src/kernel/qapplication_x11.cpp b/src/kernel/qapplication_x11.cpp
+index 4a03d95..0f9d777 100644
+--- a/src/kernel/qapplication_x11.cpp
++++ b/src/kernel/qapplication_x11.cpp
+@@ -1639,7 +1639,7 @@ void qt_init_internal( int *argcptr, char **argv,
+     }
+ #endif
+ 
+-    if ( display ) {
++    if ( display && ((!argcptr) || (!argv)) ) {
+ 	// Qt part of other application
+ 
+ 	appForeignDpy = TRUE;
+@@ -2439,6 +2439,11 @@ void qt_init( Display *display, Qt::HANDLE visual, Qt::HANDLE colormap )
+     qt_init_internal( 0, 0, display, visual, colormap );
+ }
+ 
++void qt_init( int *argcptr, char **argv, Display *display, Qt::HANDLE visual, Qt::HANDLE colormap )
++{
++    qt_init_internal( argcptr, argv, display, visual, colormap );
++}
++
+ 
+ /*****************************************************************************
+   qt_cleanup() - cleans up when the application is finished

@@ -1,0 +1,59 @@
+diff --git a/plugins/src/sqldrivers/odbc/odbc.pro b/plugins/src/sqldrivers/odbc/odbc.pro
+index ac0cf3c..36d35b5 100644
+--- a/plugins/src/sqldrivers/odbc/odbc.pro
++++ b/plugins/src/sqldrivers/odbc/odbc.pro
+@@ -17,7 +17,7 @@ mac {
+ unix {
+ 	OBJECTS_DIR	= .obj
+ 	!contains( LIBS, .*odbc.* ) {
+-	    LIBS 	*= -liodbc
++	    LIBS 	*= -lodbc
+ 	}
+ }
+ 
+diff --git a/src/sql/drivers/odbc/qsql_odbc.cpp b/src/sql/drivers/odbc/qsql_odbc.cpp
+index b09afd2..8b0b58b 100644
+--- a/src/sql/drivers/odbc/qsql_odbc.cpp
++++ b/src/sql/drivers/odbc/qsql_odbc.cpp
+@@ -61,19 +61,18 @@
+ #endif
+ 
+ // newer platform SDKs use SQLLEN instead of SQLINTEGER
+-#ifdef SQLLEN
++#if defined(SQLLEN) || defined(Q_OS_WIN64) || defined(Q_OS_UNIX)
+ # define QSQLLEN SQLLEN
+ #else
+ # define QSQLLEN SQLINTEGER
+ #endif
+ 
+-#ifdef SQLULEN
++#if defined(SQLULEN) || defined(Q_OS_WIN64) || defined(Q_OS_UNIX)
+ # define QSQLULEN SQLULEN
+ #else
+ # define QSQLULEN SQLUINTEGER
+ #endif
+ 
+-
+ static const QSQLLEN COLNAMESIZE = 256;
+ //Map Qt parameter types to ODBC types
+ static const SQLSMALLINT qParamType[ 4 ] = { SQL_PARAM_INPUT, SQL_PARAM_INPUT, SQL_PARAM_OUTPUT, SQL_PARAM_INPUT_OUTPUT };
+diff --git a/src/sql/qt_sql.pri b/src/sql/qt_sql.pri
+index 5533c6f..17a6d40 100644
+--- a/src/sql/qt_sql.pri
++++ b/src/sql/qt_sql.pri
+@@ -110,13 +110,13 @@ sql {
+ 
+ 		mac {
+ 			!contains( LIBS, .*odbc.* ) {
+-				LIBS        *= -liodbc
++				LIBS        *= -lodbc
+ 			}
+ 		}
+ 
+ 		unix {
+ 			!contains( LIBS, .*odbc.* ) {
+-				LIBS        *= -liodbc
++				LIBS        *= -lodbc
+ 			}
+ 		}
+ 

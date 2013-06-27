@@ -1,0 +1,38 @@
+diff --git a/src/kernel/qapplication_x11.cpp b/src/kernel/qapplication_x11.cpp
+index 203cb39..4a03d95 100644
+--- a/src/kernel/qapplication_x11.cpp
++++ b/src/kernel/qapplication_x11.cpp
+@@ -3446,13 +3446,26 @@ int QApplication::x11ProcessEvent( XEvent* event )
+ 	// update the size for desktop widget
+ 	int scr = XRRRootToScreen( appDpy, event->xany.window );
+ 	QWidget *w = desktop()->screen( scr );
+-	QSize oldSize( w->size() );
+-	w->crect.setWidth( DisplayWidth( appDpy, scr ) );
+-        w->crect.setHeight( DisplayHeight( appDpy, scr ) );
+-	if ( w->size() != oldSize ) {
+-	    QResizeEvent e( w->size(), oldSize );
+-	    QApplication::sendEvent( w, &e );
+-	    emit desktop()->resized( scr );
++
++	if (w) {
++	    int widgetScr = -1;
++	    // make sure the specified widget is on the same screen that received the XRandR event
++	    XWindowAttributes widgetAttr;
++	    XGetWindowAttributes(appDpy, w->winId(), &widgetAttr);
++	    if (widgetAttr.screen) {
++		widgetScr = XScreenNumberOfScreen(widgetAttr.screen);
++	    }
++
++	    if ((widgetScr < 0) || (widgetScr == scr)) {
++		QSize oldSize( w->size() );
++		w->crect.setWidth( DisplayWidth( appDpy, scr ) );
++		w->crect.setHeight( DisplayHeight( appDpy, scr ) );
++		if ( w->size() != oldSize ) {
++		QResizeEvent e( w->size(), oldSize );
++		QApplication::sendEvent( w, &e );
++		    emit desktop()->resized( scr );
++		}
++	    }
+ 	}
+     }
+ #endif // QT_NO_XRANDR

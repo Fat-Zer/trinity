@@ -1,0 +1,62 @@
+diff --git a/src/kernel/qcolor_x11.cpp b/src/kernel/qcolor_x11.cpp
+index eeaee5e..dbd039e 100644
+--- a/src/kernel/qcolor_x11.cpp
++++ b/src/kernel/qcolor_x11.cpp
+@@ -407,8 +407,14 @@ uint QColor::alloc( int screen )
+ 	b = sd->blue_shift  > 0 ? b << sd->blue_shift  : b >> -sd->blue_shift;
+ 	pix = (b & sd->blue_mask) | (g & sd->green_mask) | (r & sd->red_mask)
+ 	      | ~(sd->blue_mask | sd->green_mask | sd->red_mask);
+-	if ( screen == QPaintDevice::x11AppScreen() )
++	if (QPaintDevice::x11AppDepth(screen) == 32) {
++	    int a = qAlpha(d.argb);
++	    pix = pix & 0x00ffffff;
++	    pix = pix | (a << 24);
++	}
++	if ( screen == QPaintDevice::x11AppScreen() ) {
+ 	    d.d32.pix = pix;
++	}
+ 	return pix;
+     }
+     QColorData *c = sd->colorDict->find( (long)(d.argb) );
+diff --git a/src/kernel/qpainter_x11.cpp b/src/kernel/qpainter_x11.cpp
+index 126c0d6..267887e 100644
+--- a/src/kernel/qpainter_x11.cpp
++++ b/src/kernel/qpainter_x11.cpp
+@@ -1842,16 +1842,24 @@ void QPainter::drawWinFocusRect( int x, int y, int w, int h,
+     RasterOp old_rop = (RasterOp)rop;
+ 
+     if ( xorPaint ) {
+-        if ( QColor::numBitPlanes() <= 8 )
++        if ( QColor::numBitPlanes() <= 8 ) {
+             setPen( QPen(color1, 0, Qt::FineDotLine) );
+-        else
++        }
++        else if ( QColor::numBitPlanes() <= 8 ) {
+             setPen( QPen(white, 0, Qt::FineDotLine) );
++        }
++        else {
++            setPen( QPen(QColor(qRgba(255,255,255,0)), 0, Qt::FineDotLine) );
++        }
+         setRasterOp( XorROP );
+-    } else {
+-        if ( qGray( bgColor.rgb() ) < 128 )
++    }
++    else {
++        if ( qGray( bgColor.rgb() ) < 128 ) {
+             setPen( QPen(white, 0, Qt::FineDotLine) );
+-        else
++        }
++        else {
+             setPen( QPen(black, 0, Qt::FineDotLine) );
++        }
+     }
+ 
+     if ( testf(ExtDev|VxF|WxF) ) {
+@@ -1876,6 +1884,7 @@ void QPainter::drawWinFocusRect( int x, int y, int w, int h,
+     XSetLineAttributes( dpy, gc, 1, LineOnOffDash, CapButt, JoinMiter );
+ 
+     XDrawRectangle( dpy, hd, gc, x, y, w-1, h-1 );
++
+     XSetLineAttributes( dpy, gc, 0, LineSolid, CapButt, JoinMiter );
+     setRasterOp( old_rop );
+     setPen( old_pen );

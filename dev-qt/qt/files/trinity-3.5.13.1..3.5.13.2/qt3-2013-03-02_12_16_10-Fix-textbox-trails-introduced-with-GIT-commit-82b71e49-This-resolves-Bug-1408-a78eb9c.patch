@@ -1,0 +1,19 @@
+diff --git a/src/iconview/qiconview.cpp b/src/iconview/qiconview.cpp
+index 36b5da2..4387a19 100644
+--- a/src/iconview/qiconview.cpp
++++ b/src/iconview/qiconview.cpp
+@@ -5770,11 +5770,11 @@ bool QIconView::eventFilter( QObject * o, QEvent * e )
+ 		if ( d->dragging ) {
+ 		    if ( !d->rubber )
+ 			drawDragShapes( d->oldDragPos );
+-		}
+-		bufferedPaintEvent( (QPaintEvent*)e );
+-		if ( d->dragging ) {
++		    viewportPaintEvent( (QPaintEvent*)e );
+ 		    if ( !d->rubber )
+ 			drawDragShapes( d->oldDragPos );
++		} else {
++		    bufferedPaintEvent( (QPaintEvent*)e );
+ 		}
+ 	    }
+ 	    return TRUE;

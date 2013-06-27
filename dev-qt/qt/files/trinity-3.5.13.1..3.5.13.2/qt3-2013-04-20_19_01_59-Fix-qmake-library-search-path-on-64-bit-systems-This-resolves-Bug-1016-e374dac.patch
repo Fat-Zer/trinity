@@ -1,0 +1,13 @@
+diff --git a/mkspecs/linux-g++-64/qmake.conf b/mkspecs/linux-g++-64/qmake.conf
+index 716e5c0..f891b3e 100644
+--- a/mkspecs/linux-g++-64/qmake.conf
++++ b/mkspecs/linux-g++-64/qmake.conf
+@@ -45,7 +45,7 @@ QMAKE_LIBDIR		=
+ QMAKE_INCDIR_X11	= /usr/X11R6/include
+ QMAKE_LIBDIR_X11	= /usr/X11R6/lib64
+ QMAKE_INCDIR_QT		= $(QTDIR)/include
+-QMAKE_LIBDIR_QT		= $(QTDIR)/lib
++QMAKE_LIBDIR_QT		= $(QTDIR)/lib64
+ QMAKE_INCDIR_OPENGL	= /usr/X11R6/include
+ QMAKE_LIBDIR_OPENGL	= /usr/X11R6/lib64
+ 

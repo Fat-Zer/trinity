@@ -1,0 +1,52 @@
+diff --git a/doc/html/qsqlcursor.html b/doc/html/qsqlcursor.html
+index 3111cc5..1caaaa7 100644
+--- a/doc/html/qsqlcursor.html
++++ b/doc/html/qsqlcursor.html
+@@ -386,7 +386,7 @@ record.
+     <a name="x2446"></a>        cur.<a href="#insert">insert</a>();
+ </pre>
+ <p> In the above example, a cursor is created on the 'prices' table
+-and a pointer to the insert buffer is aquired using <a href="#primeInsert">primeInsert</a>().
++and a pointer to the insert buffer is acquired using <a href="#primeInsert">primeInsert</a>().
+ Each field's value is set to the desired value and then <a href="#insert">insert</a>()
+ is called to insert the data into the database. Remember: all edit
+ operations (insert(), <a href="#update">update</a>() and delete()) operate on the
+diff --git a/doc/man/man3/qsqlcursor.3qt b/doc/man/man3/qsqlcursor.3qt
+index c7067de..0a97aec 100644
+--- a/doc/man/man3/qsqlcursor.3qt
++++ b/doc/man/man3/qsqlcursor.3qt
+@@ -376,7 +376,7 @@ If \fIinvalidate\fR is TRUE (the default), the cursor will no longer be position
+             cur.insert();
+ .fi
+ .PP
+-In the above example, a cursor is created on the 'prices' table and a pointer to the insert buffer is aquired using primeInsert(). Each field's value is set to the desired value and then insert() is called to insert the data into the database. Remember: all edit operations (insert(), update() and delete()) operate on the contents of the cursor edit buffer and not on the contents of the cursor itself.
++In the above example, a cursor is created on the 'prices' table and a pointer to the insert buffer is acquired using primeInsert(). Each field's value is set to the desired value and then insert() is called to insert the data into the database. Remember: all edit operations (insert(), update() and delete()) operate on the contents of the cursor edit buffer and not on the contents of the cursor itself.
+ .PP
+ See also setMode() and lastError().
+ .SH "bool QSqlCursor::isCalculated ( const QString & name ) const"
+diff --git a/src/kernel/qinternal.cpp b/src/kernel/qinternal.cpp
+index cf1e037..dfb2abc 100644
+--- a/src/kernel/qinternal.cpp
++++ b/src/kernel/qinternal.cpp
+@@ -497,7 +497,7 @@ void QSharedDoubleBuffer::flush()
+ }
+ 
+ /* \internal
+-   Aquire ownership of the shared double buffer pixmap, subject to the
++   Acquire ownership of the shared double buffer pixmap, subject to the
+    following conditions:
+ 
+    \list 1
+diff --git a/src/sql/qsqlcursor.cpp b/src/sql/qsqlcursor.cpp
+index a1be1f8..2ed963c 100644
+--- a/src/sql/qsqlcursor.cpp
++++ b/src/sql/qsqlcursor.cpp
+@@ -1007,7 +1007,7 @@ QString QSqlCursor::toString( const QSqlIndex& i, QSqlRecord* rec, const QString
+     \printuntil insert
+ 
+     In the above example, a cursor is created on the 'prices' table
+-    and a pointer to the insert buffer is aquired using primeInsert().
++    and a pointer to the insert buffer is acquired using primeInsert().
+     Each field's value is set to the desired value and then insert()
+     is called to insert the data into the database. Remember: all edit
+     operations (insert(), update() and delete()) operate on the
