@@ -68,10 +68,9 @@ TRINITY_COMMON_DOCS="AUTHORS BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE COMPILIN
 	NOTES PLUGINS PORTING README SECURITY-HOLES TASKGROUPS TEMPLATE 
 	TESTCASES THANKS THOUGHTS TODO VERSION"
 
-# @ECLASS-VARIABLE: TRINITY_ARCHIVE_POSTFIX
+# @ECLASS-VARIABLE: TRINITY_TARBALL
 # @DESCRIPTION: 
-# Tis variable controls the extencion of trinity source tarballs e.g. tar.gz or
-# tar.xz etc
+# This variable holds the name of the tarboll with current module's source code.
 
 # @ECLASS-VARIABLE: TRINITY_BASE_SRC_URI
 # @DESCRIPTION:
@@ -115,18 +114,27 @@ if [[ ${BUILD_TYPE} = live ]]; then
 	S="${WORKDIR}/${TRINITY_MODULE_NAME}"
 elif [[ "${BUILD_TYPE}" == release ]]; then
 	mod_name="${TRINITY_MODULE_NAME:=${PN}}"
-	[[ -n "${TRINITY_MODULE_TYPE}" ]] && mod_name="${TRINITY_MODULE_TYPE}/${mod_name}"
 	mod_ver="${TRINITY_MODULE_VER:=${PV}}"
-	mod_name="${mod_name}-${mod_ver}"
 	
-	if [[ -z "$TRINITY_ARCHIVE_POSTFIX" && "$PV" = "3.5.13.1" ]]; then
-		TRINITY_ARCHIVE_POSTFIX="tar.gz"
+	case ${mod_ver} in
+	3.5.13.1) 
+		full_mod_name="${mod_name}-${mod_ver}"
+		TRINITY_TARBALL="${full_mod_name}.tar.gz" ;;
+	3.5.13.2) 
+		full_mod_name="${mod_name}-trinity-${mod_ver}"
+		TRINITY_TARBALL="${full_mod_name}.tar.xz" ;;
+	*) 
+		full_mod_name="${mod_name}-${mod_ver}"
+		TRINITY_TARBALL="${full_mod_name}.tar.xz"
+	esac
+	
+	if [[ -n "${TRINITY_MODULE_TYPE}" ]] ; then
+		SRC_URI="${TRINITY_BASE_SRC_URI}/${mod_ver}/${TRINITY_MODULE_TYPE}/$TRINITY_TARBALL"
 	else
-		TRINITY_ARCHIVE_POSTFIX="tar.xz"
+		SRC_URI="${TRINITY_BASE_SRC_URI}/${mod_ver}/$TRINITY_TARBALL"
 	fi
 
-	SRC_URI="${TRINITY_BASE_SRC_URI}/${mod_ver}/${mod_name}.$TRINITY_ARCHIVE_POSTFIX"
-	S="${WORKDIR}/${TRINITY_MODULE_NAME}-${mod_ver}"
+	S="${WORKDIR}/${full_mod_name}"
 else
 	die "Unknown BUILD_TYPE=${BUILD_TYPE}"
 fi

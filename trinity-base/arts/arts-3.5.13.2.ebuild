@@ -4,7 +4,7 @@
 EAPI="3"
 
 TRINITY_MODULE_TYPE="dependencies"
-TRINITY_MODULE_NAME="${PN}-trinity"
+TRINITY_MODULE_NAME="${PN}"
 
 inherit trinity-base
 

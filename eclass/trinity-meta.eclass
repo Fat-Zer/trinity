@@ -95,9 +95,9 @@ trinity-meta_src_extract() {
 			*)  die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
 		esac
 	else
-		local tarball tarfile tarparams f extractlist
+		local tarfile tarparams f extractlist
 
-		case $TRINITY_ARCHIVE_POSTFIX in
+		case $TRINITY_TARBALL in
 			*.gz)
 				tarparams=" --gzip"
 				;;
@@ -106,10 +106,8 @@ trinity-meta_src_extract() {
 				;;
 		esac
 
-		tarball="${TRINITY_MODULE_NAME}-${PV}.${postfix}"
-
 		# Full path to source tarball
-		tarfile="${DISTDIR}/${tarball}"
+		tarfile="${DISTDIR}/${TRINITY_TARBALL}"
 
 		# Detect real toplevel dir from tarball name - it will be used upon extraction
 		topdir="${tarball%.tar.*}"
