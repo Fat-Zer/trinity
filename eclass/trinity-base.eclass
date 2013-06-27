@@ -68,10 +68,16 @@ TRINITY_COMMON_DOCS="AUTHORS BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE COMPILIN
 	NOTES PLUGINS PORTING README SECURITY-HOLES TASKGROUPS TEMPLATE 
 	TESTCASES THANKS THOUGHTS TODO VERSION"
 
+# @ECLASS-VARIABLE: TRINITY_ARCHIVE_POSTFIX
+# @DESCRIPTION: 
+# Tis variable controls the extencion of trinity source tarballs e.g. tar.gz or
+# tar.xz etc
+
 # @ECLASS-VARIABLE: TRINITY_BASE_SRC_URI
 # @DESCRIPTION:
 # The top SRC_URI for all trinity packages
-TRINITY_BASE_SRC_URI="http://trinity.blackmag.net/releases"
+TRINITY_BASE_SRC_URI="http://www.mirrorservice.org/sites/trinitydesktop.org/trinity/releases/"
+# TRINITY_BASE_SRC_URI="http://trinity.blackmag.net/releases" # the old one
 
 # determine the build type
 if [[ ${PV} = *9999* ]]; then
@@ -112,12 +118,19 @@ elif [[ "${BUILD_TYPE}" == release ]]; then
 	[[ -n "${TRINITY_MODULE_TYPE}" ]] && mod_name="${TRINITY_MODULE_TYPE}/${mod_name}"
 	mod_ver="${TRINITY_MODULE_VER:=${PV}}"
 	mod_name="${mod_name}-${mod_ver}"
+	
+	if [[ -z "$TRINITY_ARCHIVE_POSTFIX" && "$PV" = "3.5.13.1" ]]; then
+		TRINITY_ARCHIVE_POSTFIX="tar.gz"
+	else
+		TRINITY_ARCHIVE_POSTFIX="tar.xz"
+	fi
 
-	SRC_URI="${TRINITY_BASE_SRC_URI}/${mod_ver}/${mod_name}.tar.gz"
+	SRC_URI="${TRINITY_BASE_SRC_URI}/${mod_ver}/${mod_name}.$TRINITY_ARCHIVE_POSTFIX"
 	S="${WORKDIR}/${TRINITY_MODULE_NAME}-${mod_ver}"
 else
 	die "Unknown BUILD_TYPE=${BUILD_TYPE}"
 fi
+
 
 if [[ -n "${TRINITY_EXTRAGEAR_PACKAGING}" ]]; then 
 # @ECLASS-VARIABLE: TEG_PO_DIR

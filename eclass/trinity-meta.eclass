@@ -95,12 +95,18 @@ trinity-meta_src_extract() {
 			*)  die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}"
 		esac
 	else
-		local tarball tarfile tarparams f extractlist postfix
+		local tarball tarfile tarparams f extractlist
 
-		tarparams=" --gzip"
-		postfix="gz"
+		case $TRINITY_ARCHIVE_POSTFIX in
+			*.gz)
+				tarparams=" --gzip"
+				;;
+			*.xz)
+				tarparams=" --xz"
+				;;
+		esac
 
-		tarball="${TRINITY_MODULE_NAME}-${PV}.tar.${postfix}"
+		tarball="${TRINITY_MODULE_NAME}-${PV}.${postfix}"
 
 		# Full path to source tarball
 		tarfile="${DISTDIR}/${tarball}"
