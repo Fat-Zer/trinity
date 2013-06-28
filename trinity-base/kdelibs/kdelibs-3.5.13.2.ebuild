@@ -11,13 +11,13 @@ set-trinityver
 DESCRIPTION="Trinity libraries needed by all TDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
-SLOT="$TRINITY_LIVEVER"
-KEYWORDS=""
+SLOT="${TRINITY_VER}"
+KEYWORDS="x86 amd64"
 IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter
-	upower xcomposite"
+	xcomposite"
 
 DEPEND="${DEPEND}
-	>=dev-qt/tqtinterface-${PV}
+	=dev-qt/tqtinterface-${TRINITY_VER}*
 	>=dev-libs/libxslt-1.1.16
 	>=dev-libs/libxml2-2.6.6
 	>=dev-libs/libpcre-6.6
@@ -30,7 +30,7 @@ DEPEND="${DEPEND}
 	media-libs/libart_lgpl
 	x11-libs/libXcursor
 	alsa? ( media-libs/alsa-lib )
-	arts? ( >=trinity-base/arts-${PV}:${SLOT} )
+	arts? ( trinity-base/arts )
 	avahi? ( net-dns/avahi )
 	cups? ( >=net-print/cups-1.1.19 )
 	fam? ( virtual/fam )
@@ -40,11 +40,15 @@ DEPEND="${DEPEND}
 	spell? ( >=app-dicts/aspell-en-6.0.0 >=app-text/aspell-0.60.5 )
 	sudo? ( app-admin/sudo )
 	tiff? ( media-libs/tiff )
-	utempter? ( sys-libs/libutempter ) "
+	utempter? ( sys-libs/libutempter )
+	xcomposite? ( x11-libs/libXcomposite )"
 # NOTE: upstream lacks avahi support, so the use flag is currenly masked
-# TODO: think about elficon and networkmanager options
 
 RDEPEND="${DEPEND}"
+
+PATCHES=( "$FILESDIR/${PN}-3.5.13.2-make-xcomposite-optional.patch"
+		"$FILESDIR/${PN}-3.5.13.1-fix-no-xcomposite.patch"
+		"$FILESDIR/${PN}-3.5.13.1-OnlyShowIn-TDE.patch" )
 
 src_configure() {
 	mycmakeargs=(
@@ -53,6 +57,7 @@ src_configure() {
 		-DWITH_SSL=ON
 		-DWITH_LIBART=ON
 		-DWITH_PCRE=ON
+		-DWITH_XCURSOR=ON
 		-DWITH_HSPELL=OFF
 		-DKDE4_DEFAULT_HOME=.kde4
 		$(cmake-utils_use_with alsa ALSA)
@@ -67,7 +72,6 @@ src_configure() {
 		$(cmake-utils_use_with fam GAMIN)
 		$(cmake-utils_use_with tiff TIFF)
 		$(cmake-utils_use_with utempter UTEMPTER)
-		$(cmake-utils_use_with upower UPOWER)
 		$(cmake-utils_use_with xcomposite XCOMPOSITE)
 		$(cmake-utils_use_with sudo SUDO_KDESU_BACKEND)
 	)
@@ -91,7 +95,9 @@ src_install() {
 		libdirs="${TDEDIR}/${libdir}:${libdirs}"
 	done
 
-	cat <<EOF >"${D}/etc/env.d/00trinitypaths-${SLOT}" # number goes down with version upgrade
+	# number goes down with version upgrade
+	# NOTE: they should be less than kdepaths for kde-3.5
+	cat <<EOF > "${D}/etc/env.d/42trinitypaths-${SLOT}" 
 PATH=${TDEDIR}/bin
 ROOTPATH=${TDEDIR}/sbin:${TDEDIR}/bin
 LDPATH=${libdirs#:}
@@ -106,7 +112,7 @@ EOF
 	# Make sure the target for the revdep-rebuild stuff exists. Fixes bug 184441.
 	dodir /etc/revdep-rebuild
 
-cat <<EOF >"${D}/etc/revdep-rebuild/50-trinity-${SLOT}"
+cat <<EOF > "${D}/etc/revdep-rebuild/50-trinity-${SLOT}"
 SEARCH_DIRS="${TDEDIR}/bin ${TDEDIR}/lib*"
 EOF
 

@@ -75,6 +75,6 @@
 =trinity-base/kcminit-9999 **
 =trinity-base/krfb-9999 **
 =dev-libs/dbus-tqt-9999 **
-=x11-libs/tqtinterface-9999 **
+=dev-qt/tqtinterface-9999 **
 =dev-qt/qt-3.9999 **
 =dev-qt/qt-meta-3.9999 **

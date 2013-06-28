@@ -15,7 +15,7 @@ SLOT="0"
 IUSE=""
 
 DEPEND=">=dev-qt/qt-3.3.8d:3
-	>=x11-libs/tqtinterface-${PV}
+	dev-qt/tqtinterface
 	!!dev-libs/dbus-qt3-old"
 RDEPEND="$DEPEND"
 

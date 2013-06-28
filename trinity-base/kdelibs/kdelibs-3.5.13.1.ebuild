@@ -17,7 +17,7 @@ IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter
 	xcomposite"
 
 DEPEND="${DEPEND}
-	>=x11-libs/tqtinterface-${PV}
+	=dev-qt/tqtinterface-${TRINITY_VER}*
 	>=dev-libs/libxslt-1.1.16
 	>=dev-libs/libxml2-2.6.6
 	>=dev-libs/libpcre-6.6
@@ -46,11 +46,11 @@ DEPEND="${DEPEND}
 
 RDEPEND="${DEPEND}"
 
-PATCHES=( "$FILESDIR/${P}-make-xcomposite-optional.patch"
-		"$FILESDIR/${P}-fix-no-xcomposite.patch"
-		"$FILESDIR/${P}-OnlyShowIn-TDE.patch"
-		"$FILESDIR/${P}-bug-1161.patch" 
-		"$FILESDIR/${P}-fix-insane-kde4-variables.patch")
+PATCHES=( "$FILESDIR/${PN}-3.5.13.1-make-xcomposite-optional.patch"
+		"$FILESDIR/${PN}-3.5.13.1-fix-no-xcomposite.patch"
+		"$FILESDIR/${PN}-3.5.13.1-OnlyShowIn-TDE.patch"
+		"$FILESDIR/${PN}-3.5.13.1-bug-1161.patch" 
+		"$FILESDIR/${PN}-3.5.13.1-fix-insane-kde4-variables.patch")
 
 src_configure() {
 	mycmakeargs=(

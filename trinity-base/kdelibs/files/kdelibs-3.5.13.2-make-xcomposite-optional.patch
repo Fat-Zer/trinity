@@ -1,0 +1,29 @@
+--- CMakeLists.txt.orig	2013-05-09 23:16:28.000000000 +0400
++++ CMakeLists.txt	2013-06-28 04:17:31.677764189 +0400
+@@ -85,6 +85,7 @@
+ 
+ OPTION( WITH_ASPELL "Enable aspell support" ${WITH_ALL_OPTIONS} )
+ OPTION( WITH_HSPELL "Enable hspell support" ${WITH_ALL_OPTIONS} )
++OPTION( WITH_XCOMPOSITE "Enable xcomposite support" ${WITH_ALL_OPTIONS} )
+ 
+ set( KDE4_DEFAULT_HOME ".kde" CACHE PATH "KDE4 home directory passed as KDEHOME to kde4 applications" )
+ 
+@@ -588,10 +589,14 @@
+ 
+ ##### check for xcomposite #########################
+ 
+-pkg_search_module( XCOMPOSITE xcomposite )
+-if( XCOMPOSITE_FOUND )
+-  set( HAVE_XCOMPOSITE 1 )
+-endif( XCOMPOSITE_FOUND )
++if( WITH_XCOMPOSITE )
++  pkg_search_module( XCOMPOSITE xcomposite )
++  if( XCOMPOSITE_FOUND )
++    set( HAVE_XCOMPOSITE 1 )
++  else()
++    message(FATAL_ERROR "\nxcomposite support was requested, but xcomposite was not found on your system" )
++  endif( XCOMPOSITE_FOUND )
++endif( WITH_XCOMPOSITE )
+ 
+ ##### check for libxml-2.0 ######################
+ 

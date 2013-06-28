@@ -16,9 +16,9 @@ HOMEPAGE="http://trinitydesktop.org/"
 LICENSE="GPL-2"
 KEYWORDS="x86 amd64"
 IUSE="alsa esd -artswrappersuid jack mp3 nas vorbis"
-SLOT="3.5"
+SLOT="${TRINITY_VER}"
 
-DEPEND="x11-libs/tqtinterface
+DEPEND="dev-qt/tqtinterface
 	dev-libs/glib:2
 	media-libs/audiofile
 	mp3? ( media-libs/libmad )
