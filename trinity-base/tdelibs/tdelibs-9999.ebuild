@@ -13,7 +13,7 @@ HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 SLOT="$TRINITY_LIVEVER"
 KEYWORDS=""
-IUSE="alsa avahi arts cups fam jpeg2k lua openexr spell sudo tiff utempter
+IUSE="alsa avahi arts cups fam jpeg2k lua lzma openexr spell sudo tiff utempter
 	upower xcomposite"
 
 DEPEND="${DEPEND}
@@ -40,7 +40,8 @@ DEPEND="${DEPEND}
 	spell? ( >=app-dicts/aspell-en-6.0.0 >=app-text/aspell-0.60.5 )
 	sudo? ( app-admin/sudo )
 	tiff? ( media-libs/tiff )
-	utempter? ( sys-libs/libutempter ) "
+	utempter? ( sys-libs/libutempter ) 
+	lzma? ( app-arch/xz-utils )"
 # NOTE: upstream lacks avahi support, so the use flag is currenly masked
 # TODO: think about elficon and networkmanager options
 
@@ -62,6 +63,7 @@ src_configure() {
 		$(cmake-utils_use_with kernel_linux INOTIFY)
 		$(cmake-utils_use_with jpeg2k JASPER)
 		$(cmake-utils_use_with lua LUA)
+		$(cmake-utils_use_with lzma LZMA)
 		$(cmake-utils_use_with openexr OPENEXR)
 		$(cmake-utils_use_with spell ASPELL)
 		$(cmake-utils_use_with fam GAMIN)
