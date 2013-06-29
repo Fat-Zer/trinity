@@ -1,0 +1,51 @@
+diff --git a/ConfigureChecks.cmake b/ConfigureChecks.cmake
+index 8dc8a3f..24c47df 100644
+--- a/ConfigureChecks.cmake
++++ b/ConfigureChecks.cmake
+@@ -233,8 +233,8 @@ find_package( TQt )
+ find_package( TDE )
+ 
+ 
+-# dbus (kdm, ksmserver)
+-if( BUILD_KDM OR BUILD_KSMSERVER )
++# dbus (kdm, ksmserver, kicker)
++if( BUILD_KDM OR BUILD_KSMSERVER OR BUILD_KICKER )
+ 
+   pkg_search_module( DBUS dbus-1 )
+   if( NOT DBUS_FOUND )
+diff --git a/kicker/kicker/buttons/CMakeLists.txt b/kicker/kicker/buttons/CMakeLists.txt
+index 1e7ede5..18e8601 100644
+--- a/kicker/kicker/buttons/CMakeLists.txt
++++ b/kicker/kicker/buttons/CMakeLists.txt
+@@ -18,6 +18,7 @@ include_directories(
+   ${CMAKE_SOURCE_DIR}/kicker/kicker/ui
+   ${CMAKE_SOURCE_DIR}/libkonq
+   ${DBUS_TQT_INCLUDE_DIRS}
++  ${DBUS_INCLUDE_DIRS}
+   ${TDE_INCLUDE_DIR}
+   ${TQT_INCLUDE_DIRS}
+ )
+diff --git a/kicker/kicker/core/CMakeLists.txt b/kicker/kicker/core/CMakeLists.txt
+index f2eb010..c850ff5 100644
+--- a/kicker/kicker/core/CMakeLists.txt
++++ b/kicker/kicker/core/CMakeLists.txt
+@@ -18,6 +18,7 @@ include_directories(
+   ${CMAKE_SOURCE_DIR}/kicker/kicker/ui
+   ${CMAKE_SOURCE_DIR}/kicker/kicker/buttons
+   ${DBUS_TQT_INCLUDE_DIRS}
++  ${DBUS_INCLUDE_DIRS}
+   ${TDE_INCLUDE_DIR}
+   ${TQT_INCLUDE_DIRS}
+ )
+diff --git a/kicker/kicker/ui/CMakeLists.txt b/kicker/kicker/ui/CMakeLists.txt
+index a6e9510..8929962 100644
+--- a/kicker/kicker/ui/CMakeLists.txt
++++ b/kicker/kicker/ui/CMakeLists.txt
+@@ -21,6 +21,7 @@ include_directories(
+   ${CMAKE_SOURCE_DIR}/kdmlib
+   ${CMAKE_SOURCE_DIR}/libkonq
+   ${DBUS_TQT_INCLUDE_DIRS}
++  ${DBUS_INCLUDE_DIRS}
+   ${TDE_INCLUDE_DIR}
+   ${TQT_INCLUDE_DIRS}
+ )

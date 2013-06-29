@@ -110,9 +110,9 @@ trinity-meta_src_extract() {
 		tarfile="${DISTDIR}/${TRINITY_TARBALL}"
 
 		# Detect real toplevel dir from tarball name - it will be used upon extraction
-		topdir="${tarball%.tar.*}"
+		topdir="${TRINITY_TARBALL%.tar.*}"
 
-		ebegin "Unpacking parts of ${tarball} to ${WORKDIR}"
+		ebegin "Unpacking parts of ${TRINITY_TARBALL} to ${WORKDIR}"
 
 		for f in $TSM_EXTRACT_LIST;	do
 			extractlist+=" ${topdir}/${f}"

@@ -11,7 +11,7 @@ KEYWORDS=""
 IUSE="hal upower"
 
 DEPEND="
-	>=dev-libs/dbus-tqt-${PV}
+	dev-libs/dbus-tqt
 	hal? ( sys-apps/hal )"
 RDEPEND="${RDEPEND}"
 

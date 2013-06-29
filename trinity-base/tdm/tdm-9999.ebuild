@@ -19,7 +19,7 @@ DEPEND="pam? ( kde-base/kdebase-pam )
 	x11-libs/libXrandr
 	x11-libs/libXtst
 	>=trinity-base/kcontrol-${PV}:${SLOT}
-	>=dev-libs/dbus-tqt-${PV}"
+	dev-libs/dbus-tqt"
 
 RDEPEND="${DEPEND}
 	>=trinity-base/kdepasswd-${PV}:${SLOT}

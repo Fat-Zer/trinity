@@ -41,6 +41,7 @@ DEPEND="${DEPEND}
 	sudo? ( app-admin/sudo )
 	tiff? ( media-libs/tiff )
 	utempter? ( sys-libs/libutempter )
+	xcomposite? ( x11-libs/libXcomposite )
 	lzma? ( app-arch/xz-utils )"
 # NOTE: upstream lacks avahi support, so the use flag is currenly masked
 

@@ -1,0 +1,146 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d36ee0e..e91f8e8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -220,15 +220,6 @@ if( BUILD_STARTKDE )
+ endif()
+ 
+ 
+-##### Determine whether older manpage support is used ##########
+-
+-if( EXISTS "/usr/sbin/makewhatis" )
+-  set( WITH_MAKEWHATIS "1" )
+-  message( STATUS "Selected makewhatis for kio-man on your system" )
+-else()
+-  message( STATUS "Selected man-db for kio-man on your system" )
+-endif()
+-
+ ##### Checks for a distribution-specific 1st menu item, generally a control center
+ if(EXISTS "/usr/share/applications/YaST.desktop")
+   set( KICKOFF_DIST_CONFIG_SHORTCUT1 "/usr/share/applications/YaST.desktop" )
+diff --git a/config.h.cmake b/config.h.cmake
+index d41643b..7a86d97 100644
+--- a/config.h.cmake
++++ b/config.h.cmake
+@@ -182,9 +182,6 @@
+ // Defined when wanting ksmserver shutdown debugging timing markers in .xsession-errors
+ #cmakedefine BUILD_PROFILE_SHUTDOWN 1
+ 
+-// Use makewhatis manpage support
+-#cmakedefine WITH_MAKEWHATIS "@WITH_MAKEWHATIS@"
+-
+ // Kickoff menu
+ #cmakedefine KICKOFF_DIST_CONFIG_SHORTCUT1 "@KICKOFF_DIST_CONFIG_SHORTCUT1@"
+ #cmakedefine KICKOFF_DIST_CONFIG_SHORTCUT2 "@KICKOFF_DIST_CONFIG_SHORTCUT2@"
+diff --git a/kioslave/man/kio_man.cpp b/kioslave/man/kio_man.cpp
+index 63fed2e..4da85ba 100644
+--- a/kioslave/man/kio_man.cpp
++++ b/kioslave/man/kio_man.cpp
+@@ -580,48 +580,64 @@ char *MANProtocol::readManPage(const char *_filename)
+             kdDebug(7107) << "resolved to " << filename << endl;
+         }
+         lastdir = filename.left(filename.findRev('/'));
+-    
+-#ifdef WITH_MAKEWHATIS
+-        TQIODevice *fd= KFilterDev::deviceForFile(filename);
+ 
+-        if ( !fd || !fd->open(IO_ReadOnly))
+-        {
+-           delete fd;
+-           return 0;
+-        }
+-        TQByteArray array(fd->readAll());
+-        kdDebug(7107) << "read " << array.size() << endl;
+-        fd->close();
+-        delete fd;
++        size_t len;
+ 
+-        if (array.isEmpty())
+-            return 0;
++        if( hasManRecode() ) {
++            myStdStream = TQString::null;
++            KProcess proc;
+ 
+-        const int len = array.size();
+-        buf = new char[len + 4];
+-        tqmemmove(buf + 1, array.data(), len);
+-#else
+-        myStdStream = TQString::null;
+-        KProcess proc;
+-        /* TODO: detect availability of 'man --recode' so that this can go
+-         * upstream */
+-        proc << "man" << "--recode" << "UTF-8" << filename;
++            proc << "man" << "--recode" << "UTF-8" << filename;
+ 
+-        TQApplication::connect(&proc, TQT_SIGNAL(receivedStdout (KProcess *, char *, int)),
+-                              this, TQT_SLOT(slotGetStdOutputUtf8(KProcess *, char *, int)));
+-        proc.start(KProcess::Block, KProcess::All);
++            TQApplication::connect(&proc, TQT_SIGNAL(receivedStdout (KProcess *, char *, int)),
++                                   this, TQT_SLOT(slotGetStdOutputUtf8(KProcess *, char *, int)));
++            proc.start(KProcess::Block, KProcess::All);
++
++            const TQCString cstr=myStdStream.utf8();
++            len = cstr.size() != 0 ? cstr.size() - 1 : 0;
++            buf = new char[len + 4];
++            tqmemmove(buf + 1, cstr.data(), len);
++        } else {
++            TQIODevice *fd= KFilterDev::deviceForFile(filename);
++
++            if ( !fd || !fd->open(IO_ReadOnly))
++            {
++               delete fd;
++               return 0;
++            }
++            TQByteArray array(fd->readAll());
++            kdDebug(7107) << "read " << array.size() << endl;
++            fd->close();
++            delete fd;
++
++            if (array.isEmpty())
++                return 0;
++
++            len = array.size();
++            buf = new char[len + 4];
++            tqmemmove(buf + 1, array.data(), len);
++        }
+ 
+-        const TQCString cstr=myStdStream.utf8();
+-        const int len = cstr.size()-1;
+-        buf = new char[len + 4];
+-        tqmemmove(buf + 1, cstr.data(), len);
+-#endif
+         buf[0]=buf[len]='\n'; // Start and end with a end of line
+         buf[len+1]=buf[len+2]='\0'; // Two NUL characters at end
+     }
+     return buf;
+ }
+ 
++bool MANProtocol::hasManRecode(bool force) {
++    static bool rv=0, wasChecked=0;
++    if ( !wasChecked || force ) {
++        KProcess proc;
++        // lets' try to recode the man page of man. 
++        // that should be enough to be sure that man-db is installed.
++        proc << "man" << "--recode" << "UTF-8" << "man";
++
++        proc.start(KProcess::Block, KProcess::All);
++        rv = proc.exitStatus() == 0;
++        wasChecked = 1;
++    }
++    return rv;
++}
+ 
+ void MANProtocol::outputError(const TQString& errmsg)
+ {
+diff --git a/kioslave/man/kio_man.h b/kioslave/man/kio_man.h
+index 617245f..1a28dcf 100644
+--- a/kioslave/man/kio_man.h
++++ b/kioslave/man/kio_man.h
+@@ -66,6 +66,7 @@ private slots:
+ private:
+     void checkManPaths();
+     TQStringList manDirectories();
++    static bool hasManRecode(bool force=0);
+     TQMap<TQString, TQString> buildIndexMap(const TQString& section);
+     bool addWhatIs(TQMap<TQString, TQString>& i, const TQString& f, const TQString& mark);
+     void parseWhatIs( TQMap<TQString, TQString> &i, TQTextStream &t, const TQString &mark );

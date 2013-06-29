@@ -11,10 +11,10 @@ set-trinityver
 DESCRIPTION="Trinity libraries needed by all TDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
-SLOT="$TRINITY_LIVEVER"
-KEYWORDS=""
-IUSE="alsa avahi arts cups fam jpeg2k lua lzma openexr spell sudo tiff utempter
-	upower xcomposite"
+SLOT="${TRINITY_VER}"
+KEYWORDS="x86 amd64"
+IUSE="alsa avahi arts cups consolekit fam jpeg2k lua lzma networkmanager openexr
+	spell sudo tiff utempter upower udisks old_udisks xcomposite xrandr"
 
 DEPEND="${DEPEND}
 	>=dev-qt/tqtinterface-${PV}
@@ -28,6 +28,7 @@ DEPEND="${DEPEND}
 	media-libs/fontconfig
 	media-libs/freetype:2
 	media-libs/libart_lgpl
+	sys-apps/dbus
 	x11-libs/libXcursor
 	alsa? ( media-libs/alsa-lib )
 	arts? ( >=trinity-base/arts-${PV}:${SLOT} )
@@ -40,12 +41,19 @@ DEPEND="${DEPEND}
 	spell? ( >=app-dicts/aspell-en-6.0.0 >=app-text/aspell-0.60.5 )
 	sudo? ( app-admin/sudo )
 	tiff? ( media-libs/tiff )
-	utempter? ( sys-libs/libutempter ) 
-	lzma? ( app-arch/xz-utils )"
+	utempter? ( sys-libs/libutempter )
+	networkmanager? ( net-misc/networkmanager )
+	lzma? ( app-arch/xz-utils )
+	xrandr? ( >=x11-libs/libXrandr-1.2 )
+	xcomposite? ( x11-libs/libXcomposite )"
 # NOTE: upstream lacks avahi support, so the use flag is currenly masked
-# TODO: think about elficon and networkmanager options
+# TODO: add elfres support via libr (not in portage now)
 
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	consolekit? ( sys-auth/consolekit )
+	upower? ( sys-power/upower )
+	udisks? ( sys-fs/udisks:2 )
+	old_udisks? ( sys-fs/udisks:0 )"
 
 src_configure() {
 	mycmakeargs=(
@@ -54,6 +62,7 @@ src_configure() {
 		-DWITH_SSL=ON
 		-DWITH_LIBART=ON
 		-DWITH_PCRE=ON
+		-DWITH_XCURSOR=ON
 		-DWITH_HSPELL=OFF
 		-DKDE4_DEFAULT_HOME=.kde4
 		$(cmake-utils_use_with alsa ALSA)
@@ -70,7 +79,11 @@ src_configure() {
 		$(cmake-utils_use_with tiff TIFF)
 		$(cmake-utils_use_with utempter UTEMPTER)
 		$(cmake-utils_use_with upower UPOWER)
+		$(cmake-utils_use_with old_udisks UDISKS)
+		$(cmake-utils_use_with udisks UDISKS2)
+		$(cmake-utils_use_with consolekit CONSOLEKIT)
 		$(cmake-utils_use_with xcomposite XCOMPOSITE)
+		$(cmake-utils_use_with xrandr XRANDR)
 		$(cmake-utils_use_with sudo SUDO_KDESU_BACKEND)
 	)
 
