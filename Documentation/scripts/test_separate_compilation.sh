@@ -3,14 +3,13 @@
 #
 # This script suppose the kdelibs to be installed
 # how to use :
-# dependecies_test_compilation <package>
+# dependecies_test_compilation <package![use[,use]...] [...]
 
 die() {
 	echo '!!! $@'
 	exit -100500
 }
 
-PACKAGES=( $@ )
 
 RESULT_DIR="/tmp/test-build-$(date +%Y-%m-%d_%H-%M)"
 SUCCESS_LIST="${RESULT_DIR}/success_list"
@@ -20,6 +19,9 @@ CONFIG_BAK="${RESULT_DIR}/portage_bak.tar.gz"
 PORTAGE_CONFIG="/etc/portage"
 EMERGE_AUTOUNMASK_OPTS="--autounmask y --autounmask-keep-masks y --autounmask-write y"
 mkdir -p "${RESULT_DIR}" "${LOGS_DIR}";
+
+for pkguse in "$@"; do
+done
 
 # backup config
 tar -cf "${CONFIG_BAK}" -C / "${PORTAGE_CONFIG#/}" || die "backup config failed"
@@ -31,7 +33,13 @@ tar -cf "${CONFIG_BAK}" -C / "${PORTAGE_CONFIG#/}" || die "backup config failed"
   revdep-rebuild && 
   rm -rf /var/tmp/portage ) || die "initial cleaning failed"
 
-for pkg in "${PACKAGES[@]}"; do
+for pkguse in "$@"; do
+	pkg="${pkguse%!*}"
+	use="${pkguse#*!}"
+	use="${use/,// }"
+	pkg_use_file="${PORTAGE_CONFIG}/package.use"
+	[ -d ${pkg_use_file} ] && pkg_use_file="${pkg_use_file}/test.use"
+	echo "$pkg $use" >>"$pkg_use_file"
 	pkg_failed=no
 	# check for it can be emerged due to depenencies uses
 	emerge -p "$pkg"
