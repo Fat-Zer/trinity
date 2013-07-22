@@ -8,15 +8,16 @@ inherit trinity-meta
 
 DESCRIPTION="The Trinity Control Center"
 KEYWORDS=""
-IUSE="samba logitech-mouse ieee1394"
+IUSE="samba logitech-mouse ieee1394 xrandr"
 
 DEPEND="x11-libs/libX11
 	x11-libs/libXrender
 	x11-libs/libXcursor
-	x11-libs/libXrandr
 	samba? ( net-fs/samba )
 	logitech-mouse? ( virtual/libusb:0 )
 	ieee1394? ( sys-libs/libraw1394 )
+	xrandr? ( x11-libs/libXrandr )
+	>=trinity-base/tdelibs-${PV}:${SLOT}[xrandr?]
 	>=trinity-base/libkonq-${PV}:${SLOT}
 	>=trinity-base/kicker-${PV}:${SLOT}"
 
@@ -33,12 +34,12 @@ TSM_EXTRACT_ALSO="kicker/ twin/ kdesktop/ klipper/ kxkb/"
 src_configure() {
 	mycmakeargs=(
 		-DWITH_XCURSOR=ON
-		-DWITH_XRANDR=ON
 		-DWITH_XRENDER=ON
 		-DWITH_USBIDS=/usr/share/misc/usb.ids
 		$(cmake-utils_use_with samba SAMBA)
 		$(cmake-utils_use_with logitech-mouse LIBUSB)
 		$(cmake-utils_use_with ieee1394 LIBRAW1394)
+		$(cmake-utils_use_with xrandr XRANDR)
 	)
 
 	trinity-meta_src_configure
