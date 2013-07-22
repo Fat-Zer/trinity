@@ -16,7 +16,7 @@ DEPEND="
 
 RDEPEND="${DEPEND}
 	>=trinity-base/kcontrol-${PV}:${SLOT}
-	>=trinity-base/tdebase-kioslaves-${PV}:${SLOT}
+	>=trinity-base/tdebase-tdeioslaves-${PV}:${SLOT}
 	>=trinity-base/kfind-${PV}:${SLOT}
 	java? ( >=virtual/jre-1.4 )"
 

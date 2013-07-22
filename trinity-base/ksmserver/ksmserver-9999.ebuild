@@ -12,8 +12,11 @@ IUSE="hal upower"
 
 DEPEND="
 	dev-libs/dbus-tqt
-	hal? ( sys-apps/hal )"
-RDEPEND="${RDEPEND}"
+	upower? ( dev-libs/dbus-1-tqt )
+	hal? ( sys-apps/hal ) "
+
+RDEPEND="${RDEPEND}
+	upower? ( sys-power/upower ) "
 
 src_configure() {
 	mycmakeargs=(

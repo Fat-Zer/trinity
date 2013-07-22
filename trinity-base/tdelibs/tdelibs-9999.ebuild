@@ -30,6 +30,7 @@ DEPEND="${DEPEND}
 	media-libs/libart_lgpl
 	sys-apps/dbus
 	x11-libs/libXcursor
+	x11-libs/libXrender
 	alsa? ( media-libs/alsa-lib )
 	arts? ( >=trinity-base/arts-${PV}:${SLOT} )
 	avahi? ( net-dns/avahi )
@@ -82,6 +83,7 @@ src_configure() {
 		$(cmake-utils_use_with old_udisks UDISKS)
 		$(cmake-utils_use_with udisks UDISKS2)
 		$(cmake-utils_use_with consolekit CONSOLEKIT)
+		$(cmake-utils_use_with networkmanager WITH_NETWORK_MANAGER_BACKEND)
 		$(cmake-utils_use_with xcomposite XCOMPOSITE)
 		$(cmake-utils_use_with xrandr XRANDR)
 		$(cmake-utils_use_with sudo SUDO_KDESU_BACKEND)

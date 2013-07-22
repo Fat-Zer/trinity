@@ -11,7 +11,7 @@ DESCRIPTION="The Trinity help center."
 KEYWORDS=""
 
 RDEPEND="
-	>=trinity-base/tdebase-kioslaves-${PV}:${SLOT}
+	>=trinity-base/tdebase-tdeioslaves-${PV}:${SLOT}
 	>=www-misc/htdig-3.2.0_beta6-r1"
 IUSE=""
 

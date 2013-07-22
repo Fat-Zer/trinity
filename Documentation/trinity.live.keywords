@@ -1,3 +1,8 @@
+=dev-libs/dbus-1-tqt-9999 **
+=dev-libs/dbus-tqt-9999 **
+=dev-qt/tqtinterface-9999 **
+=dev-qt/qt-3.9999 **
+=dev-qt/qt-meta-3.9999 **
 =trinity-base/kopete-9999 **
 =trinity-base/tdeartwork-icewm-themes-9999 **
 =trinity-base/tdeartwork-kworldclock-9999 **
@@ -16,7 +21,6 @@
 =trinity-base/tdeartwork-meta-9999 **
 =trinity-base/tdenetwork-kfile-plugins-9999 **
 =trinity-base/tdeartwork-wallpapers-9999 **
-=trinity-base/tdebase-kioslaves-9999 **
 =trinity-base/ksplashml-9999 **
 =trinity-base/tdeartwork-kscreensaver-9999 **
 =trinity-base/kpager-9999 **
@@ -43,6 +47,7 @@
 =trinity-base/tdelibs-9999 **
 =trinity-base/kmenuedit-9999 **
 =trinity-base/twin-9999 **
+=trinity-base/tdebase-tdeioslaves-9999 **
 =trinity-base/tdenetwork-filesharing-9999 **
 =trinity-base/ktip-9999 **
 =trinity-base/kstart-9999 **
@@ -74,7 +79,3 @@
 =trinity-base/lisa-9999 **
 =trinity-base/kcminit-9999 **
 =trinity-base/krfb-9999 **
-=dev-libs/dbus-tqt-9999 **
-=dev-qt/tqtinterface-9999 **
-=dev-qt/qt-3.9999 **
-=dev-qt/qt-meta-3.9999 **

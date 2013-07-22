@@ -34,7 +34,7 @@ RDEPEND=">=trinity-base/tdeinit-${PV}:${SLOT}
 	>=trinity-base/khelpcenter-${PV}:${SLOT}
 	>=trinity-base/khotkeys-${PV}:${SLOT}
 	>=trinity-base/kicker-${PV}:${SLOT}
-	>=trinity-base/tdebase-kioslaves-${PV}:${SLOT}
+	>=trinity-base/tdebase-tdeioslaves-${PV}:${SLOT}
 	>=trinity-base/klipper-${PV}:${SLOT}
 	>=trinity-base/kmenuedit-${PV}:${SLOT}
 	>=trinity-base/konqueror-${PV}:${SLOT}
