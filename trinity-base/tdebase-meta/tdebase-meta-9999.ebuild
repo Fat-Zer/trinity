@@ -11,7 +11,7 @@ DESCRIPTION="tdebase metapackage - merge this to pull in all tdebase-derived pac
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 
-SLOT="$TRINITY_LIVEVER"
+SLOT="$TRINITY_VER"
 KEYWORDS=""
 IUSE=""
 
