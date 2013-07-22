@@ -22,7 +22,7 @@ DEPEND="pam? ( kde-base/kdebase-pam )
 	dev-libs/dbus-tqt"
 
 RDEPEND="${DEPEND}
-	>=trinity-base/kdepasswd-${PV}:${SLOT}
+	>=trinity-base/tdepasswd-${PV}:${SLOT}
 	x11-apps/xinit
 	x11-apps/xmessage"
 

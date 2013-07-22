@@ -24,7 +24,7 @@ RDEPEND=">=trinity-base/tdeinit-${PV}:${SLOT}
 	>=trinity-base/kcontrol-${PV}:${SLOT}
 	>=trinity-base/kdcop-${PV}:${SLOT}
 	>=trinity-base/kdebugdialog-${PV}:${SLOT}
-	>=trinity-base/kdepasswd-${PV}:${SLOT}
+	>=trinity-base/tdepasswd-${PV}:${SLOT}
 	>=trinity-base/tdeprint-${PV}:${SLOT}
 	>=trinity-base/kdesktop-${PV}:${SLOT}
 	>=trinity-base/tdesu-${PV}:${SLOT}

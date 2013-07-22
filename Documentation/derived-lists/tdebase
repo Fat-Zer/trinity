@@ -9,7 +9,7 @@ trinity-base/kcminit
 trinity-base/kcontrol
 trinity-base/kdcop
 trinity-base/kdebugdialog
-trinity-base/kdepasswd
+trinity-base/tdepasswd
 trinity-base/tdeprint
 trinity-base/kdesktop
 trinity-base/tdesu
