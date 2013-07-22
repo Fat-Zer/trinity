@@ -6,8 +6,6 @@ TRINITY_MODULE_NAME="kdebase"
 
 inherit trinity-meta linux-info
 
-TSM_EXTRACT_ALSO="sak"
-
 DESCRIPTION="Trinity login manager, similar to xdm and gdm"
 KEYWORDS="x86 amd64"
 IUSE="pam xdmcp xcomposite sak"
@@ -74,7 +72,7 @@ pkg_postinst() {
 
 	if use sak; then
 		sak_ok=yes
-		if  ! linux_config_exists; then
+		if ! linux_config_exists; then
 			ewarn "Can't check the linux kernel configuration."
 			ewarn "You might have some incompatible options enabled."
 			sak_ok=no
