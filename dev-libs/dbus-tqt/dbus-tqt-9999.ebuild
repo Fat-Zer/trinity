@@ -14,12 +14,11 @@ KEYWORDS=""
 SLOT="0"
 IUSE=""
 
-DEPEND="dev-qt/qt:3
+DEPEND="sys-apps/dbus
 	dev-qt/tqtinterface
 	!!dev-libs/dbus-qt3-old"
 RDEPEND="$DEPEND"
 
 src_configure() {
-
 	cmake-utils_src_configure
 }

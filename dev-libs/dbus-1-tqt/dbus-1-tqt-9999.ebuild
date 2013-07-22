@@ -14,8 +14,7 @@ KEYWORDS=""
 SLOT="0"
 IUSE=""
 
-DEPEND=">=dev-qt/qt-3.3.8d:3
-	sys-apps/dbus
+DEPEND="sys-apps/dbus
 	dev-qt/tqtinterface"
 RDEPEND="$DEPEND"
 

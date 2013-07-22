@@ -43,7 +43,8 @@ RDEPEND="
 	opengl? ( virtual/opengl virtual/glu )
 	postgres? ( dev-db/postgresql-base )
 	xinerama? ( x11-libs/libXinerama )
-	!<=dev-tqt/tqt-meta-3.3.8c"
+	!dev-qt/qt:3
+	!dev-qt/qt-meta:3"
 DEPEND="${RDEPEND}
 	x11-proto/inputproto
 	x11-proto/xextproto
@@ -145,7 +146,7 @@ src_prepare() {
 #	find include -maxdepth 1 \( -name *.h ! -name *tq* \) -delete
 	# find include -maxdepth 1 \( -name *.h ! -name *tq* -o -name *_p \) -delete
 
-	# remove docs from install if we don't coosed it
+	# remove docs from install if we don't need it
 	use doc || sed -i -e '/INSTALLS.*=.*htmldocs/d' \
 		"${S}/src/qt_install.pri"
 }
@@ -234,16 +235,16 @@ src_install() {
 	mv "${D}${TQTBASE}/$(get_libdir)/pkgconfig" "${D}/usr/$(get_libdir)/"
 
 	# cleanup a bad symlink created by crappy install scrypt
-	rm -r "${D}${TQTBASE}/$(get_libdir)/mkspec/${PLATFORM}/${PLATFORM}"
+	rm -r "${D}${TQTBASE}/mkspec/${PLATFORM}/${PLATFORM}"
 
 	# List all the multilib libdirs
 	local libdirs
 	for alibdir in $(get_all_libdirs); do
-		libdirs="${libdirs}:${QTBASE}/${alibdir}"
+		libdirs="${libdirs}:${TQTBASE}/${alibdir}"
 	done
 
 	# environment variables
-	cat <<EOF > "${T}"/45tqt3
+	cat <<EOF > "${T}"/44tqt3
 PATH=${TQTBASE}/bin
 ROOTPATH=${TQTBASE}/bin
 LDPATH=${libdirs:1}
@@ -251,18 +252,18 @@ QMAKESPEC=${PLATFORM}
 MANPATH=${TQTBASE}/doc/man
 EOF
 
-	cat <<EOF > "${T}"/50tqtdir3
+	cat <<EOF > "${T}"/44tqtdir3
 QTDIR=${TQTBASE}
 EOF
 
-	cat <<EOF > "${T}"/50-tqt3-revdep
+	cat <<EOF > "${T}"/44-tqt3-revdep
 SEARCH_DIRS="${TQTBASE}"
 EOF
 
 	insinto /etc/revdep-rebuild
-	doins "${T}"/50-tqt3-revdep
+	doins "${T}"/44-tqt3-revdep
 
-	doenvd "${T}"/45tqt3 "${T}"/50tqtdir3
+	doenvd "${T}"/44tqt3 "${T}"/44tqtdir3
 
 	if [ "${SYMLINK_LIB}" = "yes" ]; then
 		dosym $(get_abi_LIBDIR ${DEFAULT_ABI}) ${TQTBASE}/lib

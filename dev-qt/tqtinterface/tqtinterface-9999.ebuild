@@ -1,7 +1,7 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_TYPE="dependencies"
 TRINITY_MODULE_NAME="${PN}"
 
@@ -12,20 +12,24 @@ HOMEPAGE="http://trinitydesktop.org/"
 
 LICENSE="GPL-2"
 KEYWORDS=""
-IUSE="+qt3 -qt4"
+IUSE="-qt3 +tqt"
+REQUIRED_USE="^^ ( qt3 tqt )"
 SLOT="0"
 
 DEPEND="qt3? ( >=dev-qt/qt-3.9999:3 )
-	qt4? ( dev-qt/qt-meta:4 )
+	tqt? ( >=dev-qt/tqt-3.9999 )
 	!!x11-libs/tqtinterface"
 RDEPEND="${DEPEND}"
 
-PATCHES=(  )
+pkg_setup() {
+	use qt3 && export QTDIR="/usr/qt/3"
+	use tqt && export QTDIR="/usr/tqt3"
+}
 
 src_configure() {
 	mycmakeargs=(
-	    $(cmake-utils_use qt3 USE_QT3)
-	    $(cmake-utils_use qt4 USE_QT4)
+	    -DUSE_QT3=ON
+		-DQT_PREFIX_DIR="$QTDIR"
 	 )
 
 	 cmake-utils_src_configure
