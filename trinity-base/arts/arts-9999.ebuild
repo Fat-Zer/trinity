@@ -16,7 +16,7 @@ HOMEPAGE="http://trinitydesktop.org/"
 LICENSE="GPL-2"
 KEYWORDS=""
 IUSE="alsa esd -artswrappersuid jack mp3 nas vorbis"
-SLOT="$TRINITY_LIVEVER"
+SLOT="$TRINITY_VER"
 
 DEPEND="dev-qt/tqtinterface
 	dev-libs/glib:2

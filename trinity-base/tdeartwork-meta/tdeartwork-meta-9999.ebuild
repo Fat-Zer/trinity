@@ -11,7 +11,7 @@ DESCRIPTION="tdeartwork meta package - merge this to pull in all tdeartwork-deri
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 
-SLOT="$TRINITY_LIVEVER"
+SLOT="$TRINITY_VER"
 KEYWORDS=""
 IUSE=""
 

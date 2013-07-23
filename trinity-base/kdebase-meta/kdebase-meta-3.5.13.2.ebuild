@@ -11,7 +11,7 @@ DESCRIPTION="kdebase metapackage - merge this to pull in all kdebase-derived pac
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 
-SLOT="3.5"
+SLOT="$TRINITY_VER"
 IUSE=""
 KEYWORDS="x86 amd64"
 
