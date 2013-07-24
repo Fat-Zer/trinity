@@ -21,7 +21,6 @@
 ~trinity-base/kreadconfig-9999 **
 ~trinity-base/tdeartwork-meta-9999 **
 ~trinity-base/tdetoys-doc-9999 **
-~trinity-base/tdenetwork-kfile-plugins-9999 **
 ~trinity-base/kodo-9999 **
 ~trinity-base/tdeartwork-wallpapers-9999 **
 ~trinity-base/ksplashml-9999 **
@@ -31,10 +30,10 @@
 ~trinity-base/tqt3integration-9999 **
 ~trinity-base/knetattach-9999 **
 ~trinity-base/tdeprint-9999 **
+~trinity-base/tdenetwork-tdefile-plugins-9999 **
 ~trinity-base/klipper-9999 **
 ~trinity-base/tdeartwork-sounds-9999 **
 ~trinity-base/kppp-9999 **
-~trinity-base/kdnssd-9999 **
 ~trinity-base/kdesktop-9999 **
 ~trinity-base/knewsticker-9999 **
 ~trinity-base/ksysguard-9999 **
@@ -64,6 +63,7 @@
 ~trinity-base/tdeartwork-emoticons-9999 **
 ~trinity-base/kdebugdialog-9999 **
 ~trinity-base/kxkb-9999 **
+~trinity-base/tdednssd-9999 **
 ~trinity-base/kcontrol-9999 **
 ~trinity-base/libkonq-9999 **
 ~trinity-base/kdialog-9999 **
