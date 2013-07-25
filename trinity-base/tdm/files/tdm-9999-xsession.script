@@ -57,7 +57,7 @@ case $session in
     exec /bin/sh $HOME/.xsession
     ;;
   default)
-    exec /usr/trinity/3.5/bin/starttde
+    exec @TRINITY_INSTALL_PATH@/bin/starttde
     ;;
   *)
     eval exec "$session"

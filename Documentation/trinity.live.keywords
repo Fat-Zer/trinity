@@ -1,3 +1,5 @@
+~dev-qt/tqtinterface-9999 **
+~dev-qt/tqt-3.9999 **
 ~trinity-base/fifteenapplet-9999 **
 ~trinity-base/kweather-9999 **
 ~trinity-base/tdepasswd-9999 **
@@ -109,3 +111,5 @@
 ~trinity-base/kiconedit-9999 **
 ~trinity-base/krfb-9999 **
 ~trinity-base/kruler-9999 **
+~dev-libs/dbus-1-tqt-9999 **
+~dev-libs/dbus-tqt-9999 **

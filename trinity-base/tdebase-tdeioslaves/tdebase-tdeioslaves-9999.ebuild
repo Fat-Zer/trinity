@@ -39,7 +39,7 @@ src_configure() {
 		$(cmake-utils_use_with sasl SASL)
 		$(cmake-utils_use_with openexr OPENEXR)
 		$(cmake-utils_use_with hal HAL)
-		$(cmake-utils_use_with tdehw tdehwlib)
+		$(cmake-utils_use_with tdehw TDEHWLIB)
 	)
 
 	trinity-meta_src_configure
