@@ -1,6 +1,4 @@
-# this is a list of packages derived on kdebase module
-# broken packages are commented with #!
-trinity-base/kdebase-starttde
+trinity-base/tdebase-starttde
 trinity-base/drkonqi
 trinity-base/kappfinder
 trinity-base/kate
@@ -9,17 +7,17 @@ trinity-base/kcminit
 trinity-base/kcontrol
 trinity-base/kdcop
 trinity-base/kdebugdialog
-trinity-base/kdepasswd
-trinity-base/kdeprint
+trinity-base/tdepasswd
+trinity-base/tdeprint
 trinity-base/kdesktop
-trinity-base/kdesu
+trinity-base/tdesu
 trinity-base/kdialog
-trinity-base/kdm
+trinity-base/tdm
 trinity-base/kfind
 trinity-base/khelpcenter
 trinity-base/khotkeys
 trinity-base/kicker
-trinity-base/kdebase-kioslaves
+trinity-base/tdebase-tdeioslaves
 trinity-base/klipper
 trinity-base/kmenuedit
 trinity-base/konqueror
@@ -34,11 +32,12 @@ trinity-base/kstart
 trinity-base/ksysguard
 trinity-base/ksystraycmd
 trinity-base/ktip
-trinity-base/kwin
+trinity-base/twin
 trinity-base/kxkb
 trinity-base/libkonq
 trinity-base/nsplugins
 trinity-base/knetattach
-trinity-base/kdebase-data
+trinity-base/tdebase-data
 trinity-base/krootbacking
 trinity-base/tqt3integration
+trinity-base/tdeinit

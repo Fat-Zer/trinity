@@ -1,8 +1,5 @@
-# this is a list of packages derived on tdebase module
-# broken packages are commented with #!
 trinity-base/dcoprss
 trinity-base/kdict
-trinity-base/kdnssd
 trinity-base/kget
 trinity-base/knewsticker
 trinity-base/kopete
@@ -15,6 +12,7 @@ trinity-base/ktalkd
 trinity-base/kwifimanager
 trinity-base/librss
 trinity-base/lisa
-trinity-base/kdenetwork-doc
-trinity-base/kdenetwork-filesharing
-trinity-base/kdenetwork-kfile-plugins
+trinity-base/tdednssd
+trinity-base/tdenetwork-doc
+trinity-base/tdenetwork-filesharing
+trinity-base/tdenetwork-tdefile-plugins
