@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="kicker plugin: rss news ticker"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND=">=trinity-base/librss-${PV}:${SLOT}"

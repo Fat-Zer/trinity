@@ -8,7 +8,7 @@ TRINITY_SUBMODULE="kfax kfaxview"
 inherit trinity-meta
 
 DESCRIPTION="Trinity G3/G4 fax viewer"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND=">=trinity-base/kviewshell-${PV}:${SLOT}"

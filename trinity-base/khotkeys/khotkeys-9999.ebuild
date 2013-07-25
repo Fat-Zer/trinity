@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity hotkey daemon"
-KEYWORDS=""
+KEYWORDS=
 IUSE="arts"
 
 DEPEND="

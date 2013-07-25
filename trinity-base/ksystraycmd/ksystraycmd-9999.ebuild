@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="ksystraycmd embeds applications given as argument into the system tray."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Kicker is the Trinity application starter panel, also capable of some useful applets and extensions."
-KEYWORDS=""
+KEYWORDS=
 IUSE="xcomposite"
 
 DEPEND=">=trinity-base/libkonq-${PV}:${SLOT}

@@ -8,7 +8,7 @@ inherit trinity-meta
 KMMODULE="IconThemes"
 
 DESCRIPTION="Icon themes for Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 TSM_EXTRACT="IconThemes/"

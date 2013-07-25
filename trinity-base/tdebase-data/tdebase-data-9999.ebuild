@@ -9,5 +9,5 @@ inherit trinity-meta
 TRINITY_SUBMODULE="l10n pics applnk"
 
 DESCRIPTION="Icons, localization data and .desktop files from kdebase. Includes l10n, pics and applnk subdirs."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity file find utility"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND=">=trinity-base/libkonq-${PV}:${SLOT}"

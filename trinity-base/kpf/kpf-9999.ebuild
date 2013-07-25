@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Kicker file server (http) applet"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

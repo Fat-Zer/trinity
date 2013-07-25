@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Trinity rss library"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

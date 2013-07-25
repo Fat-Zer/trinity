@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="SVG viewer library and embeddable kpart"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND=">=media-libs/freetype-2.2

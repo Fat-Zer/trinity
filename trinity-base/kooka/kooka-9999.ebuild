@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Kooka is a Trinity application which provides access to scanner hardware"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="

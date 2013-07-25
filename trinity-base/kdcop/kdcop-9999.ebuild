@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: graphical DCOP browser/client"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

@@ -10,7 +10,7 @@ inherit trinity-base
 DESCRIPTION="D-BUS TQt bindings"
 HOMEPAGE="http://trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
-KEYWORDS=""
+KEYWORDS=
 SLOT="0"
 IUSE=""
 

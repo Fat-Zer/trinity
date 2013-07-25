@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="KSysguard, a network enabled task manager/system monitor, with additional functionality of top."
-KEYWORDS=""
+KEYWORDS=
 IUSE=" dell-laptop"
 # TODO: make support for sensors when it will be supported by cmake scripts
 

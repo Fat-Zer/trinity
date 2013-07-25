@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="A fast and versatile image viewer for Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="x11-libs/libXext

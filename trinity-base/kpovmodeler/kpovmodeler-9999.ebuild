@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: Modeler for POV-Ray Scenes."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="virtual/opengl

@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Makes Qt3-only apps use several KDE dialogs."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

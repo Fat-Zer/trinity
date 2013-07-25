@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdeartwork"
 inherit trinity-meta
 
 DESCRIPTION="Wallpapers from Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

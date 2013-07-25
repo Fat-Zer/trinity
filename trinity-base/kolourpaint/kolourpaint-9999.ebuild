@@ -7,6 +7,6 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Paint Program for Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 LICENSE="BSD"

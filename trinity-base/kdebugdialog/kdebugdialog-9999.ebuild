@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="A Trinity dialog box for setting preferences for debug output."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

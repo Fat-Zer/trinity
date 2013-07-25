@@ -21,7 +21,7 @@ EGIT_PROJECT="trinity/qt3"
 LICENSE="|| ( QPL-1.0 GPL-2 GPL-3 )"
 
 SLOT="3"
-KEYWORDS=""
+KEYWORDS=
 IUSE="cups debug doc examples firebird ipv6 mysql nas nis opengl postgres sqlite xinerama"
 # no odbc, immqt and immqt-bc support anymore.
 RDEPEND="

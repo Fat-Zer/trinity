@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="An advanced download manager for Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="x11-libs/libXext"

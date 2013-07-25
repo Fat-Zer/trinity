@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Trinity weather status display"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

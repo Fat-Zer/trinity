@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity initialization binary aimed to particulary replace functionality of the starttde script"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

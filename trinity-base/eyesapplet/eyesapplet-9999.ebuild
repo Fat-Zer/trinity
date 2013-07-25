@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdetoys"
 inherit trinity-meta
 
 DESCRIPTION="kicker applet: eyes following the movement of the mouse pointer"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

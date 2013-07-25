@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity screensaver framework"
-KEYWORDS=""
+KEYWORDS=
 IUSE="opengl +krootbacking"
 # CHECKME: if this use needed
 DEPEND="x11-libs/libXt

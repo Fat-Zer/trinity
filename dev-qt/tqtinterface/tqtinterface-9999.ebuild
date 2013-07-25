@@ -11,7 +11,7 @@ DESCRIPTION="Interface and abstraction library for Qt and Trinity"
 HOMEPAGE="http://trinitydesktop.org/"
 
 LICENSE="GPL-2"
-KEYWORDS=""
+KEYWORDS=
 IUSE="-qt3 +tqt"
 REQUIRED_USE="^^ ( qt3 tqt )"
 SLOT="0"

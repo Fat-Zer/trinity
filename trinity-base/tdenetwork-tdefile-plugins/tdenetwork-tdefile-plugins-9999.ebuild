@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="kfile plugins from the tdenetwork package. Currently provides a torrent kfile plugin."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

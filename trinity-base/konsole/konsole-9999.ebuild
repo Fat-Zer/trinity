@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="X terminal for use with Trinity."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="x11-libs/libX11

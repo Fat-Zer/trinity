@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Trinity talk daemon"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 RDEPEND="|| ( net-misc/netkit-talk net-misc/ytalk sys-freebsd/freebsd-ubin )"

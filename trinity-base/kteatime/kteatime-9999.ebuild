@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Trinity utility for making a fine cup of tea"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

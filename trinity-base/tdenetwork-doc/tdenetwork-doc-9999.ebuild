@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Documentaion for kdegraphics-derived packages"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 RDEPEND="
 	>=trinity-base/khelpcenter-${PV}:${SLOT}"

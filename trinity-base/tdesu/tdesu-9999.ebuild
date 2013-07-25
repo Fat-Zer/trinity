@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity gui for su(1) or sudo"
-KEYWORDS=""
+KEYWORDS=
 IUSE="sudo"
 
 DEPEND+=" sudo? ( app-admin/sudo )"

@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="The reliable Trinity session manager that talks the standard X11R6"
-KEYWORDS=""
+KEYWORDS=
 IUSE="hal upower"
 
 DEPEND="

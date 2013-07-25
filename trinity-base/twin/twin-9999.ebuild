@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta eutils
 
 DESCRIPTION="Trinity window manager"
-KEYWORDS=""
+KEYWORDS=
 IUSE="xcomposite"
 
 DEPEND="x11-libs/libXext

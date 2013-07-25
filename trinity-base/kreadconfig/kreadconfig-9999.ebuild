@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="A Trinity tool to read KConfig entries - for use in shell scripts"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

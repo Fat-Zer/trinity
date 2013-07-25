@@ -12,7 +12,7 @@ HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 
 SLOT="$TRINITY_VER"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 RDEPEND=">=trinity-base/tdeinit-${PV}:${SLOT}

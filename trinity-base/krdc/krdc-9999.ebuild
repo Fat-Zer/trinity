@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Trinity remote desktop connection (RDP and VNC) client"
-KEYWORDS=""
+KEYWORDS=
 IUSE="rdesktop slp"
 
 DEPEND="

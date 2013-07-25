@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Kate is an MDI texteditor."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

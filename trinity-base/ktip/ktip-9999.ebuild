@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity tip-of-the-day displayer"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

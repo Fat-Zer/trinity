@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Trinity dict client (for dict.org-like servers)"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

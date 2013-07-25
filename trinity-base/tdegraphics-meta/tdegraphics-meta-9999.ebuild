@@ -13,7 +13,7 @@ LICENSE="GPL-2 LGPL-2"
 
 SLOT="${TRINITY_VER}"
 IUSE=""
-KEYWORDS="amd64 x86"
+KEYWORDS=
 
 RDEPEND="
 	>=trinity-base/kamera-${PV}:${SLOT}

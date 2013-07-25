@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity eject frontend"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="trinity-base/kdialog:${SLOT}"

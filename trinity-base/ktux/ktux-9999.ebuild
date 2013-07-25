@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: screensaver featuring the Space-Faring Tux"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

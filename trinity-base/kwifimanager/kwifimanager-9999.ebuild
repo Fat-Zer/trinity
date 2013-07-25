@@ -7,7 +7,7 @@ TRINITY_SUBMODULE="wifi"
 inherit trinity-meta
 
 DESCRIPTION="Trinity wifi (wireless network) gui"
-KEYWORDS=""
+KEYWORDS=
 IUSE="arts"
 
 DEPEND="

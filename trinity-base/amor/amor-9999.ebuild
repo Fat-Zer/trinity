@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: Amusing Misuse Of Resources - desktop-dwelling creature"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

@@ -7,7 +7,7 @@ TRINITY_SUBMODULE="lanbrowsing"
 inherit trinity-meta
 
 DESCRIPTION="Trinity Lan Information Server - allows Trinity desktops to share information over a network."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 src_install() {

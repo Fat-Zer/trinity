@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdetoys"
 inherit trinity-meta
 
 DESCRIPTION="kicker plugin for the 15-game"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

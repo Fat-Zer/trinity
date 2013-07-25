@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Trinity digital camera manager"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="media-libs/libgphoto2"

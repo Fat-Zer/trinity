@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Trinity color selector/editor"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

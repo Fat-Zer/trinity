@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="A DNSSD (DNS Service Discovery - part of Rendezvous) ioslave and kded module"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="A screen ruler for Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

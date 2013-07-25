@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="VNC-compatible server to share Trinity desktops"
-KEYWORDS=""
+KEYWORDS=
 IUSE="slp"
 
 DEPEND="

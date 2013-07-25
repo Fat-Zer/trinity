@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity crash handler gives the user feedback if a program crashed"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 RDEPEND="sys-devel/gdb"

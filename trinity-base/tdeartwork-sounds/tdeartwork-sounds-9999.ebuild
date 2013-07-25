@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdeartwork"
 inherit trinity-meta
 
 DESCRIPTION="Extra sound themes for Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

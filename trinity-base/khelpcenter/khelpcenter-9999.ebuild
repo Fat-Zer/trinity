@@ -8,7 +8,7 @@ inherit trinity-meta
 TRINITY_SUBMODULE="khelpcenter doc"
 
 DESCRIPTION="The Trinity help center."
-KEYWORDS=""
+KEYWORDS=
 
 RDEPEND="
 	>=trinity-base/tdebase-tdeioslaves-${PV}:${SLOT}

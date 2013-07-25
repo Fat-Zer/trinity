@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Trinity irc client"
-KEYWORDS=""
+KEYWORDS=
 IUSE="ssl"
 
 RDEPEND="dev-lang/perl

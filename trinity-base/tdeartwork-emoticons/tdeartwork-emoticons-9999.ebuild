@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdeartwork"
 inherit trinity-meta
 
 DESCRIPTION="EmotIcons (icons for things like smilies :-) for Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

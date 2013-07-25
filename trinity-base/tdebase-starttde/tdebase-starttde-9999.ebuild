@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="starttde script, which starts a complete Trinity session, and associated scripts"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 RDEPEND="x11-apps/xmessage

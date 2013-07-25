@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdeartwork"
 inherit trinity-meta
 
 DESCRIPTION="Extra screensavers for Trinity"
-KEYWORDS=""
+KEYWORDS=
 IUSE="opengl xscreensaver arts"
 
 DEPEND="

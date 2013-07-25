@@ -8,5 +8,5 @@ inherit trinity-meta
 
 DESCRIPTION="Trinity image viewer"
 
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

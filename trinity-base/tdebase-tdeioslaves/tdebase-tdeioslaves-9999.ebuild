@@ -9,7 +9,7 @@ inherit trinity-meta
 TSM_EXTRACT="tdeioslave"
 
 DESCRIPTION="kioslave is the Trinity VFS framework which plugins present a filesystem-like view of arbitrary data"
-KEYWORDS=""
+KEYWORDS=
 IUSE="samba ldap sasl openexr -hal +tdehw"
 REQUIRED_USE="tdehw? ( !hal )"
 

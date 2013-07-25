@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdemultimedia"
 inherit trinity-meta
 
 DESCRIPTION="Trinity mixer gui"
-KEYWORDS="amd64 x86"
+KEYWORDS=
 IUSE="alsa"
 
 DEPEND="alsa? ( media-libs/alsa-lib )"

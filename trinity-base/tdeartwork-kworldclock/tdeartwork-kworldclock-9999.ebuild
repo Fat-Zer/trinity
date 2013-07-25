@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdeartwork"
 inherit trinity-meta
 
 DESCRIPTION="kworldclock from kdeartwork"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 RDEPEND="$DEPEND

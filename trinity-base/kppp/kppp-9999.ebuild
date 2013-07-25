@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: A dialer and front-end to pppd."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 RDEPEND="net-dialup/ppp"

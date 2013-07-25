@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="kpdf, a Trinity pdf viewer based on xpdf"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="media-libs/freetype:2"

@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity splashscreen framework (the splashscreen of Trinity itself, not of individual apps)"
-KEYWORDS=""
+KEYWORDS=
 IUSE="xinerama"
 
 DEPEND="x11-libs/libXcursor

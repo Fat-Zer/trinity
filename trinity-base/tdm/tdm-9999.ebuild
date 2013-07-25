@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity login manager, similar to xdm and gdm"
-KEYWORDS=""
+KEYWORDS=
 IUSE="pam xdmcp xcomposite sak xrandr"
 
 DEPEND="pam? ( kde-base/kdebase-pam )

@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Documentaion for tdetoys-derived packages"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 RDEPEND="
 	>=trinity-base/khelpcenter-${PV}:${SLOT}"

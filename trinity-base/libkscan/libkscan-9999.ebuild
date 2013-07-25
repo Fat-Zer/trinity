@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Trinity scanner library"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="media-gfx/sane-backends"

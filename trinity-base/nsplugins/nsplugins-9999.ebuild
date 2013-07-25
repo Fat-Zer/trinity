@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Netscape plugins support for Konqueror."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 # CHECKME: dependencies

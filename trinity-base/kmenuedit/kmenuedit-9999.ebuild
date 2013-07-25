@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity menu editor"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

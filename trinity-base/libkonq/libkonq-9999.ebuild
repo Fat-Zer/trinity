@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="The embeddable part of konqueror"
-KEYWORDS=""
+KEYWORDS=
 IUSE="arts"
 DEPEND="arts? ( >=trinity-base/arts-${PV}:${SLOT} )"
 RDEPEND="$DEPEND"

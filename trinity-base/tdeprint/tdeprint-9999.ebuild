@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity printer queue/device manager"
-KEYWORDS=""
+KEYWORDS=
 IUSE="cups"
 
 DEPEND="cups? ( net-print/cups )"

@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: Generic framework for viewer applications"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

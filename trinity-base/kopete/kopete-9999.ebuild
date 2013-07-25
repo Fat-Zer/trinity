@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="Trinity multi-protocol IM client"
-KEYWORDS=""
+KEYWORDS=
 
 IUSE="jingle gsmlib netmeeting speex kernel_linux"
 PLUGINS="latex autoreplace history contactnotes crypt connectionstatus

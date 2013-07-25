@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="kfile plugins from kdegraphics"
-KEYWORDS=""
+KEYWORDS=
 IUSE="tiff openexr pdf"
 
 DEPEND="

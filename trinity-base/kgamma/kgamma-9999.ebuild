@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Trinity screen gamma values kcontrol module"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND=">=trinity-base/kcontrol-${PV}:${SLOT}"

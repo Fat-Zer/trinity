@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdenetwork"
 inherit trinity-meta
 
 DESCRIPTION="kcontrol filesharing config module for NFS, SMB etc"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

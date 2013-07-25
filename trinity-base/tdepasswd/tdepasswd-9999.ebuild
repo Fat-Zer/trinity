@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity GUI for passwd"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND=">=trinity-base/libkonq-${PV}:${SLOT}"

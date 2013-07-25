@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="A simple password checker, used by any software in need of user authentication."
-KEYWORDS=""
+KEYWORDS=
 IUSE="pam"
 
 RDEPEND="

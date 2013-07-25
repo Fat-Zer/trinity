@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="kicker applet for Trinity and X clipboard management"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="x11-libs/libXfixes"

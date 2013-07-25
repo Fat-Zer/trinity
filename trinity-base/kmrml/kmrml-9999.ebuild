@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="KIO and konqueror plugins for MRML - an image indexing service"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

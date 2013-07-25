@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: Web browser, file manager, ..."
-KEYWORDS=""
+KEYWORDS=
 IUSE="java"
 # FIXME: support branding USE flag
 

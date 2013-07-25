@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity tool looking for well-known apps in your path and creates entries for them in the KDE menu"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

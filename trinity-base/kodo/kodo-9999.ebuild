@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: measure the desktop mileage of your mouse pointer"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

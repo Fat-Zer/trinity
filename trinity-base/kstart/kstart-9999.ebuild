@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="tdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity utility to launch applications with special window properties"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""

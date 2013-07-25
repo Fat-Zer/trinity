@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdeartwork"
 inherit trinity-meta
 
 DESCRIPTION="Themes for IceWM from the Trinityartwork package."
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 RDEPEND="$DEPEND

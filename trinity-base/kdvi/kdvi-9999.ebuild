@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="tdegraphics"
 inherit trinity-meta
 
 DESCRIPTION="Trinity DVI viewer"
-KEYWORDS=""
+KEYWORDS=
 IUSE=""
 
 DEPEND="media-libs/freetype:2
