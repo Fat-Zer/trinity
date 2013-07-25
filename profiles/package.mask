@@ -1,8 +1,8 @@
 # an issue with kviewshell-static library in trinity-base/kviewshell; 
 # making it shared solves the problem 
 # or may be we should just install it ?
-trinity-base/kdvi
-trinity-base/kfax
+=trinity-base/kdvi-3.5.13.1
+=trinity-base/kfax-3.5.13.1
 
 # masked due masked dependencies
-trinity-base/kdegraphics-meta
+=trinity-base/kdegraphics-meta-3.5.13.1

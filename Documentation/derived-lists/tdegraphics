@@ -1,0 +1,23 @@
+# this is a list of packages derived on kdebase module
+# packages that are known to be broken are commented with #!
+trinity-base/kamera
+trinity-base/kcoloredit
+trinity-base/kdvi
+trinity-base/kfax
+trinity-base/tdegraphics-doc
+trinity-base/tdegraphics-tdefile-plugins
+trinity-base/kgamma
+trinity-base/kghostview
+trinity-base/kiconedit
+trinity-base/kmrml
+trinity-base/kolourpaint
+trinity-base/kooka
+trinity-base/kpdf
+trinity-base/kpovmodeler
+trinity-base/kruler
+trinity-base/ksnapshot
+trinity-base/ksvg
+trinity-base/kuickshow
+trinity-base/kview
+trinity-base/kviewshell
+trinity-base/libkscan
