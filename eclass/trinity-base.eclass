@@ -59,6 +59,15 @@ TRINITY_HANDBOOK="${TRINITY_HANDBOOK:-never}"
 # ${TRINITY_HANDBOOK} variables. The translations are found in the directory
 # pointed by the TEG_PO_DIR variable.
 
+# @ECLASS-VARIABLE: TRINITY_GIT_MIRROR
+# @DESCRIPTION:
+# User (or ebuild) can decide another git mirror if it's needed;
+# Defaults to http://scm.trinitydesktop.org/scm/git
+
+# @ECLASS-VARIABLE: TRINITY_GIT_BRANCH
+# @DESCRIPTION:
+# Specify git branch for live ebuilds. Default: master
+
 # @ECLASS-VARIABLE: TRINITY_COMMON_DOCS
 # @DESCRIPTION:
 # Common doc names that was found in trinity project's dirs.
@@ -100,9 +109,8 @@ if [[ ${BUILD_TYPE} = live ]]; then
 	#set some varyables
 	case ${TRINITY_SCM} in
 	git)
-		 [[ -z "${TRINITY_GIT_MIRROR}" ]] && TRINITY_GIT_MIRROR="http://scm.trinitydesktop.org/scm/git"
-		 EGIT_REPO_URI="${TRINITY_GIT_MIRROR}/${TRINITY_MODULE_NAME}"
-		 EGIT_BRANCH="master"
+		 EGIT_REPO_URI="${TRINITY_GIT_MIRROR:=http://scm.trinitydesktop.org/scm/git}/${TRINITY_MODULE_NAME}"
+		 EGIT_BRANCH="${TRINITY_GIT_BRANCH:=master}"
 		 EGIT_PROJECT="trinity/${TRINITY_MODULE_NAME}"
 		 EGIT_HAS_SUBMODULES="yes"
 	;;
