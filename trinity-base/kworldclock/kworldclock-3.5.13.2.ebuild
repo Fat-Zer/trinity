@@ -7,5 +7,5 @@ TRINITY_SUBMODULE="kworldwatch"
 inherit trinity-meta
 
 DESCRIPTION="Trinity program that displays the part of the Earth lit up by the Sun"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""

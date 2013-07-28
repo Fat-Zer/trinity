@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta
 
 DESCRIPTION="The Trinity Control Center"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="samba logitech-mouse ieee1394"
 
 SLOT="$TRINITY_VER"

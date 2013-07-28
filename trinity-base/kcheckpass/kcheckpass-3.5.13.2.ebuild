@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta
 
 DESCRIPTION="A simple password checker, used by any software in need of user authentication."
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="pam"
 
 RDEPEND="

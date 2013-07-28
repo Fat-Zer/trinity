@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta
 
 DESCRIPTION="KControl module for the X11 keyboard extension to configure and switch between keyboard mappings."
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="x11-libs/libXtst"

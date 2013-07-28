@@ -12,7 +12,7 @@ DESCRIPTION="Trinity libraries needed by all TDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 SLOT="${TRINITY_VER}"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="alsa avahi arts cups fam jpeg2k lua lzma openexr spell sudo tiff utempter
 	xcomposite"
 

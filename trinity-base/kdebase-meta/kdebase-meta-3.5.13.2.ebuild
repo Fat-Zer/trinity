@@ -13,7 +13,7 @@ LICENSE="GPL-2 LGPL-2"
 
 SLOT="$TRINITY_VER"
 IUSE=""
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND=">=trinity-base/kdebase-starttde-${PV}:${SLOT}
 	>=trinity-base/drkonqi-${PV}:${SLOT}

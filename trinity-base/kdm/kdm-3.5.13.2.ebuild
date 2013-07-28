@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta linux-info
 
 DESCRIPTION="Trinity login manager, similar to xdm and gdm"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="pam xdmcp xcomposite sak"
 
 DEPEND="pam? ( kde-base/kdebase-pam )

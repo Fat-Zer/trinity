@@ -10,7 +10,7 @@ inherit trinity-base
 DESCRIPTION="Interface and abstraction library for Qt and Trinity"
 HOMEPAGE="http://trinitydesktop.org/"
 LICENSE="GPL-2"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="+qt3 -qt4"
 SLOT="0"
 

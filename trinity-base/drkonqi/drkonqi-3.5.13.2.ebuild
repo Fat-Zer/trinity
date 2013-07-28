@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity crash handler gives the user feedback if a program crashed"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="sys-devel/gdb"

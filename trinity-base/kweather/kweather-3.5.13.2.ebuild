@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="kdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Trinity weather status display"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""

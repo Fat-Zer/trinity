@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta eutils
 
 DESCRIPTION="Trinity window manager"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="xcomposite"
 
 DEPEND="x11-libs/libXext

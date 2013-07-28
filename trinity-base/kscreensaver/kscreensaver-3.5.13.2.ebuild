@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity screensaver framework"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="opengl +krootbacking"
 # CHECKME: if this use needed
 DEPEND="x11-libs/libXt

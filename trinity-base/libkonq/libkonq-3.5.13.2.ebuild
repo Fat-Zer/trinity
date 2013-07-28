@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta
 
 DESCRIPTION="The embeddable part of konqueror"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="arts"
 DEPEND="arts? ( >=trinity-base/arts-${PV}:${SLOT} )"
 RDEPEND="$DEPEND"

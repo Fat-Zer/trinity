@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Documentaion for kdetoys-derived packages"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 RDEPEND="
 	>=trinity-base/khelpcenter-${PV}:${SLOT}"

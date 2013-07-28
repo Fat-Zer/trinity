@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="kdetoys"
 inherit trinity-meta
 
 DESCRIPTION="Trinity: measure the desktop mileage of your mouse pointer"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""

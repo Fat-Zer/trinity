@@ -7,5 +7,5 @@ TRINITY_MODULE_NAME="kdetoys"
 inherit trinity-meta
 
 DESCRIPTION="kicker plugin for the 15-game"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""

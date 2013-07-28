@@ -8,7 +8,7 @@ inherit trinity-meta
 TRINITY_SUBMODULE="khelpcenter doc"
 
 DESCRIPTION="The Trinity help center."
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	>=trinity-base/kdebase-kioslaves-${PV}:${SLOT}

@@ -7,7 +7,7 @@ TRINITY_MODULE_NAME="kdebase"
 inherit trinity-meta
 
 DESCRIPTION="Trinity splashscreen framework (the splashscreen of Trinity itself, not of individual apps)"
-KEYWORDS="x86 amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="xinerama"
 
 DEPEND="x11-libs/libXcursor
