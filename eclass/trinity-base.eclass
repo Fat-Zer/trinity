@@ -12,6 +12,18 @@ inherit trinity-functions cmake-utils qt3 base
 # @ECLASS-VARIABLE: BUILD_TYPE
 # @DESCRIPTION:
 # Determins he build type: live or release
+if [[ ${PV} = *9999* ]]; then
+	BUILD_TYPE="live"
+else
+	BUILD_TYPE="release"
+fi
+export BUILD_TYPE
+
+# @ECLASS-VARIABLE: TRINITY_MODULE_NAME
+# @DESCRIPTION:
+# The name of trinity module; It's used for multiple purposes. First of all it
+# determines the tarball name (git repository for live packages)
+echo "${TRINITY_MODULE_NAME:=${PN}}" >/dev/null
 
 # @ECLASS-VARIABLE: TRINITY_SCM
 # @DESCRIPTION:
@@ -87,14 +99,6 @@ TRINITY_COMMON_DOCS="AUTHORS BUGS CHANGELOG CHANGES COMMENTS COMPLIANCE COMPILIN
 TRINITY_BASE_SRC_URI="http://www.mirrorservice.org/sites/trinitydesktop.org/trinity/releases/"
 # TRINITY_BASE_SRC_URI="http://trinity.blackmag.net/releases" # the old one
 
-# determine the build type
-if [[ ${PV} = *9999* ]]; then
-	BUILD_TYPE="live"
-else
-	BUILD_TYPE="release"
-fi
-export BUILD_TYPE
-
 #reset TRINITY_SCM and inherit proper eclass
 if [[ ${BUILD_TYPE} = live ]]; then
 	# set default TRINITY_SCM if not set
@@ -121,7 +125,7 @@ if [[ ${BUILD_TYPE} = live ]]; then
 	esac
 	S="${WORKDIR}/${TRINITY_MODULE_NAME}"
 elif [[ "${BUILD_TYPE}" == release ]]; then
-	mod_name="${TRINITY_MODULE_NAME:=${PN}}"
+	mod_name="${TRINITY_MODULE_NAME}"
 	mod_ver="${TRINITY_MODULE_VER:=${PV}}"
 	
 	case ${mod_ver} in
