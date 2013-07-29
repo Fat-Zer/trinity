@@ -4,3 +4,6 @@ trinity-base/kmilo powerbook-laptop
 dev-qt/tqtinterface qt4
 trinity-base/kdelibs avahi
 trinity-base/tdelibs avahi
+
+# FIXME: FTBFS
+=trinity-base/ksmserver-9999 hal
