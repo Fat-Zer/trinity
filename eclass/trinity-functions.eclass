@@ -7,7 +7,7 @@
 # Purpose: basic trinity functions and variables
 #
 
-inherit versionator
+inherit versionator multilib
 
 TRINITY_LIVEVER="14.0"
 
@@ -59,8 +59,9 @@ set-trinityver() {
 	
 	# this sould solve problems like "cannot find libraries" espessialy when
 	# compiling kdelibs
-	if [ -z "${LD_LIBRARY_PATH##*:${TDEDIR}/lib:*}" ]; then
-		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH%:}:${TDEDIR}/lib"
+	# FIXME: may be iwe supposed to call adjust-trinity-paths instead?
+	if [[ ${LD_LIBRARY_PATH} != *${TDEDIR}/$(get_libdir)*  ]]; then
+		export LD_LIBRARY_PATH="${TDEDIR}/$(get_libdir):${LD_LIBRARY_PATH#:}"
 	fi
 }
 
@@ -78,11 +79,11 @@ adjust-trinity-paths() {
 	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib")"
 	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib32")"
 	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib64")"
-	LDPATH="${TDEDIR}/lib:${LDPATH}"
+	LDPATH="${TDEDIR}/$(get_libdir):${LDPATH}"
 	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib")"
 	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib32")"
 	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib64")"
-	LD_LIBRARY_PATH="${TDEDIR}/lib:${LD_LIBRARY_PATH}"
+	LD_LIBRARY_PATH="${TDEDIR}/$(get_libdir):${LD_LIBRARY_PATH}"
 }
 
 trinity_remove_path_component() {
