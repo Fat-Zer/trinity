@@ -19,3 +19,6 @@ trinity-base/kgpg: if it's possible add app-crypt/pinentry[qt3] to overlay
 
 trinity-base/kopete: review 
 trinity-base/tdebase-starttde: add gentoo-specific lines like those in kdebase-starttde
+
+trinity-base/tde-i18n: the ebuild is crappy and need to be rewriten.
+trinity-base/ksmserver-9999: FTBFS with hal. TODO: fill the bug
