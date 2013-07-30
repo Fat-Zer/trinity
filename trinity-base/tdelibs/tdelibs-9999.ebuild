@@ -14,7 +14,7 @@ LICENSE="GPL-2 LGPL-2"
 SLOT="${TRINITY_VER}"
 KEYWORDS=
 IUSE="alsa avahi arts cups consolekit fam jpeg2k lua lzma networkmanager openexr
-	spell sudo tiff utempter upower udisks old_udisks xcomposite xrandr"
+	spell sudo tiff utempter upower udisks old_udisks xcomposite +xrandr"
 
 DEPEND="${DEPEND}
 	>=dev-qt/tqtinterface-${PV}
