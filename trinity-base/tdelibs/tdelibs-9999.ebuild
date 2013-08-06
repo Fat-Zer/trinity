@@ -29,6 +29,7 @@ DEPEND="${DEPEND}
 	media-libs/freetype:2
 	media-libs/libart_lgpl
 	sys-apps/dbus
+	dev-libs/dbus-1-tqt
 	x11-libs/libXcursor
 	x11-libs/libXrender
 	alsa? ( media-libs/alsa-lib )
