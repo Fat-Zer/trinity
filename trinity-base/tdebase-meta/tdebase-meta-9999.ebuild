@@ -42,7 +42,7 @@ RDEPEND=">=trinity-base/tdeinit-${PV}:${SLOT}
 	>=trinity-base/kpager-${PV}:${SLOT}
 	>=trinity-base/kpersonalizer-${PV}:${SLOT}
 	>=trinity-base/kreadconfig-${PV}:${SLOT}
-	>=trinity-base/kscreensaver-${PV}:${SLOT}
+	>=trinity-base/tdescreensaver-${PV}:${SLOT}
 	>=trinity-base/ksmserver-${PV}:${SLOT}
 	>=trinity-base/ksplashml-${PV}:${SLOT}
 	>=trinity-base/kstart-${PV}:${SLOT}

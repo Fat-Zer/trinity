@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="4"
@@ -7,11 +7,11 @@ TRINITY_MODULE_NAME="tdeartwork"
 inherit trinity-meta
 
 DESCRIPTION="Extra screensavers for Trinity"
-KEYWORDS=
+KEYWORDS=""
 IUSE="opengl xscreensaver arts"
 
 DEPEND="
-	>=trinity-base/kscreensaver-${PV}:${SLOT}
+	>=trinity-base/tdescreensaver-${PV}:${SLOT}
 	>=trinity-base/krootbacking-${PV}:${SLOT}
 	media-libs/libart_lgpl
 	opengl? ( virtual/opengl )

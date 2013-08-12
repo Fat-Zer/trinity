@@ -57,7 +57,6 @@
 ~trinity-base/krfb-9999 **
 ~trinity-base/krootbacking-9999 **
 ~trinity-base/kruler-9999 **
-~trinity-base/kscreensaver-9999 **
 ~trinity-base/ksirc-9999 **
 ~trinity-base/ksmserver-9999 **
 ~trinity-base/ksnapshot-9999 **
@@ -85,11 +84,11 @@
 ~trinity-base/tdeartwork-emoticons-9999 **
 ~trinity-base/tdeartwork-icewm-themes-9999 **
 ~trinity-base/tdeartwork-icon-themes-9999 **
-~trinity-base/tdeartwork-kscreensaver-9999 **
 ~trinity-base/tdeartwork-kworldclock-9999 **
 ~trinity-base/tdeartwork-meta-9999 **
 ~trinity-base/tdeartwork-sounds-9999 **
 ~trinity-base/tdeartwork-styles-9999 **
+~trinity-base/tdeartwork-tdescreensaver-9999 **
 ~trinity-base/tdeartwork-twin-styles-9999 **
 ~trinity-base/tdeartwork-wallpapers-9999 **
 ~trinity-base/tdebase-data-9999 **
@@ -109,6 +108,7 @@
 ~trinity-base/tdenetwork-tdefile-plugins-9999 **
 ~trinity-base/tdepasswd-9999 **
 ~trinity-base/tdeprint-9999 **
+~trinity-base/tdescreensaver-9999 **
 ~trinity-base/tdesu-9999 **
 ~trinity-base/tdetoys-doc-9999 **
 ~trinity-base/tdetoys-meta-9999 **

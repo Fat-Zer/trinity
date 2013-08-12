@@ -12,7 +12,8 @@ IUSE="opengl +krootbacking"
 # CHECKME: if this use needed
 DEPEND="x11-libs/libXt
 	opengl? ( virtual/opengl )
-	krootbacking? ( trinity-base/krootbacking )"
+	krootbacking? ( trinity-base/krootbacking )
+	!!trinity-base/kscreensaver:${TRINITY_VER}"
 RDEPEND="${DEPEND}"
 
 src_configure () {
