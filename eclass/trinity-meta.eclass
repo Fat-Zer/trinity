@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@
 # Purpose: make easy to install trinity ebuilds. 
 #
 
-inherit trinity-base trinity-functions cmake-utils qt3
+inherit trinity-base trinity-functions cmake-utils
 
 LICENSE="GPL-2 LGPL-2"
 HOMEPAGE="http://www.trinitydesktop.org/"
@@ -245,6 +245,15 @@ trinity-meta_src_configure() {
 	trinity-base_src_configure
 }
 
+# @FUNCTION: trinity-meta_src_compile
+# @DESCRIPTION:
+# Just call trinity-base_src_compile.
+trinity-meta_src_compile() {
+	debug-print-function ${FUNCNAME} "$@"
+	
+	trinity-base_src_compile
+}
+
 # @FUNCTION: trinity-meta_src_install
 # @DESCRIPTION:
 # Call default cmake install function. and install documentation.
@@ -257,4 +266,4 @@ trinity-meta_src_install() {
 	trinity-base_install_docfiles
 }
 
-EXPORT_FUNCTIONS src_configure src_prepare src_install src_unpack pkg_setup
+EXPORT_FUNCTIONS src_prepare src_configure src_compile src_install src_unpack pkg_setup

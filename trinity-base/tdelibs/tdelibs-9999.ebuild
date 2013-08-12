@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -127,9 +127,6 @@ EOF
 cat <<EOF >"${D}/etc/revdep-rebuild/50-trinity-${SLOT}"
 SEARCH_DIRS="${TDEDIR}/bin ${TDEDIR}/lib*"
 EOF
-
-	# make documentation help accessible throught symlink
-	dosym ${TDEDIR}/share/doc/kde/HTML ${TDEDIR}/share/doc/HTML
 
 	trinity-base_create_tmp_docfiles
 	trinity-base_install_docfiles

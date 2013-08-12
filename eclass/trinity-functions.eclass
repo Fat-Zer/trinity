@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -59,10 +59,11 @@ set-trinityver() {
 	
 	# this sould solve problems like "cannot find libraries" espessialy when
 	# compiling kdelibs
-	# FIXME: may be iwe supposed to call adjust-trinity-paths instead?
-	if [[ ${LD_LIBRARY_PATH} != *${TDEDIR}/$(get_libdir)*  ]]; then
-		export LD_LIBRARY_PATH="${TDEDIR}/$(get_libdir):${LD_LIBRARY_PATH#:}"
-	fi
+	# NOTE: That can breaks compilation of tdelibs:
+	#       binaries which runs during compilation are tring to load shared
+	#       libraries from the TDE's directory wich may be broken.
+	# TODO: fix that issue for tdelibs
+	adjust-trinity-paths
 }
 
 # @FUNCTION: adjust-trinity-paths
@@ -71,19 +72,23 @@ set-trinityver() {
 # Adjust PATH LDPATH and LD_LIBRARY_PATH to see only current trinity version
 adjust-trinity-paths() {
 	debug-print-function $FUNCNAME "$@"
+	local libdir
 	
 	# this function can be called during depend phase so we shouldn't use sed here
 	PATH="$(trinity_remove_path_component "$PATH" "/usr/trinity/*/bin")"
 	PATH="$(trinity_remove_path_component $PATH "/usr/trinity/*/sbin")"
-	PATH="${TDEDIR}/bin:${PATH}"	
-	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib")"
-	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib32")"
-	LDPATH="$(trinity_remove_path_component $LDPATH "/usr/trinity/*/lib64")"
-	LDPATH="${TDEDIR}/$(get_libdir):${LDPATH}"
-	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib")"
-	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib32")"
-	LD_LIBRARY_PATH="$(trinity_remove_path_component $LD_LIBRARY_PATH "/usr/trinity/*/lib64")"
-	LD_LIBRARY_PATH="${TDEDIR}/$(get_libdir):${LD_LIBRARY_PATH}"
+	PATH="$(trinity_prepand_path_component "$PATH" "${TDEDIR}/bin" )"
+	
+	# FIXME: it seems we don't need LDPATH
+#	LDPATH="$(trinity_remove_path_component "$LDPATH" "/usr/trinity/*/${libdir}")"
+	LD_LIBRARY_PATH="$(trinity_remove_path_component "$LD_LIBRARY_PATH" "/usr/trinity/*/${libdir}")"
+	for libdir in $(get_all_libdirs); do
+#		LDPATH="$(trinity_prepand_path_component "$LDPATH" "${TDEDIR}/${libdir}" )"
+		LD_LIBRARY_PATH="$(trinity_prepand_path_component "$LD_LIBRARY_PATH" "${TDEDIR}/${libdir}" )"
+	done
+
+	export PATH
+	export LD_LIBRARY_PATH
 }
 
 trinity_remove_path_component() {
@@ -99,6 +104,13 @@ trinity_remove_path_component() {
 	done
 
 	echo "${new_path#:}"
+}
+
+trinity_prepand_path_component() {
+	local new_path
+
+	new_path="${2%:}:${1#:}"
+	echo "${new_path%:}"
 }
 
 # @FUNCTION: need-trinity

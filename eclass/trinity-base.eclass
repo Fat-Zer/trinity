@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,13 @@
 # Purpose: support planty of ebuilds for trinity project (a kde3 fork).
 #
 
-inherit trinity-functions cmake-utils qt3 base
+inherit trinity-functions cmake-utils base
+
+# FIXME we don't need to write to both 
+addwrite "/usr/qt/3/etc/settings"
+addpredict "/usr/qt/3/etc/settings"
+addwrite "/usr/tqt3/etc/settings"
+addpredict "/usr/tqt3/etc/settings"
 
 # @ECLASS-VARIABLE: BUILD_TYPE
 # @DESCRIPTION:
@@ -291,6 +297,15 @@ trinity-base_src_configure() {
 	cmake-utils_src_configure
 }
 
+# @FUNCTION: trinity-base_src_compile
+# @DESCRIPTION:
+# Just call cmake-utils_src_compile.
+trinity-base_src_compile() {
+	debug-print-function ${FUNCNAME} "$@"
+	
+	cmake-utils_src_compile
+}
+
 # @FUNCTION: trinity-base_src_install
 # @DESCRIPTION:
 # Call standart cmake-utils_src_install and installs common documentation. 
@@ -410,4 +425,4 @@ trinity-base_fix_desktop_files() {
 	esac
 }
 
-EXPORT_FUNCTIONS src_configure src_install src_prepare
+EXPORT_FUNCTIONS src_configure src_compile src_install src_prepare
