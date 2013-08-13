@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -12,9 +12,10 @@ IUSE="xcomposite"
 
 DEPEND=">=trinity-base/libkonq-${PV}:${SLOT}
 	>=trinity-base/tdebase-data-${PV}:${SLOT}
-	xcomposite? ( x11-libs/libXrender )
-	xcomposite? ( x11-libs/libXfixes )
-	xcomposite? ( x11-libs/libXcomposite )"
+	dev-libs/dbus-tqt
+	xcomposite? ( x11-libs/libXrender
+		x11-libs/libXfixes
+		x11-libs/libXcomposite )"
 
 RDEPEND="${DEPEND}
 	trinity-base/kmenuedit:${SLOT}"

@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -10,19 +10,22 @@ DESCRIPTION="KDesktop is the Trinity interface that handles icons, desktop popup
 KEYWORDS=
 IUSE="pam xscreensaver"
 
-DEPEND="x11-libs/libXrender
+COMMON_DEPEND="x11-libs/libXrender
 	x11-libs/libXcursor
 	>=trinity-base/libkonq-${PV}:${SLOT}
 	>=trinity-base/kcontrol-${PV}:${SLOT}
-	xscreensaver? ( x11-proto/scrnsaverproto )"
+	xscreensaver? ( x11-libs/libXScrnSaver )"
 	# Requires the desktop background settings module,
 	# so until we separate the kcontrol modules into separate ebuilds :-),
 	# there's a dep here
-RDEPEND="${DEPEND}
+DEPEND="${COMMON_DEPEND}
+	xscreensaver? ( x11-proto/scrnsaverproto )
+	xscreensaver? ( x11-misc/xscreensaver )"
+# TODO remove x11-misc/xscreensaver after TDE bug # will be fixed
+RDEPEND="${COMMON_DEPEND}
 	>=trinity-base/kcheckpass-${PV}:${SLOT}
 	>=trinity-base/kdialog-${PV}:${SLOT}
 	>=trinity-base/konqueror-${PV}:${SLOT}
-	xscreensaver? ( x11-libs/libXScrnSaver )
 	pam? ( trinity-base/kdebase-pam )"
 
 TSM_EXTRACT_ALSO="kcheckpass/"
