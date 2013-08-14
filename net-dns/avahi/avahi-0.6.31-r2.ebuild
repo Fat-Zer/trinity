@@ -2,13 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 
-PYTHON_DEPEND="python? 2"
-PYTHON_USE_WITH="gdbm"
-PYTHON_USE_WITH_OPT="python"
+PYTHON_COMPAT=( python{2_5,2_6,2_7} )
+PYTHON_REQ_USE="gdbm"
 
-inherit autotools eutils mono python multilib flag-o-matic user
+WANT_AUTOMAKE=1.11
+
+inherit autotools eutils mono python-r1 multilib flag-o-matic user systemd
 
 DESCRIPTION="System which facilitates service discovery on a local network"
 HOMEPAGE="http://avahi.org/"
@@ -17,63 +18,57 @@ SRC_URI="http://avahi.org/download/${P}.tar.gz"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="autoipd bookmarks dbus doc gdbm gtk gtk3 howl-compat +introspection ipv6
-kernel_linux mdnsresponder-compat mono python qt3 qt4 test utils"
+IUSE="autoipd bookmarks dbus doc gdbm gtk gtk3 howl-compat +introspection ipv6 kernel_linux mdnsresponder-compat mono python qt3 qt4 test utils"
 
-DBUS_DEPEND=">=sys-apps/dbus-0.30"
-COMMON_DEPEND=">=dev-libs/libdaemon-0.14
+REQUIRED_USE="
+	utils? ( || ( gtk gtk3 ) )
+	python? ( dbus gdbm )
+	mono? ( dbus )
+	howl-compat? ( dbus )
+	mdnsresponder-compat? ( dbus )
+"
+
+COMMON_DEPEND="
+	dev-libs/libdaemon
 	dev-libs/expat
 	dev-libs/glib:2
 	gdbm? ( sys-libs/gdbm )
 	qt3? ( dev-qt/qt:3 )
 	qt4? ( dev-qt/qtcore:4 )
-	gtk? ( >=x11-libs/gtk+-2.14.0:2 )
+	gtk? ( x11-libs/gtk+:2 )
 	gtk3? ( x11-libs/gtk+:3 )
-	dbus? (
-		${DBUS_DEPEND}
-		python? ( dev-python/dbus-python )
-	)
+	dbus? ( sys-apps/dbus )
+	kernel_linux? ( sys-libs/libcap )
+	introspection? ( dev-libs/gobject-introspection )
 	mono? (
-		>=dev-lang/mono-1.1.10
-		gtk? ( >=dev-dotnet/gtk-sharp-2 )
+		dev-lang/mono
+		gtk? ( dev-dotnet/gtk-sharp )
 	)
-	howl-compat? ( ${DBUS_DEPEND} )
-	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
-	mdnsresponder-compat? ( ${DBUS_DEPEND} )
 	python? (
-		gtk? ( >=dev-python/pygtk-2 )
+		gtk? ( dev-python/pygtk )
+		dbus? ( dev-python/dbus-python )
 	)
 	bookmarks? (
 		dev-python/twisted-core
 		dev-python/twisted-web
 	)
-	kernel_linux? ( sys-libs/libcap )"
-DEPEND="${COMMON_DEPEND}
-	>=dev-util/intltool-0.40.5
+"
+
+DEPEND="
+	${COMMON_DEPEND}
+	dev-util/intltool
 	virtual/pkgconfig
 	doc? (
 		app-doc/doxygen
-		mono? ( >=virtual/monodoc-1.1.8 )
-	)"
-RDEPEND="${COMMON_DEPEND}
+		mono? ( virtual/monodoc )
+	)
+"
+
+RDEPEND="
+	${COMMON_DEPEND}
 	howl-compat? ( !net-misc/howl )
-	mdnsresponder-compat? ( !net-misc/mDNSResponder )"
-
-pkg_setup() {
-	if use python; then
-		python_set_active_version 2
-		python_pkg_setup
-	fi
-
-	if use python && ! use dbus && ! use gtk; then
-		ewarn "For proper python support you should also enable the dbus and gtk USE flags!"
-	fi
-
-	# FIXME: Use REQUIRED_USE once python.eclass gets EAPI 4 support, bug 372255
-	if use utils && ! { use gtk || use gtk3; }; then
-		ewarn "To install the avahi utilities, USE='gtk utils' or USE='gtk3 utils''"
-	fi
-}
+	mdnsresponder-compat? ( !net-misc/mDNSResponder )
+"
 
 pkg_preinst() {
 	enewgroup netdev
@@ -98,13 +93,28 @@ src_prepare() {
 		doxygen_to_devhelp.xsl || die
 
 	# Make gtk utils optional
-	epatch "${FILESDIR}/${PN}-0.6.30-optional-gtk-utils.patch"
+	epatch "${FILESDIR}"/${PN}-0.6.30-optional-gtk-utils.patch
 
-	# Fix init scripts for >=openrc-0.9.0 (bug #383641)
-	epatch "${FILESDIR}/${PN}-0.6.x-openrc-0.9.x-init-scripts-fixes.patch"
+	# Fix init scripts for >=openrc-0.9.0, bug #383641
+	epatch "${FILESDIR}"/${PN}-0.6.x-openrc-0.9.x-init-scripts-fixes.patch
+
+	# install-exec-local -> install-exec-hook
+	epatch "${FILESDIR}"/${P}-install-exec-hook.patch
+
+	# Backport host-name-from-machine-id patch, bug #466134
+	epatch "${FILESDIR}"/${P}-host-name-from-machine-id.patch
+
+	# Don't install avahi-discover unless ENABLE_GTK_UTILS, bug #359575
+	epatch "${FILESDIR}"/${P}-fix-install-avahi-discover.patch
 
 	# Drop DEPRECATED flags, bug #384743
 	sed -i -e 's:-D[A-Z_]*DISABLE_DEPRECATED=1::g' avahi-ui/Makefile.am || die
+
+	# Fix references to Lennart's home directory, bug #466210
+	sed -i -e 's/\/home\/lennart\/tmp\/avahi//g' man/* || die
+
+	# Prevent .pyc files in DESTDIR
+	>py-compile
 
 	eautoreconf
 }
@@ -115,6 +125,7 @@ src_configure() {
 	local myconf="--disable-static"
 
 	if use python; then
+		python_export_best
 		myconf+="
 			$(use_enable dbus python-dbus)
 			$(use_enable gtk pygtk)
@@ -123,11 +134,6 @@ src_configure() {
 
 	if use mono; then
 		myconf+=" $(use_enable doc monodoc)"
-	fi
-
-	# these require dbus enabled
-	if use mdnsresponder-compat || use howl-compat || use mono; then
-		myconf+=" --enable-dbus"
 	fi
 
 	# We need to unset DISPLAY, else the configure script might have problems detecting the pygtk module
@@ -157,6 +163,7 @@ src_configure() {
 		$(use_enable qt3) \
 		$(use_enable qt4) \
 		$(use_enable gdbm) \
+		$(systemd_with_unitdir) \
 		${myconf}
 }
 
@@ -167,7 +174,7 @@ src_compile() {
 }
 
 src_install() {
-	emake install py_compile=true DESTDIR="${D}" || die "make install failed"
+	emake install DESTDIR="${D}" || die "make install failed"
 	use bookmarks && use python && use dbus && use gtk || \
 		rm -f "${ED}"/usr/bin/avahi-bookmarks
 
@@ -190,20 +197,14 @@ src_install() {
 		doins avahi.devhelp || die
 	fi
 
-	# Remove .la files
-	find "${D}" -name '*.la' -exec rm -f {} + || die
-}
-
-pkg_postrm() {
-	use python && python_mod_cleanup avahi $(use dbus && use gtk && echo avahi_discover)
+	find "${ED}" -name '*.la' -exec rm -f {} +
 }
 
 pkg_postinst() {
-	use python && python_mod_optimize avahi $(use dbus && use gtk && echo avahi_discover)
-
 	if use autoipd; then
-		echo
+		elog
 		elog "To use avahi-autoipd to configure your interfaces with IPv4LL (RFC3927)"
 		elog "addresses, just set config_<interface>=( autoipd ) in /etc/conf.d/net!"
+		elog
 	fi
 }

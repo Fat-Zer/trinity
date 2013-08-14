@@ -46,7 +46,7 @@ COMMON_DEPEND=">=dev-libs/libdaemon-0.14
 		gtk? ( >=dev-python/pygtk-2 )
 	)
 	bookmarks? (
-		dev-python/twisted
+		dev-python/twisted-core
 		dev-python/twisted-web
 	)
 	kernel_linux? ( sys-libs/libcap )"
@@ -216,11 +216,5 @@ pkg_postinst() {
 		echo
 		elog "To use avahi-autoipd to configure your interfaces with IPv4LL (RFC3927)"
 		elog "addresses, just set config_<interface>=( autoipd ) in /etc/conf.d/net!"
-	fi
-
-	if use dbus; then
-		echo
-		elog "If this is your first install of avahi please reload your dbus config"
-		elog "with /etc/init.d/dbus reload before starting avahi-daemon!"
 	fi
 }
