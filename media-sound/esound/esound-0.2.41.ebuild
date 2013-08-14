@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/esound/Attic/esound-0.2.41.ebuild,v 1.11 2012/03/18 12:32:02 pacho dead $
+# $Header: $
 
 EAPI=2
 inherit libtool gnome.org eutils flag-o-matic

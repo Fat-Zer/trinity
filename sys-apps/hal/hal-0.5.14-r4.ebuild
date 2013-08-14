@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/hal/Attic/hal-0.5.14-r4.ebuild,v 1.9 2011/09/18 09:08:28 ssuominen dead $
+# $Header: $
 
 EAPI="2"
 
@@ -132,7 +132,7 @@ src_prepare() {
 	EPATCH_FORCE="yes" \
 	epatch
 	epatch "${FILESDIR}/${P}-fix-glib-includes-in-addons.patch"
-	
+
 	# the last one is a work-around for an issue described in:
 	#     mail-list: gentoo-desktop
 	#     tread: [kde-sunset] sys-apps/hal

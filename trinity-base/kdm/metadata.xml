@@ -6,7 +6,7 @@
 		<name>Golubev Alexander</name>
 	</maintainer>
 	<use>
-		<flag name="xdmcp"> Support for xdmcp.</flag>
-		<flag name="sak"> Adds SAK (Secure Attention Key) feature.</flag>
+		<flag name="xdmcp">Support for <pkg>x11-libs/libXdmcp</pkg></flag>
+		<flag name="sak">Adds SAK (Secure Attention Key) feature</flag>
 	</use>
 </pkgmetadata>

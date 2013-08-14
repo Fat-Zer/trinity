@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI=2
@@ -107,7 +107,7 @@ src_prepare() {
 	if [[ "$TDE_VERSION" != "$TDE_PATCH_VERSION" ]]; then
 		epatch "${FILESDIR}/trinity-$TDE_VERSION..$TDE_PATCH_VERSION/"
 	fi
-	
+
 	# It's nice to able user apply his own patches.
 	epatch_user
 

@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-tqt/tqt/tqt-3.3.8b-r2.ebuild,v 1.7 2009/12/03 18:25:47 yngwin Exp $
+# $Header: $
 EAPI=5
 
 inherit eutils git-2 flag-o-matic toolchain-funcs
@@ -98,7 +98,7 @@ pkg_setup() {
 		*)
 			die "Unknown CHOST, no platform choosed."
 	esac
-	
+
 	if [[ "$CHOST" == *64* && "$PLATCXX" == "g++" ]]; then
 		export PLATFORM="${PLATNAME}-${PLATCXX}-64"
 	else
@@ -118,11 +118,11 @@ src_prepare() {
 #
 #		epatch "${FILESDIR}"/tqt-3.3.8-immtqt+gcc-4.3.patch
 #	fi
-	
+
 	# set c/xxflags and ldflags
 	strip-flags
 	append-flags -fno-strict-aliasing
-	
+
 	sed -i -e "s:QMAKE_CFLAGS_RELEASE.*=.*:QMAKE_CFLAGS_RELEASE=${CFLAGS}:" \
 		   -e "s:QMAKE_CXXFLAGS_RELEASE.*=.*:QMAKE_CXXFLAGS_RELEASE=${CXXFLAGS}:" \
 		   -e "s:QMAKE_LFLAGS_RELEASE.*=.*:QMAKE_LFLAGS_RELEASE=${LDFLAGS}:" \
@@ -141,7 +141,7 @@ src_prepare() {
 	sed -i -e "s:CXXFLAGS.*=:CXXFLAGS=${CXXFLAGS} :" \
 		   -e "s:LFLAGS.*=:LFLAGS=${LDFLAGS} :" \
 		"${S}/qmake/Makefile.unix" || die
-	
+
 	# remove unnecessary headers
 #	find include -maxdepth 1 \( -name *.h ! -name *tq* \) -delete
 	# find include -maxdepth 1 \( -name *.h ! -name *tq* -o -name *_p \) -delete
@@ -188,7 +188,7 @@ src_configure() {
 #	use immtqt	&& myconf+=" -inputmethod -inputmethod-ext"
 
 	myconf+=" -dlopen-opengl"
-	
+
 	export YACC='byacc -d'
 	tc-export CC CXX
 	export LINK="$(tc-getCXX)"

@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="3"
@@ -49,7 +49,7 @@ RDEPEND="${DEPEND}"
 PATCHES=( "$FILESDIR/${PN}-3.5.13.1-make-xcomposite-optional.patch"
 		"$FILESDIR/${PN}-3.5.13.1-fix-no-xcomposite.patch"
 		"$FILESDIR/${PN}-3.5.13.1-OnlyShowIn-TDE.patch"
-		"$FILESDIR/${PN}-3.5.13.1-bug-1161.patch" 
+		"$FILESDIR/${PN}-3.5.13.1-bug-1161.patch"
 		"$FILESDIR/${PN}-3.5.13.1-fix-insane-kde4-variables.patch")
 
 src_configure() {
@@ -98,7 +98,7 @@ src_install() {
 
 	# number goes down with version upgrade
 	# NOTE: they should be less than kdepaths for kde-3.5
-	cat <<EOF > "${D}/etc/env.d/42trinitypaths-${SLOT}" 
+	cat <<EOF > "${D}/etc/env.d/42trinitypaths-${SLOT}"
 PATH=${TDEDIR}/bin
 ROOTPATH=${TDEDIR}/sbin:${TDEDIR}/bin
 LDPATH=${libdirs#:}

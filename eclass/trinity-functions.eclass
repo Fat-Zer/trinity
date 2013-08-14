@@ -3,13 +3,13 @@
 # $Header: $
 
 #
-# Original Author: alexander
+# Original Author: Alexander Golubev (Fat-Zer)
 # Purpose: basic trinity functions and variables
 #
 
 inherit versionator multilib
 
-TRINITY_LIVEVER="14.0"
+TRINITY_LIVEVER="14.0.0"
 
 # @FUNCTION: set-trinityver
 # @USAGE: < version >
@@ -136,3 +136,55 @@ need-trinity() {
 	DEPEND="$DEPEND $my_depend"
 	RDEPEND="$RDEPEND $my_depend"
 }
+
+# @ECLASS-VARIABLE: TRINITY_NEED_ARTS
+# @DESCRIPTION:
+# This variable is setted by need-arts function. Possible arguments values 'yes', 'no' and 'optional'
+# Default is 'no'
+TRINITY_NEED_ARTS="no"
+
+# @FUNCTION: need-arts
+# @USAGE: need-arts <yes|optional>
+# @DESCRIPTION:
+# This function adds DEPEND's for aRTs-support Possible arguments are 'yes' and 'optinal'
+# 'yes' means arts is required, optional' results in USE flag arts.
+# NOTE: this function modifies IUSE DEPEND and RDEPEND variables, so if you call it before setting
+#       those variables don't forget to include the priviously setted value into them.
+need-arts() {
+	debug-print-function $FUNCNAME "$@"
+
+	local tdelibs my_depend
+
+	[[ -z "${1}" ]] && die "$FUNCNAME requires an argument"
+	
+	TRINITY_NEED_ARTS=$1;
+
+	case "${TRINITY_VER}" in
+		"") die "You must call set-trinityver unctions to set TRINITY_VER before calling $FUNCNAME.";;
+		3.5*) tdelibs="trinity-base/kdelibs";;
+		*) tdelibs="trinity-base/tdelibs";;
+	esac
+
+	# handle trinity-base/tdelibs in special way
+	if [[ "${CATEGORY}/${PN}" == "${tdelibs}" ]]; then
+		if [[ "$1" == optional ]]; then
+			my_depend=" arts? ( trinity-base/arts )"
+			IUSE+=" arts"
+		else
+			die "aRTs support for ${tdelibs} supposed to be optional"
+		fi
+	else
+		case "$1" in
+			yes) my_depend=" trinity-base/arts
+					${tdelibs}[arts]" ;;
+			optional) my_depend=" arts? ( trinity-base/arts
+					${tdelibs}[arts] )" 
+				IUSE+=" arts" ;;
+			*) die "bad parameter: $1"
+		esac
+	fi
+	
+	DEPEND+=" ${my_depend}";
+	RDEPEND+=" ${my_depend}";
+}
+

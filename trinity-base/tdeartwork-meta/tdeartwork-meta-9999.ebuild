@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="4"
@@ -19,7 +19,7 @@ RDEPEND="
 	>=trinity-base/tdeartwork-emoticons-${PV}:${SLOT}
 	>=trinity-base/tdeartwork-icon-themes-${PV}:${SLOT}
 	>=trinity-base/tdeartwork-icewm-themes-${PV}:${SLOT}
-	>=trinity-base/tdeartwork-kscreensaver-${PV}:${SLOT}
+	>=trinity-base/tdeartwork-tdescreensaver-${PV}:${SLOT}
 	>=trinity-base/tdeartwork-twin-styles-${PV}:${SLOT}
 	>=trinity-base/tdeartwork-kworldclock-${PV}:${SLOT}
 	>=trinity-base/tdeartwork-sounds-${PV}:${SLOT}

@@ -54,7 +54,8 @@ src_install() {
 
 	# install XSession upstream script seems to be debian-cpecific
 	cp "${FILESDIR}/${P}-xsession.script" "${D}/${TDEDIR}/share/config/tdm/Xsession"
-	sed -i -e "s/@TRINITY_INSTALL_PATH@/${TDEDIR}/" "${D}/${TDEDIR}/share/config/tdm/Xsession"
+	sed -i -e "s!@TRINITY_INSTALL_PATH@!${TDEDIR}!" "${D}/${TDEDIR}/share/config/tdm/Xsession" \
+		|| die "sed tdmrc failed"
 }
 
 pkg_postinst() {

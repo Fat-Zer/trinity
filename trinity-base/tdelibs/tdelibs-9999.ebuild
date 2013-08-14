@@ -1,23 +1,24 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-EAPI="3"
+EAPI="4"
 TRINITY_MODULE_NAME="$PN"
 
 inherit trinity-base multilib
 
 set-trinityver
 
+need-arts optional
+
 DESCRIPTION="Trinity libraries needed by all TDE programs."
 HOMEPAGE="http://www.trinitydesktop.org/"
 LICENSE="GPL-2 LGPL-2"
 SLOT="${TRINITY_VER}"
 KEYWORDS=
-IUSE="alsa avahi arts cups consolekit fam jpeg2k lua lzma networkmanager openexr
+IUSE+=" alsa avahi cups consolekit fam jpeg2k lua lzma networkmanager openexr
 	spell sudo tiff utempter upower udisks old_udisks xcomposite +xrandr"
 
-DEPEND="${DEPEND}
-	>=dev-qt/tqtinterface-${PV}
+MY_DEPEND=">=dev-qt/tqtinterface-${TRINITY_VER}
 	>=dev-libs/libxslt-1.1.16
 	>=dev-libs/libxml2-2.6.6
 	>=dev-libs/libpcre-6.6
@@ -33,7 +34,6 @@ DEPEND="${DEPEND}
 	x11-libs/libXcursor
 	x11-libs/libXrender
 	alsa? ( media-libs/alsa-lib )
-	arts? ( >=trinity-base/arts-${PV}:${SLOT} )
 	avahi? ( net-dns/avahi )
 	cups? ( >=net-print/cups-1.1.19 )
 	fam? ( virtual/fam )
@@ -50,8 +50,8 @@ DEPEND="${DEPEND}
 	xcomposite? ( x11-libs/libXcomposite )"
 # NOTE: upstream lacks avahi support, so the use flag is currenly masked
 # TODO: add elfres support via libr (not in portage now)
-
-RDEPEND="${DEPEND}
+DEPEND+=" ${MY_DEPEND}"
+RDEPEND+=" ${MY_DEPEND}
 	consolekit? ( sys-auth/consolekit )
 	upower? ( sys-power/upower )
 	udisks? ( sys-fs/udisks:2 )
@@ -68,7 +68,6 @@ src_configure() {
 		-DWITH_HSPELL=OFF
 		-DKDE4_DEFAULT_HOME=.kde4
 		$(cmake-utils_use_with alsa ALSA)
-		$(cmake-utils_use_with arts ARTS)
 		$(cmake-utils_use_with avahi AVAHI)
 		$(cmake-utils_use_with cups CUPS)
 		$(cmake-utils_use_with kernel_linux INOTIFY)

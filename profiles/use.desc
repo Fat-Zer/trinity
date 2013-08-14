@@ -3,3 +3,4 @@ esd - Adds support for media-sound/esound (Enlightened Sound Daemon)
 hal - Enable Hardware Abstraction Layer (HAL) support
 upower - Adds support for sys-power/upower 
 qt3 - Adds support for the Qt GUI/Application Toolkit version 3.x
+xrandr - Add support for xrandr

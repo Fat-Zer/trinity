@@ -9,5 +9,9 @@
 		<flag name="sudo"> Use <pkg>app-admin/sudo</pkg> as a default program to 
 						obtain root privileges.</flag>
 		<flag name="utempter">Records user logins. Useful on multi-user systems</flag>
+		<flag name="consolekit">Enable <pkg>sys-auth/consolekit</pkg> as tdehw backend</flag>
+		<flag name="old_udisks">Enable <pkg>sys-fs/udisks:0</pkg> as tdehw backend</flag>
+		<flag name="udisks">Enable <pkg>sys-fs/udisks:2</pkg> as tdehw backend</flag>
+		<flag name="upower">Enable <pkg>sys-power/upower</pkg> as tdehw backend</flag>
 	</use>
 </pkgmetadata>

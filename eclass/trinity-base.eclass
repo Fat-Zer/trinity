@@ -112,7 +112,6 @@ if [[ ${BUILD_TYPE} = live ]]; then
 
 	case ${TRINITY_SCM} in
 		git) inherit git-2 ;;
-#		svn) inherit subversion ;;
 		*) die "Unsupported TRINITY_SCM=${TRINITY_SCM}" ;;
 	esac
 
@@ -124,10 +123,6 @@ if [[ ${BUILD_TYPE} = live ]]; then
 		 EGIT_PROJECT="trinity/${TRINITY_MODULE_NAME}"
 		 EGIT_HAS_SUBMODULES="yes"
 	;;
-#	svn) ESVN_MIRROR="svn://anonsvn.kde.org/home/kde/branches/trinity"
-#		 ESVN_REPO_URI="${ESVN_MIRROR}/${TRINITY_MODULE_NAME}"
-#		 ESVN_PROJECT="trinity/$(dirname $TRINITY_MODULE_NAME)"
-#	;;
 	esac
 	S="${WORKDIR}/${TRINITY_MODULE_NAME}"
 elif [[ "${BUILD_TYPE}" == release ]]; then
@@ -255,14 +250,6 @@ trinity-base_src_prepare() {
 }
 
 
-# if [[ ${CATEGORY} == "kde-base" ]]; then
-# 	# Get the aRts dependencies right - finally.
-# 	case "${PN}" in
-# 		blinken|juk|kalarm|kanagram|kbounce|kcontrol|konq-plugins|kscd|kscreensaver|kttsd|kwifimanager|kdelibs) ARTS_REQUIRED="" ;;
-# 		artsplugin-*|kaboodle|kasteroids|kdemultimedia-arts|kolf|krec|ksayit|noatun*) ARTS_REQUIRED="yes" ;;
-# 		*) ARTS_REQUIRED="never" ;;
-# 	esac
-# fi
 # @FUNCTION: trinity-base_src_configure
 # @DESCRIPTION:
 # Call standart cmake-utils_src_onfigure and add some common arguments.
@@ -284,16 +271,14 @@ trinity-base_src_configure() {
 					$(cmake-utils_use_with handbook DOC)
 					"${eg_cmakeargs[@]}" )
 		fi
-			
-		
 	fi
 
 	mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH="${TDEDIR}"
+		$([[ "${TRINITY_NEED_ARTS}" == "optional" ]] && cmake-utils_use_with arts ARTS)
 		"${eg_cmakeargs[@]}"
 		"${mycmakeargs[@]}"
 	)
-	
 	cmake-utils_src_configure
 }
 
