@@ -1,0 +1,120 @@
+From 2d8f80350005641824e90447234352dc311a3c9d Mon Sep 17 00:00:00 2001
+From: Golubev Alexander <fatzer2@gmail.com>
+Date: Thu, 15 Aug 2013 02:10:16 +0400
+Subject: [PATCH 3/3] TDE: Clean up debug spew
+
+Clean up README file
+---
+ README                |  2 +-
+ art_render_gradient.c | 28 ++++------------------------
+ art_render_gradient.h |  2 +-
+ art_svp_intersect.c   |  2 ++
+ 4 files changed, 8 insertions(+), 26 deletions(-)
+
+diff --git a/README b/README
+index a88ec40..dc912f9 100644
+--- a/README
++++ b/README
+@@ -19,7 +19,7 @@ http://www.gnome.org/~mathieu/libart/libart.html
+ 
+ ======================================================================
+ 
+-NOTE: The TDE project has take over maintinance of this library,
++NOTE: The TDE project has taken over maintenance of this library,
+ starting with the sources from the final upstream release v2.3.21.
+ 
+ This allows the TDE project to resolve remaining issues that cause
+diff --git a/art_render_gradient.c b/art_render_gradient.c
+index 008d61a..c0638f8 100644
+--- a/art_render_gradient.c
++++ b/art_render_gradient.c
+@@ -30,9 +30,6 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+-#if 0
+-#include <assert.h>
+-#endif
+ 
+ /* Hack to find out how to define alloca on different platforms.
+  * Modified version of glib/galloca.h.
+@@ -205,9 +202,6 @@ calc_color_at (ArtGradientStop *stops,
+     }
+ 
+   printf ("WARNING! bad ix %d in calc_color_at() [internal error]\n", ix);
+-#if 0
+-  assert (0);
+-#endif
+ }
+ 
+ static void
+@@ -334,33 +328,19 @@ art_render_gradient_linear_render_8 (ArtRenderCallback *self,
+ #ifdef DEBUG_SPEW
+   printf ("Initial ix: %d\n", ix);
+ #endif
+-  
+-#if 0
+-  assert (ix > 0);
+-  assert (ix < n_stops);
+-  assert ((stops[ix-1].offset <= offset_fraction + EPSILON) ||
+-	  ((stops[ix].offset > (1.0 - EPSILON)) && (offset_fraction < EPSILON /* == 0.0*/)));
+-  assert (offset_fraction <= stops[ix].offset);
+-  /* FIXME: These asserts may be broken, it is for now
+-     safer to not use them.  Should be fixed!
+-     See bug #121850
+-  assert ((offset_fraction != stops[ix-1].offset) ||
+-	  (d_offset >= 0.0));
+-  assert ((offset_fraction != stops[ix].offset) ||
+-	  (d_offset <= 0.0));
+-  */
+-#else
++
+   if (!( (ix > 0) && (ix < n_stops)
+          && ((stops[ix-1].offset <= offset_fraction + EPSILON) ||
+              ((stops[ix].offset > (1.0 - EPSILON))
+               && (offset_fraction < EPSILON /* == 0.0*/)))
+          && (offset_fraction <= stops[ix].offset)))
+   {
++#ifdef DEBUG_SPEW
+     printf ("art_render_gradient.c:%d: Old assert() failed!\n", __LINE__);
++#endif
+     return;
+   }
+-#endif
+-  
++
+   while (width > 0)
+     {
+ #ifdef DEBUG_SPEW
+diff --git a/art_render_gradient.h b/art_render_gradient.h
+index 7e8e0c8..79ed4f8 100644
+--- a/art_render_gradient.h
++++ b/art_render_gradient.h
+@@ -60,9 +60,9 @@ struct _ArtGradientLinear {
+ struct _ArtGradientRadial {
+   double affine[6]; /* transforms user coordinates to unit circle */
+   double fx, fy;    /* focal point in unit circle coords */
+-  ArtGradientSpread spread;
+   int n_stops;
+   ArtGradientStop *stops;
++  ArtGradientSpread spread;
+ };
+ 
+ struct _ArtGradientStop {
+diff --git a/art_svp_intersect.c b/art_svp_intersect.c
+index 4ece5f4..69ddd39 100644
+--- a/art_svp_intersect.c
++++ b/art_svp_intersect.c
+@@ -601,7 +601,9 @@ art_svp_intersect_add_horiz (ArtIntersectCtx *ctx, ArtActiveSeg *seg)
+ #ifdef CHEAP_SANITYCHECK
+   if (seg->flags & ART_ACTIVE_FLAGS_IN_HORIZ)
+     {
++#ifdef VERBOSE
+       art_warn ("*** attempt to put segment in horiz list twice\n");
++#endif
+       return;
+     }
+   seg->flags |= ART_ACTIVE_FLAGS_IN_HORIZ;
+-- 
+1.8.1.5
+
