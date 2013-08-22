@@ -1,3 +1,4 @@
+~trinity-base/akregator-3.5.13.2
 ~trinity-base/amor-3.5.13.2
 ~trinity-base/ark-3.5.13.2
 ~trinity-base/arts-3.5.13.2
@@ -62,12 +63,16 @@
 ~trinity-base/kteatime-3.5.13.2
 ~trinity-base/ktimer-3.5.13.2
 ~trinity-base/ktip-3.5.13.2
+~trinity-base/ktnef-3.5.13.2
 ~trinity-base/ktux-3.5.13.2
 ~trinity-base/kwallet-3.5.13.2
 ~trinity-base/kweather-3.5.13.2
 ~trinity-base/kwin-3.5.13.2
 ~trinity-base/kworldclock-3.5.13.2
 ~trinity-base/kxkb-3.5.13.2
+~trinity-base/libkcal-3.5.13.2
+~trinity-base/libkdepim-3.5.13.2
+~trinity-base/libkmime-3.5.13.2
 ~trinity-base/libkonq-3.5.13.2
 ~trinity-base/nsplugins-3.5.13.2
 ~trinity-base/superkaramba-3.5.13.2
