@@ -1,0 +1,37 @@
+trinity-base/akregator
+#? trinity-base/certmanager
+#? trinity-base/tdepim-doc
+#? trinity-base/indexlib
+#? trinity-base/kabc
+#? trinity-base/kaddressbook
+#? trinity-base/kalarm
+#? trinity-base/kandy
+#? trinity-base/karm
+#? trinity-base/tdepim-tdefile-plugins
+#? trinity-base/kgantt
+#? trinity-base/tdepim-tdeioslaves
+#? trinity-base/kitchensync
+#? trinity-base/kmail
+#? trinity-base/kmailcvt
+#? trinity-base/kmobile
+#? trinity-base/knode
+#? trinity-base/knotes
+#? trinity-base/kode
+#? trinity-base/konsolekalendar
+#? trinity-base/kontact
+#? trinity-base/korganizer
+#? trinity-base/korn
+#? trinity-base/tdepim-kresources
+trinity-base/ktnef
+#? trinity-base/libemailfunctions
+trinity-base/libkcal
+#? trinity-base/libkholidays
+trinity-base/libkmime
+#? trinity-base/libkpgp
+#? trinity-base/libkpimexchange
+#? trinity-base/libkpimidentities
+#? trinity-base/libksieve
+#? trinity-base/libtdenetwork
+trinity-base/libtdepim
+#? trinity-base/mimelib
+#? trinity-base/kdepim-wizards

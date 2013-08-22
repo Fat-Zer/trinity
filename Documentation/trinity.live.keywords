@@ -3,6 +3,7 @@
 ~dev-qt/tqt-3.9999 **
 ~dev-qt/tqtinterface-9999 **
 ~net-irc/konversation-1.1.9999 **
+~trinity-base/akregator-9999 **
 ~trinity-base/amor-9999 **
 ~trinity-base/ark-9999 **
 ~trinity-base/arts-9999 **
@@ -82,6 +83,7 @@
 ~trinity-base/kteatime-9999 **
 ~trinity-base/ktimer-9999 **
 ~trinity-base/ktip-9999 **
+~trinity-base/ktnef-9999 **
 ~trinity-base/ktux-9999 **
 ~trinity-base/kuickshow-9999 **
 ~trinity-base/kview-9999 **
@@ -90,9 +92,12 @@
 ~trinity-base/kwifimanager-9999 **
 ~trinity-base/kworldclock-9999 **
 ~trinity-base/kxkb-9999 **
+~trinity-base/libkcal-9999 **
+~trinity-base/libkmime-9999 **
 ~trinity-base/libkonq-9999 **
 ~trinity-base/libkscan-9999 **
 ~trinity-base/librss-9999 **
+~trinity-base/libtdepim-9999 **
 ~trinity-base/lisa-9999 **
 ~trinity-base/nsplugins-9999 **
 ~trinity-base/superkaramba-9999 **

@@ -2,14 +2,15 @@
 HEADER="# Copyright 1999-$(date +%Y) Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # \$Header: \$"
-EAPI="4"
+EAPI="5"
 
 TRINITY_MODULE_NAME=$1
 PN=$2
 DESCRIPTION="$3"
-PV=${PV:=3.5.13.1}
+PV=${PV:=9999}
 KEYWORDS="amd64 x86"
 case "${PV}" in
+	*3.5.13.2) KEYWORDS="~amd64 ~x86" ;;
 	*9999*) KEYWORDS="" ;;
 esac
 
@@ -31,7 +32,7 @@ inherit trinity-meta
 
 DESCRIPTION="$DESCRIPTION"
 KEYWORDS="$KEYWORDS"
-IUSE=""
+IUSE+=""
 EOF
 
 cat <<EOF >trinity-base/$PN/metadata.xml
@@ -40,7 +41,7 @@ cat <<EOF >trinity-base/$PN/metadata.xml
 <pkgmetadata>
 	<maintainer>
 		<email>fatzer2@gmail.com</email>
-		<name>Golubev Alexander</name>
+		<name>Alexander Golubev</name>
 	</maintainer>
 </pkgmetadata>
 EOF
