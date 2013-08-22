@@ -12,13 +12,6 @@ inherit trinity-base trinity-functions cmake-utils
 LICENSE="GPL-2 LGPL-2"
 HOMEPAGE="http://www.trinitydesktop.org/"
 
-# ban EAPI 0, 1 and 2
-case $EAPI in
-	0|1|2) die "EAPI=${EAPI} is not supported" ;;
-	3|4) ;;
-	*) die "Unknown EAPI=${EAPI}"
-esac
-
 # set slot, TDEDIR, TRINITY_VER and PREFIX
 set-trinityver
 [[ -z "$SLOT" ]] && SLOT="$TRINITY_VER"

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+DOC="Documentation"
+KEYWORDS_LIVE="$DOC/trinity.live.keywords"
+KEYWORDS_3_5_13_2="$DOC/trinity.3.5.13.2.keywords"
+
+resort() {
+	cp "${1}" "${1}.bak"
+	cat "${1}.bak" | sort -u >"$1" && rm "${1}.bak"
+}
+
+find trinity-base/ -iname '*9999.ebuild' | while read eb; do 
+	PN="$(basename $(dirname ${eb}))"
+	C="$(basename $(dirname $(dirname ${eb})))"
+	P="$(basename ${eb%%.ebuild})"
+	if ! grep "^~$C/$P " "${KEYWORDS_LIVE}" >/dev/null 2>&1; then
+		echo "~$C/$P **" | tee -a "${KEYWORDS_LIVE}"
+	fi
+done
+
+resort "${KEYWORDS_LIVE}"
+
+
+find trinity-base/ -iname '*3.5.13.2.ebuild' | while read eb; do 
+	PN="$(basename $(dirname ${eb}))"
+	C="$(basename $(dirname $(dirname ${eb})))"
+	P="$(basename ${eb%%.ebuild})"
+	if ! grep "^~$C/$P" "${KEYWORDS_3_5_13_2}" >/dev/null 2>&1; then
+		echo "~$C/$P" | tee -a "${KEYWORDS_3_5_13_2}"
+	fi
+done
+resort "${KEYWORDS_3_5_13_2}"

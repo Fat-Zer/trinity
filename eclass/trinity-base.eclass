@@ -15,6 +15,13 @@ addpredict "/usr/qt/3/etc/settings"
 addwrite "/usr/tqt3/etc/settings"
 addpredict "/usr/tqt3/etc/settings"
 
+# ban EAPI 0, 1 and 2
+case $EAPI in
+	0|1|2) die "EAPI=${EAPI} is not supported" ;;
+	3|4|5) ;;
+	*) die "Unknown EAPI=${EAPI}"
+esac
+
 # @ECLASS-VARIABLE: BUILD_TYPE
 # @DESCRIPTION:
 # Determins he build type: live or release
