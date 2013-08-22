@@ -7,10 +7,12 @@
 ~trinity-base/amor-9999 **
 ~trinity-base/ark-9999 **
 ~trinity-base/arts-9999 **
+~trinity-base/certmanager-9999 **
 ~trinity-base/dcoprss-9999 **
 ~trinity-base/drkonqi-9999 **
 ~trinity-base/eyesapplet-9999 **
 ~trinity-base/fifteenapplet-9999 **
+~trinity-base/kaddressbook-9999 **
 ~trinity-base/kamera-9999 **
 ~trinity-base/kappfinder-9999 **
 ~trinity-base/kate-9999 **
@@ -97,6 +99,7 @@
 ~trinity-base/libkonq-9999 **
 ~trinity-base/libkscan-9999 **
 ~trinity-base/librss-9999 **
+~trinity-base/libtdenetwork-9999 **
 ~trinity-base/libtdepim-9999 **
 ~trinity-base/lisa-9999 **
 ~trinity-base/nsplugins-9999 **
