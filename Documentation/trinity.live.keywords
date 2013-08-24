@@ -36,6 +36,7 @@
 ~trinity-base/kfind-9999 **
 ~trinity-base/kfloppy-9999 **
 ~trinity-base/kgamma-9999 **
+~trinity-base/kgantt-9999 **
 ~trinity-base/kget-9999 **
 ~trinity-base/kghostview-9999 **
 ~trinity-base/kgpg-9999 **
@@ -54,12 +55,15 @@
 ~trinity-base/kmrml-9999 **
 ~trinity-base/knetattach-9999 **
 ~trinity-base/knewsticker-9999 **
+~trinity-base/knotes-9999 **
 ~trinity-base/kodo-9999 **
 ~trinity-base/kolourpaint-9999 **
 ~trinity-base/konqueror-9999 **
 ~trinity-base/konsole-9999 **
+~trinity-base/kontact-9999 **
 ~trinity-base/kooka-9999 **
 ~trinity-base/kopete-9999 **
+~trinity-base/korganizer-9999 **
 ~trinity-base/kpager-9999 **
 ~trinity-base/kpdf-9999 **
 ~trinity-base/kpersonalizer-9999 **
@@ -95,8 +99,11 @@
 ~trinity-base/kworldclock-9999 **
 ~trinity-base/kxkb-9999 **
 ~trinity-base/libkcal-9999 **
+~trinity-base/libkholidays-9999 **
 ~trinity-base/libkmime-9999 **
 ~trinity-base/libkonq-9999 **
+~trinity-base/libkpimexchange-9999 **
+~trinity-base/libkpimidentities-9999 **
 ~trinity-base/libkscan-9999 **
 ~trinity-base/librss-9999 **
 ~trinity-base/libtdenetwork-9999 **
