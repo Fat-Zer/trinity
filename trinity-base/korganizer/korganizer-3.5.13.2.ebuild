@@ -2,17 +2,17 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="5"
-TRINITY_MODULE_NAME="tdepim"
+TRINITY_MODULE_NAME="kdepim"
 
 inherit trinity-meta
 
 DESCRIPTION="A Personal Organizer for Trinity"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE+=" exchange"
 COMMON_DEPEND="
 	>=trinity-base/kgantt-${PV}:${SLOT}
-	>=trinity-base/libtdepim-${PV}:${SLOT}
-	>=trinity-base/libtdenetwork-${PV}:${SLOT}
+	>=trinity-base/libkdepim-${PV}:${SLOT}
+	>=trinity-base/libkdenetwork-${PV}:${SLOT}
 	>=trinity-base/libkcal-${PV}:${SLOT}
 	>=trinity-base/ktnef-${PV}:${SLOT}
 	>=trinity-base/libkmime-${PV}:${SLOT}
@@ -31,7 +31,7 @@ TSM_EXTRACT_ALSO="certmanager/lib/
 	libkcal/
 	libkholidays/
 	libkpimidentities/
-	libtdepim/
+	libkdepim/
 	libkmime/
 	kdgantt/
 	kmail/"

@@ -2,9 +2,11 @@
 ~trinity-base/amor-3.5.13.2
 ~trinity-base/ark-3.5.13.2
 ~trinity-base/arts-3.5.13.2
+~trinity-base/certmanager-3.5.13.2
 ~trinity-base/drkonqi-3.5.13.2
 ~trinity-base/eyesapplet-3.5.13.2
 ~trinity-base/fifteenapplet-3.5.13.2
+~trinity-base/kaddressbook-3.5.13.2
 ~trinity-base/kappfinder-3.5.13.2
 ~trinity-base/kate-3.5.13.2
 ~trinity-base/kcalc-3.5.13.2
@@ -33,6 +35,7 @@
 ~trinity-base/kedit-3.5.13.2
 ~trinity-base/kfind-3.5.13.2
 ~trinity-base/kfloppy-3.5.13.2
+~trinity-base/kgantt-3.5.13.2
 ~trinity-base/kgpg-3.5.13.2
 ~trinity-base/khelpcenter-3.5.13.2
 ~trinity-base/khexedit-3.5.13.2
@@ -45,9 +48,12 @@
 ~trinity-base/kmilo-3.5.13.2
 ~trinity-base/kmoon-3.5.13.2
 ~trinity-base/knetattach-3.5.13.2
+~trinity-base/knotes-3.5.13.2
 ~trinity-base/kodo-3.5.13.2
 ~trinity-base/konqueror-3.5.13.2
 ~trinity-base/konsole-3.5.13.2
+~trinity-base/kontact-3.5.13.2
+~trinity-base/korganizer-3.5.13.2
 ~trinity-base/kpager-3.5.13.2
 ~trinity-base/kpersonalizer-3.5.13.2
 ~trinity-base/kreadconfig-3.5.13.2
@@ -72,8 +78,12 @@
 ~trinity-base/kxkb-3.5.13.2
 ~trinity-base/libkcal-3.5.13.2
 ~trinity-base/libkdepim-3.5.13.2
+~trinity-base/libkholidays-3.5.13.2
 ~trinity-base/libkmime-3.5.13.2
+~trinity-base/libkdenetwork-3.5.13.2
 ~trinity-base/libkonq-3.5.13.2
+~trinity-base/libkpimexchange-3.5.13.2
+~trinity-base/libkpimidentities-3.5.13.2
 ~trinity-base/nsplugins-3.5.13.2
 ~trinity-base/superkaramba-3.5.13.2
 ~trinity-base/tqt3integration-3.5.13.2

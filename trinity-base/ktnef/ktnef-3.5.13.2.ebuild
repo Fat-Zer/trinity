@@ -8,6 +8,6 @@ inherit trinity-meta
 
 DESCRIPTION="Trinity Viewer for mail attachments using TNEF format"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE+=""
 
 TSM_EXTRACT_ALSO="libkdepim/"

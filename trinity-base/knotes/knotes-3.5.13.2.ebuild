@@ -6,8 +6,13 @@ TRINITY_MODULE_NAME="kdepim"
 
 inherit trinity-meta
 
-DESCRIPTION="Trinity kmime library for Message Handling"
+DESCRIPTION="Trinity Notes application"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE+=""
+
+COMMON_DEPEND=">=trinity-base/libkcal-${PV}:${SLOT}
+	>=trinity-base/libkdepim-${PV}:${SLOT}"
+DEPEND+=" $COMMON_DEPEND"
+RDEPEND+=" $COMMON_DEPEND"
 
 TSM_EXTRACT_ALSO="libkdepim/"

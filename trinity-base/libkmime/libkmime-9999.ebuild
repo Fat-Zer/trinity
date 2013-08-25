@@ -10,4 +10,4 @@ DESCRIPTION="Trinity kmime library for Message Handling"
 KEYWORDS=""
 IUSE=""
 
-TSM_EXTRACT_ALSO="libtdepim"
+TSM_EXTRACT_ALSO="libtdepim/"

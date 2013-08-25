@@ -14,3 +14,5 @@ COMMON_DEPEND=">=trinity-base/libkcal-${PV}:${SLOT}
 	>=trinity-base/libtdepim-${PV}:${SLOT}"
 DEPEND+=" $COMMON_DEPEND"
 RDEPEND+=" $COMMON_DEPEND"
+
+TSM_EXTRACT_ALSO="libtdepim/"

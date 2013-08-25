@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="5"
-TRINITY_MODULE_NAME="tdepim"
+TRINITY_MODULE_NAME="kdepim"
 
 inherit trinity-meta
 
 DESCRIPTION="Trinity certificate manager gui"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE+=""
 
-COMMON_DEPEND=">=trinity-base/libtdenetwork-${PV}:${SLOT}
+COMMON_DEPEND=">=trinity-base/libkdenetwork-${PV}:${SLOT}
 	>=app-crypt/gpgme-1.1.2-r1
 	|| ( >=app-crypt/gnupg-2.0.1-r1 <app-crypt/gnupg-1.9 )"
 	#CHECKME: this is an old kde3-times assertion
@@ -18,7 +18,7 @@ COMMON_DEPEND=">=trinity-base/libtdenetwork-${PV}:${SLOT}
 DEPEND+=" ${COMMON_DEPEND}"
 RDEPEND+=" ${COMMON_DEPEND}"
 
-TSM_EXTRACT_ALSO="libtdepim/ libkpgp/ libtdenetwork/"
+TSM_EXTRACT_ALSO="libkdepim/ libkpgp/ libkdenetwork/"
 
 pkg_postinst() {
 	trinity-meta_pkg_postinst

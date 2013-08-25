@@ -9,3 +9,5 @@ inherit trinity-meta
 DESCRIPTION="Trinity library to compute holidays."
 KEYWORDS=""
 IUSE+=""
+
+TSM_EXTRACT_ALSO="libtdepim/"

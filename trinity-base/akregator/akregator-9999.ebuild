@@ -17,4 +17,4 @@ DEPEND="
 	>=trinity-base/libkcal-${PV}:${SLOT}"
 RDEPEND="${DEPEND}"
 
-TSM_EXTRACT_ALSO="libtdepim"
+TSM_EXTRACT_ALSO="libtdepim/"

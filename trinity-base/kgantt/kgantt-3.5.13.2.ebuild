@@ -6,8 +6,8 @@ TRINITY_MODULE_NAME="kdepim"
 
 inherit trinity-meta
 
-DESCRIPTION="Trinity kmime library for Message Handling"
+DESCRIPTION="A Trinity library for drawing and editing gantt-diagramms"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE+=""
 
 TSM_EXTRACT_ALSO="libkdepim/"

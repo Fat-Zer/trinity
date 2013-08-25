@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="5"
-TRINITY_MODULE_NAME="tdepim"
+TRINITY_MODULE_NAME="kdepim"
 
 inherit trinity-meta
 
 DESCRIPTION="Trinity PIM exchange library"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE+=""
 COMMON_DEPEND=">=trinity-base/libkcal-${PV}:${SLOT}
 	>=trinity-base/ktnef-${PV}:${SLOT}
@@ -16,4 +16,4 @@ COMMON_DEPEND=">=trinity-base/libkcal-${PV}:${SLOT}
 DEPEND+=" ${COMMON_DEPEND}"
 RDEPEND+=" ${COMMON_DEPEND}"
 
-TSM_EXTRACT_ALSO="libtdepim/ libkcal/"
+TSM_EXTRACT_ALSO="libkdepim/ libkcal/"

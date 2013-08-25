@@ -9,3 +9,5 @@ inherit trinity-meta
 DESCRIPTION="A Trinity library for drawing and editing gantt-diagramms"
 KEYWORDS=""
 IUSE+=""
+
+TSM_EXTRACT_ALSO="libtdepim/"
