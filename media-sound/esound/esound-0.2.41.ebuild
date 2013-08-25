@@ -56,7 +56,7 @@ src_configure() {
 }
 
 src_install() {
-	emake -j1 DESTDIR="${D}" install  || die "emake install failed"
+	emake DESTDIR="${D}" install  || die "emake install failed"
 	mv "${D}/usr/bin/"{esd,esound-esd}
 
 	dodoc AUTHORS ChangeLog MAINTAINERS NEWS README TIPS TODO

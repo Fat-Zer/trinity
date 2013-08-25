@@ -8,7 +8,7 @@ inherit trinity-meta
 
 DESCRIPTION="The Trinity Address Book"
 KEYWORDS=""
-IUSE+="gnokii"
+IUSE+=" gnokii"
 
 COMMON_DEPEND=">=trinity-base/libtdepim-${PV}:${SLOT}
 	>=trinity-base/libkcal-${PV}:${SLOT}

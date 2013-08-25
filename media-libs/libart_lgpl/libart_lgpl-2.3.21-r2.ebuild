@@ -33,14 +33,14 @@ src_prepare() {
 	# Fix crosscompiling, bug #185684
 	rm "${S}"/art_config.h
 	# NOTE patch is removed automake should handle it
-	
+
 	# Do not build tests if not required
 	epatch "$FILESDIR/0001-gentoo-do-not-build-tests-if-not-required.patch"
 
 	# apply TDE patches
 	epatch "$FILESDIR/0002-TDE-fix-a-number-of-problems.patch"
 	epatch "$FILESDIR/0003-TDE-Clean-up-debug-spew.patch"
-	
+
 	# apply user-provided patches
 	epatch_user
 
