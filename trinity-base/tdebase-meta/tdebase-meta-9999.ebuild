@@ -55,5 +55,6 @@ RDEPEND=">=trinity-base/tdeinit-${PV}:${SLOT}
 	>=trinity-base/nsplugins-${PV}:${SLOT}
 	>=trinity-base/knetattach-${PV}:${SLOT}
 	>=trinity-base/tdebase-data-${PV}:${SLOT}
+	>=trinity-base/tdebase-starttde-${PV}:${SLOT}
 	>=trinity-base/krootbacking-${PV}:${SLOT}
 	>=trinity-base/tqt3integration-${PV}:${SLOT}"
