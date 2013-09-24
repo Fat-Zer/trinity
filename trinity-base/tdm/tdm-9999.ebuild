@@ -16,7 +16,6 @@ DEPEND="pam? ( kde-base/kdebase-pam )
 	xrandr? ( x11-libs/libXrandr )
 	>=trinity-base/tdelibs-${PV}:${SLOT}[xrandr?]
 	sys-apps/dbus
-	x11-libs/libXrandr
 	x11-libs/libXtst
 	>=trinity-base/kcontrol-${PV}:${SLOT}
 	dev-libs/dbus-tqt"
