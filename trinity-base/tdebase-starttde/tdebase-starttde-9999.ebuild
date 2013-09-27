@@ -69,13 +69,6 @@ src_install() {
 	exeinto "${TDEDIR}/shutdown"
 	doexe "${FILESDIR}/agent-shutdown.sh"
 
-	# freedesktop environment variables
-	cat <<EOF > "${T}/xdg.sh"
-export XDG_CONFIG_DIRS="${TDEDIR}/etc/xdg"
-EOF
-	exeinto "${TDEDIR}/env"
-	doexe "${T}/xdg.sh"
-
 	# x11 session script
 	cat <<EOF > "${T}/tde-${SLOT}"
 #!/bin/sh
