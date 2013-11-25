@@ -15,7 +15,6 @@ HOMEPAGE="http://trinitydesktop.org/"
 #	immtqt? ( mirror://gentoo/${IMMTQT_P}.diff.bz2 )
 #	immtqt-bc? ( mirror://gentoo/${IMMTQT_P}.diff.bz2 )"
 EGIT_REPO_URI="http://scm.trinitydesktop.org/scm/git/tqt3"
-EGIT_BRANCH="master"
 EGIT_PROJECT="trinity/tqt3"
 LICENSE="|| ( QPL-1.0 GPL-2 GPL-3 )"
 
@@ -107,7 +106,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-#	sed -i -e 's:read acceptance:acceptance=yes:' configure
+	# Apply user-provided patches
+	epatch_user 
 
 	# Do not link with -rpath. See bug #75181.
 	find "${S}"/mkspecs -name qmake.conf | xargs \
@@ -118,7 +118,7 @@ src_prepare() {
 #
 #		epatch "${FILESDIR}"/tqt-3.3.8-immtqt+gcc-4.3.patch
 #	fi
-
+	
 	# set c/xxflags and ldflags
 	strip-flags
 	append-flags -fno-strict-aliasing
@@ -141,10 +141,6 @@ src_prepare() {
 	sed -i -e "s:CXXFLAGS.*=:CXXFLAGS=${CXXFLAGS} :" \
 		   -e "s:LFLAGS.*=:LFLAGS=${LDFLAGS} :" \
 		"${S}/qmake/Makefile.unix" || die
-
-	# remove unnecessary headers
-#	find include -maxdepth 1 \( -name *.h ! -name *tq* \) -delete
-	# find include -maxdepth 1 \( -name *.h ! -name *tq* -o -name *_p \) -delete
 
 	# remove docs from install if we don't need it
 	use doc || sed -i -e '/INSTALLS.*=.*htmldocs/d' \
