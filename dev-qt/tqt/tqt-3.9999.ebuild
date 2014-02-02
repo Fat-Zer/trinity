@@ -157,7 +157,7 @@ src_configure() {
 	addwrite "${HOME}/.tqt"
 
 	# common opts
-	myconf=" -sm -thread -stl -verbose -largefile -tablet"
+	myconf=" -sm -thread -stl -no-verbose -no-verbose -verbose -largefile -tablet"
 	myconf+=" $(echo -{qt-imgfmt-,system-lib}{jpeg,mng,png})"
 	myconf+=" -platform ${PLATFORM} -xplatform ${PLATFORM}"
 	myconf+=" -xft -xrender -prefix ${TQTBASE}"
@@ -206,13 +206,13 @@ src_compile() {
 	fi
 
 	# Make the msg2qm utility (not made by default)
-	cd "${S}"/tools/msg2qm
-	../../bin/tqmake
+	cd "${S}"/tools/msg2tqm
+	../../bin/tqmake || die
 	emake
 
 	# Make the qembed utility (not made by default)
 	cd "${S}"/tools/qembed
-	../../bin/tqmake
+	../../bin/tqmake || die
 	emake
 
 }
