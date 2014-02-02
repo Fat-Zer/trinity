@@ -77,10 +77,10 @@
 ~trinity-base/kworldclock-3.5.13.2
 ~trinity-base/kxkb-3.5.13.2
 ~trinity-base/libkcal-3.5.13.2
+~trinity-base/libkdenetwork-3.5.13.2
 ~trinity-base/libkdepim-3.5.13.2
 ~trinity-base/libkholidays-3.5.13.2
 ~trinity-base/libkmime-3.5.13.2
-~trinity-base/libkdenetwork-3.5.13.2
 ~trinity-base/libkonq-3.5.13.2
 ~trinity-base/libkpimexchange-3.5.13.2
 ~trinity-base/libkpimidentities-3.5.13.2

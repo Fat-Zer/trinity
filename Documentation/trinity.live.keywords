@@ -23,7 +23,6 @@
 ~trinity-base/kcoloredit-9999 **
 ~trinity-base/kcontrol-9999 **
 ~trinity-base/kdcop-9999 **
-~trinity-base/kdebugdialog-9999 **
 ~trinity-base/kdeeject-9999 **
 ~trinity-base/kdesktop-9999 **
 ~trinity-base/kdetoys-doc-9999 **
@@ -125,6 +124,7 @@
 ~trinity-base/tdebase-meta-9999 **
 ~trinity-base/tdebase-starttde-9999 **
 ~trinity-base/tdebase-tdeioslaves-9999 **
+~trinity-base/tdedebugdialog-9999 **
 ~trinity-base/tdednssd-9999 **
 ~trinity-base/tdegraphics-doc-9999 **
 ~trinity-base/tdegraphics-meta-9999 **
