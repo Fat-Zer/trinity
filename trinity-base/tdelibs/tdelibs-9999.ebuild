@@ -103,7 +103,7 @@ src_install() {
 	# is set in ${TDEDIR}/share/config/kdeglobals and so TDEDIRS is not needed.
 
 	# List all the multilib libdirs
-	local libdirs
+	local libdirs pkgconfigdirs
 	for libdir in $(get_all_libdirs); do
 		libdirs="${TDEDIR}/${libdir}:${libdirs}"
 	done
@@ -118,6 +118,7 @@ CONFIG_PROTECT="${TDEDIR}/share/config ${TDEDIR}/env ${TDEDIR}/shutdown /usr/sha
 # Excessive flushing to disk as in releases before KDE 3.5.10. Usually you don't want that.
 #TDE_EXTRA_FSYNC=1
 XDG_DATA_DIRS="${TDEDIR}/share"
+PKG_CONFIG_PATH="${TDEDIR}/$(get_libdir)/pkgconfig"
 EOF
 
 	# Make sure the target for the revdep-rebuild stuff exists. Fixes bug 184441.
