@@ -40,7 +40,6 @@ do_foreach_linguas() {
 		pushd "$S/$dir"
 		CMAKE_USE_DIR="${S}/${dir}"
 		BUILD_DIR="${WORKDIR}/${dir}-build"
-		einfo "Build_dir is $BUILD_DIR"
 		trinity-base_${phase}
 		popd
 	done
