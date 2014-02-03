@@ -4,7 +4,7 @@
 EAPI="4"
 TRINITY_MODULE_NAME="tde-i18n"
 
-inherit eutils trinity-base
+inherit trinity-base cmake-utils
 
 set-trinityver
 
@@ -30,48 +30,35 @@ for X in ${LANGS} ; do
 	IUSE="${IUSE} linguas_${X}"
 done
 
-src_prepare(){
-	local lang dir;
-	cp -Rp /usr/share/libtool/config/ltmain.sh "${S}/admin/ltmain.sh"
-	cp -Rp /usr/share/aclocal/libtool.m4 "${S}/admin/libtool.m4.in"
+do_foreach_linguas() {
+	local lang dir phase;
+
+	phase=$1
+
 	for lang in ${LINGUAS}; do
 		dir="tde-i18n-$lang"
-		[[ -d $dir ]] || continue;
-		einfo "Preparing $dir"
-		cd "$dir" && emake -f "admin/Makefile.common";
+		pushd "$S/$dir"
+		CMAKE_USE_DIR="${S}/${dir}"
+		BUILD_DIR="${WORKDIR}/${dir}-build"
+		einfo "Build_dir is $BUILD_DIR"
+		trinity-base_${phase}
+		popd
 	done
 }
 
 src_configure() {
-	PREFIX="${TDEDIR}"
-	for lang in ${LINGUAS}; do
-		dir="tde-i18n-$lang"
-		[[ -d $dir ]] || continue;
-		einfo "Configuring $dir"
-		cd "${dir}" && econf \
-			--without-arts \
-			--prefix="${PREFIX}" \
-			--mandir="${PREFIX}/share/man"\
-			--infodir="${PREFIX}/share/info" \
-			--datadir="${PREFIX}/share" \
-			--sysconfdir="${PREFIX}/etc"
-	done
+	do_foreach_linguas src_prepare
+}
+
+src_configure() {
+	mycmakeargs=( -DBUILD_ALL=ON )
+	do_foreach_linguas src_configure
 }
 
 src_compile() {
-	for lang in ${LINGUAS}; do
-		dir="tde-i18n-$lang"
-		[[ -d $dir ]] || continue;
-		einfo "Compiling $dir"
-		cd "${dir}" && emake;
-	done
+	do_foreach_linguas src_compile
 }
 
 src_install() {
-	for lang in ${LINGUAS}; do
-		dir="tde-i18n-$lang"
-		[[ -d $dir ]] || continue;
-		einfo "Installing $dir"
-		cd "${dir}" && emake install DESTDIR="${D}"
-	done
+	do_foreach_linguas src_install
 }
