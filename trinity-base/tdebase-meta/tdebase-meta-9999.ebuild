@@ -1,7 +1,7 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-EAPI="3"
+EAPI="5"
 
 inherit trinity-functions
 
@@ -26,6 +26,7 @@ RDEPEND=">=trinity-base/tdeinit-${PV}:${SLOT}
 	>=trinity-base/tdedebugdialog-${PV}:${SLOT}
 	>=trinity-base/tdepasswd-${PV}:${SLOT}
 	>=trinity-base/tdeprint-${PV}:${SLOT}
+	>=trinity-base/tdeeject-${PV}:${SLOT}
 	>=trinity-base/kdesktop-${PV}:${SLOT}
 	>=trinity-base/tdesu-${PV}:${SLOT}
 	>=trinity-base/kdialog-${PV}:${SLOT}

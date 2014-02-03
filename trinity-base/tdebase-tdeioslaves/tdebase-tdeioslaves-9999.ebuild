@@ -1,7 +1,7 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-EAPI="4"
+EAPI="5"
 TRINITY_MODULE_NAME="tdebase"
 
 inherit trinity-meta
@@ -30,7 +30,7 @@ RDEPEND="${DEPEND}"
 #	x11-apps/xhost
 RDEPEND="${DEPEND}
 	virtual/ssh
-	trinity-base/kdeeject:${SLOT}"
+	trinity-base/tdeeject:${SLOT}"
 
 src_configure() {
 	mycmakeargs=(
