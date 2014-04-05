@@ -1,0 +1,33 @@
+--- starttde	2014-04-05 22:39:05.223723958 +0400
++++ starttde.gentoo	2014-04-05 22:39:26.856721953 +0400
+@@ -165,7 +165,7 @@
+ 
+ # Modify the following environment variables only as necessary.
+ if [ -d $TDEDIR/games ]; then
+-  if ! is_in_path PATH "$TDEDIR/games" ; then
++#  if ! is_in_path PATH "$TDEDIR/games" ; then
+     # Respect the traditional path order. Don't blindly place $TDEDIR/games
+     # first in the path. Only place $TDEDIR/games before /usr/games. If packagers
+     # are adding $TDEDIR/games elsewhere, then they need to ensure the traditional
+@@ -177,10 +177,10 @@
+     else
+       export PATH=$TDEDIR/games:$PATH
+     fi
+-  fi
++#  fi
+ fi
+ if [ -d $TDEDIR/bin ]; then
+-  if ! is_in_path PATH "$TDEDIR/bin" ]; then
++#  if ! is_in_path PATH "$TDEDIR/bin" ]; then
+     # Respect the traditional path order. Don't blindly place $TDEDIR/bin
+     # first in the path. Only place $TDEDIR/bin before /usr/bin. This order is
+     # consistent with tdelibs/tdesu/stub.cpp. If packagers are adding $TDEDIR/bin
+@@ -192,7 +192,7 @@
+     else
+       export PATH=$TDEDIR/bin:$PATH
+     fi
+-  fi
++#  fi
+ fi
+ if [ -d $TDEDIR/share/man ]; then
+   if [ -x /usr/bin/manpath ]; then

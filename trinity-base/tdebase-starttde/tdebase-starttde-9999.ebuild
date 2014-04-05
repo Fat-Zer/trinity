@@ -27,6 +27,8 @@ RDEPEND="x11-apps/xmessage
 
 TSM_EXTRACT="starttde README.pam INSTALL AUTHORS COPYING COPYING-DOCS tdm"
 
+PATCHES=( "$FILESDIR/${PN}-14-gentoo.patch")
+
 src_prepare() {
 #	epatch "${FILESDIR}/tdebase-starttde-trinity-gentoo.patch"
 
