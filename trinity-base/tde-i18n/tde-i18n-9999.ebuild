@@ -16,6 +16,9 @@ SLOT="${TRINITY_VER}"
 KEYWORDS="amd64 x86"
 IUSE=""
 
+DEPEND=">=trinity-base/tdelibs-${PV}:${SLOT}"
+RDEPEND="${DEPEND}"
+
 LANGS="af ar az be bg bn br bs ca cs csb cy da de el en_GB eo es et
 eu fa fi fr fy ga gl he hi hr hu is it ja kk km ko lt lv mk mn ms
 nb nds nl nn pa pl pt pt_BR ro ru rw se sk sl sr sr@Latn ss sv ta te
