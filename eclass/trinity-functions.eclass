@@ -38,13 +38,13 @@ set-trinityver() {
 	else
 		ETRINITY_VER="$PV"
 	fi
-	
+
 	case "$ETRINITY_VER" in
-		3.* ) 
+		3.* )
 			export TRINITY_VER="$(get_version_component_range 1-2 "${ETRINITY_VER}")" ;;
-		9999 ) 
+		9999 )
 			export TRINITY_VER="$(get_major_version "$TRINITY_LIVEVER" )" ;;
-		* ) 
+		* )
 			export TRINITY_VER="$(get_major_version "$ETRINITY_VER" )" ;;
 	esac
 
@@ -56,7 +56,7 @@ set-trinityver() {
 		export KDEDIR="$TDEDIR"
 		export KDEDIRS="$TDEDIRS"
 	fi
-	
+
 	# this sould solve problems like "cannot find libraries" espessialy when
 	# compiling kdelibs
 	# NOTE: That can breaks compilation of tdelibs:
@@ -66,6 +66,17 @@ set-trinityver() {
 	adjust-trinity-paths
 }
 
+# @FUNCTION: get-trinity-libdirs
+# @USAGE:
+# @DESCRIPTION:
+# lists all the trinity library directories
+get-trinity-libdirs() {
+	local rv
+	for libdir in $(get_all_libdirs); do
+		echo " ${TDEDIR}/${libdir}"
+	done
+}
+
 # @FUNCTION: adjust-trinity-paths
 # @USAGE: < version >
 # @DESCRIPTION:
@@ -73,18 +84,18 @@ set-trinityver() {
 adjust-trinity-paths() {
 	debug-print-function $FUNCNAME "$@"
 	local libdir
-	
+
 	# this function can be called during depend phase so we shouldn't use sed here
 	PATH="$(trinity_remove_path_component "$PATH" "/usr/trinity/*/bin")"
 	PATH="$(trinity_remove_path_component $PATH "/usr/trinity/*/sbin")"
 	PATH="$(trinity_prepand_path_component "$PATH" "${TDEDIR}/bin" )"
-	
+
 	# FIXME: it seems we don't need LDPATH
 #	LDPATH="$(trinity_remove_path_component "$LDPATH" "/usr/trinity/*/${libdir}")"
 	LD_LIBRARY_PATH="$(trinity_remove_path_component "$LD_LIBRARY_PATH" "/usr/trinity/*/${libdir}")"
-	for libdir in $(get_all_libdirs); do
+	for libdir in $(get-trinity-libdirs); do
 #		LDPATH="$(trinity_prepand_path_component "$LDPATH" "${TDEDIR}/${libdir}" )"
-		LD_LIBRARY_PATH="$(trinity_prepand_path_component "$LD_LIBRARY_PATH" "${TDEDIR}/${libdir}" )"
+		LD_LIBRARY_PATH="$(get-trinity-libdirs "$LD_LIBRARY_PATH" "${libdir}" )"
 	done
 
 	export PATH
@@ -121,16 +132,16 @@ need-trinity() {
 	debug-print-function $FUNCNAME "$@"
 
 	local my_depend
-	
+
 	# determine install locations
 	set-trinityver $1
 	adjust-trinity-paths
 
 	case "$1" in
-		3.5*) 
-			my_depend=">=kdelibs-${ETRINITY_VER}:3.5";; 
-		*) 
-			my_depend=">=kdelibs-${ETRINITY_VER}:${TRINITY_VER}";;
+		3.5*)
+			my_depend=">=trinity-base/kdelibs-${ETRINITY_VER}:3.5";;
+		*)
+			my_depend=">=trinity-base/tdelibs-${ETRINITY_VER}:${TRINITY_VER}";;
 	esac
 
 	DEPEND="$DEPEND $my_depend"
@@ -156,7 +167,7 @@ need-arts() {
 	local tdelibs my_depend
 
 	[[ -z "${1}" ]] && die "$FUNCNAME requires an argument"
-	
+
 	TRINITY_NEED_ARTS=$1;
 
 	case "${TRINITY_VER}" in
@@ -178,12 +189,12 @@ need-arts() {
 			yes) my_depend=" trinity-base/arts
 					${tdelibs}[arts]" ;;
 			optional) my_depend=" arts? ( trinity-base/arts
-					${tdelibs}[arts] )" 
+					${tdelibs}[arts] )"
 				IUSE+=" arts" ;;
 			*) die "bad parameter: $1"
 		esac
 	fi
-	
+
 	DEPEND+=" ${my_depend}";
 	RDEPEND+=" ${my_depend}";
 }

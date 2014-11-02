@@ -194,6 +194,24 @@ if [[ -n "${TRINITY_EXTRAGEAR_PACKAGING}" ]]; then
 	fi
 fi
 
+# @FUNCTION: trinity-base_src_unpack
+# @DESCRIPTION:
+# A default src unpack function to be call git-2_src_unpack either 
+trinity-base_src_unpack() {
+	if [[ ${BUILD_TYPE} = live ]]; then
+		case "${TRINITY_SCM}" in
+
+			git)
+				git-2_src_unpack
+				;;
+			*)   die "TRINITY_SCM: ${TRINITY_SCM} is not supported by ${FUNCNAME}" ;;
+		esac
+	else
+		base_src_unpack
+	fi
+}
+
+
 # @FUNCTION: trinity-base_src_prepare
 # @DESCRIPTION:
 # General pre-configure and pre-compile function for Trinity applications.

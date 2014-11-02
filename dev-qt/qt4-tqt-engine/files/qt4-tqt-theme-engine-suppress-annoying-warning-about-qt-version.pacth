@@ -1,0 +1,17 @@
+diff --git a/plugin/simplestyle.cpp b/plugin/simplestyle.cpp
+index e876c45..1ea75fc 100644
+--- a/plugin/simplestyle.cpp
++++ b/plugin/simplestyle.cpp
+@@ -247,12 +247,6 @@ Qt4TDEStyle::Qt4TDEStyle() : m_aboutData(NULL), m_tqApplication(NULL), m_tdeAppl
+ 	qt_filedialog_save_filename_hook = &TDEFileDialogSaveName;
+ 	qt_filedialog_existing_directory_hook = &TDEFileDialogSelectDirectory;
+ #endif // INTEGRATE_WITH_TDE
+-
+-#if QT_VERSION > 0x040800
+-	// How a bug of this magnitude could go undetected in a major Qt4 release is beyond me...I guess cell phones don't generally use thin lines in their widgets!?
+-	// This is Yet Another Example of why TDE cannot rely on Qt4 for anything of any real importance
+-	printf("[WARNING] Qt4 >= Qt 4.8.0 detected; you are likely affected by these Qt4 bugs:\n[WARNING] https://bugreports.qt-project.org/browse/QTBUG-25896\n[WARNING] https://bugreports.qt-project.org/browse/QTBUG-26013\n[WARNING] There is no known workaround for this problem; your Qt4 application will display with numerous graphical glitches.\n");
+-#endif
+ }
+ 
+ Qt4TDEStyle::~Qt4TDEStyle()
