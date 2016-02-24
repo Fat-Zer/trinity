@@ -244,12 +244,7 @@ src_install() {
 PATH=${TQTBASE}/bin
 ROOTPATH=${TQTBASE}/bin
 LDPATH=${libdirs:1}
-QMAKESPEC=${PLATFORM}
 MANPATH=${TQTBASE}/doc/man
-EOF
-
-	cat <<EOF > "${T}"/44tqtdir3
-QTDIR=${TQTBASE}
 EOF
 
 	cat <<EOF > "${T}"/44-tqt3-revdep
@@ -258,8 +253,6 @@ EOF
 
 	insinto /etc/revdep-rebuild
 	doins "${T}"/44-tqt3-revdep
-
-	doenvd "${T}"/44tqt3 "${T}"/44tqtdir3
 
 	if [ "${SYMLINK_LIB}" = "yes" ]; then
 		dosym $(get_abi_LIBDIR ${DEFAULT_ABI}) ${TQTBASE}/lib
