@@ -9,7 +9,7 @@ resort() {
 	cat "${1}.bak" | sort -u >"$1" && rm "${1}.bak"
 }
 
-find trinity-base/ -iname '*9999.ebuild' | while read eb; do 
+find trinity-base/ trinity-apps/ -iname '*9999.ebuild' | while read eb; do
 	PN="$(basename $(dirname ${eb}))"
 	C="$(basename $(dirname $(dirname ${eb})))"
 	P="$(basename ${eb%%.ebuild})"
@@ -21,7 +21,7 @@ done
 resort "${KEYWORDS_LIVE}"
 
 
-find trinity-base/ -iname '*3.5.13.2.ebuild' | while read eb; do 
+find trinity-base/ trinity-apps -iname '*3.5.13.2.ebuild' | while read eb; do
 	PN="$(basename $(dirname ${eb}))"
 	C="$(basename $(dirname $(dirname ${eb})))"
 	P="$(basename ${eb%%.ebuild})"
