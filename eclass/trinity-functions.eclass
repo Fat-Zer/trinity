@@ -87,7 +87,7 @@ adjust-trinity-paths() {
 
 	# this function can be called during depend phase so we shouldn't use sed here
 	PATH="$(trinity_remove_path_component "$PATH" "/usr/trinity/*/bin")"
-	PATH="$(trinity_remove_path_component $PATH "/usr/trinity/*/sbin")"
+	PATH="$(trinity_remove_path_component "$PATH" "/usr/trinity/*/sbin")"
 	PATH="$(trinity_prepand_path_component "$PATH" "${TDEDIR}/bin" )"
 
 	# FIXME: it seems we don't need LDPATH
@@ -100,6 +100,10 @@ adjust-trinity-paths() {
 
 	export PATH
 	export LD_LIBRARY_PATH
+
+	# Unset home paths so aplications wouldn't try to write to root's dir while build
+	unset TDEHOME
+	unset TDEROOTHOME
 }
 
 trinity_remove_path_component() {
