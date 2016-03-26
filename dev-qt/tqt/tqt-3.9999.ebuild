@@ -253,6 +253,7 @@ EOF
 
 	insinto /etc/revdep-rebuild
 	doins "${T}"/44-tqt3-revdep
+	doenvd "${T}"/44tqt3
 
 	if [ "${SYMLINK_LIB}" = "yes" ]; then
 		dosym $(get_abi_LIBDIR ${DEFAULT_ABI}) ${TQTBASE}/lib
