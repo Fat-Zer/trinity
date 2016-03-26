@@ -95,7 +95,7 @@ adjust-trinity-paths() {
 	LD_LIBRARY_PATH="$(trinity_remove_path_component "$LD_LIBRARY_PATH" "/usr/trinity/*/${libdir}")"
 	for libdir in $(get-trinity-libdirs); do
 #		LDPATH="$(trinity_prepand_path_component "$LDPATH" "${TDEDIR}/${libdir}" )"
-		LD_LIBRARY_PATH="$(get-trinity-libdirs "$LD_LIBRARY_PATH" "${libdir}" )"
+		LD_LIBRARY_PATH="$(trinity_prepand_path_component "$LD_LIBRARY_PATH" "${libdir}" )"
 	done
 
 	export PATH
