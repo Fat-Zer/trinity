@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 EAPI="4"
 TRINITY_MODULE_NAME="tdenetwork"
 
@@ -13,23 +13,23 @@ IUSE="jingle gsmlib netmeeting speex kernel_linux"
 PLUGINS="latex autoreplace history contactnotes crypt connectionstatus
 	translator nowlistening webpresence texteffect highlight alias
 	motionautoaway netmeeting addbookmarks statistics smpppdcs"
-PROTOCOLS="gadu groupwise irc jabber oscar msn sms sametime winpopup yahoo"
+PROTOCOLS="gadu groupwise irc xmpp oscar msn sms sametime winpopup yahoo"
 # unsupported USE="v4l2 opengl xscreensaver ssl emoticons-manager "
 # USE=xmms works only with xmms1
 IUSE="${IUSE} ${PLUGINS} ${PROTOCOLS}"
 REQUIRED_USE="
-	jingle? ( jabber )
+	jingle? ( xmpp )
 	gsmlib? ( sms )
 	netmeeting? ( msn )
-	speex? ( jingle jabber )"
+	speex? ( jingle xmpp )"
 
 # MISSING BOTH_DEPEND
 #	x11-libs/libXrender
-#	jabber? ( net-dns/libidn )
+#	xmpp? ( net-dns/libidn )
 #	kernel_linux? ( virtual/opengl )
 #	opengl? ( dev-qt/qt-meta[opengl] )
 #	xscreensaver? ( x11-libs/libXScrnSaver )
-#	jabber|groupwice? =app-crypt/qca-1.0*
+#	xmpp|groupwice? =app-crypt/qca-1.0*
 BOTH_DEPEND="
 	jingle? ( dev-libs/glib:2 )
 	netmeeting? ( dev-libs/glib:2 )
@@ -99,7 +99,7 @@ src_configure() {
 		$(cmake-utils_use_build gadu      KOPETE_PROTOCOL_GADU)
 		$(cmake-utils_use_build groupwise KOPETE_PROTOCOL_GROUPWISE)
 		$(cmake-utils_use_build irc       KOPETE_PROTOCOL_IRC)
-		$(cmake-utils_use_build jabber    KOPETE_PROTOCOL_JABBER)
+		$(cmake-utils_use_build xmpp    KOPETE_PROTOCOL_JABBER)
 		$(cmake-utils_use_build oscar     KOPETE_PROTOCOL_OSCAR)
 		$(cmake-utils_use_build msn       KOPETE_PROTOCOL_MSN)
 		$(cmake-utils_use_build sms       KOPETE_PROTOCOL_SMS)
