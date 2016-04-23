@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>gnome</herd>
+<maintainer type="person">
+	<email>fatzer2@gmail.com</email>
+	<name>Alexander Golubev</name>
+	<description>The maintainer of the package in the overlay, please don't report bugs to the gnome team.</description>
+</maintainer>
+<maintainer type="project">
+	<email>gnome@gentoo.org</email>
+	<name>Gentoo GNOME Desktop</name>
+</maintainer>
+<upstream>
+	<bugs-to>https://bugs.trinitydesktop.org/buglist.cgi?quicksearch=ALL</bugs-to>
+</upstream>
 </pkgmetadata>
