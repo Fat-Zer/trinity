@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>kde</herd>
+<maintainer type="person">
+	<email>fatzer2@gmail.com</email>
+	<name>Alexander Golubev</name>
+	<description>The maintainer of the package in the overlay, please don't report bugs to the gnome team.</description>
+</maintainer>
 </pkgmetadata>
