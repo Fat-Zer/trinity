@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>fatzer2@gmail.com</email>
-		<name>Golubev Alexander</name>
-	</maintainer>
+<maintainer type="person">
+	<email>fatzer2@gmail.com</email>
+	<name>Golubev Alexander</name>
+</maintainer>
+<upstream>
+	<bugs-to>https://bugs.trinitydesktop.org/buglist.cgi?quicksearch=ALL</bugs-to>
+</upstream>
+<use>
+	<flag name="libconfig">Use <pkg>dev-libs/libconfig</pkg> to handle tde-compton's dependencies</flag>
+</use>
 </pkgmetadata>
