@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/hal-info/Attic/hal-info-20091130.ebuild,v 1.4 2011/09/18 09:08:54 ssuominen dead $
+# $Id$
 
 DESCRIPTION="The fdi scripts that HAL uses"
 HOMEPAGE="http://hal.freedesktop.org/"

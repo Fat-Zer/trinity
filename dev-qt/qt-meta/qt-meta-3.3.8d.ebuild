@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 EAPI=3
 
 DESCRIPTION="This is a meta package for a Qt3 toolkit it is needed to keep dependencies clean"

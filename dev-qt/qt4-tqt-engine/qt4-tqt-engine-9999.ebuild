@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 EAPI="4"
 TRINITY_MODULE_TYPE="dependencies"
 TRINITY_MODULE_NAME="qt4-tqt-theme-engine"
