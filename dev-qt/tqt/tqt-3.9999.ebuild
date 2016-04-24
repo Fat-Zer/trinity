@@ -107,7 +107,7 @@ pkg_setup() {
 
 src_prepare() {
 	# Apply user-provided patches
-	epatch_user 
+	epatch_user
 
 	# Do not link with -rpath. See bug #75181.
 	find "${S}"/mkspecs -name qmake.conf | xargs \
@@ -118,7 +118,7 @@ src_prepare() {
 #
 #		epatch "${FILESDIR}"/tqt-3.3.8-immtqt+gcc-4.3.patch
 #	fi
-	
+
 	# set c/xxflags and ldflags
 	strip-flags
 	append-flags -fno-strict-aliasing
