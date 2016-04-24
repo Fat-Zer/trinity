@@ -31,11 +31,11 @@ src_prepare() {
 	for d in $(get-trinity-libdirs); do
 		libdirs+=" -L$d"
 	done
-	
+
 	for d in $(get_all_libdirs); do
 		libdirs+=" -L/usr/tqt3/$d"
 	done
-	
+
 	for pro in ./plugin/plugin.pro ./lib/lib.pro ./examples/tqt3reference/stylewindow.pro; do
 		sed -i -e 's!\(^INCLUDEPATH += \)/usr/include/tqt3!\1/usr/tqt3/include!;' \
 			-e 's!\(^INCLUDEPATH += \)/opt/trinity/include!\1'"$TDEDIR/include"'!;' \
