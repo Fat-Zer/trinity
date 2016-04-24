@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>fatzer2@gmail.com</email>
+		<name>Alexander Golubev</name>
+		<description>The maintainer of the package in the overlay</description>
+	</maintainer>
+	<maintainer type="project">
+		<email>printing@gentoo.org</email>
+		<name>Gentoo Printing Project</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="sourceforge">lcms</remote-id>
+	</upstream>
+</pkgmetadata>
