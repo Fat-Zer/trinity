@@ -1,11 +1,15 @@
-for I in <packages> ; do cp kate/metadata.xml $I; ebuild $I/$I-3.9999.ebuild digest; git add $I; git commit -m $I; donefor I in kstart ksystraycmd ksysguard nsplugin kate kxkb ; do cp kate/metadata.xml $I; ebuild $I/$I-3.9999.ebuild digest; git add $I; git commit -m $I; done
+# Per ebuild check and commit
+for I in <packages> ; do cp kate/metadata.xml $I; ebuild $I/$I-3.9999.ebuild digest; git add $I; git commit -m $I; done
+for I in kstart ksystraycmd ksysguard nsplugin kate kxkb ; do cp kate/metadata.xml $I; ebuild $I/$I-3.9999.ebuild digest; git add $I; git commit -m $I; done
 
-sudo PORTDIR_OVERLAY="$PWD/.." repoman
-
+# update trinity live lists
 find trinity-base/ -iname '*9999.ebuild' | while read eb; do PN="$(basename $(dirname ${eb}))"; C="$(basename $(dirname $(dirname ${eb})))"; P="$(basename ${eb%%.ebuild})"; echo "~$C/$P"' **'; done | tee Documentation/trinity.live.keywords
 
+# update all manifests
 find . -iname *.ebuild | while read eb; do ebuild $eb digest; done
 
+# run ./test_separate_compilation.sh
 cat Documentation/derived-lists/<LIST> | sed 's/#.*//;s/^\s*//;s/\s*$//;/^\s*$/d' |xargs bash ./test_separate_compilation.sh
 
+# update manifests which older thatn ebuilds
 find . -iname *.ebuild | while read eb; do ma="$(dirname $eb)/Manifest"; find $(dirname $eb) -type f | while read f; do [ $f -nt $ma ] && ebuild $eb digest && touch $ma; done; done

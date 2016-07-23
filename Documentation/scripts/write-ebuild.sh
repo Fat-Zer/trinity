@@ -1,12 +1,18 @@
 #!/bin/bash
+# Usage ; write-ebuild.sh <TRINITY_MODULE_NAME> [<CATEGORY/]><PN> [DESCRIPTION]
+export LC_ALL=C
+
 HEADER="# Copyright 1999-$(date +%Y) Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# \$Header: \$"
+# \$Id:\$"
 EAPI="5"
 
 TRINITY_MODULE_NAME=$1
-PN=$2
+PN=$(basename ${2})
+CATEGORY=$(dirname ${2})
+CATEGORY=${CATEGORY:-trinity-base}
 DESCRIPTION="$3"
+
 PV=${PV:=9999}
 KEYWORDS="amd64 x86"
 case "${PV}" in
@@ -14,16 +20,19 @@ case "${PV}" in
 	*9999*) KEYWORDS="" ;;
 esac
 
-echo "==> Creating ebuild for ${PN}-${PV}"
 if [ -z "$DESCRIPTION" ]; then
-	DESCRIPTION="$(eix -C kde-base -s "${PN}" | sed -n '/^\s*Description:\s*/{s///;s/\(\<KDE\|\kde\)\>/Trinity/g;p}')"
-	echo -n "DESCRIPTION [${DESCRIPTION}]:" && read dsc
-	[ -n "$dsc" ] && DESCRIPTION="$dsc"
+    DESCRIPTION_SOURCES=( ${CATEGORY/trinity/kde}/${PN}  ${CATEGORY/trinity/kde}/${PN/k/t} kde-base/${PN} kde-base/${PN/k/t} )
+    for descsrc in ${DESCRIPTION_SOURCES[@]}; do
+        DESCRIPTION="$(eix -C $(dirname ${descsrc}) -s $(basename "${descsrc}") | sed -n '/^\s*Description:\s*/{s///;s/\(\<KDE\|\kde\)\>/Trinity/g;p}')"
+        [ -n "$DESCRIPTION" ] && break
+    done
 fi
 
+echo "==> Creating ebuild for ${PN}-${PV}"
 
-mkdir -p trinity-base/$PN
-cat <<EOF >trinity-base/$PN/$PN-${PV}.ebuild
+mkdir -p "${CATEGORY}/$PN"
+
+cat <<EOF >${CATEGORY}/$PN/$PN-${PV}.ebuild
 $HEADER
 EAPI="$EAPI"
 TRINITY_MODULE_NAME="$TRINITY_MODULE_NAME"
@@ -35,11 +44,11 @@ KEYWORDS="$KEYWORDS"
 IUSE+=""
 EOF
 
-cat <<EOF >trinity-base/$PN/metadata.xml
+cat <<EOF >"${CATEGORY}/$PN"/metadata.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
+	<maintainer type="person">
 		<email>fatzer2@gmail.com</email>
 		<name>Alexander Golubev</name>
 	</maintainer>
@@ -47,6 +56,6 @@ cat <<EOF >trinity-base/$PN/metadata.xml
 EOF
 
 if [ -d eclass/trinity-shared-files/${TRINITY_MODULE_NAME}-${PV} ]; then
-	mkdir -p "trinity-base/$PN/files/"
+	mkdir -p "${CATEGORY}/$PN/files/"
 	ln -s "../../../eclass/trinity-shared-files/" "trinity-base/$PN/files/shared"
 fi
