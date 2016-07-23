@@ -1,7 +1,7 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 
 inherit trinity-functions
 
@@ -13,7 +13,8 @@ LICENSE="GPL-2 LGPL-2"
 
 SLOT="${TRINITY_VER}"
 IUSE=""
-KEYWORDS=
+[[ ${PV} == *9999* ]] || \
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	>=trinity-base/kamera-${PV}:${SLOT}
@@ -24,7 +25,7 @@ RDEPEND="
 	>=trinity-base/tdegraphics-doc-${PV}:${SLOT}
 	>=trinity-base/kgamma-${PV}:${SLOT}
 	>=trinity-base/kghostview-${PV}:${SLOT}
-	>=trinity-base/kiconedit-${PV}:${SLOT}
+	>=trinity-base/tdeiconedit-${PV}:${SLOT}
 	>=trinity-base/kmrml-${PV}:${SLOT}
 	>=trinity-base/kolourpaint-${PV}:${SLOT}
 	>=trinity-base/kooka-${PV}:${SLOT}
