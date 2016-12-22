@@ -36,7 +36,7 @@ TSM_EXTRACT_ALSO="certmanager/lib/
 	kdgantt/
 	kmail/"
 
-use exchange && TSM_EXTRACT_ALSO+=" libkpimexchange/core/"
+TSM_EXTRACT_ALSO+=" libkpimexchange/core/" # required for USE=exchange
 
 src_configure () {
 	mycmakeargs=(
