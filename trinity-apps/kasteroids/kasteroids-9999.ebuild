@@ -12,3 +12,11 @@ IUSE+=""
 DEPEND=">=trinity-base/libtdegames-${PV}:${SLOT}
 	>=trinity-base/arts-${PV}:${SLOT}"
 RDEPEND="${DEPEND}"
+
+src_configure() {
+	mycmakeargs=(
+		-DWITH_ARTS=ON
+	)
+
+	trinity-meta_src_configure
+}
