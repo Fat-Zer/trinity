@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
+	<maintainer type="person">
 		<email>fatzer2@gmail.com</email>
 		<name>Golubev Alexander</name>
 	</maintainer>
+	<longdescription>
+		KDesktop is the Trinity interface that handles icons, desktop popup menus and screensaver system.
+	</longdescription>
 </pkgmetadata>

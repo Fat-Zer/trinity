@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="kdebase"
 
 inherit trinity-meta
@@ -11,7 +11,7 @@ KEYWORDS="x86 amd64"
 IUSE="pam"
 
 RDEPEND="
-	pam? ( trinity-base/kdebase-pam )"
+	pam? ( trinity-base/tdebase-pam )"
 DEPEND="${RDEPEND}"
 
 src_configure() {

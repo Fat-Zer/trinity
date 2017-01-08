@@ -10,7 +10,7 @@ DESCRIPTION="Trinity login manager, similar to xdm and gdm"
 KEYWORDS=
 IUSE="pam xdmcp xcomposite sak +xrandr"
 
-DEPEND="pam? ( trinity-base/kdebase-pam )
+DEPEND="pam? ( trinity-base/tdebase-pam )
 	xdmcp? ( x11-libs/libXdmcp )
 	xcomposite? ( x11-libs/libXcomposite )
 	xrandr? ( x11-libs/libXrandr )

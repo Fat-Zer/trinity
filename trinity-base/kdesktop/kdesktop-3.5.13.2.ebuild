@@ -1,12 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="kdebase"
 
 inherit trinity-meta
 
-DESCRIPTION="KDesktop is the Trinity interface that handles icons, desktop popup menus and screensaver system."
+DESCRIPTION="The part of TDE ui that handles icons, desktop, screensaver etc"
 KEYWORDS="~amd64 ~x86"
 IUSE="pam xscreensaver"
 
@@ -23,7 +23,7 @@ RDEPEND="${DEPEND}
 	>=trinity-base/kdialog-${PV}:${SLOT}
 	>=trinity-base/konqueror-${PV}:${SLOT}
 	xscreensaver? ( x11-libs/libXScrnSaver )
-	pam? ( trinity-base/kdebase-pam )"
+	pam? ( trinity-base/tdebase-pam )"
 
 TSM_EXTRACT_ALSO="kcheckpass/"
 
