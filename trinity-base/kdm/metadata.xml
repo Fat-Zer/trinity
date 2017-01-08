@@ -3,7 +3,7 @@
 <pkgmetadata>
 	<maintainer type="person">
 		<email>fatzer2@gmail.com</email>
-		<name>Golubev Alexander</name>
+		<name>Alexander Golubev</name>
 	</maintainer>
 	<use>
 		<flag name="xdmcp">Support for <pkg>x11-libs/libXdmcp</pkg></flag>

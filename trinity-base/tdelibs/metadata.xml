@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
+	<maintainer type="person">
 		<email>fatzer2@gmail.com</email>
-		<name>Golubev Alexander</name>
+		<name>Alexander Golubev</name>
 	</maintainer>
 	<use>
 		<flag name="sudo"> Use <pkg>app-admin/sudo</pkg> as a default program to 
 						obtain root privileges.</flag>
 		<flag name="utempter">Records user logins. Useful on multi-user systems</flag>
 		<flag name="consolekit">Enable <pkg>sys-auth/consolekit</pkg> as tdehw backend</flag>
-		<flag name="old_udisks">Enable <pkg>sys-fs/udisks:0</pkg> as tdehw backend</flag>
-		<flag name="udisks">Enable <pkg>sys-fs/udisks:2</pkg> as tdehw backend</flag>
+		<flag name="old_udisks">Enable <pkg>sys-fs/udisks</pkg>:0 as tdehw backend</flag>
+		<flag name="udisks">Enable <pkg>sys-fs/udisks</pkg>:2 as tdehw backend</flag>
 		<flag name="upower">Enable <pkg>sys-power/upower</pkg> as tdehw backend</flag>
 	</use>
 </pkgmetadata>
