@@ -2,9 +2,6 @@
 # Usage ; write-ebuild.sh <TRINITY_MODULE_NAME> [<CATEGORY/]><PN> [DESCRIPTION]
 export LC_ALL=C
 
-HEADER="# Copyright 1999-$(date +%Y) Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
-# \$Id:\$"
 EAPI="5"
 
 TRINITY_MODULE_NAME=$1
@@ -33,7 +30,9 @@ echo "==> Creating ebuild for ${PN}-${PV}"
 mkdir -p "${CATEGORY}/$PN"
 
 cat <<EOF >${CATEGORY}/$PN/$PN-${PV}.ebuild
-$HEADER
+# Copyright 1999-$(date +%Y) Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# \$Id\$
 EAPI="$EAPI"
 TRINITY_MODULE_NAME="$TRINITY_MODULE_NAME"
 

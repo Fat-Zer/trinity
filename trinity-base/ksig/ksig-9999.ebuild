@@ -2,13 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 EAPI="5"
-TRINITY_MODULE_NAME="kdeutils"
+TRINITY_MODULE_NAME="tdeaddons"
 
 inherit trinity-meta
 
-DESCRIPTION="Trinity calculator"
-KEYWORDS="~x86 ~amd64"
-IUSE=""
-
-DEPEND="dev-libs/gmp"
-RDEPEND="${DEPEND}"
+DESCRIPTION="Trinity email signature manager"
+KEYWORDS=""
+IUSE+=""

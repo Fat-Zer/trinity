@@ -4,6 +4,7 @@
 ~dev-qt/tqtinterface-9999 **
 ~net-irc/konversation-1.1.9999 **
 ~trinity-apps/atlantik-9999 **
+~trinity-apps/atlantikdesigner-9999 **
 ~trinity-apps/filelight-9999 **
 ~trinity-apps/kasteroids-9999 **
 ~trinity-apps/katomic-9999 **
@@ -46,9 +47,11 @@
 ~trinity-base/eyesapplet-9999 **
 ~trinity-base/fifteenapplet-9999 **
 ~trinity-base/kaddressbook-9999 **
+~trinity-base/kaddressbook-plugins-9999 **
 ~trinity-base/kamera-9999 **
 ~trinity-base/kappfinder-9999 **
 ~trinity-base/kate-9999 **
+~trinity-base/kate-plugins-9999 **
 ~trinity-base/kcalc-9999 **
 ~trinity-base/kcharselect-9999 **
 ~trinity-base/kcheckpass-9999 **
@@ -75,6 +78,7 @@
 ~trinity-base/khexedit-9999 **
 ~trinity-base/khotkeys-9999 **
 ~trinity-base/kicker-9999 **
+~trinity-base/kicker-applets-9999 **
 ~trinity-base/kiconedit-9999 **
 ~trinity-base/kjots-9999 **
 ~trinity-base/klaptopdaemon-9999 **
@@ -86,9 +90,11 @@
 ~trinity-base/kmrml-9999 **
 ~trinity-base/knetattach-9999 **
 ~trinity-base/knewsticker-9999 **
+~trinity-base/knewsticker-scripts-9999 **
 ~trinity-base/knotes-9999 **
 ~trinity-base/kodo-9999 **
 ~trinity-base/kolourpaint-9999 **
+~trinity-base/konq-plugins-9999 **
 ~trinity-base/konqueror-9999 **
 ~trinity-base/konsole-9999 **
 ~trinity-base/kontact-9999 **
@@ -107,6 +113,7 @@
 ~trinity-base/krfb-9999 **
 ~trinity-base/krootbacking-9999 **
 ~trinity-base/kruler-9999 **
+~trinity-base/ksig-9999 **
 ~trinity-base/ksim-9999 **
 ~trinity-base/ksirc-9999 **
 ~trinity-base/ksmserver-9999 **
@@ -141,8 +148,13 @@
 ~trinity-base/libtdenetwork-9999 **
 ~trinity-base/libtdepim-9999 **
 ~trinity-base/lisa-9999 **
+~trinity-base/noatun-plugins-9999 **
 ~trinity-base/nsplugins-9999 **
+~trinity-base/renamedlg-plugins-9999 **
 ~trinity-base/superkaramba-9999 **
+~trinity-base/tdeaddons-doc-9999 **
+~trinity-base/tdeaddons-meta-9999 **
+~trinity-base/tdeaddons-tdefile-plugins-9999 **
 ~trinity-base/tdeartwork-emoticons-9999 **
 ~trinity-base/tdeartwork-icewm-themes-9999 **
 ~trinity-base/tdeartwork-icon-themes-9999 **

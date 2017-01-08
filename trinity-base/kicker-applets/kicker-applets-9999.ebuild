@@ -2,13 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 EAPI="5"
-TRINITY_MODULE_NAME="kdeutils"
+TRINITY_MODULE_NAME="tdeaddons"
 
 inherit trinity-meta
 
-DESCRIPTION="Trinity calculator"
-KEYWORDS="~x86 ~amd64"
-IUSE=""
+DESCRIPTION="kicker applets"
+KEYWORDS=""
+IUSE+=""
+DEPEND=">=trinity-base/kicker-${PV}:${SLOT}"
 
-DEPEND="dev-libs/gmp"
 RDEPEND="${DEPEND}"
+
+# no xmms support

@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 EAPI="5"
-TRINITY_MODULE_NAME="kdeutils"
+TRINITY_MODULE_NAME="tdeaddons"
+TSM_EXTRACT="kate"
 
 inherit trinity-meta
 
-DESCRIPTION="Trinity calculator"
-KEYWORDS="~x86 ~amd64"
-IUSE=""
-
-DEPEND="dev-libs/gmp"
+DESCRIPTION="kate plugins and docs"
+KEYWORDS=""
+IUSE+=""
+DEPEND=">=trinity-base/kate-${PV}:${SLOT}"
 RDEPEND="${DEPEND}"

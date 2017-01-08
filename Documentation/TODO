@@ -22,3 +22,6 @@ trinity-base/tdebase-starttde: add gentoo-specific lines like those in kdebase-s
 
 trinity-base/tde-i18n: the ebuild is crappy and need to be rewriten.
 trinity-base/ksmserver-9999: FTBFS with hal. TODO: fill the bug
+
+trinity-base/noatun-plugins: masked due to missing dependency: noatun; 
+trinity-base/noatun-plugins: unmask than packaging trinity-base/noatun
