@@ -12,4 +12,13 @@
 		<flag name="thinkpad-laptop">Adds support for some thinkpad-specific laptop hardware.</flag>
 		<flag name="vaio-laptop">Adds support for some vaio-specific laptop hardware.</flag>
 	</use>
+	<longdescription>
+		This is a kded module that can be extended to support various types of hardware 
+		input devices that exist, such as those on keyboards.
+
+		The output device is skinnable, though not extensible by 3rd parties currently.
+		This will come in the future when the API is finalised.
+
+		It lacks very much functionality.
+	</longdescription>
 </pkgmetadata>

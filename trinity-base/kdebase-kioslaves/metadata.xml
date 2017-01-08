@@ -5,4 +5,8 @@
 		<email>fatzer2@gmail.com</email>
 		<name>Alexander Golubev</name>
 	</maintainer>
+	<longdescription>
+		kioslaves is the Trinity VFS framework which plugins present a filesystem-like view of arbitrary data.
+		This package provides most generic KIOslaves provided by kdebase.
+	</longdescription>
 </pkgmetadata>

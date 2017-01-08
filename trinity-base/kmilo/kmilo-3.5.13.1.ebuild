@@ -1,12 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="kdeutils"
 
 inherit trinity-meta
 
-DESCRIPTION="kded module that can support various types of hardware input devices, such as those on keyboards."
+DESCRIPTION="kded module supports some hardware input devices, such as special keys"
 KEYWORDS="x86 amd64"
 IUSE="asus-laptop dell-laptop powerbook-laptop thinkpad-laptop vaio-laptop lm_sensors"
 

@@ -1,12 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="tdenetwork"
 TRINITY_SUBMODULE="lanbrowsing"
 inherit trinity-meta
 
-DESCRIPTION="Trinity Lan Information Server - allows Trinity desktops to share information over a network."
+DESCRIPTION="Trinity Lan Information Server - allows to share information over a network."
 KEYWORDS=
 IUSE=""
 

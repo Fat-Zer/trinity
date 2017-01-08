@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 EAPI="5"
@@ -8,7 +8,7 @@ inherit trinity-meta
 
 TSM_EXTRACT="kioslave"
 
-DESCRIPTION="kioslave is the Trinity VFS framework which plugins present a filesystem-like view of arbitrary data"
+DESCRIPTION="Generic Trinity KIOslaves"
 KEYWORDS="x86 amd64"
 IUSE="hal ldap openexr samba sasl"
 

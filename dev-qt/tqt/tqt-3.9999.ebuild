@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 EAPI=5
@@ -25,10 +25,10 @@ IUSE="cups debug doc examples firebird ipv6 mysql nas nis opengl postgres sqlite
 # TODO: optional support for xrender and xrandr
 
 RDEPEND="
-	virtual/jpeg
+	virtual/jpeg:=
 	>=media-libs/freetype-2
 	>=media-libs/libmng-1.0.9
-	media-libs/libpng
+	media-libs/libpng:=
 	sys-libs/zlib
 	x11-libs/libXft
 	x11-libs/libXcursor
@@ -40,7 +40,7 @@ RDEPEND="
 	mysql? ( virtual/mysql )
 	nas? ( >=media-libs/nas-1.5 )
 	opengl? ( virtual/opengl virtual/glu )
-	postgres? ( dev-db/postgresql )
+	postgres? ( dev-db/postgresql:= )
 	xinerama? ( x11-libs/libXinerama )
 	!dev-qt/qt:3
 	!dev-qt/qt-meta:3"

@@ -1,11 +1,11 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="tdebase"
 
 inherit trinity-meta
 
-DESCRIPTION="Trinity initialization binary aimed to particulary replace functionality of the starttde script"
+DESCRIPTION="Trinity init binary particulary replacing funcs of the starttde script"
 KEYWORDS=
 IUSE=""

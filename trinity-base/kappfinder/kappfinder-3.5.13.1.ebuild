@@ -1,11 +1,11 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="kdebase"
 
 inherit trinity-meta
 
-DESCRIPTION="Trinity tool looking for well-known apps in your path and creates entries for them in the KDE menu"
+DESCRIPTION="Trinity tool that generates *.desktop files for well known apps"
 KEYWORDS="x86 amd64"
 IUSE=""

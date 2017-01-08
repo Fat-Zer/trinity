@@ -5,5 +5,8 @@ dev-qt/tqtinterface qt4
 trinity-base/kdelibs avahi
 trinity-base/tdelibs avahi
 
+#doesn't really work
+>dev-qt/tqtinterface-14.0.0 qt3
+
 # FIXME: FTBFS
 =trinity-base/ksmserver-9999 hal

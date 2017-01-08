@@ -1,12 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="kdegraphics"
 
 inherit trinity-meta
 
-DESCRIPTION="A Trinity Viewer for PostScript (.ps, .eps) and Portable Document Format (.pdf) files"
+DESCRIPTION="A Trinity Viewer for PostScript (.ps, .eps) and PDF (.pdf) files"
 KEYWORDS="x86 amd64"
 IUSE=""
 

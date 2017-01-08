@@ -1,12 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="kdebase"
 
 inherit trinity-meta
 
-DESCRIPTION="KControl module for the X11 keyboard extension to configure and switch between keyboard mappings."
+DESCRIPTION="KControl module for the X11 to configure and switch keyboard layouts"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 

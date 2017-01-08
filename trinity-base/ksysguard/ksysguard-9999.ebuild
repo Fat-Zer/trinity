@@ -1,12 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="3"
+EAPI="5"
 TRINITY_MODULE_NAME="tdebase"
 
 inherit trinity-meta
 
-DESCRIPTION="KSysguard, a network enabled task manager/system monitor, with additional functionality of top."
+DESCRIPTION="A network enabled task manager/system monitor"
 KEYWORDS=
 IUSE=" dell-laptop"
 # TODO: make support for sensors when it will be supported by cmake scripts
