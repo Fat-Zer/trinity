@@ -2,12 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="3"
-PYTHON_DEPEND="python? 2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.* *-jython 2.7-pypy-*"
+EAPI="6"
+PYTHON_COMPAT=( python2_{6,7} )
 
-inherit autotools eutils multilib python
+inherit autotools eutils python-r1
 
 DESCRIPTION="A lightweight, speed optimized color management engine"
 HOMEPAGE="http://www.littlecms.com/"
@@ -20,34 +18,37 @@ IUSE="jpeg python static-libs tiff zlib"
 
 RDEPEND="tiff? ( media-libs/tiff:0 )
 	jpeg? ( virtual/jpeg:0 )
-	zlib? ( sys-libs/zlib )"
+	zlib? ( sys-libs/zlib )
+	python? ( ${PYTHON_DEPS} )"
 DEPEND="${RDEPEND}
 	python? ( >=dev-lang/swig-1.3.31 )"
 
-pkg_setup() {
-	if use python; then
-		python_pkg_setup
-	fi
-}
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
+PATCHES=(
+	"${FILESDIR}/${P}-disable_static_modules.patch"
+	"${FILESDIR}/${P}-implicit.patch"
+)
 
 src_prepare() {
 	# Python bindings are built/installed manually.
 	sed -e "/SUBDIRS =/s/ python//" -i Makefile.am
 
-	epatch "${FILESDIR}/${P}-disable_static_modules.patch"
-	epatch "${FILESDIR}/${P}-implicit.patch"
+	default
 
 	eautoreconf
 
 	# run swig to regenerate lcms_wrap.cxx and lcms.py (bug #148728)
 	if use python; then
 		cd python
-		./swig_lcms || die
+		./swig_lcms || die "swig failed to regenerate files"
 	fi
 }
 
 src_configure() {
 	econf \
+		--libdir="${EPREFIX}"/usr/$(get_libdir) \
+		--bindir="${EPREFIX}"/usr/bin \
 		--disable-dependency-tracking \
 		$(use_enable static-libs static) \
 		$(use_with jpeg) \
@@ -60,56 +61,43 @@ src_compile() {
 	default
 
 	if use python; then
-		python_copy_sources python
+		local BUILD_DIR
+		BUILD_DIR=python
+
+		python_copy_sources
 
 		building() {
 			emake \
 				LCMS_PYEXECDIR="${EPREFIX}$(python_get_sitedir)" \
-				LCMS_PYINCLUDE="${EPREFIX}$(python_get_includedir)" \
-				LCMS_PYLIB="${EPREFIX}$(python_get_libdir)" \
-				PYTHON_VERSION="$(python_get_version)"
+				LCMS_PYINCLUDE="${EPREFIX}$(python_get_includedir)"
+#               No corresponding functions in python-r1
+#				LCMS_PYLIB="${EPREFIX}$(python_get_libdir)" \
+#				PYTHON_VERSION="$(python_get_version)"
 		}
-		python_execute_function -s --source-dir python building
+		python_foreach_impl run_in_build_dir building
 	fi
 }
 
 src_install() {
-	emake \
-		DESTDIR="${D}" \
-		BINDIR="${ED}"/usr/bin \
-		libdir="${EPREFIX}"/usr/$(get_libdir) \
-		install || die
+	DOCS=(AUTHORS README* INSTALL NEWS doc/*)
+
+	default
 
 	if use python; then
+		local BUILD_DIR
+		BUILD_DIR=python
+
 		installation() {
 			emake \
 				DESTDIR="${D}" \
 				LCMS_PYEXECDIR="${EPREFIX}$(python_get_sitedir)" \
-				LCMS_PYLIB="${EPREFIX}$(python_get_libdir)" \
-				PYTHON_VERSION="$(python_get_version)" \
 				install
 		}
-		python_execute_function -s --source-dir python installation
-
-		python_clean_installation_image
+		python_foreach_impl run_in_build_dir installation
 	fi
 
 	insinto /usr/share/lcms/profiles
 	doins testbed/*.icm
 
-	dodoc AUTHORS README* INSTALL NEWS doc/*
-
 	find "${D}" -name '*.la' -exec rm -f '{}' +
-}
-
-pkg_postinst() {
-	if use python; then
-		python_mod_optimize lcms.py
-	fi
-}
-
-pkg_postrm() {
-	if use python; then
-		python_mod_cleanup lcms.py
-	fi
 }

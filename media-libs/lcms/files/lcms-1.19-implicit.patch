@@ -3,8 +3,8 @@ cmsio1.c:118: warning: implicit declaration of function 'swab'
 testcms.c: In function 'CheckSwab':
 testcms.c:113: warning: implicit declaration of function 'swab'
 ================================================================================
---- src/Makefile.am
-+++ src/Makefile.am
+--- a/src/Makefile.am
++++ b/src/Makefile.am
 @@ -6,6 +6,9 @@
  # Don't require all the GNU mandated files
  AUTOMAKE_OPTIONS = 1.7 foreign
@@ -15,8 +15,8 @@ testcms.c:113: warning: implicit declaration of function 'swab'
  includedir = ${prefix}/include
  
  # Shared libraries built in this directory
---- src/cmsio1.c
-+++ src/cmsio1.c
+--- a/src/cmsio1.c
++++ b/src/cmsio1.c
 @@ -24,6 +24,7 @@
  
  
@@ -25,8 +25,8 @@ testcms.c:113: warning: implicit declaration of function 'swab'
  
  // ----------------------------------------------------------------- Tag Serialization
  
---- testbed/Makefile.am
-+++ testbed/Makefile.am
+--- a/testbed/Makefile.am
++++ b/testbed/Makefile.am
 @@ -6,6 +6,9 @@
  # Don't require all the GNU mandated files
  AUTOMAKE_OPTIONS = 1.7 foreign
@@ -37,8 +37,8 @@ testcms.c:113: warning: implicit declaration of function 'swab'
  INCLUDES	=  -I$(top_builddir)/include -I$(top_srcdir)/include
  
  check_PROGRAMS = testcms
---- testbed/testcms.c
-+++ testbed/testcms.c
+--- a/testbed/testcms.c
++++ b/testbed/testcms.c
 @@ -36,6 +36,7 @@
  #include <time.h>
  #include <stdio.h>

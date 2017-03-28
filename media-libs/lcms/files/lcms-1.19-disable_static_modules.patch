@@ -1,5 +1,5 @@
---- python/Makefile.am
-+++ python/Makefile.am
+--- a/python/Makefile.am
++++ b/python/Makefile.am
 @@ -22,7 +22,7 @@
  
  endif
