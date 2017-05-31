@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
-EAPI="4"
+EAPI="5"
 TRINITY_MODULE_TYPE="dependencies"
 TRINITY_MODULE_NAME="qt4-tqt-theme-engine"
 
@@ -14,7 +14,9 @@ KEYWORDS=""
 SLOT="0"
 IUSE=""
 
-DEPEND="dev-qt/tqtinterface"
+DEPEND="dev-qt/tqtinterface
+	>=dev-qt/qtcore-4.8.4:4
+	>=dev-qt/qtgui-4.8.4:4"
 RDEPEND="$DEPEND"
 
 need-trinity 9999
@@ -57,9 +59,9 @@ src_install() {
 }
 
 pkg_postinst() {
-	ewarn "With Qt >= 4.8.0 you are likely affected by these Qt4 bugs:"
-	ewarn "    https://bugreports.qt-project.org/browse/QTBUG-25896"
-	ewarn "    https://bugreports.qt-project.org/browse/QTBUG-26013"
-	ewarn "There is no known workaround TRINITY_MODULE_TYPE for this problem. So your "
-	ewarn "Qt4 applications will be displayed with numerous graphical glitches."
+	ewarn "With Qt >= 4.8.0 you are likely affected by these Qt4 bug:"
+	ewarn "   https://bugreports.qt.io/browse/QTBUG-25896"
+	ewarn "To workaround this please make sure to set your Qt graphics system to \"native\""
+	ewarn "rather than \"opengl\". Otherwice Qt4 applications may be displayed with numerous"
+	ewarn "graphical glitches."
 }
