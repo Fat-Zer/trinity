@@ -15,7 +15,7 @@ HOMEPAGE="http://trinitydesktop.org/"
 
 LICENSE="GPL-2"
 KEYWORDS=
-IUSE="alsa esd -artswrappersuid jack mp3 nas vorbis"
+IUSE="alsa -artswrappersuid jack mp3 nas vorbis"
 SLOT="$TRINITY_VER"
 
 DEPEND="dev-qt/tqtinterface
@@ -25,7 +25,6 @@ DEPEND="dev-qt/tqtinterface
 	nas? ( media-libs/nas )
 	alsa? ( media-libs/alsa-lib )
 	vorbis? ( media-libs/libogg media-libs/libvorbis )
-	esd? ( media-sound/esound )
 	jack? ( >=media-sound/jack-audio-connection-kit-0.90 )"
 RDEPEND="${RDEPEND}"
 
@@ -36,8 +35,8 @@ src_configure() {
 		$(cmake-utils_use_with nas NAS)
 		$(cmake-utils_use_with alsa ALSA)
 		$(cmake-utils_use_with vorbis VORBIS)
-		$(cmake-utils_use_with esd ESD)
 		$(cmake-utils_use_with jack JACK)
+		# NOTE: WITH_ESD dropped due to remove of esound long ago
 	)
 
 	trinity-base_src_configure
