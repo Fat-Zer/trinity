@@ -12,7 +12,7 @@ IUSE=""
 
 DEPEND="
 	>=trinity-base/libkscan-${PV}:${SLOT}
-	media-libs/tiff"
+	media-libs/tiff:="
 RDEPEND="${DEPEND}"
 
 TSM_EXTRACT_ALSO="libkscan"

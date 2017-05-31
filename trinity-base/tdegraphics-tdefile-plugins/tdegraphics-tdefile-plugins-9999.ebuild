@@ -11,7 +11,7 @@ KEYWORDS=
 IUSE="tiff openexr pdf"
 
 DEPEND="
-	tiff? ( media-libs/tiff )
+	tiff? ( media-libs/tiff:= )
 	openexr? ( >=media-libs/openexr-1.2.2-r2 )
 	pdf? ( app-text/poppler )"
 RDEPEND="$DEPEND"

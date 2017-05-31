@@ -11,7 +11,7 @@ KEYWORDS="amd64 x86"
 IUSE="slp"
 
 DEPEND="
-	dev-libs/openssl
+	dev-libs/openssl:=
 	slp? ( net-libs/openslp )
 	x11-libs/libXext"
 RDEPEND="${DEPEND}"

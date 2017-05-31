@@ -22,10 +22,9 @@ MY_DEPEND=">=dev-qt/tqtinterface-${TRINITY_VER}
 	>=dev-libs/libxslt-1.1.16
 	>=dev-libs/libxml2-2.6.6
 	>=dev-libs/libpcre-6.6
-	media-libs/libart_lgpl
 	net-dns/libidn
 	app-text/ghostscript-gpl
-	>=dev-libs/openssl-0.9.7d
+	>=dev-libs/openssl-0.9.7d:=
 	media-libs/fontconfig
 	media-libs/freetype:2
 	media-libs/libart_lgpl
@@ -38,11 +37,11 @@ MY_DEPEND=">=dev-qt/tqtinterface-${TRINITY_VER}
 	cups? ( >=net-print/cups-1.1.19 )
 	fam? ( virtual/fam )
 	jpeg2k? ( media-libs/jasper )
-	lua? ( dev-lang/lua )
+	lua? ( dev-lang/lua:* )
 	openexr? ( >=media-libs/openexr-1.2.2-r2 )
 	spell? ( >=app-dicts/aspell-en-6.0.0 >=app-text/aspell-0.60.5 )
 	sudo? ( app-admin/sudo )
-	tiff? ( media-libs/tiff )
+	tiff? ( media-libs/tiff:= )
 	utempter? ( sys-libs/libutempter )
 	networkmanager? ( net-misc/networkmanager )
 	lzma? ( app-arch/xz-utils )

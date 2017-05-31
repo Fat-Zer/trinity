@@ -24,22 +24,22 @@ DEPEND="${DEPEND}
 	media-libs/libart_lgpl
 	net-dns/libidn
 	app-text/ghostscript-gpl
-	>=dev-libs/openssl-0.9.7d
+	>=dev-libs/openssl-0.9.7d:=
 	media-libs/fontconfig
 	media-libs/freetype:2
 	media-libs/libart_lgpl
 	x11-libs/libXcursor
 	alsa? ( media-libs/alsa-lib )
-	arts? ( trinity-base/arts )
+	arts? ( trinity-base/arts:= )
 	avahi? ( net-dns/avahi )
 	cups? ( >=net-print/cups-1.1.19 )
 	fam? ( virtual/fam )
 	jpeg2k? ( media-libs/jasper )
-	lua? ( dev-lang/lua )
+	lua? ( dev-lang/lua:* )
 	openexr? ( >=media-libs/openexr-1.2.2-r2 )
 	spell? ( >=app-dicts/aspell-en-6.0.0 >=app-text/aspell-0.60.5 )
 	sudo? ( app-admin/sudo )
-	tiff? ( media-libs/tiff )
+	tiff? ( media-libs/tiff:= )
 	utempter? ( sys-libs/libutempter )
 	xcomposite? ( x11-libs/libXcomposite )"
 # NOTE: upstream lacks avahi support, so the use flag is currenly masked
