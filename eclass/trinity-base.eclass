@@ -299,7 +299,8 @@ trinity-base_src_configure() {
 	fi
 
 	mycmakeargs=(
-		-DCMAKE_INSTALL_RPATH="${TDEDIR}"
+		-DCMAKE_INSTALL_PREFIX="${EPREFIX}${TDEDIR}"
+		-DCMAKE_INSTALL_RPATH="${EPREFIX}${TDEDIR}"
 		$([[ "${TRINITY_NEED_ARTS}" == "optional" ]] && cmake-utils_use_with arts ARTS)
 		"${eg_cmakeargs[@]}"
 		"${mycmakeargs[@]}"
