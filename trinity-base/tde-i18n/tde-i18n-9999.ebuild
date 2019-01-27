@@ -4,7 +4,7 @@
 EAPI="5"
 TRINITY_MODULE_NAME="tde-i18n"
 
-inherit trinity-base cmake-utils
+inherit trinity-base cmake-utils l10n
 
 set-trinityver
 
@@ -19,7 +19,7 @@ IUSE=""
 DEPEND=">=trinity-base/tdelibs-${PV}:${SLOT}"
 RDEPEND="${DEPEND}"
 
-LANGS="af ar az be bg bn br bs ca cs csb cy da de el en_GB eo es et
+PLOCALES="af ar az be bg bn br bs ca cs csb cy da de el en_GB eo es et
 eu fa fi fr fy ga gl he hi hr hu is it ja kk km ko lt lv mk mn ms
 nb nds nl nn pa pl pt pt_BR ro ru rw se sk sl sr sr@Latn ss sv ta te
 tg th tr uk uz uz@cyrillic vi wa zh_CN zh_TW"
@@ -28,34 +28,33 @@ for X in ${LANGS} ; do
 	IUSE="${IUSE} linguas_${X}"
 done
 
-do_foreach_linguas() {
+run_phase() {
 	local lang dir phase;
-
 	phase=$1
+	lang=$2
 
-	for lang in ${LINGUAS}; do
-		dir="tde-i18n-$lang"
-		pushd "$S/$dir"
-		CMAKE_USE_DIR="${S}/${dir}"
-		BUILD_DIR="${WORKDIR}/${dir}-build"
-		trinity-base_${phase}
-		popd
-	done
+	dir="tde-i18n-$lang"
+	pushd "$S/$dir" || die "No such dir: $dir"
+	CMAKE_USE_DIR="${S}/${dir}"
+	BUILD_DIR="${WORKDIR}/${dir}-build"
+	trinity-base_${phase}
+	popd
 }
 
-src_configure() {
-	do_foreach_linguas src_prepare
+src_prepare() {
+	l10n_find_plocales_changes "${S}" "${PN}-" ""
+	l10n_for_each_locale_do run_phase src_prepare
 }
 
 src_configure() {
 	mycmakeargs=( -DBUILD_ALL=ON )
-	do_foreach_linguas src_configure
+	l10n_for_each_locale_do run_phase src_configure
 }
 
 src_compile() {
-	do_foreach_linguas src_compile
+	l10n_for_each_locale_do run_phase src_compile
 }
 
 src_install() {
-	do_foreach_linguas src_install
+	l10n_for_each_locale_do run_phase src_install
 }
